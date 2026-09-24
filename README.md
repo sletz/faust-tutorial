@@ -89,7 +89,9 @@ mkdocs==1.5.3`, the version faustdoc uses). As in faustdoc, every program
 of a chapter appears with its block diagram, drawn by the C++ compiler
 (a click on a box shows its own diagram, in the page), and
 an editor ([faust-web-component](https://github.com/grame-cncm/faust-web-component))
-that compiles it and plays it in the page, with its controls. `make serve`
+that compiles it and plays it in the page, with its controls; a program with
+inputs is fed an impulse, and the editor's input menu offers other test signals
+(noise, sine, sweep...), the microphone and an audio file. `make serve`
 serves it at http://127.0.0.1:8000, and `make publish` pushes it to the
 `gh-pages` branch, published at https://sletz.github.io/faust-tutorial/. `scripts/build_docs.py` says where each
 program goes and which ones the browser cannot run (the faust-rs

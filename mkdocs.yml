@@ -44,7 +44,7 @@ extra_css:
     - css/faust-run.css
 
 extra_javascript:
-    - https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js
+    - https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.9.0/dist/faust-web-component.js
     - js/faust-diagram.js
 
 markdown_extensions:

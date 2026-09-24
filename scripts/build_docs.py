@@ -36,7 +36,10 @@ Every program a chapter links to (`](../examples/NN/name.dsp)`) is shown
 once, at its first mention, as in faustdoc: its path, its block diagram
 drawn by `faust -svg` and a <faust-editor> element, which compiles the program
 with the Faust compiler built into faust-web-component and plays it in the
-browser, with its controls. The program is shown without the checker's
+browser, with its controls. A program with inputs is fed an impulse, once a
+second (input="impulse"): the editor's input menu offers the other test
+signals of faust-web-component (noise, sine, sweep...), the microphone and
+an audio file. The program is shown without the checker's
 directive lines (`// check:`, `// expect:`, ...; see scripts/check.py).
 
 The diagram can be explored in the page: web/js/faust-diagram.js inserts
@@ -186,6 +189,8 @@ def embed(link, chapter_dir, svgs):
     with the path, the diagram (a <div class="faust-diagram-box"> that
     web/js/faust-diagram.js makes explorable) and either a <faust-editor> whose program is
     inside an HTML comment, as the component expects, or a <pre> with a note.
+    The editor feeds the inputs of a program with an impulse (the attribute
+    is ignored by a program without inputs).
     """
     dsp = os.path.normpath(os.path.join(chapter_dir, link))
     rel = os.path.relpath(dsp, ROOT)
@@ -206,7 +211,7 @@ def embed(link, chapter_dir, svgs):
         if k == "error":
             parts.append('<p class="faust-run-note">This program does not compile, on purpose: '
                          'the editor shows the error.</p>')
-        parts.append("<faust-editor><!--")
+        parts.append('<faust-editor input="impulse"><!--')
         parts.append(code)
         parts.append("--></faust-editor>")
     else:
