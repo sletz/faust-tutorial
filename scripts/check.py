@@ -14,7 +14,9 @@ For each .dsp file under examples/:
    failure instead;
 4. a file marked `// expect-error` shows an error: both compilers must
    reject it, and each `// expect:` line placed before any `check` line
-   must match faustprobe's message.
+   must match faustprobe's message;
+5. `// cpp-expect: REGEX` and `// cpp-absent: REGEX` lines must, and must
+   not, match the C++ code that `faust` generates for the file.
 
 Environment: FAUST, FAUSTPROBE, FAUSTLIBRARIES.
 Arguments: files or folders to restrict the check to.
@@ -49,12 +51,17 @@ def directives(path):
     checks = []
     cpp = True
     error = None
+    cpp_expect, cpp_absent = [], []
     for line in open(path, encoding="utf-8"):
         s = line.strip()
         if s.startswith("// cpp: no"):
             cpp = False
         if s.startswith("// expect-error"):
             error = []
+            continue
+        m = re.match(r"//\s*cpp-(expect|absent):\s*(.*)$", s)
+        if m:
+            (cpp_expect if m.group(1) == "expect" else cpp_absent).append(m.group(2))
             continue
         m = re.match(r"//\s*(check|check-fails):\s*(.*)$", s)
         if m:
@@ -65,7 +72,7 @@ def directives(path):
             checks[-1]["expect"].append(m.group(1))
         elif m and error is not None:
             error.append(m.group(1))
-    return cpp, checks, error
+    return cpp, checks, error, cpp_expect, cpp_absent
 
 
 def run(cmd, cwd=None):
@@ -87,7 +94,7 @@ def main():
         count += 1
         rel = os.path.relpath(path, ROOT)
         inc = ["-I", os.path.dirname(path), "-I", LIBS]
-        cpp, checks, error = directives(path)
+        cpp, checks, error, cpp_expect, cpp_absent = directives(path)
         problems = []
         if error is not None:
             rc, out = run([FAUST, *inc, path, "-o", os.devnull])
@@ -102,9 +109,16 @@ def main():
             checks = []
             cpp = None
         if cpp:
-            rc, out = run([FAUST, *inc, path, "-o", os.devnull])
+            rc, out = run([FAUST, *inc, path])
             if rc != 0:
-                problems.append("faust C++:\n" + out)
+                problems.append("faust C++:\n" + shorten(out))
+            else:
+                for e in cpp_expect:
+                    if not re.search(e, out, re.MULTILINE):
+                        problems.append(f"cpp-expect {e!r} not found in the generated C++")
+                for e in cpp_absent:
+                    if re.search(e, out, re.MULTILINE):
+                        problems.append(f"cpp-absent {e!r} found in the generated C++")
         if cpp is not None:
             rc, out = run([FAUSTPROBE, "--double", *inc, "-n", "1", "--in", "zero", "--quiet", path])
             if rc != 0:
