@@ -73,6 +73,13 @@ def run(cmd, cwd=None):
     return r.returncode, r.stdout + r.stderr
 
 
+def shorten(out, head=20, tail=8):
+    lines = out.splitlines()
+    if len(lines) <= head + tail + 1:
+        return out
+    return "\n".join(lines[:head] + [f"... ({len(lines) - head - tail} lines)"] + lines[-tail:])
+
+
 def main():
     failures = 0
     count = 0
@@ -108,10 +115,10 @@ def main():
             if c["fails"] and rc == 0:
                 problems.append(f"check-fails {what}: succeeded")
             elif not c["fails"] and rc != 0:
-                problems.append(f"check {what}: exit status {rc}\n{out}")
+                problems.append(f"check {what}: exit status {rc}\n{shorten(out)}")
             for e in c["expect"]:
                 if not re.search(e, out, re.MULTILINE):
-                    problems.append(f"check {what}: {e!r} not found in\n{out}")
+                    problems.append(f"check {what}: {e!r} not found in\n{shorten(out)}")
         if problems:
             failures += 1
             print(f"FAIL  {rel}")
