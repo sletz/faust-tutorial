@@ -81,12 +81,13 @@ and `FAUSTLIBRARIES` override the paths. `make check DIR=examples/07` checks one
 ## The web site
 
 ```bash
-make site
+make build
 ```
 
 builds the tutorial as a web site in `site/`, with mkdocs (`pip install
 mkdocs==1.5.3`, the version faustdoc uses). As in faustdoc, every program
-of a chapter appears with its block diagram, drawn by the C++ compiler, and
+of a chapter appears with its block diagram, drawn by the C++ compiler
+(a click on a box shows its own diagram, in the page), and
 an editor ([faust-web-component](https://github.com/grame-cncm/faust-web-component))
 that compiles it and plays it in the page, with its controls. `make serve`
 serves it at http://127.0.0.1:8000, and `make publish` pushes it to the

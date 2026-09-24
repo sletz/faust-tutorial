@@ -7,7 +7,7 @@ Usage
     python3 scripts/build_docs.py
 
 or, from the top of the repository, `make docs` (this script alone),
-`make site` (this script, then `mkdocs build --strict` into site/) and
+`make build` (this script, then `mkdocs build --strict` into site/) and
 `make serve` (this script, then `mkdocs serve` at http://127.0.0.1:8000).
 mkdocs.yml, at the top of the repository, holds the navigation, the theme and
 the faust-web-component script (loaded from jsDelivr).
@@ -28,16 +28,22 @@ a link to its file. For the site, the script writes build/docs (erased first):
     chapters/*.md       the chapters, with the programs inserted (below)
     examples/           a copy of examples/, so that the links still work,
                         plus one NAME-svg/ folder of diagrams per program
-    css/                the contents of web/ (the style of the programs)
+    css/, js/           the contents of web/ (the style of the programs,
+                        the navigation in the diagrams)
     scripts/check.py    linked to from appendix A
 
 Every program a chapter links to (`](../examples/NN/name.dsp)`) is shown
 once, at its first mention, as in faustdoc: its path, its block diagram
-drawn by `faust -svg` (a link opens it at full size, where each box opens
-its own diagram) and a <faust-editor> element, which compiles the program
+drawn by `faust -svg` and a <faust-editor> element, which compiles the program
 with the Faust compiler built into faust-web-component and plays it in the
 browser, with its controls. The program is shown without the checker's
 directive lines (`// check:`, `// expect:`, ...; see scripts/check.py).
+
+The diagram can be explored in the page: web/js/faust-diagram.js inserts
+the SVG itself, where a click on a box shows that box's diagram in place,
+with the path from the top level above it and a link that opens the diagram
+shown in a new tab (a large one reads better there). Without the script, or
+from a file: URL, the diagram is an image that opens in a new tab.
 
 Where it goes:
 
@@ -177,7 +183,8 @@ def embed(link, chapter_dir, svgs):
     whether a code block of the chapter is the whole program.
 
     The block is <div class="faust-run"> (styled by web/css/faust-run.css)
-    with the path, the diagram and either a <faust-editor> whose program is
+    with the path, the diagram (a <div class="faust-diagram-box"> that
+    web/js/faust-diagram.js makes explorable) and either a <faust-editor> whose program is
     inside an HTML comment, as the component expects, or a <pre> with a note.
     """
     dsp = os.path.normpath(os.path.join(chapter_dir, link))
@@ -190,8 +197,11 @@ def embed(link, chapter_dir, svgs):
         s = svgs.get(rel)
         if s:
             href = os.path.relpath(os.path.join(ROOT, s), chapter_dir)
-            parts.append(f'<a href="{href}" target="_blank" title="open the diagram (its boxes can be opened)">'
-                         f'<img class="faust-diagram" src="{href}" alt="block diagram of {html.escape(rel)}"></a>')
+            parts.append(f'<div class="faust-diagram-box" data-src="{href}">'
+                         f'<a class="faust-diagram-link" href="{href}" target="_blank" '
+                         f'title="open the diagram (its boxes can be opened)">'
+                         f'<img class="faust-diagram" src="{href}" alt="block diagram of {html.escape(rel)}"></a>'
+                         f'</div>')
     if k in ("run", "error"):
         if k == "error":
             parts.append('<p class="faust-run-note">This program does not compile, on purpose: '
