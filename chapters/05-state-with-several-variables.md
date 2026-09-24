@@ -106,9 +106,8 @@ frame  9    1.0000
 
 The fix is exercise 1: round the length of the ramp to a whole number of
 samples. The library's `ba.line` and `mm.line` in maxmsp.lib have the same
-structure, and had the same overshoot until faustlibraries 2.74.3
-(basics.lib 1.23.2, maxmsp.lib 1.1.1), which rounds their ramp length in
-this way. The example outputs the three: the `line` above reaches 1.0417,
+structure and round their ramp length in this way. The example outputs the
+three: the `line` above reaches 1.0417,
 `ba.line` and `mm.line` go up in five steps of 0.2 and reach exactly 1.
 
 ## Two variables, both output: the quadrature oscillator

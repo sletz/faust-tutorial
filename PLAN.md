@@ -61,8 +61,7 @@ and ties each of them to the functions of the standard libraries
    the next values, the output cuts what is internal. Examples: `line~`
    from Max (two writings), the quadrature oscillator `os.quadosc`,
    `ba.peakholder`; `letrec`, another way to write the same state. The
-   overshoot of a `line~` whose ramp length is not an integer, and its fix
-   (`ba.line` and `mm.line` had it until faustlibraries 2.74.3).
+   overshoot of a `line~` whose ramp length is not an integer, and its fix.
 6. **Logical signals and events.** Booleans are 0 and 1; rising, falling
    and any edges; `impulse`, `release`, `trigger`; reset by
    multiplication; `min` and `max` as logic; sample and hold; counters with
@@ -149,18 +148,3 @@ and the chapter says so:
 - the pattern-matching rewrite of the oscillator network does not reproduce
   the original: the original chains four nodes, the rewrite three, in
   another order.
-
-## Library definitions not taught as they are
-
-The survey of `faustlibraries` found definitions that a tutorial must not
-present as models without a warning. The chapters that use them say what is
-wrong and show a sound version. Among them: `ba.pulse_countdown_loop` does
-not count down for a positive `n`; `os.oscb` has an amplitude of
-1/sin(2πf/SR), not 1. Each claim is checked with faustprobe before it is
-written in a chapter. Four others were fixed in faustlibraries 2.74.3
-after the tutorial found them, and the chapters tell them in the past:
-`ba.line` and `mm.line` overshot when the ramp length in samples was not an
-integer; `ba.impulsify`'s documentation said it outputs the current sample,
-not the positive first difference; `en.adsr` and `en.asr` stretched when
-the gate was a velocity below 1; Freeverb's allpass buffers were too short
-above 81 kHz.

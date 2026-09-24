@@ -1,8 +1,6 @@
 // The value of en.adsr's gate does not scale it: a velocity of 0.5 used as
 // the gate gives the whole envelope, up to 1. Use a 0/1 gate, and multiply
-// by the velocity. (Until faustlibraries 2.74.3, the attack counter added
-// the value of the gate at every sample, and a velocity of 0.5 also doubled
-// the attack and decay times.)
+// by the velocity.
 import("stdfaust.lib");
 
 velocity = hslider("velocity", 0, 0, 1, 0.01);

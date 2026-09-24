@@ -186,11 +186,8 @@ ratio of 972, or 59.7 dB.
 
 - **Maximum delays and the sampling rate.** A delay tuned in samples at
   44.1 kHz grows with the sampling rate, and a delay longer than its
-  buffer is silently clamped. Freeverb's allpasses had a buffer of 1024
-  samples in reverbs.lib until faustlibraries 2.74.3 (reverbs.lib 1.5.2):
-  at 96 kHz, 556 samples at 44.1 kHz become 1210, and the reverb was
-  detuned above 81 kHz. Size buffers for the highest rate you support
-  (chapter 9).
+  buffer is silently clamped: at 96 kHz, 556 samples at 44.1 kHz become
+  1210. Size buffers for the highest rate you support (chapter 9).
 - **Stability.** A network whose matrix gains energy, or whose gains
   exceed 1, grows without bound. Check with faustprobe's `--fail-above`
   when experimenting.

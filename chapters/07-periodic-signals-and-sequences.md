@@ -122,11 +122,7 @@ process = en.adsr(0.01, 0.1, 0.5, 0.1, velocity),
 ```
 
 With a velocity of 0.5 at 48 kHz, both outputs peak at sample 479, the
-end of the 10 ms attack: the first at 1.0, the second at 0.5. Until
-faustlibraries 2.74.3 (envelopes.lib 1.3.1), the counter added the value of
-the gate at every sample, and a velocity of 0.5 also doubled the attack and
-decay times of `en.adsr` and the attack time of `en.asr`: the first output
-peaked at sample 959.
+end of the 10 ms attack: the first at 1.0, the second at 0.5.
 
 A slider that jumps makes a click. `si.smoo` is the one-pole lowpass of
 chapter 4 with a pole of 1 − 44.1/SR, a time constant of about 23 ms

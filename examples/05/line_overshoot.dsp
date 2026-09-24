@@ -1,7 +1,6 @@
 // The same line~ when the ramp is not a whole number of samples:
 // 0.1 ms at 48 kHz is 4.8 samples. The last step divides by 0.8 and
-// overshoots. ba.line and maxmsp.lib's line did the same until
-// faustlibraries 2.74.3; they now round the ramp to 5 samples.
+// overshoots. ba.line and maxmsp.lib's line round the ramp to 5 samples.
 import("stdfaust.lib");
 mm = library("maxmsp.lib");
 

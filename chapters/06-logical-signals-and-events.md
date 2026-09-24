@@ -167,8 +167,7 @@ arithmetic_inverse = (x == 0) * 0 + (x != 0) * (1 / x);
 
 At x = 0, the first gives 0; the second gives 0 × ∞, which is NaN, and
 faustprobe refuses the render. Choose with `select2`, not with a product,
-when a branch can be infinite. The library's `ba.latch` is written with
-products, so it inherits this weakness.
+when a branch can be infinite.
 
 ## Counting events
 
@@ -202,8 +201,7 @@ architecture flips at every clock message; chapter 8 covers such labels.
 A detail about `ba.impulsify`: it outputs the size of the rise, not the
 value of the signal ([`impulsify.dsp`](../examples/06/impulsify.dsp)). A
 signal that climbs to 0.3 then 0.5 gives spikes of 0.3 and 0.2, not 0.3 and
-0.5. Its documentation said "the value of the current sample" until
-faustlibraries 2.74.3 (basics.lib 1.23.2), which describes the rise.
+0.5.
 
 In envelopes.lib, `en.adsr` counts the samples since the release with
 `(+(1) : *(gate == 0)) ~ _`, and `en.adsre` counts the samples since the

@@ -59,7 +59,7 @@ fir  = _ <: taps;                        // 1 input
 ```
 
 The signal must be split to all the copies first. The library's `fi.convN`
-is written like `taps` and has N inputs; its documentation shows one.
+is written like `taps` and has N inputs.
 
 ## Definitions by cases
 

@@ -173,9 +173,8 @@ process = tu.svf_demo;
   it, and through its tests.
 - **Bare names across libraries.** Inside `tutorial.lib`, `ma.PI` works
   because `ma` is bound in the file; `PI` alone would not.
-- **Usage lines must be true.** The survey of faustlibraries made for this
-  tutorial found a few that are not (`fi.convN` shows one input where the
-  function has N): a wrong usage line misleads every reader.
+- **Usage lines must be true.** Check the inputs and outputs a usage line
+  shows against the function: a wrong usage line misleads every reader.
 
 ## Exercises
 
