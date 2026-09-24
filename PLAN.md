@@ -1,143 +1,161 @@
-# Plan du tutoriel Faust
+# Plan of the Faust tutorial
 
-Ce tutoriel apprend à programmer en Faust de façon progressive : chaque
-chapitre ne s'appuie que sur les précédents. Il part des *idiomes* que la
-pratique des programmeurs Faust a fait émerger (le document « Faust
-programming idioms ») et les rattache aux fonctions des bibliothèques
-standard (`faustlibraries`), où ils sont employés.
+This tutorial teaches Faust programming step by step: each chapter only
+relies on the ones before it. It starts from the *idioms* that the practice
+of Faust programmers has produced (the "Faust programming idioms" document)
+and ties each of them to the functions of the standard libraries
+(`faustlibraries`) that use it.
 
-## Public et prérequis
+## Audience and prerequisites
 
-- Avoir déjà programmé dans un langage quelconque.
-- Savoir ce qu'est un échantillon, une fréquence d'échantillonnage, un
-  filtre passe-bas. Aucune connaissance avancée de traitement du signal
-  n'est requise : une grande part du travail en Faust consiste à fabriquer
-  les signaux qui *pilotent* les algorithmes, pas les algorithmes eux-mêmes.
-- Aucune connaissance de la programmation fonctionnelle : elle est
-  introduite au fil des chapitres.
+- Some programming experience, in any language.
+- Knowing what a sample, a sampling rate and a lowpass filter are. No
+  advanced signal processing is required: a large part of Faust work is
+  building the signals that *drive* the algorithms, not the algorithms
+  themselves.
+- No functional programming background: it is introduced along the way.
 
-## Outils
+## Tools
 
-- L'IDE en ligne (<https://faustide.grame.fr>) pour écouter et voir les
-  diagrammes, ou le compilateur `faust` en ligne de commande.
-- `faustprobe` (faust-rs) pour *mesurer* un programme : compiler, rendre
-  hors ligne, lire les échantillons et les statistiques. Chaque exemple et
-  chaque solution d'exercice du tutoriel porte les commandes qui le
-  vérifient, et `make check` les exécute toutes.
+- The online IDE (<https://faustide.grame.fr>) to listen and see block
+  diagrams, or the `faust` command-line compiler.
+- `faustprobe` (from faust-rs) to *measure* a program: compile it, render it
+  offline, read its samples and statistics. Every example and every exercise
+  solution carries the faustprobe commands that check it, and `make check`
+  runs them all, against both the C++ compiler and faust-rs.
 
-## Forme de chaque chapitre
+## Shape of each chapter
 
-1. **L'idée** : le concept en quelques paragraphes.
-2. **Un exemple minimal** exécutable (`exemples/NN/*.dsp`).
-3. **L'idiome dans les bibliothèques** : la même idée dans une fonction
-   réelle de `faustlibraries`, citée avec son préfixe (`ba.`, `si.`, ...).
-4. **Pièges** : les erreurs typiques et comment les reconnaître.
-5. **Exercices**, avec leurs solutions dans `exemples/NN/solutions/`,
-   vérifiées par la même commande que les exemples.
+1. **The idea**: the concept, in a few paragraphs.
+2. **A minimal example** that runs (`examples/NN/*.dsp`).
+3. **The idiom in the libraries**: the same idea in a real function of
+   `faustlibraries`, quoted with its prefix (`ba.`, `si.`, ...) and its
+   file.
+4. **Pitfalls**: typical mistakes and how to recognise them.
+5. **Exercises**, with solutions in `examples/NN/solutions/`, checked by the
+   same mechanism as the examples.
 
-## Partie A. Les bases du langage
+## Part A. The language
 
-1. **Premier son.** `process`, `import("stdfaust.lib")`, un oscillateur,
-   un gain, une sortie stéréo. Écouter dans l'IDE, mesurer avec faustprobe.
-   Les nombres, les opérateurs comme blocs (`+`, `*(0.5)`), les commentaires.
-2. **L'algèbre de blocs.** Les cinq compositions `:` `,` `<:` `:>` `~`,
-   le fil `_` et la coupure `!`, l'arité (entrées, sorties) et les règles
-   de compatibilité, la lecture des diagrammes SVG. Un mixeur stéréo.
-3. **Nommer les entrées.** Du câblage pur aux arguments :
-   `foo(a, b, c) = ...`, les variantes `foo1` à `foo3` du document des
-   idiomes ; définitions locales avec `with`. La forme en arguments et la
-   forme en fils décrivent le même bloc. Les primitives `inputs(x)` et
-   `outputs(x)`.
-4. **La mémoire d'un échantillon.** `mem`, l'apostrophe `x'`, `@(n)` ;
-   la récursion `~` et son retard implicite ; l'intégrateur `+ ~ _`, le
-   compteur `1 : + ~ _`, la somme glissante `+(x - x@n) ~ _`, le filtre
-   à un pôle. Le temps n'existe qu'au passé : on calcule l'échantillon
-   suivant à partir des précédents.
+1. **First sound.** `process`, `import("stdfaust.lib")`, an oscillator, a
+   gain, two outputs, a slider. Listening in the IDE, measuring with
+   faustprobe. Numbers and operators as blocks. Library anchor: `os.osc`.
+2. **Block-diagram algebra.** The five compositions `:` `,` `<:` `:>` `~`,
+   the wire `_` and the cut `!`, arity and the composition rules, operator
+   priorities, arity errors, reading SVG diagrams. A stereo mixer.
+   Anchors: `si.bus`, `si.block`, `ro.cross`, `route`.
+3. **Naming inputs.** From pure wiring to arguments: `foo(a, b, c) = ...`,
+   the `foo1`..`foo3` variants of the idioms document; `with`; applying a
+   function is sending it signals; `inputs(x)` and `outputs(x)`. Anchors:
+   `si.interpolate`, `fi.tf1`, `ma.sub`.
+4. **One-sample memory.** `mem`, `x'`, `@(n)`; recursion `~` and its
+   implicit one-sample delay; the integrator `+ ~ _`, the counter
+   `1 : + ~ _`, the moving sum, the one-pole filter. Time only exists in
+   the past. Anchors: `fi.integrator`, `fi.pole`, `ba.time`, `os.impulse`,
+   `ba.slidingSum`, `si.smooth`.
 
-## Partie B. Fabriquer des signaux de contrôle
+## Part B. Building control signals
 
-5. **L'état à plusieurs variables.** Le motif `tick ~ (_, _) : !, _` :
-   autant de fils de retour que de variables d'état, `tick(x, y) = x1, y1`
-   donne les nouvelles valeurs, la sortie coupe ce qui est interne.
-   Exemples : l'oscillateur en quadrature `quadosc` et le `line~` de Max
-   (deux écritures) ; `letrec`, l'autre écriture du même état.
-6. **Signaux logiques et événements.** Les booléens sont des 0 et des 1 ;
-   fronts montants, descendants, changements ; `impulse`, `release`,
-   `trigger` ; remise à zéro par multiplication ; `min` et `max` comme
-   opérateurs logiques ; maintien d'une valeur (échantillonneur-bloqueur) ;
-   compteurs avec remise à zéro ; `select2` et `ba.if`. Exemple : compter
-   les fronts d'une horloge MIDI sur une seconde.
-7. **Signaux périodiques et séquences.** Le phasor et `ma.frac`, gestion
-   de la phase, trains d'impulsions, métronome, pas de séquenceur ; de la
-   phase à l'oscillateur par table ; enveloppes et rampes, lissage des
-   commandes. Exemple final : l'ADSR en boucle.
-8. **L'interface utilisateur.** Sliders, boutons, cases, `nentry`, groupes
-   `hgroup`/`vgroup`/`tgroup`, chemins et étiquettes, métadonnées
-   (`[unit:Hz]`, `[scale:log]`, `[style:knob]`, `[midi:...]`), bargraphs
-   pour afficher un signal interne, l'idiome des `*_demo` des
-   bibliothèques : contrôles définis dans un `with`, contournement par
-   case à cocher.
+5. **State with several variables.** The `tick ~ (_, _) : !, _` pattern:
+   as many feedback wires as state variables, `tick(x, y) = x1, y1` returns
+   the next values, the output cuts what is internal. Examples: `line~`
+   from Max (two writings), the quadrature oscillator `os.quadosc`,
+   `ba.peakholder`; `letrec`, another way to write the same state. The
+   overshoot of `ba.line` and `mm.line` when the ramp length is not an
+   integer, and its fix.
+6. **Logical signals and events.** Booleans are 0 and 1; rising, falling
+   and any edges; `impulse`, `release`, `trigger`; reset by
+   multiplication; `min` and `max` as logic; sample and hold; counters with
+   reset; `select2` and `ba.if`. Counting the edges of a MIDI clock over one
+   second. Anchors: `ba.counter`, `ba.sAndH`, `ba.latch`, `ba.countdown`,
+   `ba.toggle`, `ba.peakhold`, the release counter of `en.adsr`.
+7. **Periodic signals and sequences.** The phasor and `ma.frac`, phase
+   handling, pulse trains, metronome, step sequencer; from phase to a table
+   oscillator; envelopes, ramps, control smoothing. Final example: the
+   looping ADSR. Anchors: `os.lf_sawpos`, `ba.period`, `ba.pulse`,
+   `ba.beat`, `os.lf_pulsetrain`, `no.lfnoise0`, `en.adsr`, `si.smoo`.
+8. **User interface.** Sliders, buttons, checkboxes, `nentry`, groups,
+   paths and labels, metadata (`[unit:Hz]`, `[scale:log]`, `[style:knob]`,
+   `[style:menu{...}]`, `[midi:...]`), bargraphs and `attach` to show an
+   internal signal, the `*_demo` idiom of demos.lib, bypass with a
+   checkbox. Anchors: `dm.gate_demo`, `dm.moog_vcf_demo`, `ba.bypass1`,
+   `db.probe_rms_db`.
 
-## Partie C. Calculer à la compilation
+## Part C. Computing at compile time
 
-9. **Compilation ou exécution.** Faust ne compile pas le texte mais la
-   sémantique du programme : propagation symbolique, constantes calculées
-   à la compilation, sorties inutilisées supprimées, partage des
-   sous-expressions. Ce qui doit être connu à la compilation (nombre de
-   voies, ordre d'un filtre, taille d'un retard maximal) et ce qui peut
-   varier à l'exécution. `int`, `float`, les erreurs quand une valeur
-   d'exécution arrive là où une constante est attendue.
-10. **Choisir parmi des valeurs.** `waveform` + `rdtable` contre
-    `ba.selectn` : la table de la gamme majeure, le « choice mapper »,
-    ce que coûte chaque forme ; `rdtable` avec une fonction génératrice,
-    `rwtable` ; tabulation d'une fonction coûteuse.
-11. **Itérer et filtrer par motifs.** `par`, `seq`, `sum`, `prod` avec un
-    indice ; définitions par cas `foo(0) = ...; foo(n) = ...` et `case` ;
-    récursion sur un entier ; motifs sur une liste `(x, xs)` ; le réseau
-    d'oscillateurs réécrit par motifs, et pourquoi il compile plus vite.
-12. **L'ordre supérieur.** Des blocs en argument, des blocs en résultat,
-    les abstractions `\(x).(...)`, l'application partielle ; la convention
-    des bibliothèques : paramètres fixes d'abord, signal audio en dernier ;
-    combinateurs de `routes.lib` et `signals.lib`.
+9. **Compile time or run time.** Faust does not compile the text but the
+   semantics of the program: symbolic propagation, constants folded,
+   unused outputs removed, common subexpressions shared. What must be known
+   at compile time (number of channels, filter order, maximum delay, table
+   size) and what may change while the program runs. `int` and `float`,
+   and the errors met when a run-time value reaches a place that needs a
+   constant. Anchors: `de.delay`, `de.fdelay`, `ba.if` versus `select2`.
+10. **Choosing among values.** `waveform` + `rdtable` against
+    `ba.selectn`: the major-scale table, the "choice mapper", the cost of
+    each form; `rdtable` filled by a generator, `rwtable`; tabulating an
+    expensive function. Anchors: `os.oscsin`, `os.osci`, `ba.selectn`,
+    `ba.tabulate`, `it.frdtable`.
+11. **Iteration and pattern matching.** `par`, `seq`, `sum`, `prod` with an
+    index; definitions by cases `foo(0) = ...; foo(n) = ...` and `case`;
+    recursion on an integer; patterns on a list `(x, xs)`; the oscillator
+    network rewritten with patterns, and why it compiles faster. Anchors:
+    `si.bus`, `si.repeat`, `ro.hadamard`, `ba.take`, `ba.count`,
+    `fi.convN`, `os.sawN`.
+12. **Higher-order programming.** Blocks as arguments and as results,
+    lambda abstractions `\(x).(...)`, partial application, the library
+    convention (fixed parameters first, audio signal last), combinators of
+    `routes.lib` and `signals.lib`. Anchors: `ba.bypass_fade`,
+    `rm.parReduce`, `it.interpolator_linear`, `ba.countdown`.
 
-## Partie D. Écrire du code réutilisable
+## Part D. Writing reusable code
 
-13. **Environnements.** Espaces de noms, `environment { }`, `library()`,
-    le filtre à variables d'état `svf` comme « classe » ; la substitution
-    explicite `expr[a = b]` ; les environnements passés en argument.
-14. **Générique puis spécialisé.** Un algorithme général avec des
-    paramètres dynamiques, spécialisé en fixant des constantes ou en
-    coupant des sorties : le compilateur n'engendre que le code utile.
-    Exemples : les familles `svf`, les filtres d'Eric Tarr à plusieurs
-    sorties, les modèles de formants de physmodels.lib.
-15. **Écrire une bibliothèque.** Couches (bloc générique, niveau
-    intermédiaire, enveloppes pour l'utilisateur), préfixes et
-    `stdfaust.lib`, `declare`, format de documentation des bibliothèques,
-    tests.
-16. **Projet final.** Une réverbération complète construite pas à pas
-    (filtres en peigne et passe-tout, réseau à retards rebouclés,
-    interface), qui réemploie tous les chapitres.
+13. **Environments.** Namespaces, `environment { }`, `library()`, the state
+    variable filter `svf` as a "class", explicit substitution
+    `lib[NAME = value;]`, environments as objects (`so.sound`), passed as
+    arguments. Anchors: `fi.svf`, `mm.filtercoeff`, `no._noise_env`,
+    `os[SAFE=1;]`, `db[DEBUG=0;]`.
+14. **Generic, then specialised.** A general algorithm with dynamic
+    parameters, specialised by fixing constants or cutting outputs: the
+    compiler only generates the code that is used. Anchors: the `svf`
+    family, Eric Tarr's multi-output filters in vaeffects.lib, the formant
+    models of physmodels.lib.
+15. **Writing a library.** Layers (generic block, intermediate level,
+    user-facing wrappers), prefixes and `stdfaust.lib`, `declare`, the
+    documentation format of the libraries, tests.
+16. **Final project.** A complete reverb built step by step (comb and
+    allpass filters, a feedback delay network, the interface), which reuses
+    every chapter.
 
-## Annexes
+## Appendices
 
-- **A. Observer un programme** : faustprobe, les diagrammes, `attach`,
-  les bargraphs, la vérification des exemples de ce tutoriel.
-- **B. Différentiation automatique** : `fad` et `rad` de faust-rs,
-  extensions absentes du compilateur C++, pour qui veut apprendre les
-  paramètres d'un programme Faust par descente de gradient.
-- **C. Aide-mémoire** : syntaxe, priorités des opérateurs, préfixes des
-  bibliothèques.
+- **A. Observing a program**: faustprobe, diagrams, `attach`, bargraphs,
+  how the examples of this tutorial are checked.
+- **B. Automatic differentiation**: `fad` and `rad` in faust-rs,
+  extensions absent from the C++ compiler, to learn the parameters of a
+  Faust program by gradient descent.
+- **C. Cheat sheet**: syntax, operator priorities, library prefixes.
 
-## Corrections apportées au document des idiomes
+## Corrections to the idioms document
 
-Le tutoriel reprend les exemples du document des idiomes après vérification.
-Ceux qui ne compilaient pas ou ne faisaient pas ce qu'annonçait le texte
-sont corrigés et la correction est signalée dans le chapitre :
+The tutorial takes the examples of the idioms document after checking them.
+Those that did not compile or did not do what the text said are corrected,
+and the chapter says so:
 
-- la définition de `impulse` citée depuis `faust_tutorial.pdf` est
-  tronquée ;
-- les deux versions de `release` ne sont pas équivalentes : celle avec
-  `max(0, ...)` ne descend jamais sous zéro ;
-- la réécriture par motifs du réseau d'oscillateurs ne reproduit pas
-  l'original : l'original chaîne quatre nœuds, la réécriture trois, dans
-  un autre ordre.
+- the `impulse` definition quoted from `faust_tutorial.pdf` is truncated;
+- the two versions of `release` are not equivalent: the one with
+  `max(0, ...)` never goes below zero;
+- the pattern-matching rewrite of the oscillator network does not reproduce
+  the original: the original chains four nodes, the rewrite three, in
+  another order.
+
+## Library definitions not taught as they are
+
+The survey of `faustlibraries` found definitions that a tutorial must not
+present as models without a warning. The chapters that use them say what is
+wrong and show a sound version. Among them: `ba.line` and `mm.line`
+overshoot when the ramp length in samples is not an integer;
+`ba.pulse_countdown_loop` does not count down for a positive `n`;
+`ba.impulsify` outputs the positive first difference, not the current
+sample as documented; `en.adsr` attack and decay stretch when the gate is
+a velocity below 1; `os.oscb` has an amplitude of 1/sin(2πf/SR), not 1.
+Each claim is checked with faustprobe before it is written in a chapter.
