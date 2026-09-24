@@ -16,7 +16,9 @@ For each .dsp file under examples/:
    reject it, and each `// expect:` line placed before any `check` line
    must match faustprobe's message;
 5. `// cpp-expect: REGEX` and `// cpp-absent: REGEX` lines must, and must
-   not, match the C++ code that `faust` generates for the file.
+   not, match the C++ code that `faust` generates for the file;
+6. a file with a `// faust-rs: no` line is checked with the C++ compiler
+   only (for a construct faust-rs does not handle yet; the line says why).
 
 Environment: FAUST, FAUSTPROBE, FAUSTLIBRARIES.
 Arguments: files or folders to restrict the check to.
@@ -52,10 +54,13 @@ def directives(path):
     cpp = True
     error = None
     cpp_expect, cpp_absent = [], []
+    probe = True
     for line in open(path, encoding="utf-8"):
         s = line.strip()
         if s.startswith("// cpp: no"):
             cpp = False
+        if s.startswith("// faust-rs: no"):
+            probe = False
         if s.startswith("// expect-error"):
             error = []
             continue
@@ -72,7 +77,7 @@ def directives(path):
             checks[-1]["expect"].append(m.group(1))
         elif m and error is not None:
             error.append(m.group(1))
-    return cpp, checks, error, cpp_expect, cpp_absent
+    return cpp, checks, error, cpp_expect, cpp_absent, probe
 
 
 def run(cmd, cwd=None):
@@ -94,7 +99,9 @@ def main():
         count += 1
         rel = os.path.relpath(path, ROOT)
         inc = ["-I", os.path.dirname(path), "-I", LIBS]
-        cpp, checks, error, cpp_expect, cpp_absent = directives(path)
+        cpp, checks, error, cpp_expect, cpp_absent, probe = directives(path)
+        if not probe:
+            checks = []
         problems = []
         if error is not None:
             rc, out = run([FAUST, *inc, path, "-o", os.devnull])
@@ -119,7 +126,7 @@ def main():
                 for e in cpp_absent:
                     if re.search(e, out, re.MULTILINE):
                         problems.append(f"cpp-absent {e!r} found in the generated C++")
-        if cpp is not None:
+        if cpp is not None and probe:
             rc, out = run([FAUSTPROBE, "--double", *inc, "-n", "1", "--in", "zero", "--quiet", path])
             if rc != 0:
                 problems.append("faustprobe (compile):\n" + out)
@@ -139,7 +146,8 @@ def main():
             for p in problems:
                 print("    " + p.replace("\n", "\n    ").rstrip())
         else:
-            print(f"ok    {rel} ({len(checks)} check{'s' if len(checks) != 1 else ''})")
+            note = "" if probe else ", C++ only"
+            print(f"ok    {rel} ({len(checks)} check{'s' if len(checks) != 1 else ''}{note})")
     print(f"\n{count - failures}/{count} programs checked")
     return 1 if failures else 0
 

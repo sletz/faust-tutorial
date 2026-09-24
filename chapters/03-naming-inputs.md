@@ -149,6 +149,9 @@ tf1(b0,b1,a1) = _ <: *(b0), (mem : *(b1)) :> + ~ *(0-a1);
   body of the function.
 - **`outputs(x)` expects a block**, not a number: `outputs(3)` is 1, because
   the constant 3 is a block with one output.
+- **`-(x)` is not a negation.** An operator written with one argument is a
+  partial application: `-(x)` is the block `_ - x`, with one input. To
+  negate an expression, write `0 - x` or `-1 * x` ([`negation.dsp`](../examples/03/negation.dsp)).
 
 ## Exercises
 
