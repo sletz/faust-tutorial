@@ -49,15 +49,20 @@ target is an event.
 
 ## From event to duration: `release` and `trigger`
 
-The idioms document quotes, from `faust_tutorial.pdf`, three definitions
-that turn an event into a gate of a given length. The first, as quoted, is
-truncated; its complete form is
+The idioms document quotes three definitions from "A Faust Tutorial"
+(Gaudrain and Orlarey, 2003) that turn an event into a gate of a given
+length. In the idioms document the first one looks truncated, because the
+underscores were lost when the text was copied out of the PDF. The
+original reads
 
 ```faust
-impulse = _ <: _, mem : - : >(0.0);    // the input rose since the last sample
+impulse = _ <: _, mem : - : (_ > 0.0);
 ```
 
-which the document itself simplifies to `impulse(x) = x - x' > 0.0` and then
+and the 2003 tutorial explains it: "The difference between the original and
+the dephased signal produces a signal with two pulses large of one sample at
+the pulse edges. The greater-than box just let the first positive pulse."
+The idioms document simplifies it to `impulse(x) = x - x' > 0.0` and then
 `impulse(x) = x > x'`, the rising edge; the three are the same block
 ([`impulse_forms.dsp`](../examples/06/impulse_forms.dsp)). Then:
 
@@ -66,10 +71,13 @@ release(n) = + ~ (_ <: _, (_ > 0) / n : -);
 trigger(n) = impulse : release(n) : >(0);
 ```
 
+(the original writes the last step `_>0`, the same block as `>(0)`).
+
 `release(n)` integrates its input but subtracts 1/n at every sample while
 the value is positive: an impulse of 1 becomes a ramp down to 0 in n
-samples. `trigger(n)` is 1 while that ramp is positive: a gate of n
-samples.
+samples. `trigger(n)` is 1 while that ramp is positive: in the words of
+the 2003 tutorial, "a Heaviside unit step which duration is controlled by
+the formal parameter n".
 
 This is where measuring pays. After three steps of 1/3 the value should be
 exactly 0, but floating-point rounding leaves 1.1e-16

@@ -110,6 +110,27 @@ computes y[n] = (1 − a) x[n] + a y[n−1]. Its impulse response is 0.5, 0.25,
 0.125... for a = 0.5: each sample keeps half of the previous one. The input
 gain 1 − a makes the output of a constant equal to that constant.
 
+## From an equation to `~`
+
+Tiziano Bole's "Faust Tutorial 2" (2008) gives a recipe to turn a
+recurrence into Faust. Write the equation, then "imagine to replace the
+call to [the previous output] with a cable outgoing from the same
+expression's ending". For a sample-and-hold, where the output keeps its
+value while `trig` is 0 and copies `x` when `trig` is 1:
+
+    y[n] = y[n-1] · (1 − trig) + x · trig
+
+The expression without its previous output is `*(1 - trig) + x * trig`, a
+block with one input (the missing y[n−1]); the cable is `~ _`:
+
+```faust
+SH(trig, x) = (*(1 - trig) + x * trig) ~ _;
+```
+
+With a `trig` between 0 and 1 the same block interpolates between the old
+value and the input: `SH(1 - s)` is the smoother `si.smooth(s)` of the
+libraries.
+
 ## The implicit delay in a loop
 
 Because the feedback path already holds one sample, a delay of d samples in

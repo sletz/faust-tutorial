@@ -1,6 +1,6 @@
 // The three writings of impulse in the idioms document are the same block:
-// the completed wiring from faust_tutorial.pdf and its two simplifications.
-impulse_wired = _ <: _, mem : - : >(0.0);
+// the original wiring of faust_tutorial.pdf and its two simplifications.
+impulse_wired = _ <: _, mem : - : (_ > 0.0);
 impulse_diff(x) = x - x' > 0.0;
 impulse_edge(x) = x > x';
 

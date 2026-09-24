@@ -141,7 +141,9 @@ The tutorial takes the examples of the idioms document after checking them.
 Those that did not compile or did not do what the text said are corrected,
 and the chapter says so:
 
-- the `impulse` definition quoted from `faust_tutorial.pdf` is truncated;
+- the `impulse` definition quoted from `faust_tutorial.pdf` looks truncated
+  because the underscores were lost when it was copied out of the PDF; the
+  original, `impulse = _ <: _, mem : - : (_ > 0.0);`, is complete;
 - the two versions of `release` are not equivalent: the one with
   `max(0, ...)` never goes below zero;
 - the pattern-matching rewrite of the oscillator network does not reproduce
