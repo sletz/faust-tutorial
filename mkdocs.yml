@@ -1,0 +1,50 @@
+site_name: A progressive Faust tutorial
+site_description: Programming in Faust, from a first sound to a complete reverb, with every program runnable in the page.
+docs_dir: build/docs
+site_dir: site
+use_directory_urls: false
+
+nav:
+    - Home: index.md
+    - 'Part A. The language':
+        - '1. First sound': chapters/01-first-sound.md
+        - '2. Block-diagram algebra': chapters/02-block-diagram-algebra.md
+        - '3. Naming inputs': chapters/03-naming-inputs.md
+        - '4. One-sample memory': chapters/04-one-sample-memory.md
+    - 'Part B. Control signals':
+        - '5. State with several variables': chapters/05-state-with-several-variables.md
+        - '6. Logical signals and events': chapters/06-logical-signals-and-events.md
+        - '7. Periodic signals and sequences': chapters/07-periodic-signals-and-sequences.md
+        - '8. User interface': chapters/08-user-interface.md
+    - 'Part C. Compile time':
+        - '9. Compile time or run time': chapters/09-compile-time-or-run-time.md
+        - '10. Choosing among values': chapters/10-choosing-among-values.md
+        - '11. Iteration and pattern matching': chapters/11-iteration-and-pattern-matching.md
+        - '12. Higher-order programming': chapters/12-higher-order-programming.md
+    - 'Part D. Reusable code':
+        - '13. Environments': chapters/13-environments.md
+        - '14. Generic, then specialised': chapters/14-generic-then-specialised.md
+        - '15. Writing a library': chapters/15-writing-a-library.md
+        - '16. Final project: a reverb': chapters/16-final-project.md
+    - Appendices:
+        - 'A. Observing a program': chapters/A-observing-a-program.md
+        - 'B. Automatic differentiation': chapters/B-automatic-differentiation.md
+        - 'C. Cheat sheet': chapters/C-cheat-sheet.md
+        - 'Plan of the tutorial': PLAN.md
+
+theme:
+    name: mkdocs
+    navigation_depth: 3
+    highlightjs: false
+
+extra_css:
+    - css/faust-run.css
+
+extra_javascript:
+    - https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js
+
+markdown_extensions:
+    - toc:
+        permalink: true
+    - tables
+    - fenced_code

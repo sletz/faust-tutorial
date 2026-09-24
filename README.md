@@ -59,7 +59,9 @@ chapters/           the text, one file per chapter
 examples/NN/        the programs of chapter NN, and solutions/ for its exercises
 examples/appendix_a, examples/appendix_b
 scripts/check.py    runs the checks written in the programs' comments
-Makefile            make check
+scripts/build_docs.py  prepares the web site: diagrams and editors
+mkdocs.yml, web/    the web site's configuration and style
+Makefile            make help lists the targets: check, site, serve, ...
 ```
 
 ## Checking the examples
@@ -73,3 +75,18 @@ faustprobe commands written in its comments. It expects the faust-rs and
 faustlibraries checkouts next to this one (`../faust-rs`,
 `../../faustlibraries`, version 2.74.3 or later); `FAUST`, `FAUSTPROBE`
 and `FAUSTLIBRARIES` override the paths. `make check DIR=examples/07` checks one chapter.
+
+## The web site
+
+```bash
+make site
+```
+
+builds the tutorial as a web site in `site/`, with mkdocs (`pip install
+mkdocs==1.5.3`, the version faustdoc uses). As in faustdoc, every program
+of a chapter appears with its block diagram, drawn by the C++ compiler, and
+an editor ([faust-web-component](https://github.com/grame-cncm/faust-web-component))
+that compiles it and plays it in the page, with its controls. `make serve`
+serves it at http://127.0.0.1:8000. `scripts/build_docs.py` says where each
+program goes and which ones the browser cannot run (the faust-rs
+extensions, and the programs that import the tutorial's own library).
