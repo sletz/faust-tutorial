@@ -77,7 +77,7 @@ allpass_tuning(2) = adapt(341);  allpass_tuning(3) = adapt(225);
 
 freeverb(fb1, fb2, damp, spread) =
     _ <: par(i, 8, lbcf(comb_tuning(i) + spread, fb1, damp))
-      :> seq(i, 4, allpass(1024, allpass_tuning(i) + spread, -fb2));
+      :> seq(i, 4, allpass(4096, allpass_tuning(i) + spread, -fb2));
 ```
 
 - The tunings, in samples at 44.1 kHz, are defined **by cases**
@@ -85,10 +85,14 @@ freeverb(fb1, fb2, damp, spread) =
 - `adapt` scales them to the actual sampling rate; `int` rounds to whole
   samples (chapter 9).
 - `<:` sends the input to the eight combs and `:>` sums them (chapter 2).
+- The allpass buffers hold 4096 samples: the longest tuning, 556 samples
+  at 44.1 kHz, is 2420 at 192 kHz, the highest value of `ma.SR` (see the
+  pitfalls).
 
 The delay lengths are chosen without common factors, so that the echoes of
 the eight combs do not coincide. faustprobe finds this program identical,
-sample for sample, to `re.mono_freeverb(0.84, 0.5, 0.2, 0)` in reverbs.lib.
+sample for sample, to `re.mono_freeverb(0.84, 0.5, 0.2, 0)` in reverbs.lib,
+at 44.1 kHz and at 96 kHz.
 
 ## Step 5: a playable stereo reverb
 
@@ -180,11 +184,13 @@ ratio of 972, or 59.7 dB.
 
 ## Pitfalls
 
-- **Maximum delays and the sampling rate.** Freeverb's allpasses have a
-  buffer of 1024 samples, and their tunings grow with the sampling rate:
-  at 96 kHz, 556 samples at 44.1 kHz become 1210, more than the buffer,
-  and the delay is silently clamped. Size buffers for the highest rate you
-  support (chapter 9).
+- **Maximum delays and the sampling rate.** A delay tuned in samples at
+  44.1 kHz grows with the sampling rate, and a delay longer than its
+  buffer is silently clamped. Freeverb's allpasses had a buffer of 1024
+  samples in reverbs.lib until faustlibraries 2.74.3 (reverbs.lib 1.5.2):
+  at 96 kHz, 556 samples at 44.1 kHz become 1210, and the reverb was
+  detuned above 81 kHz. Size buffers for the highest rate you support
+  (chapter 9).
 - **Stability.** A network whose matrix gains energy, or whose gains
   exceed 1, grows without bound. Check with faustprobe's `--fail-above`
   when experimenting.

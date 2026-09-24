@@ -109,10 +109,11 @@ envelopes.lib: `en.ar(attack, release, trigger)`,
 `en.adsr(attack, decay, sustain, release, gate)`, with times in seconds and
 the sustain level between 0 and 1.
 
-One detail of `en.adsr` matters: its attack counter adds the value of the
-gate at every sample (`atime = +(gate) ~ ...`). A gate of 1 counts one
-sample per sample. A **velocity** of 0.5 used as the gate counts half as
-fast, and doubles the attack and decay times without lowering the level
+One detail of `en.adsr` matters: the value of its gate does not scale it.
+Its attack counter counts one sample per sample while the gate is positive
+(`atime = +(float(gate > 0)) ~ ...`), so a **velocity** of 0.5 used as the
+gate gives the whole envelope, up to 1, with the times asked for. To play
+softer, pass a 0/1 gate and multiply by the velocity
 ([`adsr_velocity.dsp`](../examples/07/adsr_velocity.dsp)):
 
 ```faust
@@ -120,9 +121,12 @@ process = en.adsr(0.01, 0.1, 0.5, 0.1, velocity),
           en.adsr(0.01, 0.1, 0.5, 0.1, velocity > 0) * velocity;
 ```
 
-With a velocity of 0.5 at 48 kHz, the first output peaks at 1.0 at sample
-959, the second at 0.5 at sample 479. Pass a 0/1 gate, and scale by the
-velocity.
+With a velocity of 0.5 at 48 kHz, both outputs peak at sample 479, the
+end of the 10 ms attack: the first at 1.0, the second at 0.5. Until
+faustlibraries 2.74.3 (envelopes.lib 1.3.1), the counter added the value of
+the gate at every sample, and a velocity of 0.5 also doubled the attack and
+decay times of `en.adsr` and the attack time of `en.asr`: the first output
+peaked at sample 959.
 
 A slider that jumps makes a click. `si.smoo` is the one-pole lowpass of
 chapter 4 with a pole of 1 − 44.1/SR, a time constant of about 23 ms
@@ -222,7 +226,8 @@ signal. `no.multinoise(N)` gives N different ones.
   moves at all after 590 seconds: the increment has become smaller than
   the spacing of the floats around the state.
 - **`ba.beat` rounds its period** to whole samples.
-- **Velocity is not a gate** for `en.adsr` and `en.asr`.
+- **A velocity used as a gate does not scale** `en.adsr` and `en.asr`:
+  multiply their output by it.
 - **Raw shapes alias** as audio; use them as LFOs, or use the
   alias-suppressed oscillators.
 

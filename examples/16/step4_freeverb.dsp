@@ -19,10 +19,13 @@ allpass_tuning(2) = adapt(341);  allpass_tuning(3) = adapt(225);
 
 freeverb(fb1, fb2, damp, spread) =
     _ <: par(i, 8, lbcf(comb_tuning(i) + spread, fb1, damp))
-      :> seq(i, 4, allpass(1024, allpass_tuning(i) + spread, -fb2));
+      :> seq(i, 4, allpass(4096, allpass_tuning(i) + spread, -fb2));
 
 process = freeverb(0.84, 0.5, 0.2, 0);
 
 // Sample for sample the library's re.mono_freeverb.
 // check: --double -n 44100 --in white:1 --quiet --compare step4_reference.dsp
+// expect: out0: identical
+// At 96 kHz too: the allpass buffers hold the longest tuning up to 192 kHz.
+// check: --double --sr 96000 -n 44100 --in white:1 --quiet --compare step4_reference.dsp
 // expect: out0: identical

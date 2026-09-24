@@ -199,10 +199,11 @@ architecture flips at every clock message; chapter 8 covers such labels.
 | `ba.countdown` | `countdown(n, trig) = \(c).(if(trig>0, n, max(0, c-1))) ~ _;` | exact countdown |
 | `ba.impulsify` | `impulsify = _ <: _,mem : - <: >(0)*_;` | positive part of the difference |
 
-A detail about `ba.impulsify`: its documentation says it outputs "the value
-of the current sample", but it outputs the size of the rise
-([`impulsify.dsp`](../examples/06/impulsify.dsp)). A signal that climbs to
-0.3 then 0.5 gives spikes of 0.3 and 0.2, not 0.3 and 0.5.
+A detail about `ba.impulsify`: it outputs the size of the rise, not the
+value of the signal ([`impulsify.dsp`](../examples/06/impulsify.dsp)). A
+signal that climbs to 0.3 then 0.5 gives spikes of 0.3 and 0.2, not 0.3 and
+0.5. Its documentation said "the value of the current sample" until
+faustlibraries 2.74.3 (basics.lib 1.23.2), which describes the rise.
 
 In envelopes.lib, `en.adsr` counts the samples since the release with
 `(+(1) : *(gate == 0)) ~ _`, and `en.adsre` counts the samples since the
