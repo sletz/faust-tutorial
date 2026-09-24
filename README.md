@@ -73,23 +73,3 @@ faustprobe commands written in its comments. It expects the faust-rs and
 faustlibraries checkouts next to this one (`../faust-rs`,
 `../../faustlibraries`, version 2.74.3 or later); `FAUST`, `FAUSTPROBE`
 and `FAUSTLIBRARIES` override the paths. `make check DIR=examples/07` checks one chapter.
-
-## What the checks found
-
-Writing checked examples turned up a few things worth knowing, each told
-in its chapter:
-
-- in the idioms document, the oscillator network rewritten with pattern
-  matching did not reproduce the original (chapter 11), and the two
-  versions of `release` are not equivalent (chapter 6);
-- in the libraries, `ba.line` and `mm.line` overshot on ramps that are not
-  a whole number of samples (chapter 5), `en.adsr` and `en.asr` stretched
-  when a velocity was used as their gate (chapter 7), `ba.impulsify` did
-  not do what its documentation said (chapter 6), and Freeverb's allpass
-  buffers were too short above 81 kHz (chapter 16). All four are fixed in
-  faustlibraries 2.74.3, and the examples check the fixed behaviour;
-- in faust-rs, two divergences from the C++ compiler: rules were not always
-  tried in textual order (chapter 11), and an environment passed as an
-  argument was not resolved (chapter 13). Both are fixed in faust-rs
-  (commits ff228fcc and f046cd03), and both examples are now checked on
-  both compilers.
