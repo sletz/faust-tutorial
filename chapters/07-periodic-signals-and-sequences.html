@@ -421,9 +421,7 @@ softer, pass a 0/1 gate and multiply by the velocity
 <faust-editor input="impulse"><!--
 // The value of en.adsr's gate does not scale it: a velocity of 0.5 used as
 // the gate gives the whole envelope, up to 1. Use a 0/1 gate, and multiply
-// by the velocity. (Until faustlibraries 2.74.3, the attack counter added
-// the value of the gate at every sample, and a velocity of 0.5 also doubled
-// the attack and decay times.)
+// by the velocity.
 import("stdfaust.lib");
 
 velocity = hslider("velocity", 0, 0, 1, 0.01);
@@ -436,11 +434,7 @@ process = en.adsr(0.01, 0.1, 0.5, 0.1, velocity),
 </div>
 
 <p>With a velocity of 0.5 at 48 kHz, both outputs peak at sample 479, the
-end of the 10 ms attack: the first at 1.0, the second at 0.5. Until
-faustlibraries 2.74.3 (envelopes.lib 1.3.1), the counter added the value of
-the gate at every sample, and a velocity of 0.5 also doubled the attack and
-decay times of <code>en.adsr</code> and the attack time of <code>en.asr</code>: the first output
-peaked at sample 959.</p>
+end of the 10 ms attack: the first at 1.0, the second at 0.5.</p>
 <p>A slider that jumps makes a click. <code>si.smoo</code> is the one-pole lowpass of
 chapter 4 with a pole of 1 − 44.1/SR, a time constant of about 23 ms
 (<a href="../examples/07/smoothing.dsp"><code>smoothing.dsp</code></a>): after a jump from 0 to 1,

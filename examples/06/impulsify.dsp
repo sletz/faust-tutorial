@@ -1,8 +1,6 @@
 // impulsify from faust_tutorial.pdf, quoted in the idioms document, and
 // ba.impulsify in basics.lib: the positive part of the first difference.
 // It marks each rise of a signal with a spike as high as the rise.
-// (The library's documentation said it outputs "the value of the current
-// sample" until faustlibraries 2.74.3; it outputs the size of the step.)
 import("stdfaust.lib");
 
 impulsify = _ <: _, mem : - <: >(0) * _;

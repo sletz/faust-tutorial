@@ -213,10 +213,6 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#library-definitions-not-taught-as-they-are" class="nav-link">Library definitions not taught as they are</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -285,8 +281,7 @@ and ties each of them to the functions of the standard libraries
    the next values, the output cuts what is internal. Examples: <code>line~</code>
    from Max (two writings), the quadrature oscillator <code>os.quadosc</code>,
    <code>ba.peakholder</code>; <code>letrec</code>, another way to write the same state. The
-   overshoot of a <code>line~</code> whose ramp length is not an integer, and its fix
-   (<code>ba.line</code> and <code>mm.line</code> had it until faustlibraries 2.74.3).</li>
+   overshoot of a <code>line~</code> whose ramp length is not an integer, and its fix.</li>
 <li><strong>Logical signals and events.</strong> Booleans are 0 and 1; rising, falling
    and any edges; <code>impulse</code>, <code>release</code>, <code>trigger</code>; reset by
    multiplication; <code>min</code> and <code>max</code> as logic; sample and hold; counters with
@@ -372,20 +367,7 @@ and the chapter says so:</p>
 <li>the pattern-matching rewrite of the oscillator network does not reproduce
   the original: the original chains four nodes, the rewrite three, in
   another order.</li>
-</ul>
-<h2 id="library-definitions-not-taught-as-they-are">Library definitions not taught as they are<a class="headerlink" href="#library-definitions-not-taught-as-they-are" title="Permanent link">&para;</a></h2>
-<p>The survey of <code>faustlibraries</code> found definitions that a tutorial must not
-present as models without a warning. The chapters that use them say what is
-wrong and show a sound version. Among them: <code>ba.pulse_countdown_loop</code> does
-not count down for a positive <code>n</code>; <code>os.oscb</code> has an amplitude of
-1/sin(2πf/SR), not 1. Each claim is checked with faustprobe before it is
-written in a chapter. Four others were fixed in faustlibraries 2.74.3
-after the tutorial found them, and the chapters tell them in the past:
-<code>ba.line</code> and <code>mm.line</code> overshot when the ramp length in samples was not an
-integer; <code>ba.impulsify</code>'s documentation said it outputs the current sample,
-not the positive first difference; <code>en.adsr</code> and <code>en.asr</code> stretched when
-the gate was a velocity below 1; Freeverb's allpass buffers were too short
-above 81 kHz.</p></div>
+</ul></div>
             </div>
         </div>
 

@@ -512,8 +512,7 @@ process = safe_inverse, arithmetic_inverse;
 
 <p>At x = 0, the first gives 0; the second gives 0 × ∞, which is NaN, and
 faustprobe refuses the render. Choose with <code>select2</code>, not with a product,
-when a branch can be infinite. The library's <code>ba.latch</code> is written with
-products, so it inherits this weakness.</p>
+when a branch can be infinite.</p>
 <h2 id="counting-events">Counting events<a class="headerlink" href="#counting-events" title="Permanent link">&para;</a></h2>
 <p>The idioms document counts the changes of a MIDI clock over the last second
 (<a href="../examples/06/clock_counter.dsp"><code>clock_counter.dsp</code></a>):</p>
@@ -588,8 +587,7 @@ architecture flips at every clock message; chapter 8 covers such labels.</p>
 <p>A detail about <code>ba.impulsify</code>: it outputs the size of the rise, not the
 value of the signal (<a href="../examples/06/impulsify.dsp"><code>impulsify.dsp</code></a>). A
 signal that climbs to 0.3 then 0.5 gives spikes of 0.3 and 0.2, not 0.3 and
-0.5. Its documentation said "the value of the current sample" until
-faustlibraries 2.74.3 (basics.lib 1.23.2), which describes the rise.</p>
+0.5.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/impulsify.dsp">examples/06/impulsify.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/06/impulsify-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/impulsify-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/impulsify-svg/process.svg" alt="block diagram of examples/06/impulsify.dsp"></a></div>
@@ -597,8 +595,6 @@ faustlibraries 2.74.3 (basics.lib 1.23.2), which describes the rise.</p>
 // impulsify from faust_tutorial.pdf, quoted in the idioms document, and
 // ba.impulsify in basics.lib: the positive part of the first difference.
 // It marks each rise of a signal with a spike as high as the rise.
-// (The library's documentation said it outputs "the value of the current
-// sample" until faustlibraries 2.74.3; it outputs the size of the step.)
 import("stdfaust.lib");
 
 impulsify = _ <: _, mem : - <: >(0) * _;

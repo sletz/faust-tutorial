@@ -353,8 +353,7 @@ frame  9    1.0000
 <faust-editor input="impulse"><!--
 // The same line~ when the ramp is not a whole number of samples:
 // 0.1 ms at 48 kHz is 4.8 samples. The last step divides by 0.8 and
-// overshoots. ba.line and maxmsp.lib's line did the same until
-// faustlibraries 2.74.3; they now round the ramp to 5 samples.
+// overshoots. ba.line and maxmsp.lib's line round the ramp to 5 samples.
 import("stdfaust.lib");
 mm = library("maxmsp.lib");
 
@@ -376,9 +375,8 @@ process = line(target, 0.1), ba.line(0.1 * ma.SR / 1000, target), mm.line(target
 
 <p>The fix is exercise 1: round the length of the ramp to a whole number of
 samples. The library's <code>ba.line</code> and <code>mm.line</code> in maxmsp.lib have the same
-structure, and had the same overshoot until faustlibraries 2.74.3
-(basics.lib 1.23.2, maxmsp.lib 1.1.1), which rounds their ramp length in
-this way. The example outputs the three: the <code>line</code> above reaches 1.0417,
+structure and round their ramp length in this way. The example outputs the
+three: the <code>line</code> above reaches 1.0417,
 <code>ba.line</code> and <code>mm.line</code> go up in five steps of 0.2 and reach exactly 1.</p>
 <h2 id="two-variables-both-output-the-quadrature-oscillator">Two variables, both output: the quadrature oscillator<a class="headerlink" href="#two-variables-both-output-the-quadrature-oscillator" title="Permanent link">&para;</a></h2>
 <p>Sometimes every state variable is useful. The quadrature oscillator of
