@@ -252,7 +252,7 @@ product = prod(i, 3, i + 2);            // 2 * 3 * 4
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/iterations.dsp">examples/11/iterations.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/iterations-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/iterations-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/iterations-svg/process.svg" alt="block diagram of examples/11/iterations.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // par, seq, sum and prod repeat a block N times, with an index i that the
 // body may use. N must be known at compile time.
 gains   = par(i, 4, *(i + 1));          // 4 inputs, 4 outputs: x1, 2 x2, 3 x3, 4 x4
@@ -305,7 +305,7 @@ whose frequency and amplitude both depend on k:</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/additive.dsp">examples/11/additive.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/additive-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/additive-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/additive-svg/process.svg" alt="block diagram of examples/11/additive.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Additive synthesis: the sum of the first N harmonics with amplitudes 1/k
 // approximates a sawtooth. The index sets both frequency and amplitude.
 import("stdfaust.lib");
@@ -332,7 +332,7 @@ fir  = _ &lt;: taps;                        // 1 input
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/fir.dsp">examples/11/fir.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/fir-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/fir-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/fir-svg/process.svg" alt="block diagram of examples/11/fir.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // An FIR filter with sum: y = c0 x + c1 x' + c2 x'' + ...
 // The body @(i) * c(i) has one input, so sum(i, N, ...) has N inputs:
 // the signal must be split N times first.
@@ -354,7 +354,7 @@ arguments (<a href="../examples/11/factorial.dsp"><code>factorial.dsp</code></a>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/factorial.dsp">examples/11/factorial.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/factorial-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/factorial-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/factorial-svg/process.svg" alt="block diagram of examples/11/factorial.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Definitions by cases: the rules are tried in order, the first that
 // matches is used. The recursion runs in the compiler: the program outputs
 // a constant (Albert Gräf, Faust term rewriting, 2009).
@@ -379,7 +379,7 @@ present pattern matching in Faust.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/case.dsp">examples/11/case.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/case-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/case-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/case-svg/process.svg" alt="block diagram of examples/11/case.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // case is the same thing as an expression: a function defined by rules.
 // fact above is shorthand for this.
 fact = case {
@@ -402,7 +402,7 @@ reached (<a href="../examples/11/rule_order.dsp"><code>rule_order.dsp</code></a>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/rule_order.dsp">examples/11/rule_order.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/rule_order-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/rule_order-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/rule_order-svg/process.svg" alt="block diagram of examples/11/rule_order.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The rules are tried in the order they are written, and the first that
 // matches is used: a general rule placed first hides the special ones.
 // Both compilers give 1 for first_wins(0).
@@ -442,7 +442,7 @@ rev(x) = x;
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/lists.dsp">examples/11/lists.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/lists-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/lists-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/lists-svg/process.svg" alt="block diagram of examples/11/lists.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // A parallel composition is a list: (a, b, c) is a, (b, c). A pattern
 // (x, xs) takes the first element and the rest. Gräf's serial turns a list
 // of blocks into their sequence; count and rev are two more examples.
@@ -479,7 +479,7 @@ process = fsum(3, h);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/fold.dsp">examples/11/fold.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/fold-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/fold-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/fold-svg/process.svg" alt="block diagram of examples/11/fold.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // A fold written with patterns (Gräf, 2009): combine x(0), ..., x(n-1)
 // with f. fsum(3, h) is h(0) + h(1) + h(2), the same as sum(i, 3, h(i)).
 import("stdfaust.lib");
@@ -513,7 +513,7 @@ os.square(rfreq) with {
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/network_original.dsp">examples/11/network_original.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/network_original-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/network_original-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/network_original-svg/process.svg" alt="block diagram of examples/11/network_original.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The oscillator network of the idioms document, as written there: each node
 // computes four oscillators and keeps one with ba.selector.
 import("stdfaust.lib");
@@ -587,7 +587,7 @@ process = node_1(0), node_1(0);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/network_patterns.dsp">examples/11/network_patterns.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/network_patterns-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/network_patterns-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/network_patterns-svg/process.svg" alt="block diagram of examples/11/network_patterns.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The same network rewritten with pattern matching: wave(w, f) and
 // filter(w, f, q) are chosen by the compiler, and node(k, ...) is one
 // definition for the five nodes. It reproduces the original exactly (the
@@ -723,7 +723,7 @@ every node.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/solutions/ex1_supersaw.dsp">examples/11/solutions/ex1_supersaw.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/solutions/ex1_supersaw-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/solutions/ex1_supersaw-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/solutions/ex1_supersaw-svg/process.svg" alt="block diagram of examples/11/solutions/ex1_supersaw.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 1: N sawtooth oscillators spread around a frequency, summed and
 // normalised. N is a compile-time constant; the detune is a slider.
 import("stdfaust.lib");
@@ -741,7 +741,7 @@ process = supersaw(N, freq, detune);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/solutions/ex2_cascade.dsp">examples/11/solutions/ex2_cascade.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/solutions/ex2_cascade-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/solutions/ex2_cascade-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/solutions/ex2_cascade-svg/process.svg" alt="block diagram of examples/11/solutions/ex2_cascade.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 2: repeat a block n times in sequence, written with patterns.
 // It is seq(i, n, f) without the index.
 import("stdfaust.lib");
@@ -756,7 +756,7 @@ process = _ <: cascade(4, fi.pole(0.5)) - seq(i, 4, fi.pole(0.5));
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/11/solutions/ex3_max_of.dsp">examples/11/solutions/ex3_max_of.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/11/solutions/ex3_max_of-svg/process.svg"><a class="faust-diagram-link" href="../examples/11/solutions/ex3_max_of-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/solutions/ex3_max_of-svg/process.svg" alt="block diagram of examples/11/solutions/ex3_max_of.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 3: the maximum of a list of signals, whatever its length.
 max_of((x, xs)) = max(x, max_of(xs));
 max_of(x) = x;
@@ -780,7 +780,7 @@ process = max_of((1, 5, 3, 2)), max_of((_, _, _));
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.9.0/dist/faust-web-component.js"></script>
         <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 

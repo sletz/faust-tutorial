@@ -276,7 +276,9 @@ mkdocs==1.5.3</code>, the version faustdoc uses). As in faustdoc, every program
 of a chapter appears with its block diagram, drawn by the C++ compiler
 (a click on a box shows its own diagram, in the page), and
 an editor (<a href="https://github.com/grame-cncm/faust-web-component">faust-web-component</a>)
-that compiles it and plays it in the page, with its controls. <code>make serve</code>
+that compiles it and plays it in the page, with its controls; a program with
+inputs is fed an impulse, and the editor's input menu offers other test signals
+(noise, sine, sweep...), the microphone and an audio file. <code>make serve</code>
 serves it at http://127.0.0.1:8000, and <code>make publish</code> pushes it to the
 <code>gh-pages</code> branch, published at https://sletz.github.io/faust-tutorial/. <code>scripts/build_docs.py</code> says where each
 program goes and which ones the browser cannot run (the faust-rs
@@ -295,7 +297,7 @@ extensions, and the programs that import the tutorial's own library).</p></div>
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="js/base.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.9.0/dist/faust-web-component.js"></script>
         <script src="js/faust-diagram.js"></script>
         <script src="search/main.js"></script>
 
@@ -365,5 +367,5 @@ extensions, and the programs that import the tutorial's own library).</p></div>
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2026-09-24 09:58:44.152845+00:00
+Build Date UTC : 2026-09-24 11:30:56.151341+00:00
 -->

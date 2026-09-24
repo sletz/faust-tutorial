@@ -239,7 +239,7 @@ process = tuning.note(69), tuning.note(81), ma.PI;
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/13/namespace.dsp">examples/13/namespace.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/13/namespace-svg/process.svg"><a class="faust-diagram-link" href="../examples/13/namespace-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/13/namespace-svg/process.svg" alt="block diagram of examples/13/namespace.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // An environment groups definitions under a name. library("file.lib") is
 // the environment of a file; stdfaust.lib only binds each library to its
 // two-letter prefix this way.
@@ -289,7 +289,7 @@ lowpass(f, q) = fi.tf2(c.b0, c.b1, c.b2, c.a1, c.a2) with { c = rbj_lowpass(f, q
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/13/record.dsp">examples/13/record.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/13/record-svg/process.svg"><a class="faust-diagram-link" href="../examples/13/record-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/13/record-svg/process.svg" alt="block diagram of examples/13/record.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // An environment computed by a function is a record: the coefficients of a
 // second-order lowpass (Robert Bristow-Johnson's cookbook), computed once
 // and read by name.
@@ -338,7 +338,7 @@ state-variable filter of filters.lib (<a href="../examples/13/svf.dsp"><code>svf
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/13/svf.dsp">examples/13/svf.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/13/svf-svg/process.svg"><a class="faust-diagram-link" href="../examples/13/svf-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/13/svf-svg/process.svg" alt="block diagram of examples/13/svf.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The state-variable filter of filters.lib, quoted in the idioms document:
 // one environment, fi.svf, holds a generic svf(T, F, Q, G) and nine
 // one-line filters that call it with a type T.
@@ -370,7 +370,7 @@ process = synth.tone, synth[freq = 880;].tone;
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/13/substitution.dsp">examples/13/substitution.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/13/substitution-svg/process.svg"><a class="faust-diagram-link" href="../examples/13/substitution-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/13/substitution-svg/process.svg" alt="block diagram of examples/13/substitution.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Explicit substitution: env[name = value;] is the environment with one
 // definition replaced; everything that used it is recomputed.
 import("stdfaust.lib");
@@ -398,7 +398,7 @@ environment.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/13/library_switches.dsp">examples/13/library_switches.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/13/library_switches-svg/process.svg"><a class="faust-diagram-link" href="../examples/13/library_switches-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/13/library_switches-svg/process.svg" alt="block diagram of examples/13/library_switches.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Substitution on a library: db[DEBUG = 0;] is debug.lib with its DEBUG
 // constant set to 0, which compiles every probe away; os[SAFE = 1;] selects
 // the safer phase increment of the oscillators.
@@ -431,7 +431,7 @@ process = play(low), play(high);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/13/argument.dsp">examples/13/argument.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/13/argument-svg/process.svg"><a class="faust-diagram-link" href="../examples/13/argument-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/13/argument-svg/process.svg" alt="block diagram of examples/13/argument.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // An environment passed as an argument: a preset. play reads the members
 // of whatever environment it receives.
 import("stdfaust.lib");
@@ -489,7 +489,7 @@ local name:</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/13/solutions/ex1_presets.dsp">examples/13/solutions/ex1_presets.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/13/solutions/ex1_presets-svg/process.svg"><a class="faust-diagram-link" href="../examples/13/solutions/ex1_presets-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/13/solutions/ex1_presets-svg/process.svg" alt="block diagram of examples/13/solutions/ex1_presets.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 1: presets by substitution. One synth environment, two presets
 // that each replace some of its definitions.
 import("stdfaust.lib");
@@ -510,7 +510,7 @@ process = dark.voice, bright.voice, dark.freq, bright.freq;
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/13/solutions/ex2_filter_object.dsp">examples/13/solutions/ex2_filter_object.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/13/solutions/ex2_filter_object-svg/process.svg"><a class="faust-diagram-link" href="../examples/13/solutions/ex2_filter_object-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/13/solutions/ex2_filter_object-svg/process.svg" alt="block diagram of examples/13/solutions/ex2_filter_object.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 2: an environment with "methods": the cookbook coefficients and
 // the filters built from them, read as rbj(f, q).lpf and rbj(f, q).hpf.
 import("stdfaust.lib");
@@ -536,7 +536,7 @@ process = _ <: rbj(1000, 0.707).lpf, rbj(1000, 0.707).hpf;
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/13/solutions/ex3_switch.dsp">examples/13/solutions/ex3_switch.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/13/solutions/ex3_switch-svg/process.svg"><a class="faust-diagram-link" href="../examples/13/solutions/ex3_switch-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/13/solutions/ex3_switch-svg/process.svg" alt="block diagram of examples/13/solutions/ex3_switch.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 3: a library-wide switch, like debug.lib's DEBUG. The meters of
 // this environment are shown when SHOW is 1 and compiled away when it is 0,
 // the choice being made by pattern matching on the constant.
@@ -568,7 +568,7 @@ process = _ <: meters.level, meters[SHOW = 0;].level;
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.9.0/dist/faust-web-component.js"></script>
         <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 

@@ -309,7 +309,7 @@ in the faust-rs repository:</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/appendix_a/frequency_response.dsp">examples/appendix_a/frequency_response.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/appendix_a/frequency_response-svg/process.svg"><a class="faust-diagram-link" href="../examples/appendix_a/frequency_response-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/appendix_a/frequency_response-svg/process.svg" alt="block diagram of examples/appendix_a/frequency_response.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // A filter's frequency response, measured by faustprobe from its impulse
 // response: a second-order Butterworth lowpass is 3 dB down at its cutoff.
 import("stdfaust.lib");
@@ -321,7 +321,7 @@ process = fi.lowpass(2, 1000);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/appendix_a/sweep.dsp">examples/appendix_a/sweep.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/appendix_a/sweep-svg/process.svg"><a class="faust-diagram-link" href="../examples/appendix_a/sweep-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/appendix_a/sweep-svg/process.svg" alt="block diagram of examples/appendix_a/sweep.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // A sweep renders a program once per value of a control and reduces each
 // render to one number: here the RMS output of a lowpass fed with a 1 kHz
 // sine, for three cutoffs.
@@ -341,7 +341,7 @@ process = fi.lowpass(2, cutoff);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/appendix_a/consistency.dsp">examples/appendix_a/consistency.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/appendix_a/consistency-svg/process.svg"><a class="faust-diagram-link" href="../examples/appendix_a/consistency-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/appendix_a/consistency-svg/process.svg" alt="block diagram of examples/appendix_a/consistency.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // --check all verifies properties any audio program should have: the same
 // samples whatever the block size, the same samples again after a reset,
 // and the same code from two compilations.
@@ -354,7 +354,7 @@ process = fi.resonlp(800, 4, 0.5);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/appendix_a/unstable.dsp">examples/appendix_a/unstable.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/appendix_a/unstable-svg/process.svg"><a class="faust-diagram-link" href="../examples/appendix_a/unstable-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/appendix_a/unstable-svg/process.svg" alt="block diagram of examples/appendix_a/unstable.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // A feedback gain above 1 makes a recursion grow without bound. With
 // --fail-above, faustprobe stops at the first sample above a level no sane
 // signal reaches, long before the overflow, and says where it started.
@@ -426,7 +426,7 @@ are how this tutorial knows that its code does what its text says.</p></div>
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.9.0/dist/faust-web-component.js"></script>
         <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 

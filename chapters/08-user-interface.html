@@ -253,7 +253,7 @@ process = os.osc(tone) * level * max(gate, on) / voices : hbargraph(&quot;out&qu
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/widgets.dsp">examples/08/widgets.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/widgets-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/widgets-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/widgets-svg/process.svg" alt="block diagram of examples/08/widgets.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The widgets: inputs the user controls, and bargraphs the program shows.
 import("stdfaust.lib");
 
@@ -293,7 +293,7 @@ process = vgroup(&quot;synth&quot;, synth * master);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/groups.dsp">examples/08/groups.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/groups-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/groups-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/groups-svg/process.svg" alt="block diagram of examples/08/groups.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Groups arrange widgets and build their paths. A label can also name its
 // groups itself ("h:filter/freq"), and "../" moves a widget up one group.
 import("stdfaust.lib");
@@ -342,7 +342,7 @@ pan  = hslider(&quot;[3] pan [osc:/1/fader1 0 1]&quot;, 0.5, 0, 1, 0.01);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/metadata.dsp">examples/08/metadata.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/metadata-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/metadata-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/metadata-svg/process.svg" alt="block diagram of examples/08/metadata.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Metadata in square brackets, inside a label, tell the interface how to
 // show a widget and how to map it. They are not part of the path.
 import("stdfaust.lib");
@@ -419,7 +419,7 @@ architecture flips it at every clock message.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/same_label.dsp">examples/08/same_label.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/same_label-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/same_label-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/same_label-svg/process.svg" alt="block diagram of examples/08/same_label.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Two widgets with the same label in the same group are one widget: a
 // definition is a name for an expression, not a place in memory (lac06).
 foo = hslider("duration", 128, 2, 512, 1);
@@ -452,7 +452,7 @@ vumeter = _ &lt;: attach(_, envelope : vbargraph(&quot;meter&quot;, 0, 1));
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/vumeter.dsp">examples/08/vumeter.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/vumeter-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/vumeter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/vumeter-svg/process.svg" alt="block diagram of examples/08/vumeter.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // A level meter from the Faust presentation at Den Haag (2006): a peak
 // envelope that falls linearly by 1 per second, shown by a bargraph kept
 // alive by attach. attach(x, y) outputs x and computes y for its side
@@ -492,7 +492,7 @@ process  = hgroup(&quot;mixer&quot;, par(i, 8, voice(i)) :&gt; stereo);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/mixer.dsp">examples/08/mixer.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/mixer-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/mixer-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/mixer-svg/process.svg" alt="block diagram of examples/08/mixer.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The eight-voice mixer of Orlarey, Fober and Letz (SMC 2009), with today's
 // library names. Each voice: mute, volume, meter, pan, in its own group,
 // numbered by "%v". The two "vol" of the stereo output have the same label
@@ -550,7 +550,7 @@ with {
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/demo_pattern.dsp">examples/08/demo_pattern.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/demo_pattern-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/demo_pattern-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/demo_pattern-svg/process.svg" alt="block diagram of examples/08/demo_pattern.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The pattern of demos.lib: a library function, and around it an interface
 // defined in a with block, with a group function for the path and smoothing
 // on every control.
@@ -583,7 +583,7 @@ with {
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/bypass.dsp">examples/08/bypass.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/bypass-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/bypass-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/bypass-svg/process.svg" alt="block diagram of examples/08/bypass.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Bypass with a checkbox: ba.bypass1(bypass, effect) lets the input through
 // when bypass is 1, and feeds silence to the effect so that it costs less.
 import("stdfaust.lib");
@@ -626,7 +626,7 @@ Each takes an identifier and a "hidden" flag, for example
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/solutions/ex1_panner.dsp">examples/08/solutions/ex1_panner.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/solutions/ex1_panner-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/solutions/ex1_panner-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/solutions/ex1_panner-svg/process.svg" alt="block diagram of examples/08/solutions/ex1_panner.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 1: a constant-intensity panner (Tiziano Bole, "Faust Tutorial
 // 2", 2008). Intensity goes as the square of the amplitude, so the gains
 // are sqrt(1 - c) and sqrt(c): their squares always sum to 1.
@@ -644,7 +644,7 @@ process = _ <: *(sqrt(1 - c)), *(sqrt(c));
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/solutions/ex2_db_meter.dsp">examples/08/solutions/ex2_db_meter.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/solutions/ex2_db_meter-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/solutions/ex2_db_meter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/solutions/ex2_db_meter-svg/process.svg" alt="block diagram of examples/08/solutions/ex2_db_meter.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 2: a peak meter in decibels next to the signal, from -60 to 0 dB.
 import("stdfaust.lib");
 
@@ -660,7 +660,7 @@ process = *(0.5) : db_meter;
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/08/solutions/ex3_tabs.dsp">examples/08/solutions/ex3_tabs.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/08/solutions/ex3_tabs-svg/process.svg"><a class="faust-diagram-link" href="../examples/08/solutions/ex3_tabs-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/solutions/ex3_tabs-svg/process.svg" alt="block diagram of examples/08/solutions/ex3_tabs.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 3: a four-channel gain stage, one tab per channel.
 channel(i) = vgroup("channel %i", *(hslider("gain", 1, 0, 2, 0.01)));
 
@@ -681,7 +681,7 @@ process = tgroup("channels", par(i, 4, channel(i)));
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.9.0/dist/faust-web-component.js"></script>
         <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 

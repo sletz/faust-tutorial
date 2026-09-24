@@ -247,7 +247,7 @@ scale_select(i) = -1, 0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17 : ba.selectn(12, i);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/10/major_scale.dsp">examples/10/major_scale.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/10/major_scale-svg/process.svg"><a class="faust-diagram-link" href="../examples/10/major_scale-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/major_scale-svg/process.svg" alt="block diagram of examples/10/major_scale.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The major scale of the idioms document, two ways: a constant table read
 // with rdtable, and ba.selectn over twelve constants. Same values.
 import("stdfaust.lib");
@@ -294,7 +294,7 @@ process = choice_table(algo, waveform{4, 3, 2, 1, 0}),
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/10/choice_mapper.dsp">examples/10/choice_mapper.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/10/choice_mapper-svg/process.svg"><a class="faust-diagram-link" href="../examples/10/choice_mapper-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/choice_mapper-svg/process.svg" alt="block diagram of examples/10/choice_mapper.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The "choice mapper" of the idioms document: map a menu entry to a value.
 // With a widget as index, both forms run once per block, before the sample
 // loop, so the cost difference disappears.
@@ -338,7 +338,7 @@ osc_table(f) = rdtable(N, sinwaveform(N), int(os.lf_sawpos(f) * N));
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/10/generated_table.dsp">examples/10/generated_table.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/10/generated_table-svg/process.svg"><a class="faust-diagram-link" href="../examples/10/generated_table-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/generated_table-svg/process.svg" alt="block diagram of examples/10/generated_table.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // A table filled by a generator: the signal sinwaveform(N) is computed for
 // the first N samples, once, when the program is initialised; then rdtable
 // reads it. This is how os.osc works.
@@ -377,7 +377,7 @@ linear  = table(k) + d * (table(k + 1) - table(k));
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/10/interpolation.dsp">examples/10/interpolation.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/10/interpolation-svg/process.svg"><a class="faust-diagram-link" href="../examples/10/interpolation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/interpolation-svg/process.svg" alt="block diagram of examples/10/interpolation.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Reading a small table at the nearest entry is coarse; interpolating
 // between two neighbours is much closer. Error of a 64-entry sine table
 // against sin(), with and without linear interpolation.
@@ -442,7 +442,7 @@ delay(n, d, x) = rwtable(n, 0.0, index(n), x, (index(n) - int(d)) &amp; (n - 1))
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/10/rwtable_delay.dsp">examples/10/rwtable_delay.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/10/rwtable_delay-svg/process.svg"><a class="faust-diagram-link" href="../examples/10/rwtable_delay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/rwtable_delay-svg/process.svg" alt="block diagram of examples/10/rwtable_delay.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // A delay line written by hand with a read-write table (Den Haag, 2006):
 // the write index goes round a table of n = 2^k cells, and the read index
 // is d cells behind. & (n - 1) wraps the index and stays positive.
@@ -505,7 +505,7 @@ over what is written where (exercise 2).</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/10/solutions/ex1_drum_pattern.dsp">examples/10/solutions/ex1_drum_pattern.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/10/solutions/ex1_drum_pattern-svg/process.svg"><a class="faust-diagram-link" href="../examples/10/solutions/ex1_drum_pattern-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/solutions/ex1_drum_pattern-svg/process.svg" alt="block diagram of examples/10/solutions/ex1_drum_pattern.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 1: a sixteen-step rhythm stored in a table of 0s and 1s, played
 // in sixteenth notes: a trigger comes out on the steps marked 1.
 import("stdfaust.lib");
@@ -527,7 +527,7 @@ process = hit;
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/10/solutions/ex2_recorder.dsp">examples/10/solutions/ex2_recorder.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/10/solutions/ex2_recorder-svg/process.svg"><a class="faust-diagram-link" href="../examples/10/solutions/ex2_recorder-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/solutions/ex2_recorder-svg/process.svg" alt="block diagram of examples/10/solutions/ex2_recorder.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 2: record n samples while a button is held, and play them in a
 // loop. When not recording, the writes go to an extra "dead" cell, as the
 // 2003 tutorial advises for a table that is not always written.
@@ -550,7 +550,7 @@ process = recorder;
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/10/solutions/ex3_tabulate.dsp">examples/10/solutions/ex3_tabulate.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/10/solutions/ex3_tabulate-svg/process.svg"><a class="faust-diagram-link" href="../examples/10/solutions/ex3_tabulate-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/solutions/ex3_tabulate-svg/process.svg" alt="block diagram of examples/10/solutions/ex3_tabulate.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 3: tabulate an expensive function. tanh over [-4, 4] in a table
 // of 256 values, read with linear interpolation, against the exact tanh.
 import("stdfaust.lib");
@@ -576,7 +576,7 @@ process = os.osc(100) * 4 <: fast_tanh - ma.tanh;
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.9.0/dist/faust-web-component.js"></script>
         <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 

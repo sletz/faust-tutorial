@@ -255,7 +255,7 @@ with {
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/05/fibonacci.dsp">examples/05/fibonacci.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/05/fibonacci-svg/process.svg"><a class="faust-diagram-link" href="../examples/05/fibonacci-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/fibonacci-svg/process.svg" alt="block diagram of examples/05/fibonacci.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // State with two variables: tick receives the current state (a, b) and
 // returns the next one. Two feedback wires, one per variable; the output
 // keeps b and cuts a.
@@ -290,7 +290,7 @@ with {
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/05/line.dsp">examples/05/line.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/05/line-svg/process.svg"><a class="faust-diagram-link" href="../examples/05/line-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/line-svg/process.svg" alt="block diagram of examples/05/line.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Max/MSP's line~ from the idioms document: go from the current value to a
 // new target in `time` milliseconds. Two state variables: t, the number of
 // samples left in the ramp, and c, the current value.
@@ -350,7 +350,7 @@ frame  9    1.0000
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/05/line_overshoot.dsp">examples/05/line_overshoot.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/05/line_overshoot-svg/process.svg"><a class="faust-diagram-link" href="../examples/05/line_overshoot-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/line_overshoot-svg/process.svg" alt="block diagram of examples/05/line_overshoot.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The same line~ when the ramp is not a whole number of samples:
 // 0.1 ms at 48 kHz is 4.8 samples. The last step divides by 0.8 and
 // overshoots. ba.line and maxmsp.lib's line did the same until
@@ -400,7 +400,7 @@ with {
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/05/quadosc.dsp">examples/05/quadosc.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/05/quadosc-svg/process.svg"><a class="faust-diagram-link" href="../examples/05/quadosc-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/quadosc-svg/process.svg" alt="block diagram of examples/05/quadosc.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // The quadrature oscillator of the idioms document (Dario Sanfilippo and
 // Oleg Nesterov): two state variables, both output, a cosine and a sine.
 // The state starts at 0, so u is stored minus 1: "mem + 1" adds it back,
@@ -450,7 +450,7 @@ fibonacci = a letrec {
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/05/letrec.dsp">examples/05/letrec.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/05/letrec-svg/process.svg"><a class="faust-diagram-link" href="../examples/05/letrec-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/letrec-svg/process.svg" alt="block diagram of examples/05/letrec.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // letrec: the same states written as equations. Inside the equations a
 // variable is its value at the previous sample; outside, the variable is
 // its new value. 'c = c + 1 is the counter 1 : + ~ _.
@@ -531,7 +531,7 @@ wire holds, and the output cuts the timer.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/05/solutions/ex1_line_fixed.dsp">examples/05/solutions/ex1_line_fixed.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/05/solutions/ex1_line_fixed-svg/process.svg"><a class="faust-diagram-link" href="../examples/05/solutions/ex1_line_fixed-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/solutions/ex1_line_fixed-svg/process.svg" alt="block diagram of examples/05/solutions/ex1_line_fixed.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 1: a line~ that never overshoots. The ramp length is rounded to
 // a whole number of samples, at least one.
 import("stdfaust.lib");
@@ -557,7 +557,7 @@ process = line(target, 0.1);
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/05/solutions/ex2_minmax.dsp">examples/05/solutions/ex2_minmax.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/05/solutions/ex2_minmax-svg/process.svg"><a class="faust-diagram-link" href="../examples/05/solutions/ex2_minmax-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/solutions/ex2_minmax-svg/process.svg" alt="block diagram of examples/05/solutions/ex2_minmax.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 2: the minimum and the maximum of a signal since the start.
 // The state starts at 0, which would be a wrong minimum for a positive
 // signal: the first sample initialises both variables.
@@ -577,7 +577,7 @@ process = minmax;
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/05/solutions/ex3_circle.dsp">examples/05/solutions/ex3_circle.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/05/solutions/ex3_circle-svg/process.svg"><a class="faust-diagram-link" href="../examples/05/solutions/ex3_circle-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/solutions/ex3_circle-svg/process.svg" alt="block diagram of examples/05/solutions/ex3_circle.dsp"></a></div>
-<faust-editor><!--
+<faust-editor input="impulse"><!--
 // Exercise 3: the "magic circle" oscillator. Two state variables x and y
 // rotate by a small angle each sample; an impulse starts the rotation.
 import("stdfaust.lib");
@@ -611,7 +611,7 @@ process = circle(440);
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.9.0/dist/faust-web-component.js"></script>
         <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
