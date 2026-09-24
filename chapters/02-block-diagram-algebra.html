@@ -300,7 +300,7 @@ match, and that is where most beginner errors come from.</p>
 <p>(<a href="../examples/02/sequence.dsp"><code>sequence.dsp</code></a>)</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/sequence.dsp">examples/02/sequence.dsp</a></p>
-<a href="../examples/02/sequence-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/sequence-svg/process.svg" alt="block diagram of examples/02/sequence.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/sequence-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/sequence-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/sequence-svg/process.svg" alt="block diagram of examples/02/sequence.dsp"></a></div>
 <faust-editor><!--
 // Sequential composition A : B: the outputs of A feed the inputs of B.
 process = *(2) : +(1);
@@ -315,7 +315,7 @@ process = *(2) : +(1);
 <p>(<a href="../examples/02/parallel.dsp"><code>parallel.dsp</code></a>)</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/parallel.dsp">examples/02/parallel.dsp</a></p>
-<a href="../examples/02/parallel-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/parallel-svg/process.svg" alt="block diagram of examples/02/parallel.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/parallel-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/parallel-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/parallel-svg/process.svg" alt="block diagram of examples/02/parallel.dsp"></a></div>
 <faust-editor><!--
 // Parallel composition A, B: the two blocks side by side.
 // Two inputs, two outputs.
@@ -329,7 +329,7 @@ The two blocks ignore each other.</p>
 <p>(<a href="../examples/02/split.dsp"><code>split.dsp</code></a>)</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/split.dsp">examples/02/split.dsp</a></p>
-<a href="../examples/02/split-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/split-svg/process.svg" alt="block diagram of examples/02/split.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/split-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/split-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/split-svg/process.svg" alt="block diagram of examples/02/split.dsp"></a></div>
 <faust-editor><!--
 // Split A <: B: each output of A is copied to the inputs of B.
 // Here one input becomes two identical outputs: mono to stereo.
@@ -342,7 +342,7 @@ outputs, they are distributed <strong>cyclically</strong> over the inputs of B
 (<a href="../examples/02/split_cyclic.dsp"><code>split_cyclic.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/split_cyclic.dsp">examples/02/split_cyclic.dsp</a></p>
-<a href="../examples/02/split_cyclic-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/split_cyclic-svg/process.svg" alt="block diagram of examples/02/split_cyclic.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/split_cyclic-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/split_cyclic-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/split_cyclic-svg/process.svg" alt="block diagram of examples/02/split_cyclic.dsp"></a></div>
 <faust-editor><!--
 // With two outputs into four inputs, the outputs are distributed
 // cyclically: a, b, a, b.
@@ -358,7 +358,7 @@ input therefore comes out on outputs 0 and 2.</p>
 <p>(<a href="../examples/02/merge.dsp"><code>merge.dsp</code></a>)</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/merge.dsp">examples/02/merge.dsp</a></p>
-<a href="../examples/02/merge-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/merge-svg/process.svg" alt="block diagram of examples/02/merge.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/merge-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/merge-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/merge-svg/process.svg" alt="block diagram of examples/02/merge.dsp"></a></div>
 <faust-editor><!--
 // Merge A :> B: the outputs of A are summed into the inputs of B,
 // cyclically: output i goes to input i modulo the number of inputs.
@@ -375,7 +375,7 @@ a sum.</p>
 <p>(<a href="../examples/02/cut.dsp"><code>cut.dsp</code></a>)</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/cut.dsp">examples/02/cut.dsp</a></p>
-<a href="../examples/02/cut-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/cut-svg/process.svg" alt="block diagram of examples/02/cut.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/cut-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/cut-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/cut-svg/process.svg" alt="block diagram of examples/02/cut.dsp"></a></div>
 <faust-editor><!--
 // The wire _ lets a signal through, the cut ! removes it.
 // Keep the second input only.
@@ -391,7 +391,7 @@ produces more outputs than wanted; chapter 5 uses it systematically.</p>
 (<a href="../examples/02/priorities.dsp"><code>priorities.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/priorities.dsp">examples/02/priorities.dsp</a></p>
-<a href="../examples/02/priorities-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/priorities-svg/process.svg" alt="block diagram of examples/02/priorities.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/priorities-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/priorities-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/priorities-svg/process.svg" alt="block diagram of examples/02/priorities.dsp"></a></div>
 <faust-editor><!--
 // The comma binds tighter than the colon:
 // *(2), *(3) : +   reads   (*(2), *(3)) : +
@@ -438,7 +438,7 @@ not do what you think.</p>
 <p>(<a href="../examples/02/mixer.dsp"><code>mixer.dsp</code></a>)</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/mixer.dsp">examples/02/mixer.dsp</a></p>
-<a href="../examples/02/mixer-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/mixer-svg/process.svg" alt="block diagram of examples/02/mixer.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/mixer-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/mixer-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/mixer-svg/process.svg" alt="block diagram of examples/02/mixer.dsp"></a></div>
 <faust-editor><!--
 // A mixer of two stereo sources, each with its own gain.
 gainA = hslider("gain A", 0.5, 0, 1, 0.01);
@@ -486,7 +486,7 @@ a parameter.</p>
 </ol>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/solutions/ex1_swap.dsp">examples/02/solutions/ex1_swap.dsp</a></p>
-<a href="../examples/02/solutions/ex1_swap-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/solutions/ex1_swap-svg/process.svg" alt="block diagram of examples/02/solutions/ex1_swap.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/solutions/ex1_swap-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/solutions/ex1_swap-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/solutions/ex1_swap-svg/process.svg" alt="block diagram of examples/02/solutions/ex1_swap.dsp"></a></div>
 <faust-editor><!--
 // Exercise 1: swap the two channels of a stereo signal.
 // The two inputs are copied into four wires a, b, a, b; keep b and a.
@@ -496,7 +496,7 @@ process = _, _ <: !, _, _, !;
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/solutions/ex2_fan.dsp">examples/02/solutions/ex2_fan.dsp</a></p>
-<a href="../examples/02/solutions/ex2_fan-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/solutions/ex2_fan-svg/process.svg" alt="block diagram of examples/02/solutions/ex2_fan.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/solutions/ex2_fan-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/solutions/ex2_fan-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/solutions/ex2_fan-svg/process.svg" alt="block diagram of examples/02/solutions/ex2_fan.dsp"></a></div>
 <faust-editor><!--
 // Exercise 2: one input to four outputs, each half the previous one.
 process = _ <: *(1), *(0.5), *(0.25), *(0.125);
@@ -505,7 +505,7 @@ process = _ <: *(1), *(0.5), *(0.25), *(0.125);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/02/solutions/ex3_average3.dsp">examples/02/solutions/ex3_average3.dsp</a></p>
-<a href="../examples/02/solutions/ex3_average3-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/solutions/ex3_average3-svg/process.svg" alt="block diagram of examples/02/solutions/ex3_average3.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/02/solutions/ex3_average3-svg/process.svg"><a class="faust-diagram-link" href="../examples/02/solutions/ex3_average3-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/solutions/ex3_average3-svg/process.svg" alt="block diagram of examples/02/solutions/ex3_average3.dsp"></a></div>
 <faust-editor><!--
 // Exercise 3: the average of three inputs.
 process = _, _, _ :> /(3);
@@ -526,6 +526,7 @@ process = _, _, _ :> /(3);
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

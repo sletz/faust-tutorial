@@ -239,7 +239,7 @@ sampling rate, and keeps only its fractional part
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/phasor.dsp">examples/07/phasor.dsp</a></p>
-<a href="../examples/07/phasor-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/phasor-svg/process.svg" alt="block diagram of examples/07/phasor.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/phasor-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/phasor-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/phasor-svg/process.svg" alt="block diagram of examples/07/phasor.dsp"></a></div>
 <faust-editor><!--
 // The phasor: a phase that grows by f/SR per sample and wraps from 1 to 0.
 // It is the integrator of chapter 4 with the fractional part in the loop.
@@ -274,7 +274,7 @@ pulse(d) = p &lt; d;                     // 0/1 pulse, duty cycle d
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/waveforms.dsp">examples/07/waveforms.dsp</a></p>
-<a href="../examples/07/waveforms-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/waveforms-svg/process.svg" alt="block diagram of examples/07/waveforms.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/waveforms-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/waveforms-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/waveforms-svg/process.svg" alt="block diagram of examples/07/waveforms.dsp"></a></div>
 <faust-editor><!--
 // Every basic waveform is a function of the phase.
 import("stdfaust.lib");
@@ -302,7 +302,7 @@ wrap (<a href="../examples/07/phase_offset.dsp"><code>phase_offset.dsp</code></a
 phase is shifted by a quarter period is a cosine, to within 1e-12.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/phase_offset.dsp">examples/07/phase_offset.dsp</a></p>
-<a href="../examples/07/phase_offset-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/phase_offset-svg/process.svg" alt="block diagram of examples/07/phase_offset.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/phase_offset-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/phase_offset-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/phase_offset-svg/process.svg" alt="block diagram of examples/07/phase_offset.dsp"></a></div>
 <faust-editor><!--
 // A phase offset: shift the phase, then wrap it again. A sine shifted by a
 // quarter of a period is a cosine.
@@ -329,7 +329,7 @@ beat = os.lf_sawpos(bpm / 60) : wraps;
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/metronome.dsp">examples/07/metronome.dsp</a></p>
-<a href="../examples/07/metronome-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/metronome-svg/process.svg" alt="block diagram of examples/07/metronome.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/metronome-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/metronome-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/metronome-svg/process.svg" alt="block diagram of examples/07/metronome.dsp"></a></div>
 <faust-editor><!--
 // A metronome: one click per wrap of a phasor. The phase drops when it
 // wraps, so p < p' is 1 on the first sample of each period. ba.beat counts
@@ -373,7 +373,7 @@ voice = os.osc(ba.midikey2hz(note)) * en.ar(0.002, 0.2, beat);
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/sequencer.dsp">examples/07/sequencer.dsp</a></p>
-<a href="../examples/07/sequencer-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/sequencer-svg/process.svg" alt="block diagram of examples/07/sequencer.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/sequencer-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/sequencer-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/sequencer-svg/process.svg" alt="block diagram of examples/07/sequencer.dsp"></a></div>
 <faust-editor><!--
 // An eight-step sequencer: count the beats, take the count modulo 8, and
 // read the note of the step in a table (tables are chapter 10's subject).
@@ -417,7 +417,7 @@ softer, pass a 0/1 gate and multiply by the velocity
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/adsr_velocity.dsp">examples/07/adsr_velocity.dsp</a></p>
-<a href="../examples/07/adsr_velocity-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/adsr_velocity-svg/process.svg" alt="block diagram of examples/07/adsr_velocity.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/adsr_velocity-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/adsr_velocity-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/adsr_velocity-svg/process.svg" alt="block diagram of examples/07/adsr_velocity.dsp"></a></div>
 <faust-editor><!--
 // The value of en.adsr's gate does not scale it: a velocity of 0.5 used as
 // the gate gives the whole envelope, up to 1. Use a 0/1 gate, and multiply
@@ -449,7 +449,7 @@ the smoothed value is 0.632 after 1000 samples at 44.1 kHz. Every
 through <code>si.smoo</code>.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/smoothing.dsp">examples/07/smoothing.dsp</a></p>
-<a href="../examples/07/smoothing-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/smoothing-svg/process.svg" alt="block diagram of examples/07/smoothing.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/smoothing-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/smoothing-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/smoothing-svg/process.svg" alt="block diagram of examples/07/smoothing.dsp"></a></div>
 <faust-editor><!--
 // Smoothing a control: a slider that jumps makes a click. si.smoo is the
 // one-pole lowpass of chapter 4 with a time constant of about 23 ms
@@ -479,7 +479,7 @@ process = os.phasor(1, 1/L) &lt; ratio : en.adsr(A, D, S, R);
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/looping_adsr.dsp">examples/07/looping_adsr.dsp</a></p>
-<a href="../examples/07/looping_adsr-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/looping_adsr-svg/process.svg" alt="block diagram of examples/07/looping_adsr.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/looping_adsr-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/looping_adsr-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/looping_adsr-svg/process.svg" alt="block diagram of examples/07/looping_adsr.dsp"></a></div>
 <faust-editor><!--
 // The looping ADSR of the idioms document (Dario Sanfilippo, answering a
 // user on the Faust mailing list): a phasor whose period is the length of
@@ -580,7 +580,7 @@ signal. <code>no.multinoise(N)</code> gives N different ones.</p>
 </ol>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/solutions/ex1_triangle_lfo.dsp">examples/07/solutions/ex1_triangle_lfo.dsp</a></p>
-<a href="../examples/07/solutions/ex1_triangle_lfo-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/solutions/ex1_triangle_lfo-svg/process.svg" alt="block diagram of examples/07/solutions/ex1_triangle_lfo.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/solutions/ex1_triangle_lfo-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/solutions/ex1_triangle_lfo-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/solutions/ex1_triangle_lfo-svg/process.svg" alt="block diagram of examples/07/solutions/ex1_triangle_lfo.dsp"></a></div>
 <faust-editor><!--
 // Exercise 1: a triangle LFO in [-1, 1] with a frequency and a phase offset.
 import("stdfaust.lib");
@@ -598,7 +598,7 @@ process = triangle_lfo(freq, phase);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/solutions/ex2_accent.dsp">examples/07/solutions/ex2_accent.dsp</a></p>
-<a href="../examples/07/solutions/ex2_accent-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/solutions/ex2_accent-svg/process.svg" alt="block diagram of examples/07/solutions/ex2_accent.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/solutions/ex2_accent-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/solutions/ex2_accent-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/solutions/ex2_accent-svg/process.svg" alt="block diagram of examples/07/solutions/ex2_accent.dsp"></a></div>
 <faust-editor><!--
 // Exercise 2: a metronome whose first beat of every four is louder.
 // The beat count modulo 4 tells where we are in the bar.
@@ -618,7 +618,7 @@ process = beat * accent;
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/07/solutions/ex3_decay.dsp">examples/07/solutions/ex3_decay.dsp</a></p>
-<a href="../examples/07/solutions/ex3_decay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/solutions/ex3_decay-svg/process.svg" alt="block diagram of examples/07/solutions/ex3_decay.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/07/solutions/ex3_decay-svg/process.svg"><a class="faust-diagram-link" href="../examples/07/solutions/ex3_decay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/solutions/ex3_decay-svg/process.svg" alt="block diagram of examples/07/solutions/ex3_decay.dsp"></a></div>
 <faust-editor><!--
 // Exercise 3: an exponential decay started by each beat: set to 1 on the
 // beat, multiply by the pole at every other sample. With a pole of 0.99 the
@@ -648,6 +648,7 @@ process = decay(0.99, ba.beat(120));
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

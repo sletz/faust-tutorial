@@ -243,7 +243,7 @@ svf_hp(f, q) = svf(f, q) : !, !, _;
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/14/generic_svf.dsp">examples/14/generic_svf.dsp</a></p>
-<a href="../examples/14/generic_svf-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/generic_svf-svg/process.svg" alt="block diagram of examples/14/generic_svf.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/14/generic_svf-svg/process.svg"><a class="faust-diagram-link" href="../examples/14/generic_svf-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/generic_svf-svg/process.svg" alt="block diagram of examples/14/generic_svf.dsp"></a></div>
 <faust-editor><!--
 // A generic state-variable filter (the topology-preserving form used by
 // filters.lib's fi.svf): one state update, three outputs, lowpass,
@@ -289,7 +289,7 @@ oberheimLPF(normFreq,Q) = oberheim(normFreq,Q):!,!,!,_;
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/14/cutting_outputs.dsp">examples/14/cutting_outputs.dsp</a></p>
-<a href="../examples/14/cutting_outputs-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/cutting_outputs-svg/process.svg" alt="block diagram of examples/14/cutting_outputs.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/14/cutting_outputs-svg/process.svg"><a class="faust-diagram-link" href="../examples/14/cutting_outputs-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/cutting_outputs-svg/process.svg" alt="block diagram of examples/14/cutting_outputs.dsp"></a></div>
 <faust-editor><!--
 // Eric Tarr's Oberheim filter in vaeffects.lib: ve.oberheim computes four
 // outputs (band-stop, band-pass, highpass, lowpass); ve.oberheimLPF is
@@ -337,7 +337,7 @@ initialisation; given a widget, at every block. The same filter, both ways
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/14/constant_parameter.dsp">examples/14/constant_parameter.dsp</a></p>
-<a href="../examples/14/constant_parameter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/constant_parameter-svg/process.svg" alt="block diagram of examples/14/constant_parameter.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/14/constant_parameter-svg/process.svg"><a class="faust-diagram-link" href="../examples/14/constant_parameter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/constant_parameter-svg/process.svg" alt="block diagram of examples/14/constant_parameter.dsp"></a></div>
 <faust-editor><!--
 // Fixing a parameter to a constant specialises the code: the coefficients
 // of fi.resonlp at 1000 Hz are computed once, at initialisation (fConst),
@@ -350,7 +350,7 @@ process = fi.resonlp(1000, 2, 1);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/14/slider_parameter.dsp">examples/14/slider_parameter.dsp</a></p>
-<a href="../examples/14/slider_parameter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/slider_parameter-svg/process.svg" alt="block diagram of examples/14/slider_parameter.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/14/slider_parameter-svg/process.svg"><a class="faust-diagram-link" href="../examples/14/slider_parameter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/slider_parameter-svg/process.svg" alt="block diagram of examples/14/slider_parameter.dsp"></a></div>
 <faust-editor><!--
 // The same filter with its frequency on a slider: the tan and the
 // coefficients move to the block rate.
@@ -430,7 +430,7 @@ functions. Chapter 15 generalises this into a way of writing libraries.</p>
 </ol>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/14/solutions/ex1_notch.dsp">examples/14/solutions/ex1_notch.dsp</a></p>
-<a href="../examples/14/solutions/ex1_notch-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/solutions/ex1_notch-svg/process.svg" alt="block diagram of examples/14/solutions/ex1_notch.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/14/solutions/ex1_notch-svg/process.svg"><a class="faust-diagram-link" href="../examples/14/solutions/ex1_notch-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/solutions/ex1_notch-svg/process.svg" alt="block diagram of examples/14/solutions/ex1_notch.dsp"></a></div>
 <faust-editor><!--
 // Exercise 1: a notch filter made from the generic state-variable filter by
 // combining two of its outputs: lowpass + highpass.
@@ -457,7 +457,7 @@ process = svf_notch(1000, 0.707);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/14/solutions/ex2_mode_switch.dsp">examples/14/solutions/ex2_mode_switch.dsp</a></p>
-<a href="../examples/14/solutions/ex2_mode_switch-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/solutions/ex2_mode_switch-svg/process.svg" alt="block diagram of examples/14/solutions/ex2_mode_switch.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/14/solutions/ex2_mode_switch-svg/process.svg"><a class="faust-diagram-link" href="../examples/14/solutions/ex2_mode_switch-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/solutions/ex2_mode_switch-svg/process.svg" alt="block diagram of examples/14/solutions/ex2_mode_switch.dsp"></a></div>
 <faust-editor><!--
 // Exercise 2: one multimode filter, its mode chosen at compile time by
 // substitution. pick(MODE) keeps one output by pattern matching.
@@ -481,7 +481,7 @@ process = _ <: multimode.filter(1000, 0.707), multimode[MODE = 2;].filter(1000, 
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/14/solutions/ex3_fixed_q.dsp">examples/14/solutions/ex3_fixed_q.dsp</a></p>
-<a href="../examples/14/solutions/ex3_fixed_q-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/solutions/ex3_fixed_q-svg/process.svg" alt="block diagram of examples/14/solutions/ex3_fixed_q.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/14/solutions/ex3_fixed_q-svg/process.svg"><a class="faust-diagram-link" href="../examples/14/solutions/ex3_fixed_q-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/solutions/ex3_fixed_q-svg/process.svg" alt="block diagram of examples/14/solutions/ex3_fixed_q.dsp"></a></div>
 <faust-editor><!--
 // Exercise 3: specialise a filter by partial application and constants: a
 // resonant lowpass with Q and gain fixed, and its frequency as the only
@@ -508,6 +508,7 @@ process = resonant(hslider("freq", 500, 50, 5000, 1) : si.smoo);
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

@@ -245,7 +245,7 @@ and measure.</p>
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/16/step1_comb.dsp">examples/16/step1_comb.dsp</a></p>
-<a href="../examples/16/step1_comb-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step1_comb-svg/process.svg" alt="block diagram of examples/16/step1_comb.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/16/step1_comb-svg/process.svg"><a class="faust-diagram-link" href="../examples/16/step1_comb-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step1_comb-svg/process.svg" alt="block diagram of examples/16/step1_comb.dsp"></a></div>
 <faust-editor><!--
 // Step 1: the feedback comb of chapter 4. Echoes every d samples, each g
 // times the previous one: a metallic, regular tail.
@@ -266,7 +266,7 @@ comb (<a href="../examples/16/step2_lbcf.dsp"><code>step2_lbcf.dsp</code></a>):<
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/16/step2_lbcf.dsp">examples/16/step2_lbcf.dsp</a></p>
-<a href="../examples/16/step2_lbcf-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step2_lbcf-svg/process.svg" alt="block diagram of examples/16/step2_lbcf.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/16/step2_lbcf-svg/process.svg"><a class="faust-diagram-link" href="../examples/16/step2_lbcf-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step2_lbcf-svg/process.svg" alt="block diagram of examples/16/step2_lbcf.dsp"></a></div>
 <faust-editor><!--
 // Step 2: the lowpass-feedback comb of Freeverb (Schroeder-Moorer). The
 // feedback goes through the one-pole lowpass of chapter 4, so each echo is
@@ -294,7 +294,7 @@ colouring the sound: their magnitude response is flat
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/16/step3_allpass.dsp">examples/16/step3_allpass.dsp</a></p>
-<a href="../examples/16/step3_allpass-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step3_allpass-svg/process.svg" alt="block diagram of examples/16/step3_allpass.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/16/step3_allpass-svg/process.svg"><a class="faust-diagram-link" href="../examples/16/step3_allpass-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step3_allpass-svg/process.svg" alt="block diagram of examples/16/step3_allpass.dsp"></a></div>
 <faust-editor><!--
 // Step 3: the Schroeder allpass of filters.lib: echoes like a comb, but
 // with a flat magnitude response: it thickens the echo density without
@@ -333,7 +333,7 @@ freeverb(fb1, fb2, damp, spread) =
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/16/step4_freeverb.dsp">examples/16/step4_freeverb.dsp</a></p>
-<a href="../examples/16/step4_freeverb-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step4_freeverb-svg/process.svg" alt="block diagram of examples/16/step4_freeverb.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/16/step4_freeverb-svg/process.svg"><a class="faust-diagram-link" href="../examples/16/step4_freeverb-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step4_freeverb-svg/process.svg" alt="block diagram of examples/16/step4_freeverb.dsp"></a></div>
 <faust-editor><!--
 // Step 4: Freeverb for one channel ("Jezar at Dreampoint"), as in
 // reverbs.lib: eight lowpass-feedback combs in parallel, then four
@@ -400,7 +400,7 @@ process = reverb.play;
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/16/step5_stereo.dsp">examples/16/step5_stereo.dsp</a></p>
-<a href="../examples/16/step5_stereo-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step5_stereo-svg/process.svg" alt="block diagram of examples/16/step5_stereo.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/16/step5_stereo-svg/process.svg"><a class="faust-diagram-link" href="../examples/16/step5_stereo-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step5_stereo-svg/process.svg" alt="block diagram of examples/16/step5_stereo.dsp"></a></div>
 <faust-editor><!--
 // Step 5: the playable reverb. Stereo by a spread of the tunings on the
 // right channel, a dry/wet mix around the reverb (chapter 12), an
@@ -478,7 +478,7 @@ process = _ &lt;: si.bus(N) : fdn :&gt; _, _;
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/16/step6_fdn.dsp">examples/16/step6_fdn.dsp</a></p>
-<a href="../examples/16/step6_fdn-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step6_fdn-svg/process.svg" alt="block diagram of examples/16/step6_fdn.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/16/step6_fdn-svg/process.svg"><a class="faust-diagram-link" href="../examples/16/step6_fdn-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step6_fdn-svg/process.svg" alt="block diagram of examples/16/step6_fdn.dsp"></a></div>
 <faust-editor><!--
 // Step 6: a second design, the feedback delay network (Jot and Chaigne,
 // 1991). Eight delay lines of prime lengths, mixed by a normalised Hadamard
@@ -563,7 +563,7 @@ ratio of 972, or 59.7 dB.</p>
 </ol>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/16/solutions/ex1_predelay.dsp">examples/16/solutions/ex1_predelay.dsp</a></p>
-<a href="../examples/16/solutions/ex1_predelay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/solutions/ex1_predelay-svg/process.svg" alt="block diagram of examples/16/solutions/ex1_predelay.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/16/solutions/ex1_predelay-svg/process.svg"><a class="faust-diagram-link" href="../examples/16/solutions/ex1_predelay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/solutions/ex1_predelay-svg/process.svg" alt="block diagram of examples/16/solutions/ex1_predelay.dsp"></a></div>
 <faust-editor><!--
 // Exercise 1: a pre-delay before the reverb, up to 100 ms, bounded by the
 // slider's range (chapter 9). The reverb is linear and time-invariant, so
@@ -578,7 +578,7 @@ process = de.delay(ma.SR / 10, predelay) : re.mono_freeverb(0.84, 0.5, 0.2, 0);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/16/solutions/ex2_fdn_size.dsp">examples/16/solutions/ex2_fdn_size.dsp</a></p>
-<a href="../examples/16/solutions/ex2_fdn_size-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/solutions/ex2_fdn_size-svg/process.svg" alt="block diagram of examples/16/solutions/ex2_fdn_size.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/16/solutions/ex2_fdn_size-svg/process.svg"><a class="faust-diagram-link" href="../examples/16/solutions/ex2_fdn_size-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/solutions/ex2_fdn_size-svg/process.svg" alt="block diagram of examples/16/solutions/ex2_fdn_size.dsp"></a></div>
 <faust-editor><!--
 // Exercise 2: the size of the network as a compile-time parameter. The
 // lengths are taken from the table of primes of maths.lib, spread with the
@@ -604,7 +604,7 @@ process = _ <: reverb(4), reverb(16);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/16/solutions/ex3_damping.dsp">examples/16/solutions/ex3_damping.dsp</a></p>
-<a href="../examples/16/solutions/ex3_damping-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/solutions/ex3_damping-svg/process.svg" alt="block diagram of examples/16/solutions/ex3_damping.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/16/solutions/ex3_damping-svg/process.svg"><a class="faust-diagram-link" href="../examples/16/solutions/ex3_damping-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/solutions/ex3_damping-svg/process.svg" alt="block diagram of examples/16/solutions/ex3_damping.dsp"></a></div>
 <faust-editor><!--
 // Exercise 3: damping. A one-pole lowpass in each line of the network makes
 // the high frequencies die faster than the low ones, as in a real room.
@@ -649,6 +649,7 @@ process = _ <: tail(0), tail(0.5);
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

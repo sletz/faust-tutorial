@@ -226,7 +226,7 @@ this": it describes <em>what the box is</em>, and the compiler writes the loop.<
 output that is 0.5 at every sample (<a href="../examples/01/constant.dsp"><code>constant.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/01/constant.dsp">examples/01/constant.dsp</a></p>
-<a href="../examples/01/constant-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/constant-svg/process.svg" alt="block diagram of examples/01/constant.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/01/constant-svg/process.svg"><a class="faust-diagram-link" href="../examples/01/constant-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/constant-svg/process.svg" alt="block diagram of examples/01/constant.dsp"></a></div>
 <faust-editor><!--
 // The simplest program: one output that is 0.5 at every sample.
 process = 0.5;
@@ -239,7 +239,7 @@ process = 0.5;
 by 0.5 (<a href="../examples/01/gain.dsp"><code>gain.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/01/gain.dsp">examples/01/gain.dsp</a></p>
-<a href="../examples/01/gain-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/gain-svg/process.svg" alt="block diagram of examples/01/gain.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/01/gain-svg/process.svg"><a class="faust-diagram-link" href="../examples/01/gain-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/gain-svg/process.svg" alt="block diagram of examples/01/gain.dsp"></a></div>
 <faust-editor><!--
 // An operator is a block: *(0.5) has one input and one output.
 process = *(0.5);
@@ -260,7 +260,7 @@ oscillators, <code>fi.</code> for filters, <code>no.</code> for noises, <code>ba
 (<a href="../examples/01/sine.dsp"><code>sine.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/01/sine.dsp">examples/01/sine.dsp</a></p>
-<a href="../examples/01/sine-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/sine-svg/process.svg" alt="block diagram of examples/01/sine.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/01/sine-svg/process.svg"><a class="faust-diagram-link" href="../examples/01/sine-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/sine-svg/process.svg" alt="block diagram of examples/01/sine.dsp"></a></div>
 <faust-editor><!--
 // A 440 Hz sine wave, scaled down so as not to clip.
 import("stdfaust.lib");
@@ -277,7 +277,7 @@ the output from clipping. An audio output must stay within [-1, 1].</p>
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/01/two_channels.dsp">examples/01/two_channels.dsp</a></p>
-<a href="../examples/01/two_channels-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/two_channels-svg/process.svg" alt="block diagram of examples/01/two_channels.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/01/two_channels-svg/process.svg"><a class="faust-diagram-link" href="../examples/01/two_channels-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/two_channels-svg/process.svg" alt="block diagram of examples/01/two_channels.dsp"></a></div>
 <faust-editor><!--
 // Two expressions separated by a comma: two outputs.
 import("stdfaust.lib");
@@ -292,7 +292,7 @@ horizontal slider: label, initial value, minimum, maximum, step
 (<a href="../examples/01/slider.dsp"><code>slider.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/01/slider.dsp">examples/01/slider.dsp</a></p>
-<a href="../examples/01/slider-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/slider-svg/process.svg" alt="block diagram of examples/01/slider.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/01/slider-svg/process.svg"><a class="faust-diagram-link" href="../examples/01/slider-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/slider-svg/process.svg" alt="block diagram of examples/01/slider.dsp"></a></div>
 <faust-editor><!--
 // A slider: label, initial value, minimum, maximum, step.
 import("stdfaust.lib");
@@ -364,7 +364,7 @@ chapter points into them.</p>
 </ol>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/01/solutions/ex1_noise.dsp">examples/01/solutions/ex1_noise.dsp</a></p>
-<a href="../examples/01/solutions/ex1_noise-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/solutions/ex1_noise-svg/process.svg" alt="block diagram of examples/01/solutions/ex1_noise.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/01/solutions/ex1_noise-svg/process.svg"><a class="faust-diagram-link" href="../examples/01/solutions/ex1_noise-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/solutions/ex1_noise-svg/process.svg" alt="block diagram of examples/01/solutions/ex1_noise.dsp"></a></div>
 <faust-editor><!--
 // Exercise 1: white noise whose level is set by a slider.
 import("stdfaust.lib");
@@ -377,7 +377,7 @@ process = no.noise * level;
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/01/solutions/ex2_chord.dsp">examples/01/solutions/ex2_chord.dsp</a></p>
-<a href="../examples/01/solutions/ex2_chord-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/solutions/ex2_chord-svg/process.svg" alt="block diagram of examples/01/solutions/ex2_chord.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/01/solutions/ex2_chord-svg/process.svg"><a class="faust-diagram-link" href="../examples/01/solutions/ex2_chord-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/solutions/ex2_chord-svg/process.svg" alt="block diagram of examples/01/solutions/ex2_chord.dsp"></a></div>
 <faust-editor><!--
 // Exercise 2: a chord of three notes (A, C sharp, E) summed on one output.
 import("stdfaust.lib");
@@ -400,6 +400,7 @@ process = (os.osc(440) + os.osc(554.37) + os.osc(659.26)) * 0.1;
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

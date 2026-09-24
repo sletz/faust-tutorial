@@ -351,7 +351,7 @@ svf_demo_test = no.noise : tu.svf_demo;
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/15/tutorial_tests.dsp">examples/15/tutorial_tests.dsp</a></p>
-<a href="../examples/15/tutorial_tests-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/15/tutorial_tests-svg/process.svg" alt="block diagram of examples/15/tutorial_tests.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/15/tutorial_tests-svg/process.svg"><a class="faust-diagram-link" href="../examples/15/tutorial_tests-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/15/tutorial_tests-svg/process.svg" alt="block diagram of examples/15/tutorial_tests.dsp"></a></div>
 <p class="faust-run-note">It imports the tutorial's own library, which the browser does not have: run it with a local compiler, next to that library.</p>
 <pre><code>// The tests of tutorial.lib, one definition per documented function, as in
 // faustlibraries&#x27; tests/&lt;library&gt;_tests.dsp. Each test is evaluated on its
@@ -379,7 +379,7 @@ as its own output:</p>
 checks it end to end:</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/15/use_library.dsp">examples/15/use_library.dsp</a></p>
-<a href="../examples/15/use_library-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/15/use_library-svg/process.svg" alt="block diagram of examples/15/use_library.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/15/use_library-svg/process.svg"><a class="faust-diagram-link" href="../examples/15/use_library-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/15/use_library-svg/process.svg" alt="block diagram of examples/15/use_library.dsp"></a></div>
 <p class="faust-run-note">It imports the tutorial's own library, which the browser does not have: run it with a local compiler, next to that library.</p>
 <pre><code>// A program that uses tutorial.lib through its prefix, like stdfaust.lib
 // does for the standard libraries.
@@ -405,7 +405,7 @@ process = tu.svf_demo;</code></pre>
 1.1.0, used by <a href="../examples/15/solutions/ex_use_v2.dsp"><code>ex_use_v2.dsp</code></a>.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/15/solutions/ex_use_v2.dsp">examples/15/solutions/ex_use_v2.dsp</a></p>
-<a href="../examples/15/solutions/ex_use_v2-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/15/solutions/ex_use_v2-svg/process.svg" alt="block diagram of examples/15/solutions/ex_use_v2.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/15/solutions/ex_use_v2-svg/process.svg"><a class="faust-diagram-link" href="../examples/15/solutions/ex_use_v2-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/15/solutions/ex_use_v2-svg/process.svg" alt="block diagram of examples/15/solutions/ex_use_v2.dsp"></a></div>
 <p class="faust-run-note">It imports the tutorial's own library, which the browser does not have: run it with a local compiler, next to that library.</p>
 <pre><code>// Exercises 1 to 3: the new functions of tutorial_v2.lib, a bandpass with
 // its documentation and test, a renamed filter whose old name is a
@@ -441,6 +441,7 @@ process = _ &lt;: tu.bp(1000, 0.707), tu.band_reject(1000, 0.707) - tu.notch_v1(
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

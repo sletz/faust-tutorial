@@ -269,11 +269,12 @@ faustlibraries checkouts next to this one (<code>../faust-rs</code>,
 <code>../../faustlibraries</code>, version 2.74.3 or later); <code>FAUST</code>, <code>FAUSTPROBE</code>
 and <code>FAUSTLIBRARIES</code> override the paths. <code>make check DIR=examples/07</code> checks one chapter.</p>
 <h2 id="the-web-site">The web site<a class="headerlink" href="#the-web-site" title="Permanent link">&para;</a></h2>
-<pre><code class="language-bash">make site
+<pre><code class="language-bash">make build
 </code></pre>
 <p>builds the tutorial as a web site in <code>site/</code>, with mkdocs (<code>pip install
 mkdocs==1.5.3</code>, the version faustdoc uses). As in faustdoc, every program
-of a chapter appears with its block diagram, drawn by the C++ compiler, and
+of a chapter appears with its block diagram, drawn by the C++ compiler
+(a click on a box shows its own diagram, in the page), and
 an editor (<a href="https://github.com/grame-cncm/faust-web-component">faust-web-component</a>)
 that compiles it and plays it in the page, with its controls. <code>make serve</code>
 serves it at http://127.0.0.1:8000, and <code>make publish</code> pushes it to the
@@ -295,6 +296,7 @@ extensions, and the programs that import the tutorial's own library).</p></div>
         </script>
         <script src="js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="js/faust-diagram.js"></script>
         <script src="search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
@@ -363,5 +365,5 @@ extensions, and the programs that import the tutorial's own library).</p></div>
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2026-09-24 09:03:08.400701+00:00
+Build Date UTC : 2026-09-24 09:58:44.152845+00:00
 -->

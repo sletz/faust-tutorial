@@ -243,7 +243,7 @@ process = twice(*(3)), stereo(fi.pole(0.5));
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/12/blocks_as_arguments.dsp">examples/12/blocks_as_arguments.dsp</a></p>
-<a href="../examples/12/blocks_as_arguments-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/blocks_as_arguments-svg/process.svg" alt="block diagram of examples/12/blocks_as_arguments.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/12/blocks_as_arguments-svg/process.svg"><a class="faust-diagram-link" href="../examples/12/blocks_as_arguments-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/blocks_as_arguments-svg/process.svg" alt="block diagram of examples/12/blocks_as_arguments.dsp"></a></div>
 <faust-editor><!--
 // A function may take blocks as arguments. twice applies a block two times,
 // stereo makes a stereo effect from a mono one.
@@ -265,7 +265,7 @@ already took a block as argument.</p>
 (<a href="../examples/12/arguments_are_blocks.dsp"><code>arguments_are_blocks.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/12/arguments_are_blocks.dsp">examples/12/arguments_are_blocks.dsp</a></p>
-<a href="../examples/12/arguments_are_blocks-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/arguments_are_blocks-svg/process.svg" alt="block diagram of examples/12/arguments_are_blocks.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/12/arguments_are_blocks-svg/process.svg"><a class="faust-diagram-link" href="../examples/12/arguments_are_blocks-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/arguments_are_blocks-svg/process.svg" alt="block diagram of examples/12/arguments_are_blocks.dsp"></a></div>
 <faust-editor><!--
 // "Arguments are blocks" (Gaudrain and Orlarey, 2003): A looks like a swap,
 // but its arguments are blocks, and (x, y) : (y, x) composes them.
@@ -291,7 +291,7 @@ add3 = adder(3);
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/12/lambda.dsp">examples/12/lambda.dsp</a></p>
-<a href="../examples/12/lambda-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/lambda-svg/process.svg" alt="block diagram of examples/12/lambda.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/12/lambda-svg/process.svg"><a class="faust-diagram-link" href="../examples/12/lambda-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/lambda-svg/process.svg" alt="block diagram of examples/12/lambda.dsp"></a></div>
 <faust-editor><!--
 // Lambda abstractions: \(x).(expression) is a function without a name.
 // A function can also return one: adder(n) builds a block that adds n.
@@ -324,7 +324,7 @@ kilo = *(1e3);                         // units, as in tonestacks.lib
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/12/partial_application.dsp">examples/12/partial_application.dsp</a></p>
-<a href="../examples/12/partial_application-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/partial_application-svg/process.svg" alt="block diagram of examples/12/partial_application.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/12/partial_application-svg/process.svg"><a class="faust-diagram-link" href="../examples/12/partial_application-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/partial_application-svg/process.svg" alt="block diagram of examples/12/partial_application.dsp"></a></div>
 <faust-editor><!--
 // Partial application: give a function fewer arguments than it takes, and
 // the missing ones become the inputs of the result.
@@ -352,7 +352,7 @@ gain_first(x, g) = x * g;       // gain_first(_, 0.5) is needed instead
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/12/parameter_order.dsp">examples/12/parameter_order.dsp</a></p>
-<a href="../examples/12/parameter_order-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/parameter_order-svg/process.svg" alt="block diagram of examples/12/parameter_order.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/12/parameter_order-svg/process.svg"><a class="faust-diagram-link" href="../examples/12/parameter_order-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/parameter_order-svg/process.svg" alt="block diagram of examples/12/parameter_order.dsp"></a></div>
 <faust-editor><!--
 // The library convention: fixed parameters first, the signal last. Then a
 // partial application is a ready-made block. With the signal first, every
@@ -383,7 +383,7 @@ process = sum(i, 4, voice(i));
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/12/closure.dsp">examples/12/closure.dsp</a></p>
-<a href="../examples/12/closure-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/closure-svg/process.svg" alt="block diagram of examples/12/closure.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/12/closure-svg/process.svg"><a class="faust-diagram-link" href="../examples/12/closure-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/closure-svg/process.svg" alt="block diagram of examples/12/closure.dsp"></a></div>
 <faust-editor><!--
 // A block built inside a function keeps the values it was built with: each
 // voice below has its own detune, captured when voice(i) is evaluated, and
@@ -415,7 +415,7 @@ fb_comb(maxdel,del,b0,aN) = fb_comb_common(de.delay(maxdel),del,b0,-aN) : mem;
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/12/library_hof.dsp">examples/12/library_hof.dsp</a></p>
-<a href="../examples/12/library_hof-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/library_hof-svg/process.svg" alt="block diagram of examples/12/library_hof.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/12/library_hof-svg/process.svg"><a class="faust-diagram-link" href="../examples/12/library_hof-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/library_hof-svg/process.svg" alt="block diagram of examples/12/library_hof.dsp"></a></div>
 <faust-editor><!--
 // Higher-order functions of the libraries. fi.fb_comb_common takes the
 // delay operator itself as an argument: fi.fb_comb passes de.delay(maxdel),
@@ -490,7 +490,7 @@ formant filter.</p>
 </ol>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/12/solutions/ex1_dry_wet.dsp">examples/12/solutions/ex1_dry_wet.dsp</a></p>
-<a href="../examples/12/solutions/ex1_dry_wet-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/solutions/ex1_dry_wet-svg/process.svg" alt="block diagram of examples/12/solutions/ex1_dry_wet.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/12/solutions/ex1_dry_wet-svg/process.svg"><a class="faust-diagram-link" href="../examples/12/solutions/ex1_dry_wet-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/solutions/ex1_dry_wet-svg/process.svg" alt="block diagram of examples/12/solutions/ex1_dry_wet.dsp"></a></div>
 <faust-editor><!--
 // Exercise 1: a dry/wet mix around any mono effect, the effect being an
 // argument: dry_wet(mix, fx).
@@ -509,7 +509,7 @@ process = dry_wet(mix, *(-1));
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/12/solutions/ex2_feedback.dsp">examples/12/solutions/ex2_feedback.dsp</a></p>
-<a href="../examples/12/solutions/ex2_feedback-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/solutions/ex2_feedback-svg/process.svg" alt="block diagram of examples/12/solutions/ex2_feedback.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/12/solutions/ex2_feedback-svg/process.svg"><a class="faust-diagram-link" href="../examples/12/solutions/ex2_feedback-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/solutions/ex2_feedback-svg/process.svg" alt="block diagram of examples/12/solutions/ex2_feedback.dsp"></a></div>
 <faust-editor><!--
 // Exercise 2: a feedback loop around any block. With a delay it is an
 // echo, with a lowpass filter a resonance.
@@ -525,7 +525,7 @@ process = feedback(0.5, @(4)), feedback(0.9, fi.lowpass(1, 1000));
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/12/solutions/ex3_map.dsp">examples/12/solutions/ex3_map.dsp</a></p>
-<a href="../examples/12/solutions/ex3_map-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/solutions/ex3_map-svg/process.svg" alt="block diagram of examples/12/solutions/ex3_map.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/12/solutions/ex3_map-svg/process.svg"><a class="faust-diagram-link" href="../examples/12/solutions/ex3_map-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/solutions/ex3_map-svg/process.svg" alt="block diagram of examples/12/solutions/ex3_map.dsp"></a></div>
 <faust-editor><!--
 // Exercise 3: map applies a function to every element of a list.
 map(f, (x, xs)) = f(x), map(f, xs);
@@ -549,6 +549,7 @@ process = map(*(2), (1, 2, 3)), map(\(v).(v * v), (4, 5));
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

@@ -247,7 +247,7 @@ operators combine them (<a href="../examples/06/booleans.dsp"><code>booleans.dsp
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/booleans.dsp">examples/06/booleans.dsp</a></p>
-<a href="../examples/06/booleans-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/booleans-svg/process.svg" alt="block diagram of examples/06/booleans.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/booleans-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/booleans-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/booleans-svg/process.svg" alt="block diagram of examples/06/booleans.dsp"></a></div>
 <faust-editor><!--
 // Comparisons return 0 or 1. Logic operators combine them, and so do
 // arithmetic, min and max.
@@ -274,7 +274,7 @@ front(x)     = x != x';    // 1 on any change
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/edges.dsp">examples/06/edges.dsp</a></p>
-<a href="../examples/06/edges-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/edges-svg/process.svg" alt="block diagram of examples/06/edges.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/edges-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/edges-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/edges-svg/process.svg" alt="block diagram of examples/06/edges.dsp"></a></div>
 <faust-editor><!--
 // Edge detectors from the idioms document: compare a signal with itself one
 // sample earlier.
@@ -314,7 +314,7 @@ trigger(n) = impulse : release(n) : &gt;(0);
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/impulse_forms.dsp">examples/06/impulse_forms.dsp</a></p>
-<a href="../examples/06/impulse_forms-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/impulse_forms-svg/process.svg" alt="block diagram of examples/06/impulse_forms.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/impulse_forms-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/impulse_forms-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/impulse_forms-svg/process.svg" alt="block diagram of examples/06/impulse_forms.dsp"></a></div>
 <faust-editor><!--
 // The three writings of impulse in the idioms document are the same block:
 // the original wiring of faust_tutorial.pdf and its two simplifications.
@@ -342,7 +342,7 @@ frame 4   -0.3333333333333332       &lt;- one more step, then stuck below 0
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/release.dsp">examples/06/release.dsp</a></p>
-<a href="../examples/06/release-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/release-svg/process.svg" alt="block diagram of examples/06/release.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/release-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/release-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/release-svg/process.svg" alt="block diagram of examples/06/release.dsp"></a></div>
 <faust-editor><!--
 // release(n) from faust_tutorial.pdf, quoted in the idioms document: a
 // value that falls by 1/n per sample while it is positive.
@@ -366,7 +366,7 @@ one sample, so <code>trigger(3)</code> lasts 4 samples instead of 3
 (<a href="../examples/06/trigger.dsp"><code>trigger.dsp</code></a>).</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/trigger.dsp">examples/06/trigger.dsp</a></p>
-<a href="../examples/06/trigger-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/trigger-svg/process.svg" alt="block diagram of examples/06/trigger.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/trigger-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/trigger-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/trigger-svg/process.svg" alt="block diagram of examples/06/trigger.dsp"></a></div>
 <faust-editor><!--
 // trigger(n): an impulse turned into a gate n samples long, from the idioms
 // document. The float version lasts n + 1 samples here, because of the
@@ -404,7 +404,7 @@ restarts instead, and ends at 1149
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/retrigger.dsp">examples/06/retrigger.dsp</a></p>
-<a href="../examples/06/retrigger-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/retrigger-svg/process.svg" alt="block diagram of examples/06/retrigger.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/retrigger-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/retrigger-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/retrigger-svg/process.svg" alt="block diagram of examples/06/retrigger.dsp"></a></div>
 <faust-editor><!--
 // A second press during a trigger. release and the additive countdown add
 // the new count to what is left, so the gate stretches; the countdown of
@@ -438,7 +438,7 @@ while <code>reset</code> is 1 (<a href="../examples/06/reset.dsp"><code>reset.ds
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/reset.dsp">examples/06/reset.dsp</a></p>
-<a href="../examples/06/reset-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/reset-svg/process.svg" alt="block diagram of examples/06/reset.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/reset-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/reset-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/reset-svg/process.svg" alt="block diagram of examples/06/reset.dsp"></a></div>
 <faust-editor><!--
 // Reset by multiplication: a counter multiplied by (1 - reset) inside the
 // loop goes back to 0 while reset is 1.
@@ -462,7 +462,7 @@ recursion, it chooses between the previous output and the input
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/sample_and_hold.dsp">examples/06/sample_and_hold.dsp</a></p>
-<a href="../examples/06/sample_and_hold-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/sample_and_hold-svg/process.svg" alt="block diagram of examples/06/sample_and_hold.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/sample_and_hold-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/sample_and_hold-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/sample_and_hold-svg/process.svg" alt="block diagram of examples/06/sample_and_hold.dsp"></a></div>
 <faust-editor><!--
 // Sample and hold: select2(t) ~ _ chooses between the previous output (t = 0)
 // and the input (t = 1). With a one-sample trigger it samples, with a gate it
@@ -493,7 +493,7 @@ arithmetic_inverse = (x == 0) * 0 + (x != 0) * (1 / x);
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/select.dsp">examples/06/select.dsp</a></p>
-<a href="../examples/06/select-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/select-svg/process.svg" alt="block diagram of examples/06/select.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/select-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/select-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/select-svg/process.svg" alt="block diagram of examples/06/select.dsp"></a></div>
 <faust-editor><!--
 // select2(c, a, b) is a if c is 0, b if c is 1. ba.if(c, then, else) is the
 // same with the branches in the usual order. Both compute both branches, but
@@ -524,7 +524,7 @@ process = os.lf_squarewave(12) : front : per_second;
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/clock_counter.dsp">examples/06/clock_counter.dsp</a></p>
-<a href="../examples/06/clock_counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/clock_counter-svg/process.svg" alt="block diagram of examples/06/clock_counter.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/clock_counter-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/clock_counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/clock_counter-svg/process.svg" alt="block diagram of examples/06/clock_counter.dsp"></a></div>
 <faust-editor><!--
 // The MIDI clock example of the idioms document: count the changes of a
 // clock signal during the last second. A square wave at 12 Hz changes 24
@@ -592,7 +592,7 @@ signal that climbs to 0.3 then 0.5 gives spikes of 0.3 and 0.2, not 0.3 and
 faustlibraries 2.74.3 (basics.lib 1.23.2), which describes the rise.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/impulsify.dsp">examples/06/impulsify.dsp</a></p>
-<a href="../examples/06/impulsify-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/impulsify-svg/process.svg" alt="block diagram of examples/06/impulsify.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/impulsify-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/impulsify-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/impulsify-svg/process.svg" alt="block diagram of examples/06/impulsify.dsp"></a></div>
 <faust-editor><!--
 // impulsify from faust_tutorial.pdf, quoted in the idioms document, and
 // ba.impulsify in basics.lib: the positive part of the first difference.
@@ -639,7 +639,7 @@ increment and the reset.</p>
 </ol>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/solutions/ex1_toggle.dsp">examples/06/solutions/ex1_toggle.dsp</a></p>
-<a href="../examples/06/solutions/ex1_toggle-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/solutions/ex1_toggle-svg/process.svg" alt="block diagram of examples/06/solutions/ex1_toggle.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/solutions/ex1_toggle-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/solutions/ex1_toggle-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/solutions/ex1_toggle-svg/process.svg" alt="block diagram of examples/06/solutions/ex1_toggle.dsp"></a></div>
 <faust-editor><!--
 // Exercise 1: a toggle. Each press of the button flips the output between
 // 0 and 1: the rising edge, then an exclusive or with the previous output.
@@ -655,7 +655,7 @@ process = toggle(press);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/solutions/ex2_press_counter.dsp">examples/06/solutions/ex2_press_counter.dsp</a></p>
-<a href="../examples/06/solutions/ex2_press_counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/solutions/ex2_press_counter-svg/process.svg" alt="block diagram of examples/06/solutions/ex2_press_counter.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/solutions/ex2_press_counter-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/solutions/ex2_press_counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/solutions/ex2_press_counter-svg/process.svg" alt="block diagram of examples/06/solutions/ex2_press_counter.dsp"></a></div>
 <faust-editor><!--
 // Exercise 2: count the presses of one button, reset by another.
 press = button("press");
@@ -669,7 +669,7 @@ process = presses;
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/06/solutions/ex3_monostable.dsp">examples/06/solutions/ex3_monostable.dsp</a></p>
-<a href="../examples/06/solutions/ex3_monostable-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/solutions/ex3_monostable-svg/process.svg" alt="block diagram of examples/06/solutions/ex3_monostable.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/06/solutions/ex3_monostable-svg/process.svg"><a class="faust-diagram-link" href="../examples/06/solutions/ex3_monostable-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/solutions/ex3_monostable-svg/process.svg" alt="block diagram of examples/06/solutions/ex3_monostable.dsp"></a></div>
 <faust-editor><!--
 // Exercise 3: a retriggerable gate of exactly 100 ms after each press.
 // The state counts down whole samples, which is exact; every new press
@@ -703,6 +703,7 @@ process = gate_for(ba.sec2samp(0.1), press);
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

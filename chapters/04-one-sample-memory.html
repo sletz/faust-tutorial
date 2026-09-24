@@ -241,7 +241,7 @@ previous samples and a set of intermediate values".</p>
 <p>(<a href="../examples/04/delays.dsp"><code>delays.dsp</code></a>)</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/delays.dsp">examples/04/delays.dsp</a></p>
-<a href="../examples/04/delays-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/delays-svg/process.svg" alt="block diagram of examples/04/delays.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/delays-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/delays-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/delays-svg/process.svg" alt="block diagram of examples/04/delays.dsp"></a></div>
 <faust-editor><!--
 // Three ways to look into the past: mem, the prime ' and @.
 // mem and x' delay by one sample, x'' by two, x@3 by three.
@@ -265,7 +265,7 @@ signal changed since the last sample
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/difference.dsp">examples/04/difference.dsp</a></p>
-<a href="../examples/04/difference-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/difference-svg/process.svg" alt="block diagram of examples/04/difference.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/difference-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/difference-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/difference-svg/process.svg" alt="block diagram of examples/04/difference.dsp"></a></div>
 <faust-editor><!--
 // The first difference: how much the signal changed since the last sample.
 diff(x) = x - x';
@@ -279,7 +279,7 @@ sample and 0 afterwards: an impulse, which the library calls <code>os.impulse</c
 (<a href="../examples/04/impulse.dsp"><code>impulse.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/impulse.dsp">examples/04/impulse.dsp</a></p>
-<a href="../examples/04/impulse-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/impulse-svg/process.svg" alt="block diagram of examples/04/impulse.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/impulse-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/impulse-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/impulse-svg/process.svg" alt="block diagram of examples/04/impulse.dsp"></a></div>
 <faust-editor><!--
 // A constant delayed by one sample is 0 at the first sample, then the
 // constant: 1 - 1' is 1 at the first sample only. It is os.impulse.
@@ -302,7 +302,7 @@ make it work:</p>
 (<a href="../examples/04/integrator.dsp"><code>integrator.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/integrator.dsp">examples/04/integrator.dsp</a></p>
-<a href="../examples/04/integrator-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/integrator-svg/process.svg" alt="block diagram of examples/04/integrator.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/integrator-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/integrator-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/integrator-svg/process.svg" alt="block diagram of examples/04/integrator.dsp"></a></div>
 <faust-editor><!--
 // The integrator: the output comes back to the first input of +, one sample
 // later. y[n] = x[n] + y[n-1].
@@ -324,7 +324,7 @@ process = count, ba.time;       // ba.time is 0, 1, 2, ...
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/counter.dsp">examples/04/counter.dsp</a></p>
-<a href="../examples/04/counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/counter-svg/process.svg" alt="block diagram of examples/04/counter.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/counter-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/counter-svg/process.svg" alt="block diagram of examples/04/counter.dsp"></a></div>
 <faust-editor><!--
 // A counter: the integrator of the constant 1. It starts at 1, because the
 // state starts at 0 and the first sample already adds 1.
@@ -347,7 +347,7 @@ so that it starts at 0.</p>
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/moving_sum.dsp">examples/04/moving_sum.dsp</a></p>
-<a href="../examples/04/moving_sum-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/moving_sum-svg/process.svg" alt="block diagram of examples/04/moving_sum.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/moving_sum-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/moving_sum-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/moving_sum-svg/process.svg" alt="block diagram of examples/04/moving_sum.dsp"></a></div>
 <faust-editor><!--
 // The sum of the last n samples, from the idioms document: add the new
 // sample, subtract the one that leaves the window.
@@ -368,7 +368,7 @@ lowpass (<a href="../examples/04/one_pole.dsp"><code>one_pole.dsp</code></a>):</
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/one_pole.dsp">examples/04/one_pole.dsp</a></p>
-<a href="../examples/04/one_pole-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/one_pole-svg/process.svg" alt="block diagram of examples/04/one_pole.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/one_pole-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/one_pole-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/one_pole-svg/process.svg" alt="block diagram of examples/04/one_pole.dsp"></a></div>
 <faust-editor><!--
 // A one-pole lowpass filter: y[n] = (1 - a) x[n] + a y[n-1].
 // The feedback path multiplies by a.
@@ -398,7 +398,7 @@ block with one input (the missing y[n−1]); the cable is <code>~ _</code>
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/sample_and_hold_equation.dsp">examples/04/sample_and_hold_equation.dsp</a></p>
-<a href="../examples/04/sample_and_hold_equation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/sample_and_hold_equation-svg/process.svg" alt="block diagram of examples/04/sample_and_hold_equation.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/sample_and_hold_equation-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/sample_and_hold_equation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/sample_and_hold_equation-svg/process.svg" alt="block diagram of examples/04/sample_and_hold_equation.dsp"></a></div>
 <faust-editor><!--
 // The sample-and-hold of "Faust Tutorial 2" (Tiziano Bole, 2008), derived
 // from y[n] = y[n-1] (1 - trig) + x trig by replacing y[n-1] with a cable.
@@ -422,7 +422,7 @@ the loop is written <code>@(d - 1)</code>
 (<a href="../examples/04/delay_in_loop.dsp"><code>delay_in_loop.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/delay_in_loop.dsp">examples/04/delay_in_loop.dsp</a></p>
-<a href="../examples/04/delay_in_loop-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/delay_in_loop-svg/process.svg" alt="block diagram of examples/04/delay_in_loop.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/delay_in_loop-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/delay_in_loop-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/delay_in_loop-svg/process.svg" alt="block diagram of examples/04/delay_in_loop.dsp"></a></div>
 <faust-editor><!--
 // The feedback path of ~ already holds one sample of delay.
 // A feedback echo of d samples therefore needs @(d - 1) in the loop.
@@ -489,7 +489,7 @@ slider, is the same one-pole filter. The pseudo-random generator behind
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/pole_library.dsp">examples/04/pole_library.dsp</a></p>
-<a href="../examples/04/pole_library-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/pole_library-svg/process.svg" alt="block diagram of examples/04/pole_library.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/pole_library-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/pole_library-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/pole_library-svg/process.svg" alt="block diagram of examples/04/pole_library.dsp"></a></div>
 <faust-editor><!--
 // The same filter with the library: fi.pole(p) = + ~ *(p) is the recursive
 // part, the gain (1 - p) keeps the level of a constant at 1.
@@ -557,7 +557,7 @@ integer overflow does the scrambling. Chapter 7 comes back to it.</p>
   which is why the moving sum above is not called <code>sum</code>.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/fixed_point_sum.dsp">examples/04/fixed_point_sum.dsp</a></p>
-<a href="../examples/04/fixed_point_sum-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/fixed_point_sum-svg/process.svg" alt="block diagram of examples/04/fixed_point_sum.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/fixed_point_sum-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/fixed_point_sum-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/fixed_point_sum-svg/process.svg" alt="block diagram of examples/04/fixed_point_sum.dsp"></a></div>
 <faust-editor><!--
 // The remedy of Orlarey, Fober and Letz (SMC 2009) for the drift of a
 // recursive moving sum: accumulate integers, which add and subtract
@@ -591,7 +591,7 @@ process = _ <: moving_sum(4) - direct, moving_sum_fixed(4) - direct;
 </ol>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/solutions/ex1_dcblocker.dsp">examples/04/solutions/ex1_dcblocker.dsp</a></p>
-<a href="../examples/04/solutions/ex1_dcblocker-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/solutions/ex1_dcblocker-svg/process.svg" alt="block diagram of examples/04/solutions/ex1_dcblocker.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/solutions/ex1_dcblocker-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/solutions/ex1_dcblocker-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/solutions/ex1_dcblocker-svg/process.svg" alt="block diagram of examples/04/solutions/ex1_dcblocker.dsp"></a></div>
 <faust-editor><!--
 // Exercise 1: remove the constant part of a signal: the first difference,
 // followed by a leaky integrator that brings the level back.
@@ -605,7 +605,7 @@ process = dcblock(0.995);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/solutions/ex2_wrap_counter.dsp">examples/04/solutions/ex2_wrap_counter.dsp</a></p>
-<a href="../examples/04/solutions/ex2_wrap_counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/solutions/ex2_wrap_counter-svg/process.svg" alt="block diagram of examples/04/solutions/ex2_wrap_counter.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/solutions/ex2_wrap_counter-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/solutions/ex2_wrap_counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/solutions/ex2_wrap_counter-svg/process.svg" alt="block diagram of examples/04/solutions/ex2_wrap_counter.dsp"></a></div>
 <faust-editor><!--
 // Exercise 2: a counter that goes 0, 1, ..., n-1, 0, 1, ...
 // The modulo is taken inside the loop, so the state never grows.
@@ -617,7 +617,7 @@ process = wrap_counter(3);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/04/solutions/ex3_average.dsp">examples/04/solutions/ex3_average.dsp</a></p>
-<a href="../examples/04/solutions/ex3_average-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/solutions/ex3_average-svg/process.svg" alt="block diagram of examples/04/solutions/ex3_average.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/04/solutions/ex3_average-svg/process.svg"><a class="faust-diagram-link" href="../examples/04/solutions/ex3_average-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/solutions/ex3_average-svg/process.svg" alt="block diagram of examples/04/solutions/ex3_average.dsp"></a></div>
 <faust-editor><!--
 // Exercise 3: the moving average of the last n samples.
 moving_sum(n, x) = +(x - x@n) ~ _;
@@ -641,6 +641,7 @@ process = moving_average(8);
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

@@ -278,7 +278,7 @@ yourself, run <code>faust program.dsp</code> and read the <code>compute</code> m
 <p>(<a href="../examples/09/constant_folding.dsp"><code>constant_folding.dsp</code></a>)</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/constant_folding.dsp">examples/09/constant_folding.dsp</a></p>
-<a href="../examples/09/constant_folding-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/constant_folding-svg/process.svg" alt="block diagram of examples/09/constant_folding.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/constant_folding-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/constant_folding-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/constant_folding-svg/process.svg" alt="block diagram of examples/09/constant_folding.dsp"></a></div>
 <faust-editor><!--
 // Everything that can be computed before the program runs, is: the three
 // outputs are constants in the generated code.
@@ -297,7 +297,7 @@ frequency is a constant.</p>
 <p>(<a href="../examples/09/normal_form.dsp"><code>normal_form.dsp</code></a>)</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/normal_form.dsp">examples/09/normal_form.dsp</a></p>
-<a href="../examples/09/normal_form-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/normal_form-svg/process.svg" alt="block diagram of examples/09/normal_form.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/normal_form-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/normal_form-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/normal_form-svg/process.svg" alt="block diagram of examples/09/normal_form.dsp"></a></div>
 <faust-editor><!--
 // Two different block diagrams, one computation: both are x(t - 10) / 2.
 // The compiler reduces them to the same normal form and computes it once
@@ -324,7 +324,7 @@ when it is compiled. Expressions of <code>ma.SR</code> are computed once, in
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/sample_rate.dsp">examples/09/sample_rate.dsp</a></p>
-<a href="../examples/09/sample_rate-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/sample_rate-svg/process.svg" alt="block diagram of examples/09/sample_rate.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/sample_rate-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/sample_rate-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/sample_rate-svg/process.svg" alt="block diagram of examples/09/sample_rate.dsp"></a></div>
 <faust-editor><!--
 // The sampling rate is known when the program is initialised, not when it
 // is compiled: expressions of ma.SR go into instanceConstants, computed
@@ -342,7 +342,7 @@ loop (<a href="../examples/09/control_rate.dsp"><code>control_rate.dsp</code></a
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/control_rate.dsp">examples/09/control_rate.dsp</a></p>
-<a href="../examples/09/control_rate-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/control_rate-svg/process.svg" alt="block diagram of examples/09/control_rate.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/control_rate-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/control_rate-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/control_rate-svg/process.svg" alt="block diagram of examples/09/control_rate.dsp"></a></div>
 <faust-editor><!--
 // An expression of sliders only is computed once per block, outside the
 // sample loop: here the conversion from decibels (fSlow0), then one
@@ -371,7 +371,7 @@ process = a, b : !, _;
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/dead_code.dsp">examples/09/dead_code.dsp</a></p>
-<a href="../examples/09/dead_code-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/dead_code-svg/process.svg" alt="block diagram of examples/09/dead_code.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/dead_code-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/dead_code-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/dead_code-svg/process.svg" alt="block diagram of examples/09/dead_code.dsp"></a></div>
 <faust-editor><!--
 // Only what reaches an output is computed. The first oscillator and its
 // slider are cut: no code, no widget.
@@ -395,7 +395,7 @@ process = ba.if(mode == 0, os.osc(440), os.sawtooth(440));
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/compile_time_choice.dsp">examples/09/compile_time_choice.dsp</a></p>
-<a href="../examples/09/compile_time_choice-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/compile_time_choice-svg/process.svg" alt="block diagram of examples/09/compile_time_choice.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/compile_time_choice-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/compile_time_choice-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/compile_time_choice-svg/process.svg" alt="block diagram of examples/09/compile_time_choice.dsp"></a></div>
 <faust-editor><!--
 // A choice on a constant is made by the compiler: only the chosen branch is
 // compiled. With mode = 1 the sine oscillator, and its table, are gone.
@@ -416,7 +416,7 @@ constant. Chapters 11 and 13 show cleaner ways to do so: pattern matching
 and environments.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/run_time_choice.dsp">examples/09/run_time_choice.dsp</a></p>
-<a href="../examples/09/run_time_choice-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/run_time_choice-svg/process.svg" alt="block diagram of examples/09/run_time_choice.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/run_time_choice-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/run_time_choice-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/run_time_choice-svg/process.svg" alt="block diagram of examples/09/run_time_choice.dsp"></a></div>
 <faust-editor><!--
 // The same choice on a slider is made at every sample, and both branches are
 // computed: the sine table is back in the generated code.
@@ -469,7 +469,7 @@ process = _ &lt;: @(d), de.delay(100, d);
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/bounded_delay.dsp">examples/09/bounded_delay.dsp</a></p>
-<a href="../examples/09/bounded_delay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/bounded_delay-svg/process.svg" alt="block diagram of examples/09/bounded_delay.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/bounded_delay-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/bounded_delay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/bounded_delay-svg/process.svg" alt="block diagram of examples/09/bounded_delay.dsp"></a></div>
 <faust-editor><!--
 // A delay read with a variable amount needs a bound, to size its buffer.
 // The compiler takes it from the interval of the signal: a slider's range
@@ -537,7 +537,7 @@ written in capitals.</p>
 <p>(<a href="../examples/09/int_float.dsp"><code>int_float.dsp</code></a>)</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/int_float.dsp">examples/09/int_float.dsp</a></p>
-<a href="../examples/09/int_float-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/int_float-svg/process.svg" alt="block diagram of examples/09/int_float.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/int_float-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/int_float-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/int_float-svg/process.svg" alt="block diagram of examples/09/int_float.dsp"></a></div>
 <faust-editor><!--
 // Two numeric types. int() truncates towards zero; % on integers is the
 // integer remainder, on floats the floating remainder; integer arithmetic
@@ -598,7 +598,7 @@ Measure before choosing.</p>
 </ol>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/solutions/ex1_smooth_late.dsp">examples/09/solutions/ex1_smooth_late.dsp</a></p>
-<a href="../examples/09/solutions/ex1_smooth_late-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/solutions/ex1_smooth_late-svg/process.svg" alt="block diagram of examples/09/solutions/ex1_smooth_late.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/solutions/ex1_smooth_late-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/solutions/ex1_smooth_late-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/solutions/ex1_smooth_late-svg/process.svg" alt="block diagram of examples/09/solutions/ex1_smooth_late.dsp"></a></div>
 <faust-editor><!--
 // Exercise 1: a constant-intensity panner whose square roots are computed
 // once per block. Smoothing after sqrt keeps sqrt out of the sample loop.
@@ -614,7 +614,7 @@ process = _ <: *(sqrt(1 - p) : si.smoo), *(sqrt(p) : si.smoo);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/solutions/ex2_echo_one_second.dsp">examples/09/solutions/ex2_echo_one_second.dsp</a></p>
-<a href="../examples/09/solutions/ex2_echo_one_second-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/solutions/ex2_echo_one_second-svg/process.svg" alt="block diagram of examples/09/solutions/ex2_echo_one_second.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/solutions/ex2_echo_one_second-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/solutions/ex2_echo_one_second-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/solutions/ex2_echo_one_second-svg/process.svg" alt="block diagram of examples/09/solutions/ex2_echo_one_second.dsp"></a></div>
 <faust-editor><!--
 // Exercise 2: a feedback echo whose time goes up to one second. The maximum
 // delay must be known at compile time: ba.sec2samp(1) is ma.SR, which the
@@ -635,7 +635,7 @@ process = echo;
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/solutions/ex3_integer_noise.dsp">examples/09/solutions/ex3_integer_noise.dsp</a></p>
-<a href="../examples/09/solutions/ex3_integer_noise-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/solutions/ex3_integer_noise-svg/process.svg" alt="block diagram of examples/09/solutions/ex3_integer_noise.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/09/solutions/ex3_integer_noise-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/solutions/ex3_integer_noise-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/solutions/ex3_integer_noise-svg/process.svg" alt="block diagram of examples/09/solutions/ex3_integer_noise.dsp"></a></div>
 <faust-editor><!--
 // Exercise 3: the linear congruential generator of no.noise, written with
 // integers. The multiplication wraps around on 32 bits, which is what
@@ -665,6 +665,7 @@ process = noise - no.noise;
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

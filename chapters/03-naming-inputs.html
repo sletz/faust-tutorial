@@ -238,7 +238,7 @@ foo3(in_a, in_b, in_c) = (in_c, in_c : +), in_c : *;   // (c + c) * c
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/03/arguments.dsp">examples/03/arguments.dsp</a></p>
-<a href="../examples/03/arguments-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/arguments-svg/process.svg" alt="block diagram of examples/03/arguments.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/03/arguments-svg/process.svg"><a class="faust-diagram-link" href="../examples/03/arguments-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/arguments-svg/process.svg" alt="block diagram of examples/03/arguments.dsp"></a></div>
 <faust-editor><!--
 // The three functions of the idioms document: arguments name the inputs.
 foo1(in_a, in_b, in_c) = (in_a, in_b : +), in_c : *;   // (a + b) * c
@@ -264,7 +264,7 @@ foo1 = +, _ : *;                       // blocks, no name at all
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/03/infix.dsp">examples/03/infix.dsp</a></p>
-<a href="../examples/03/infix-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/infix-svg/process.svg" alt="block diagram of examples/03/infix.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/03/infix-svg/process.svg"><a class="faust-diagram-link" href="../examples/03/infix-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/infix-svg/process.svg" alt="block diagram of examples/03/infix.dsp"></a></div>
 <faust-editor><!--
 // The same function as in wires.dsp, written with the usual operators.
 foo1(a, b, c) = (a + b) * c;
@@ -277,7 +277,7 @@ process = foo1;
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/03/wires.dsp">examples/03/wires.dsp</a></p>
-<a href="../examples/03/wires-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/wires-svg/process.svg" alt="block diagram of examples/03/wires.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/03/wires-svg/process.svg"><a class="faust-diagram-link" href="../examples/03/wires-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/wires-svg/process.svg" alt="block diagram of examples/03/wires.dsp"></a></div>
 <faust-editor><!--
 // The same function without any name: three wires, the first two summed,
 // then multiplied by the third.
@@ -305,7 +305,7 @@ process = f(os.osc(440), os.osc(440)), (os.osc(440), os.osc(440) : f);
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/03/application.dsp">examples/03/application.dsp</a></p>
-<a href="../examples/03/application-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/application-svg/process.svg" alt="block diagram of examples/03/application.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/03/application-svg/process.svg"><a class="faust-diagram-link" href="../examples/03/application-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/application-svg/process.svg" alt="block diagram of examples/03/application.dsp"></a></div>
 <faust-editor><!--
 // Applying a function to signals is sending them to it:
 // f(x, y) is the same block as  x, y : f.
@@ -332,7 +332,7 @@ with {
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/03/with.dsp">examples/03/with.dsp</a></p>
-<a href="../examples/03/with-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/with-svg/process.svg" alt="block diagram of examples/03/with.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/03/with-svg/process.svg"><a class="faust-diagram-link" href="../examples/03/with-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/with-svg/process.svg" alt="block diagram of examples/03/with.dsp"></a></div>
 <faust-editor><!--
 // Local definitions with "with": visible only inside the function.
 mix(a, b, c) = total * c
@@ -352,7 +352,7 @@ libraries use <code>with</code> everywhere to name the steps of a computation; c
 (<a href="../examples/03/arity.dsp"><code>arity.dsp</code></a>):</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/03/arity.dsp">examples/03/arity.dsp</a></p>
-<a href="../examples/03/arity-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/arity-svg/process.svg" alt="block diagram of examples/03/arity.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/03/arity-svg/process.svg"><a class="faust-diagram-link" href="../examples/03/arity-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/arity-svg/process.svg" alt="block diagram of examples/03/arity.dsp"></a></div>
 <faust-editor><!--
 // inputs(x) and outputs(x) give the arity of a block, known at compile time.
 foo1(a, b, c) = (a + b) * c;
@@ -399,7 +399,7 @@ signal:</p>
 </ul>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/03/negation.dsp">examples/03/negation.dsp</a></p>
-<a href="../examples/03/negation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/negation-svg/process.svg" alt="block diagram of examples/03/negation.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/03/negation-svg/process.svg"><a class="faust-diagram-link" href="../examples/03/negation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/negation-svg/process.svg" alt="block diagram of examples/03/negation.dsp"></a></div>
 <faust-editor><!--
 // -(x) is not the opposite of x: an operator with one argument is a partial
 // application, so -(2) is the block _ - 2, with one input.
@@ -422,7 +422,7 @@ process = 10 : minus_two, negated;
 </ol>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/03/solutions/ex1_crossfade.dsp">examples/03/solutions/ex1_crossfade.dsp</a></p>
-<a href="../examples/03/solutions/ex1_crossfade-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/solutions/ex1_crossfade-svg/process.svg" alt="block diagram of examples/03/solutions/ex1_crossfade.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/03/solutions/ex1_crossfade-svg/process.svg"><a class="faust-diagram-link" href="../examples/03/solutions/ex1_crossfade-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/solutions/ex1_crossfade-svg/process.svg" alt="block diagram of examples/03/solutions/ex1_crossfade.dsp"></a></div>
 <faust-editor><!--
 // Exercise 1: a crossfade between two inputs, set by a slider,
 // written with named arguments.
@@ -438,7 +438,7 @@ process = crossfade(amount);
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/03/solutions/ex2_wires.dsp">examples/03/solutions/ex2_wires.dsp</a></p>
-<a href="../examples/03/solutions/ex2_wires-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/solutions/ex2_wires-svg/process.svg" alt="block diagram of examples/03/solutions/ex2_wires.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/03/solutions/ex2_wires-svg/process.svg"><a class="faust-diagram-link" href="../examples/03/solutions/ex2_wires-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/solutions/ex2_wires-svg/process.svg" alt="block diagram of examples/03/solutions/ex2_wires.dsp"></a></div>
 <faust-editor><!--
 // Exercise 2: foo2(a, b, c) = (c + b) * a, without any argument name.
 // The three wires a, b, c are copied three times; keep c, b and a.
@@ -448,7 +448,7 @@ process = _, _, _ <: !, !, _, !, _, !, _, !, ! : +, _ : *;
 
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/03/reference_foo2.dsp">examples/03/reference_foo2.dsp</a></p>
-<a href="../examples/03/reference_foo2-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/reference_foo2-svg/process.svg" alt="block diagram of examples/03/reference_foo2.dsp"></a>
+<div class="faust-diagram-box" data-src="../examples/03/reference_foo2-svg/process.svg"><a class="faust-diagram-link" href="../examples/03/reference_foo2-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/reference_foo2-svg/process.svg" alt="block diagram of examples/03/reference_foo2.dsp"></a></div>
 <faust-editor><!--
 // The named version of foo2, to check the wired solution of exercise 2.
 foo2(in_a, in_b, in_c) = (in_c, in_b : +), in_a : *;
@@ -470,6 +470,7 @@ process = foo2;
         </script>
         <script src="../js/base.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
