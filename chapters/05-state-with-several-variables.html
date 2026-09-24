@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/05-state-with-several-variables.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>5. State with several variables - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item active">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="04-one-sample-memory.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="06-logical-signals-and-events.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#5-state-with-several-variables" class="nav-link">5. State with several variables</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#a-first-example-two-numbers-that-walk-together" class="nav-link">A first example: two numbers that walk together</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#maxmsps-line" class="nav-link">Max/MSP's line~</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#a-bug-worth-knowing-the-overshoot" class="nav-link">A bug worth knowing: the overshoot</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#two-variables-both-output-the-quadrature-oscillator" class="nav-link">Two variables, both output: the quadrature oscillator</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#letrec-the-same-states-as-equations" class="nav-link">letrec: the same states as equations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="5-state-with-several-variables">5. State with several variables<a class="headerlink" href="#5-state-with-several-variables" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>Chapter 4 fed back one signal. Many processes need several numbers that
+evolve together: a ramp needs its current value <em>and</em> the number of
+samples left; an oscillator needs a position <em>and</em> a velocity; an envelope
+needs a level <em>and</em> the stage it is in. Faust has one pattern for all of
+them, found throughout the libraries:</p>
+<pre><code class="language-faust">process = tick ~ (_, _) : !, _
+with {
+    tick(x, y) = next_x, next_y;
+};
+</code></pre>
+<p>Read it as a recipe:</p>
+<ol>
+<li><strong>As many feedback wires as state variables.</strong> <code>~ (_, _)</code> brings back two
+   signals, so the state has two variables.</li>
+<li><strong><code>tick</code> receives the current state and returns the next one.</strong> Its
+   arguments <code>x, y</code> are the values of the previous sample (the feedback
+   delays them by one sample, chapter 4); its outputs are the new values.
+   Extra arguments after the state are the inputs of the process.</li>
+<li><strong>The output keeps what is useful and cuts the rest.</strong> <code>: !, _</code> drops the
+   internal variable and outputs the other.</li>
+</ol>
+<p>The initial state is always zero: every variable starts at 0.</p>
+<h2 id="a-first-example-two-numbers-that-walk-together">A first example: two numbers that walk together<a class="headerlink" href="#a-first-example-two-numbers-that-walk-together" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/05/fibonacci.dsp"><code>fibonacci.dsp</code></a>)</p>
+<pre><code class="language-faust">fibonacci = tick ~ (_, _) : !, _
+with {
+    kick = 1 - 1';                   // 1 at the first sample only
+    tick(a, b) = b, a + b + kick;
+};
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/05/fibonacci.dsp">examples/05/fibonacci.dsp</a></p>
+<a href="../examples/05/fibonacci-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/fibonacci-svg/process.svg" alt="block diagram of examples/05/fibonacci.dsp"></a>
+<faust-editor><!--
+// State with two variables: tick receives the current state (a, b) and
+// returns the next one. Two feedback wires, one per variable; the output
+// keeps b and cuts a.
+fibonacci = tick ~ (_, _) : !, _
+with {
+    kick = 1 - 1';                   // 1 at the first sample only
+    tick(a, b) = b, a + b + kick;
+};
+
+process = fibonacci;
+--></faust-editor>
+</div>
+
+<p>The state (a, b) becomes (b, a + b) at each sample. Since it starts at
+(0, 0), which would stay at 0 forever, <code>kick</code> adds 1 once. The output is b:
+1, 1, 2, 3, 5, 8... Fibonacci is not audio, but the whole pattern is
+there, and it is easy to check by hand.</p>
+<h2 id="maxmsps-line">Max/MSP's <code>line~</code><a class="headerlink" href="#maxmsps-line" title="Permanent link">&para;</a></h2>
+<p>The idioms document gives an implementation of Max/MSP's <code>line~</code>, which goes
+from its current value to a new target in a given time
+(<a href="../examples/05/line.dsp"><code>line.dsp</code></a>):</p>
+<pre><code class="language-faust">line(value, time) = state ~ (_, _) : !, _
+with {
+    samples = time * ma.SR / 1000.0;
+    state(t, c) = nt, nc
+    with {
+        nt = ba.if(value != value', samples, t - 1);   // restart on a new target
+        nc = ba.if(nt &lt;= 0, value, c + (value - c) / nt);
+    };
+};
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/05/line.dsp">examples/05/line.dsp</a></p>
+<a href="../examples/05/line-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/line-svg/process.svg" alt="block diagram of examples/05/line.dsp"></a>
+<faust-editor><!--
+// Max/MSP's line~ from the idioms document: go from the current value to a
+// new target in `time` milliseconds. Two state variables: t, the number of
+// samples left in the ramp, and c, the current value.
+import("stdfaust.lib");
+
+line(value, time) = state ~ (_, _) : !, _
+with {
+    samples = time * ma.SR / 1000.0;
+    state(t, c) = nt, nc
+    with {
+        nt = ba.if(value != value', samples, t - 1);   // restart on a new target
+        nc = ba.if(nt <= 0, value, c + (value - c) / nt);
+    };
+};
+
+target = hslider("target", 0, 0, 1, 0.001);
+time = hslider("time", 1, 0, 1000, 0.001);
+
+process = line(target, time);
+
+// 1 ms at 48 kHz is 48 samples: the target set at frame 100 is reached at 147.
+--></faust-editor>
+</div>
+
+<p>Two state variables: <code>t</code>, the number of samples left in the ramp, and <code>c</code>,
+the current value.</p>
+<ul>
+<li>When the target changes (<code>value != value'</code>, chapter 6 comes back to this
+  edge detector), <code>t</code> is reset to the length of the ramp in samples;
+  otherwise it counts down.</li>
+<li>While samples are left, <code>c</code> covers <code>1/nt</code> of the remaining distance; at
+  the end it is exactly the target.</li>
+<li>The output cuts <code>t</code> and keeps <code>c</code>.</li>
+</ul>
+<p><code>ma.SR</code> is the sampling rate and <code>ba.if(cond, then, else)</code> chooses between
+two signals; both come back in chapter 6.</p>
+<p>faustprobe can move a slider at an exact frame with <code>--at</code>. At 48 kHz, a
+1 ms ramp towards 1, started at frame 100, is halfway at frame 123 and
+arrives at frame 147:</p>
+<pre><code class="language-bash">faustprobe --double --sr 48000 --in zero -n 200 --at 100 target=1 line.dsp
+</code></pre>
+<p>The idioms document gives the same function a second time, with the next
+values computed inline in the tuple: <code>state(t, c) = nt, ba.if(nt &lt;= 0, ...)</code>.
+Both writings compile to the same code. Naming the next values <code>nt</code> and
+<code>nc</code> is what makes the pattern readable.</p>
+<h3 id="a-bug-worth-knowing-the-overshoot">A bug worth knowing: the overshoot<a class="headerlink" href="#a-bug-worth-knowing-the-overshoot" title="Permanent link">&para;</a></h3>
+<p>When the ramp is not a whole number of samples, the last step divides by a
+number smaller than 1 and <strong>overshoots</strong>. At 48 kHz, 0.1 ms is 4.8 samples
+(<a href="../examples/05/line_overshoot.dsp"><code>line_overshoot.dsp</code></a>):</p>
+<pre><code class="language-text">frame  4    0.2083
+frame  5    0.4167
+frame  6    0.6250
+frame  7    0.8333
+frame  8    1.0417    &lt;- above the target
+frame  9    1.0000
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/05/line_overshoot.dsp">examples/05/line_overshoot.dsp</a></p>
+<a href="../examples/05/line_overshoot-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/line_overshoot-svg/process.svg" alt="block diagram of examples/05/line_overshoot.dsp"></a>
+<faust-editor><!--
+// The same line~ when the ramp is not a whole number of samples:
+// 0.1 ms at 48 kHz is 4.8 samples. The last step divides by 0.8 and
+// overshoots. ba.line and maxmsp.lib's line did the same until
+// faustlibraries 2.74.3; they now round the ramp to 5 samples.
+import("stdfaust.lib");
+mm = library("maxmsp.lib");
+
+line(value, time) = state ~ (_, _) : !, _
+with {
+    samples = time * ma.SR / 1000.0;
+    state(t, c) = nt, nc
+    with {
+        nt = ba.if(value != value', samples, t - 1);
+        nc = ba.if(nt <= 0, value, c + (value - c) / nt);
+    };
+};
+
+target = hslider("target", 0, 0, 1, 0.001);
+
+process = line(target, 0.1), ba.line(0.1 * ma.SR / 1000, target), mm.line(target, 0.1);
+--></faust-editor>
+</div>
+
+<p>The fix is exercise 1: round the length of the ramp to a whole number of
+samples. The library's <code>ba.line</code> and <code>mm.line</code> in maxmsp.lib have the same
+structure, and had the same overshoot until faustlibraries 2.74.3
+(basics.lib 1.23.2, maxmsp.lib 1.1.1), which rounds their ramp length in
+this way. The example outputs the three: the <code>line</code> above reaches 1.0417,
+<code>ba.line</code> and <code>mm.line</code> go up in five steps of 0.2 and reach exactly 1.</p>
+<h2 id="two-variables-both-output-the-quadrature-oscillator">Two variables, both output: the quadrature oscillator<a class="headerlink" href="#two-variables-both-output-the-quadrature-oscillator" title="Permanent link">&para;</a></h2>
+<p>Sometimes every state variable is useful. The quadrature oscillator of
+Dario Sanfilippo and Oleg Nesterov, quoted in the idioms document, keeps a
+cosine and a sine and outputs both
+(<a href="../examples/05/quadosc.dsp"><code>quadosc.dsp</code></a>):</p>
+<pre><code class="language-faust">quadosc(f) = tick ~ (_, _) : mem + 1, mem
+with {
+    k1 = tan(f * ma.PI / ma.SR);
+    k2 = 2 * k1 / (1 + k1 * k1);
+    tick(u_0, v_0) = u_1, v_1
+    with {
+        tmp = u_0 - k1 * v_0;
+        v_1 = v_0 + k2 * (tmp + 1);
+        u_1 = tmp - k1 * v_1;
+    };
+};
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/05/quadosc.dsp">examples/05/quadosc.dsp</a></p>
+<a href="../examples/05/quadosc-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/quadosc-svg/process.svg" alt="block diagram of examples/05/quadosc.dsp"></a>
+<faust-editor><!--
+// The quadrature oscillator of the idioms document (Dario Sanfilippo and
+// Oleg Nesterov): two state variables, both output, a cosine and a sine.
+// The state starts at 0, so u is stored minus 1: "mem + 1" adds it back,
+// and the cosine starts at 1.
+import("stdfaust.lib");
+
+quadosc(f) = tick ~ (_, _) : mem + 1, mem
+with {
+    k1 = tan(f * ma.PI / ma.SR);
+    k2 = 2 * k1 / (1 + k1 * k1);
+    tick(u_0, v_0) = u_1, v_1
+    with {
+        tmp = u_0 - k1 * v_0;
+        v_1 = v_0 + k2 * (tmp + 1);
+        u_1 = tmp - k1 * v_1;
+    };
+};
+
+process = quadosc(440);
+
+// Amplitude 1 on both outputs, and the same samples as the library's
+// os.quadosc, which sets the initial state with select2(1', 1) instead.
+--></faust-editor>
+</div>
+
+<p>Each sample rotates the point (u, v) by the angle 2πf/SR. A cosine must
+start at 1, but the state starts at 0. This version stores u − 1 instead of
+u: the <code>+ 1</code> inside <code>tick</code> and the <code>mem + 1</code> at the output add it back.</p>
+<p>The library's <code>os.quadosc</code> solves the same problem differently: it forces
+the first value with <code>select2(1', 1)</code>, which is 1 at the first sample and
+the computed value afterwards.</p>
+<pre><code class="language-faust">u_1 = tmp - k1 * v_1 : select2(1',1);
+</code></pre>
+<p>faustprobe finds the two versions equal to within 2e-14 over one second.
+Both tricks, an offset or a forced first sample, are the two ways to give a
+state a non-zero start.</p>
+<h2 id="letrec-the-same-states-as-equations"><code>letrec</code>: the same states as equations<a class="headerlink" href="#letrec-the-same-states-as-equations" title="Permanent link">&para;</a></h2>
+<p><code>letrec</code> writes the state as a set of equations instead of a function
+(<a href="../examples/05/letrec.dsp"><code>letrec.dsp</code></a>):</p>
+<pre><code class="language-faust">counter = c letrec { 'c = c + 1; };
+
+fibonacci = a letrec {
+    'a = b;
+    'b = a + b + (1 - 1');
+};
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/05/letrec.dsp">examples/05/letrec.dsp</a></p>
+<a href="../examples/05/letrec-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/letrec-svg/process.svg" alt="block diagram of examples/05/letrec.dsp"></a>
+<faust-editor><!--
+// letrec: the same states written as equations. Inside the equations a
+// variable is its value at the previous sample; outside, the variable is
+// its new value. 'c = c + 1 is the counter 1 : + ~ _.
+counter = c letrec { 'c = c + 1; };
+
+// The Fibonacci sequence of fibonacci.dsp, with a delayed by one sample.
+fibonacci = a letrec {
+    'a = b;
+    'b = a + b + (1 - 1');
+};
+
+process = counter, fibonacci;
+--></faust-editor>
+</div>
+
+<p>Each line <code>'x = E</code> defines the next value of the variable x. Inside the
+equations, a variable denotes its value at the previous sample. Outside,
+in the expression before <code>letrec</code>, it denotes its new value. The counter
+therefore outputs 1, 2, 3... exactly like <code>1 : + ~ _</code>. In the Fibonacci
+version the output is <code>a</code>, which is b delayed by one sample: 0, 1, 1, 2, 3,
+5.</p>
+<p><code>letrec</code> is convenient when the equations come from a paper. The <code>tick</code>
+pattern is more common in the libraries, because it composes with the rest
+of the block algebra.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<p><code>ba.peakholder</code> in basics.lib holds the peak of a signal for a given number
+of samples. It is the <code>line~</code> pattern with well-named variables:</p>
+<pre><code class="language-faust">peakholder(holdTime, x) = loop ~ si.bus(2) : ! , _
+    with {
+        loop(timerState, outState) = timer , output
+            with {
+                isNewPeak = abs(x) &gt;= outState;
+                isTimeOut = timerState &gt;= holdTime;
+                bypass = isNewPeak | isTimeOut;
+                timer = ba.if(bypass, 0, timerState + 1);
+                output = ba.if(bypass, abs(x), outState);
+            };
+    };
+</code></pre>
+<p><code>si.bus(2)</code> is <code>_, _</code>. The names <code>timerState</code> and <code>outState</code> say what each
+wire holds, and the output cuts the timer.</p>
+<p>Other examples to read:</p>
+<ul>
+<li><code>si.onePoleSwitching</code> in signals.lib has a single state variable, whose
+  coefficient depends on the direction the signal moves;</li>
+<li>the envelopes of envelopes.lib (<code>en.adsr_bias</code>) are state machines,
+  with a stage index and a level;</li>
+<li><code>si.smoothq</code> in signals.lib carries seven state variables and cuts six;</li>
+<li><code>letrec</code> appears in <code>an.goertzelOpt</code> (analyzers.lib) and in mi.lib's
+  masses.</li>
+</ul>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The initial state is zero.</strong> Plan for it: an offset, a forced first
+  sample (<code>select2(1', ...)</code>), or an initialisation on the first sample
+  (exercise 2).</li>
+<li><strong>Count the wires.</strong> <code>~ (_, _)</code> needs a <code>tick</code> with at least two inputs
+  and exactly two outputs coming back; the process's own inputs come after
+  the state arguments.</li>
+<li><strong>Divisions in a state update.</strong> A step that divides by a count
+  (<code>(value - c) / nt</code>) is safe only when the count is a whole number; see
+  the overshoot above.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Fix the overshoot of <code>line</code>: round the ramp length to a whole number of
+   samples, at least 1. Check that the ramp of 4.8 samples becomes 5 equal
+   steps and never exceeds its target. Solution:
+   <a href="../examples/05/solutions/ex1_line_fixed.dsp"><code>ex1_line_fixed.dsp</code></a>.</li>
+<li>Output the minimum and the maximum of a signal since the start, with two
+   state variables. Beware of the initial 0. Solution:
+   <a href="../examples/05/solutions/ex2_minmax.dsp"><code>ex2_minmax.dsp</code></a>.</li>
+<li>The "magic circle" oscillator: <code>x</code> and <code>y</code> rotate by a small angle each
+   sample (x ← x + e·y, then y ← y − e·x with the new x, e = 2 sin(πf/SR)).
+   Start it with an impulse and check that its amplitude stays bounded.
+   Solution: <a href="../examples/05/solutions/ex3_circle.dsp"><code>ex3_circle.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/05/solutions/ex1_line_fixed.dsp">examples/05/solutions/ex1_line_fixed.dsp</a></p>
+<a href="../examples/05/solutions/ex1_line_fixed-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/solutions/ex1_line_fixed-svg/process.svg" alt="block diagram of examples/05/solutions/ex1_line_fixed.dsp"></a>
+<faust-editor><!--
+// Exercise 1: a line~ that never overshoots. The ramp length is rounded to
+// a whole number of samples, at least one.
+import("stdfaust.lib");
+
+line(value, time) = state ~ (_, _) : !, _
+with {
+    samples = max(1, int(time * ma.SR / 1000.0 + 0.5));
+    state(t, c) = nt, nc
+    with {
+        nt = ba.if(value != value', samples, t - 1);
+        nc = ba.if(nt <= 0, value, c + (value - c) / nt);
+    };
+};
+
+target = hslider("target", 0, 0, 1, 0.001);
+
+process = line(target, 0.1);
+
+// 4.8 samples become 5 equal steps of 0.2, and the peak is exactly 1.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/05/solutions/ex2_minmax.dsp">examples/05/solutions/ex2_minmax.dsp</a></p>
+<a href="../examples/05/solutions/ex2_minmax-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/solutions/ex2_minmax-svg/process.svg" alt="block diagram of examples/05/solutions/ex2_minmax.dsp"></a>
+<faust-editor><!--
+// Exercise 2: the minimum and the maximum of a signal since the start.
+// The state starts at 0, which would be a wrong minimum for a positive
+// signal: the first sample initialises both variables.
+minmax(x) = tick ~ (_, _)
+with {
+    first = 1 - 1';
+    tick(lo, hi) = select2(first, min(lo, x), x), select2(first, max(hi, x), x);
+};
+
+process = minmax;
+
+// A constant 1: the minimum is 1, not the initial 0.
+// On white noise the minimum is negative and the maximum positive.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/05/solutions/ex3_circle.dsp">examples/05/solutions/ex3_circle.dsp</a></p>
+<a href="../examples/05/solutions/ex3_circle-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/05/solutions/ex3_circle-svg/process.svg" alt="block diagram of examples/05/solutions/ex3_circle.dsp"></a>
+<faust-editor><!--
+// Exercise 3: the "magic circle" oscillator. Two state variables x and y
+// rotate by a small angle each sample; an impulse starts the rotation.
+import("stdfaust.lib");
+
+circle(f) = tick ~ (_, _) : _, !
+with {
+    e = 2 * sin(ma.PI * f / ma.SR);
+    tick(x, y) = xn, yn
+    with {
+        xn = x + e * y + (1 - 1');
+        yn = y - e * xn;
+    };
+};
+
+process = circle(440);
+
+// The amplitude stays bounded and the output is finite after one second.
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

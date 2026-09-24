@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/12-higher-order-programming.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>12. Higher-order programming - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item active">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="11-iteration-and-pattern-matching.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="13-environments.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#12-higher-order-programming" class="nav-link">12. Higher-order programming</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#blocks-as-arguments" class="nav-link">Blocks as arguments</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#functions-without-names" class="nav-link">Functions without names</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#partial-application" class="nav-link">Partial application</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-parameter-order-convention" class="nav-link">The parameter-order convention</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#closures" class="nav-link">Closures</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="12-higher-order-programming">12. Higher-order programming<a class="headerlink" href="#12-higher-order-programming" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>The idioms document describes Faust as a natural fit for higher-order
+programming, because the language already has three orders:</p>
+<ul>
+<li><strong>signals</strong> are functions of time;</li>
+<li><strong>signal processors</strong> are functions of signals;</li>
+<li><strong>the block-diagram algebra</strong> combines signal processors into new ones.</li>
+</ul>
+<p>Higher-order programming uses functions as values: functions that take
+blocks as arguments, functions that return blocks, blocks built on the fly
+with no name. Faust programs written this way are shorter, and the
+libraries are full of them.</p>
+<h2 id="blocks-as-arguments">Blocks as arguments<a class="headerlink" href="#blocks-as-arguments" title="Permanent link">&para;</a></h2>
+<p>A function can take a block and do something with it
+(<a href="../examples/12/blocks_as_arguments.dsp"><code>blocks_as_arguments.dsp</code></a>):</p>
+<pre><code class="language-faust">twice(f) = f : f;
+stereo(f) = f, f;
+
+process = twice(*(3)), stereo(fi.pole(0.5));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/12/blocks_as_arguments.dsp">examples/12/blocks_as_arguments.dsp</a></p>
+<a href="../examples/12/blocks_as_arguments-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/blocks_as_arguments-svg/process.svg" alt="block diagram of examples/12/blocks_as_arguments.dsp"></a>
+<faust-editor><!--
+// A function may take blocks as arguments. twice applies a block two times,
+// stereo makes a stereo effect from a mono one.
+import("stdfaust.lib");
+
+twice(f) = f : f;
+stereo(f) = f, f;
+
+process = twice(*(3)), stereo(fi.pole(0.5));
+
+// Three inputs: the first is multiplied by 9, the two others filtered.
+--></faust-editor>
+</div>
+
+<p><code>twice(*(3))</code> multiplies by 9, and <code>stereo(fi.pole(0.5))</code> is a stereo
+filter made from a mono one. Chapter 3's <code>mean(x) = x :&gt; /(outputs(x))</code>
+already took a block as argument.</p>
+<p>Arguments <em>are</em> blocks, and the 2003 tutorial warns that this can surprise
+(<a href="../examples/12/arguments_are_blocks.dsp"><code>arguments_are_blocks.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/12/arguments_are_blocks.dsp">examples/12/arguments_are_blocks.dsp</a></p>
+<a href="../examples/12/arguments_are_blocks-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/arguments_are_blocks-svg/process.svg" alt="block diagram of examples/12/arguments_are_blocks.dsp"></a>
+<faust-editor><!--
+// "Arguments are blocks" (Gaudrain and Orlarey, 2003): A looks like a swap,
+// but its arguments are blocks, and (x, y) : (y, x) composes them.
+A(x, y) = (x, y) : (y, x);
+
+process = 1, 2 : A(*(10), *(100));
+
+// (1, 2) : (*(10), *(100)) : (*(100), *(10)) gives 1000 and 2000.
+--></faust-editor>
+</div>
+
+<p><code>A</code> looks like a swap, but <code>(x, y) : (y, x)</code> with blocks for <code>x</code> and <code>y</code> is
+<code>(*(10), *(100)) : (*(100), *(10))</code>: the two values are multiplied by 1000
+and 2000, not exchanged. A name in Faust stands for a block, wherever it
+appears.</p>
+<h2 id="functions-without-names">Functions without names<a class="headerlink" href="#functions-without-names" title="Permanent link">&para;</a></h2>
+<p><code>\(x).(expression)</code> is a <strong>lambda abstraction</strong>, a function that has no
+name (<a href="../examples/12/lambda.dsp"><code>lambda.dsp</code></a>):</p>
+<pre><code class="language-faust">square = \(x).(x * x);
+add = \(x, y).(x + y);
+adder(n) = \(x).(x + n);
+add3 = adder(3);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/12/lambda.dsp">examples/12/lambda.dsp</a></p>
+<a href="../examples/12/lambda-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/lambda-svg/process.svg" alt="block diagram of examples/12/lambda.dsp"></a>
+<faust-editor><!--
+// Lambda abstractions: \(x).(expression) is a function without a name.
+// A function can also return one: adder(n) builds a block that adds n.
+square = \(x).(x * x);
+add = \(x, y).(x + y);
+adder(n) = \(x).(x + n);
+add3 = adder(3);
+
+process = square(3), add(2, 5), add3(4), (10 : adder(0.5));
+--></faust-editor>
+</div>
+
+<p><code>adder(n)</code> returns a function, and <code>add3</code> is that function for n = 3:
+<code>add3(4)</code> is 7. Every named definition with arguments is in fact a lambda:
+<code>square(x) = x * x</code> means <code>square = \(x).(x * x)</code>.</p>
+<p>Lambdas are most useful where a small function is needed once, typically
+as the body of a recursion. The library's countdown of chapter 6 is one:</p>
+<pre><code class="language-faust">countdown(n, trig) = \(c).(if(trig&gt;0, n, max(0, c-1))) ~ _;
+</code></pre>
+<p>The lambda names the state <code>c</code>, which <code>~ _</code> feeds back, and the body reads
+like the equation of the next state.</p>
+<h2 id="partial-application">Partial application<a class="headerlink" href="#partial-application" title="Permanent link">&para;</a></h2>
+<p>Giving a function fewer arguments than it takes gives a block that expects
+the missing ones on its inputs (chapter 3). This turns general functions
+into specific blocks (<a href="../examples/12/partial_application.dsp"><code>partial_application.dsp</code></a>):</p>
+<pre><code class="language-faust">db2linear = pow(10, /(20.0));          // Den Haag, 2006: 10^(x/20)
+clip(lo, hi, x) = max(lo, min(hi, x));
+soft = clip(-0.5, 0.5);                // a block with one input
+kilo = *(1e3);                         // units, as in tonestacks.lib
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/12/partial_application.dsp">examples/12/partial_application.dsp</a></p>
+<a href="../examples/12/partial_application-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/partial_application-svg/process.svg" alt="block diagram of examples/12/partial_application.dsp"></a>
+<faust-editor><!--
+// Partial application: give a function fewer arguments than it takes, and
+// the missing ones become the inputs of the result.
+import("stdfaust.lib");
+
+db2linear = pow(10, /(20.0));          // Den Haag, 2006: 10^(x/20)
+clip(lo, hi, x) = max(lo, min(hi, x));
+soft = clip(-0.5, 0.5);                // a block with one input
+kilo = *(1e3);                         // units, as in tonestacks.lib
+
+process = db2linear(-20), (2 : soft), (4.7 : kilo);
+--></faust-editor>
+</div>
+
+<p><code>pow(10, /(20.0))</code> is a nice case: its second argument is itself a block,
+<code>/(20.0)</code>, whose input becomes the input of the whole.</p>
+<h2 id="the-parameter-order-convention">The parameter-order convention<a class="headerlink" href="#the-parameter-order-convention" title="Permanent link">&para;</a></h2>
+<p>Partial application only fills arguments from the left. The contribution
+guide of faustlibraries therefore asks that functions put their most
+constant parameters first and the audio signal last, and gives the example
+<code>clip(low, high, x)</code>: <code>clip(-1, 1)</code> is then a block usable anywhere
+(<a href="../examples/12/parameter_order.dsp"><code>parameter_order.dsp</code></a>):</p>
+<pre><code class="language-faust">gain_last(g, x) = x * g;        // gain_last(0.5) is a block
+gain_first(x, g) = x * g;       // gain_first(_, 0.5) is needed instead
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/12/parameter_order.dsp">examples/12/parameter_order.dsp</a></p>
+<a href="../examples/12/parameter_order-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/parameter_order-svg/process.svg" alt="block diagram of examples/12/parameter_order.dsp"></a>
+<faust-editor><!--
+// The library convention: fixed parameters first, the signal last. Then a
+// partial application is a ready-made block. With the signal first, every
+// argument must be given at each use.
+import("stdfaust.lib");
+
+gain_last(g, x) = x * g;        // convention: gain_last(0.5) is a block
+gain_first(x, g) = x * g;       // gain_first(_, 0.5) is needed instead
+
+process = _ <: gain_last(0.5), gain_first(_, 0.5), (_ : gain_last(2) : gain_last(0.25));
+--></faust-editor>
+</div>
+
+<p>Most library functions follow it: <code>fi.lowpass(N, fc)</code>, <code>de.delay(N, d)</code>,
+<code>si.smooth(s)</code>, <code>ba.bypass1(bpc, e)</code> all take their signal last. The few
+that do not are harder to combine: maxmsp.lib's <code>mm.LPF(x, f0, gain, Q)</code>
+takes the signal first, to match Max/MSP.</p>
+<h2 id="closures">Closures<a class="headerlink" href="#closures" title="Permanent link">&para;</a></h2>
+<p>A block built inside a function keeps the values it was built with
+(<a href="../examples/12/closure.dsp"><code>closure.dsp</code></a>):</p>
+<pre><code class="language-faust">voice(i) = os.sawtooth(base * ratio) * level
+with {
+    ratio = 1 + 0.01 * i;
+    level = hslider(&quot;level %i&quot;, 0.25, 0, 1, 0.01);
+};
+
+process = sum(i, 4, voice(i));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/12/closure.dsp">examples/12/closure.dsp</a></p>
+<a href="../examples/12/closure-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/closure-svg/process.svg" alt="block diagram of examples/12/closure.dsp"></a>
+<faust-editor><!--
+// A block built inside a function keeps the values it was built with: each
+// voice below has its own detune, captured when voice(i) is evaluated, and
+// its own slider, named after i.
+import("stdfaust.lib");
+
+base = hslider("base", 220, 50, 1000, 1);
+
+voice(i) = os.sawtooth(base * ratio) * level
+with {
+    ratio = 1 + 0.01 * i;
+    level = hslider("level %i", 0.25, 0, 1, 0.01);
+};
+
+process = sum(i, 4, voice(i));
+--></faust-editor>
+</div>
+
+<p>Each voice has its own detune and its own slider, named after <code>i</code>: the
+definitions of the <code>with</code> block are evaluated for each <code>i</code>, and each voice
+carries its own. This is how the <code>*_demo</code> functions of chapter 8 attach an
+interface to a library function.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<p><strong>Operators as arguments.</strong> <code>fi.fb_comb_common</code> in filters.lib takes the
+delay operator itself as argument, and <code>fi.fb_comb</code> passes a partial
+application of <code>de.delay</code> (<a href="../examples/12/library_hof.dsp"><code>library_hof.dsp</code></a>):</p>
+<pre><code class="language-faust">fb_comb_common(dop,N,b0,aN) = + ~ aN * dop(N-1) : *(b0);
+fb_comb(maxdel,del,b0,aN) = fb_comb_common(de.delay(maxdel),del,b0,-aN) : mem;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/12/library_hof.dsp">examples/12/library_hof.dsp</a></p>
+<a href="../examples/12/library_hof-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/library_hof-svg/process.svg" alt="block diagram of examples/12/library_hof.dsp"></a>
+<faust-editor><!--
+// Higher-order functions of the libraries. fi.fb_comb_common takes the
+// delay operator itself as an argument: fi.fb_comb passes de.delay(maxdel),
+// a partial application; here we pass @, the plain delay.
+import("stdfaust.lib");
+
+comb_at = fi.fb_comb_common(@, 10, 1, 0.5);
+comb_de = fi.fb_comb_common(de.delay(64), 10, 1, 0.5);
+
+// si.repeat(n, FX) chains n copies of FX and sums the output of every
+// stage: FX(x) + FX(FX(x)) + FX(FX(FX(x))). With *(2): 2x + 4x + 8x = 14x.
+repeated = si.repeat(3, *(2));
+
+process = _ <: comb_at, comb_de, repeated;
+
+// The echo comes N = 10 samples later: the comb delays by N - 1 in its
+// loop, and ~ adds the last sample (chapter 4).
+--></faust-editor>
+</div>
+
+<p>The same comb works with <code>@</code>, with <code>de.delay(maxdel)</code> or with a
+fractional delay. Note <code>dop(N-1)</code>: the library handles the implicit sample
+of <code>~</code> (chapter 4).</p>
+<p><strong>Repeating a block.</strong> <code>si.repeat(n, FX)</code> chains n copies of FX and sums the
+output of every stage; it sizes its buses with <code>outputs(FX)</code>:</p>
+<pre><code class="language-faust">repeat(1, FX) = FX;
+repeat(n, FX) = FX &lt;: si.bus(N), repeat(n-1, FX) :&gt; si.bus(N)
+with {
+    N = outputs(FX);
+};
+</code></pre>
+<p>With <code>*(2)</code>, three stages give 2x + 4x + 8x = 14x.</p>
+<p><strong>Reducing with an operator.</strong> <code>ba.parallelOp(op, n)</code> combines n signals with
+any binary operator:</p>
+<pre><code class="language-faust">parallelOp(op,1) = _;
+parallelOp(op,2) = op;
+parallelOp(op,n) = op(parallelOp(op,n-1));
+</code></pre>
+<p><code>ba.parallelOp(max, 4)</code> is the maximum of four signals, <code>ba.parallelOp(+, 4)</code>
+their sum. reducemaps.lib's <code>rm.parReduce</code> does the same as a balanced tree.</p>
+<p><strong>Specialising by partial application.</strong> Many library functions are one
+line:</p>
+<pre><code class="language-faust">fdelay1 = fdelayltv(1);                       // delays.lib
+low_shelf  = lowshelf(3);                     // filters.lib
+compressor_mono = compressor_lad_mono(0);     // compressors.lib
+</code></pre>
+<p>Chapter 14 builds on this.</p>
+<p><strong>Functions as parameters.</strong> <code>ba.bypass_fade(n, b, e)</code> crossfades around
+any effect <code>e</code>, sizing itself with <code>inputs(e)</code> and <code>outputs(e)</code>; the
+compressors of compressors.lib take a <code>meter</code> function to display their
+gain reduction; <code>pm.formantFilterbank</code> takes the function that builds one
+formant filter.</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Arguments are blocks</strong>, not values: a "swap" of blocks composes them.</li>
+<li><strong>Partial application fills from the left</strong>: put the signal last in your
+  own functions.</li>
+<li><strong>Argument order varies in the libraries</strong>: <code>ba.take(P, l)</code> takes the
+  position first, <code>ba.pick(l, n)</code> the list first; <code>ba.selector(i, n)</code> the
+  index first, <code>ba.selectn(N, i)</code> the count first. Check the usage line.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>dry_wet(mix, fx)</code>, a dry/wet mix around any mono effect given as
+   argument. Check it with an effect that inverts the signal. Solution:
+   <a href="../examples/12/solutions/ex1_dry_wet.dsp"><code>ex1_dry_wet.dsp</code></a>.</li>
+<li><code>feedback(g, fx)</code>, a feedback loop of gain g around any block; with a
+   delay it is an echo, with a lowpass filter a resonance. Solution:
+   <a href="../examples/12/solutions/ex2_feedback.dsp"><code>ex2_feedback.dsp</code></a>.</li>
+<li><code>map(f, list)</code>, which applies a function to every element of a list.
+   Solution: <a href="../examples/12/solutions/ex3_map.dsp"><code>ex3_map.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/12/solutions/ex1_dry_wet.dsp">examples/12/solutions/ex1_dry_wet.dsp</a></p>
+<a href="../examples/12/solutions/ex1_dry_wet-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/solutions/ex1_dry_wet-svg/process.svg" alt="block diagram of examples/12/solutions/ex1_dry_wet.dsp"></a>
+<faust-editor><!--
+// Exercise 1: a dry/wet mix around any mono effect, the effect being an
+// argument: dry_wet(mix, fx).
+import("stdfaust.lib");
+
+dry_wet(mix, fx) = _ <: _, fx : si.interpolate(mix);
+
+mix = hslider("mix", 0.5, 0, 1, 0.01);
+
+process = dry_wet(mix, *(-1));
+
+// With an effect that inverts the signal: mix 0 is the input, mix 1 its
+// opposite, mix 0.5 silence.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/12/solutions/ex2_feedback.dsp">examples/12/solutions/ex2_feedback.dsp</a></p>
+<a href="../examples/12/solutions/ex2_feedback-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/solutions/ex2_feedback-svg/process.svg" alt="block diagram of examples/12/solutions/ex2_feedback.dsp"></a>
+<faust-editor><!--
+// Exercise 2: a feedback loop around any block. With a delay it is an
+// echo, with a lowpass filter a resonance.
+import("stdfaust.lib");
+
+feedback(g, fx) = + ~ (fx : *(g));
+
+process = feedback(0.5, @(4)), feedback(0.9, fi.lowpass(1, 1000));
+
+// The echo: @(4) in the loop, plus the sample of ~, comes back every 5.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/12/solutions/ex3_map.dsp">examples/12/solutions/ex3_map.dsp</a></p>
+<a href="../examples/12/solutions/ex3_map-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/12/solutions/ex3_map-svg/process.svg" alt="block diagram of examples/12/solutions/ex3_map.dsp"></a>
+<faust-editor><!--
+// Exercise 3: map applies a function to every element of a list.
+map(f, (x, xs)) = f(x), map(f, xs);
+map(f, x) = f(x);
+
+process = map(*(2), (1, 2, 3)), map(\(v).(v * v), (4, 5));
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

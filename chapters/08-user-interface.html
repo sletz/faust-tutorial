@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/08-user-interface.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>8. User interface - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item active">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="07-periodic-signals-and-sequences.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="09-compile-time-or-run-time.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#8-user-interface" class="nav-link">8. User interface</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#widgets" class="nav-link">Widgets</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#groups-and-paths" class="nav-link">Groups and paths</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#metadata" class="nav-link">Metadata</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#a-label-is-an-identity" class="nav-link">A label is an identity</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#showing-internal-signals" class="nav-link">Showing internal signals</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#example-a-mixer" class="nav-link">Example: a mixer</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#smooth-where-it-is-cheap" class="nav-link">Smooth where it is cheap</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="8-user-interface">8. User interface<a class="headerlink" href="#8-user-interface" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>A Faust program declares its interface inside its code: a slider is an
+expression, placed where its value is used. The program does not draw
+anything. The compiler collects the widgets and hands a description of them
+to an <strong>architecture</strong> (a plugin format, a web page, a phone app, the
+IDE), which draws them its own way. The same program therefore gets a
+slider in the IDE, a knob in a plugin host and an OSC address on a
+network.</p>
+<p>What the programmer controls is the <strong>structure</strong>: which widgets exist,
+their ranges, how they are grouped and named, and hints in the labels
+(metadata) that architectures may follow.</p>
+<h2 id="widgets">Widgets<a class="headerlink" href="#widgets" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/08/widgets.dsp"><code>widgets.dsp</code></a>)</p>
+<pre><code class="language-faust">gate   = button(&quot;gate&quot;);                                 // 1 while pressed
+on     = checkbox(&quot;on&quot;);                                 // 0 or 1, stays
+level  = hslider(&quot;level&quot;, 0.5, 0, 1, 0.01);              // horizontal slider
+tone   = vslider(&quot;tone&quot;, 1000, 100, 5000, 1);            // vertical slider
+voices = nentry(&quot;voices&quot;, 1, 1, 8, 1);                   // numeric entry
+
+process = os.osc(tone) * level * max(gate, on) / voices : hbargraph(&quot;out&quot;, -1, 1);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/widgets.dsp">examples/08/widgets.dsp</a></p>
+<a href="../examples/08/widgets-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/widgets-svg/process.svg" alt="block diagram of examples/08/widgets.dsp"></a>
+<faust-editor><!--
+// The widgets: inputs the user controls, and bargraphs the program shows.
+import("stdfaust.lib");
+
+gate  = button("gate");                                  // 1 while pressed
+on    = checkbox("on");                                  // 0 or 1, stays
+level = hslider("level", 0.5, 0, 1, 0.01);               // horizontal slider
+tone  = vslider("tone", 1000, 100, 5000, 1);             // vertical slider
+voices = nentry("voices", 1, 1, 8, 1);                   // numeric entry
+
+sound = os.osc(tone) * level * max(gate, on) / voices;
+
+// A bargraph shows a signal and passes it through.
+process = sound : hbargraph("out", -1, 1);
+--></faust-editor>
+</div>
+
+<p>Sliders and numeric entries take a label, an initial value, a minimum, a
+maximum and a step; their value always lies in [minimum, maximum].
+<code>hbargraph</code> and <code>vbargraph</code> go the other way: they show a signal to the
+user and pass it through unchanged.</p>
+<h2 id="groups-and-paths">Groups and paths<a class="headerlink" href="#groups-and-paths" title="Permanent link">&para;</a></h2>
+<p><code>hgroup</code>, <code>vgroup</code> and <code>tgroup</code> arrange what they contain horizontally,
+vertically, or as tabs. Groups also build the <strong>path</strong> of each widget, the
+name under which hosts, OSC and faustprobe address it
+(<a href="../examples/08/groups.dsp"><code>groups.dsp</code></a>):</p>
+<pre><code class="language-faust">freq   = hslider(&quot;h:filter/freq&quot;, 1000, 20, 20000, 1);
+master = hslider(&quot;../master&quot;, 0.5, 0, 1, 0.01);
+
+osc_page  = vgroup(&quot;oscillator&quot;, hslider(&quot;pitch&quot;, 220, 50, 1000, 1));
+enve_page = vgroup(&quot;envelope&quot;, hslider(&quot;decay&quot;, 0.2, 0.01, 2, 0.01));
+
+synth = tgroup(&quot;pages&quot;, os.sawtooth(osc_page) * en.ar(0.01, enve_page, os.lf_imptrain(2)))
+      : fi.resonlp(freq, res, 1);
+
+process = vgroup(&quot;synth&quot;, synth * master);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/groups.dsp">examples/08/groups.dsp</a></p>
+<a href="../examples/08/groups-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/groups-svg/process.svg" alt="block diagram of examples/08/groups.dsp"></a>
+<faust-editor><!--
+// Groups arrange widgets and build their paths. A label can also name its
+// groups itself ("h:filter/freq"), and "../" moves a widget up one group.
+import("stdfaust.lib");
+
+freq   = hslider("h:filter/freq", 1000, 20, 20000, 1);
+res    = hslider("h:filter/resonance", 1, 0.5, 10, 0.01);
+master = hslider("../master", 0.5, 0, 1, 0.01);          // out of "synth"
+
+osc_page    = vgroup("oscillator", hslider("pitch", 220, 50, 1000, 1));
+enve_page   = vgroup("envelope", hslider("decay", 0.2, 0.01, 2, 0.01));
+
+synth = tgroup("pages", os.sawtooth(osc_page) * en.ar(0.01, enve_page, os.lf_imptrain(2)))
+      : fi.resonlp(freq, res, 1);
+
+process = vgroup("synth", synth * master);
+--></faust-editor>
+</div>
+
+<pre><code class="language-text">/groups/synth/pages/oscillator/pitch
+/groups/synth/pages/envelope/decay
+/groups/synth/filter/freq
+/groups/master
+</code></pre>
+<p>Three rules show here:</p>
+<ul>
+<li><strong>a label can name its own groups</strong>: <code>"h:filter/freq"</code> puts the slider in
+  a horizontal group <code>filter</code>, wherever the expression is used;</li>
+<li><strong><code>"../"</code> moves a widget up one group</strong>: <code>master</code> is used inside
+  <code>synth</code> but appears next to it;</li>
+<li><strong>the root</strong>: when <code>process</code> is a single group, that group is the root
+  of the interface; otherwise the compiler adds a root named after the
+  program. Here <code>master</code> escapes <code>synth</code>, so a root <code>groups</code> is added.</li>
+</ul>
+<p>Inside <code>par</code>, a label can contain the value of the loop index: <code>"voice %v"</code>
+becomes <code>voice 0</code>, <code>voice 1</code>... when <code>v</code> is the index (see the mixer
+below). Spaces become <code>_</code> in paths.</p>
+<h2 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h2>
+<p>Square brackets inside a label carry hints for the architectures. They are
+removed from the displayed name and from the path
+(<a href="../examples/08/metadata.dsp"><code>metadata.dsp</code></a>):</p>
+<pre><code class="language-faust">freq = hslider(&quot;[0] freq [unit:Hz] [scale:log] [tooltip:oscillator frequency]&quot;, 440, 20, 20000, 1);
+gain = hslider(&quot;[1] gain [unit:dB] [style:knob] [midi:ctrl 7]&quot;, -12, -60, 0, 0.1) : ba.db2linear;
+wave = hslider(&quot;[2] wave [style:menu{'sine':0;'saw':1;'square':2}]&quot;, 0, 0, 2, 1);
+pan  = hslider(&quot;[3] pan [osc:/1/fader1 0 1]&quot;, 0.5, 0, 1, 0.01);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/metadata.dsp">examples/08/metadata.dsp</a></p>
+<a href="../examples/08/metadata-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/metadata-svg/process.svg" alt="block diagram of examples/08/metadata.dsp"></a>
+<faust-editor><!--
+// Metadata in square brackets, inside a label, tell the interface how to
+// show a widget and how to map it. They are not part of the path.
+import("stdfaust.lib");
+
+freq = hslider("[0] freq [unit:Hz] [scale:log] [tooltip:oscillator frequency]", 440, 20, 20000, 1);
+gain = hslider("[1] gain [unit:dB] [style:knob] [midi:ctrl 7]", -12, -60, 0, 0.1) : ba.db2linear;
+wave = hslider("[2] wave [style:menu{'sine':0;'saw':1;'square':2}]", 0, 0, 2, 1);
+pan  = hslider("[3] pan [osc:/1/fader1 0 1]", 0.5, 0, 1, 0.01);
+
+osc = os.osc(freq), os.sawtooth(freq), os.square(freq) : ba.selectn(3, wave);
+
+process = osc * gain <: *(1 - pan), *(pan);
+--></faust-editor>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>metadata</th>
+<th>effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[0]</code>, <code>[1]</code>...</td>
+<td>order of the widgets in their group</td>
+</tr>
+<tr>
+<td><code>[unit:Hz]</code></td>
+<td>unit shown next to the value</td>
+</tr>
+<tr>
+<td><code>[scale:log]</code>, <code>[scale:exp]</code></td>
+<td>mapping of the slider's travel</td>
+</tr>
+<tr>
+<td><code>[style:knob]</code></td>
+<td>a knob instead of a slider</td>
+</tr>
+<tr>
+<td><code>[style:menu{'a':0;'b':1}]</code>, <code>[style:radio{...}]</code></td>
+<td>named choices</td>
+</tr>
+<tr>
+<td><code>[tooltip:...]</code></td>
+<td>help text</td>
+</tr>
+<tr>
+<td><code>[hidden:1]</code></td>
+<td>not displayed</td>
+</tr>
+<tr>
+<td><code>[midi:ctrl 7]</code>, <code>[midi:pitchwheel]</code>, <code>[midi:clock]</code></td>
+<td>MIDI mapping</td>
+</tr>
+<tr>
+<td><code>[osc:/1/fader1 0 1]</code></td>
+<td>OSC address and range</td>
+</tr>
+<tr>
+<td><code>[acc:...]</code>, <code>[gyr:...]</code></td>
+<td>phone sensors</td>
+</tr>
+</tbody>
+</table>
+<p>Each architecture follows the metadata it understands and ignores the
+rest. The Faust distribution's documentation folder has, for instance, the
+list of TouchOSC messages written as ready-to-paste <code>[osc:...]</code> metadata.
+The <code>[midi:clock]</code> checkbox of chapter 6 is one such label: a MIDI
+architecture flips it at every clock message.</p>
+<h2 id="a-label-is-an-identity">A label is an identity<a class="headerlink" href="#a-label-is-an-identity" title="Permanent link">&para;</a></h2>
+<p>Two widgets with the same label in the same group are <strong>the same widget</strong>
+(<a href="../examples/08/same_label.dsp"><code>same_label.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/same_label.dsp">examples/08/same_label.dsp</a></p>
+<a href="../examples/08/same_label-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/same_label-svg/process.svg" alt="block diagram of examples/08/same_label.dsp"></a>
+<faust-editor><!--
+// Two widgets with the same label in the same group are one widget: a
+// definition is a name for an expression, not a place in memory (lac06).
+foo = hslider("duration", 128, 2, 512, 1);
+faa = hslider("duration", 128, 2, 512, 1);
+
+process = foo + faa;
+
+// One control, and the sum is twice its value.
+--></faust-editor>
+</div>
+
+<p>There is one control, and the output is twice its value. Orlarey, Gräf and
+Kersten (LAC 2006) use this example to show that a Faust definition is a
+name for an expression, not a place in memory. The 2003 tutorial says the
+same: the definition mechanism is "a simple naming mechanism, very
+different of the naming mechanism of C++ that is in fact an addressing
+mechanism".</p>
+<p>The converse is just as useful to know: a widget whose value cannot reach
+any output <strong>disappears</strong>. With <code>process = foo - faa</code>, both compilers
+simplify the output to 0 and the program has no widget at all.</p>
+<h2 id="showing-internal-signals">Showing internal signals<a class="headerlink" href="#showing-internal-signals" title="Permanent link">&para;</a></h2>
+<p>A bargraph passes its input through, so it can be inserted anywhere. To
+show a signal <em>without</em> sending it to an output, use <code>attach(x, y)</code>, which
+outputs <code>x</code> and keeps <code>y</code> alive for its side effect, the display. The level
+meter of the Den Haag presentation (Orlarey, Fober and Letz, 2006)
+(<a href="../examples/08/vumeter.dsp"><code>vumeter.dsp</code></a>):</p>
+<pre><code class="language-faust">envelope = abs : min(0.99) : max ~ -(1.0 / ma.SR);
+vumeter = _ &lt;: attach(_, envelope : vbargraph(&quot;meter&quot;, 0, 1));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/vumeter.dsp">examples/08/vumeter.dsp</a></p>
+<a href="../examples/08/vumeter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/vumeter-svg/process.svg" alt="block diagram of examples/08/vumeter.dsp"></a>
+<faust-editor><!--
+// A level meter from the Faust presentation at Den Haag (2006): a peak
+// envelope that falls linearly by 1 per second, shown by a bargraph kept
+// alive by attach. attach(x, y) outputs x and computes y for its side
+// effect, the display.
+import("stdfaust.lib");
+
+envelope = abs : min(0.99) : max ~ -(1.0 / ma.SR);
+vumeter = _ <: attach(_, envelope : vbargraph("meter", 0, 1));
+
+process = *(0.5) : vumeter;
+
+// A sine of amplitude 0.5 shows just under 0.5 on the meter (the envelope
+// falls a little between two peaks).
+--></faust-editor>
+</div>
+
+<p>The envelope follows the peaks and falls by 1 per second in between: its
+feedback subtracts 1/SR, and <code>max</code> with the new input keeps it above the
+signal. A sine of amplitude 0.5 reads just under 0.5. faustprobe prints the
+last value of every bargraph:</p>
+<pre><code class="language-text"># bargraph /vumeter/meter=0.49...
+</code></pre>
+<h2 id="example-a-mixer">Example: a mixer<a class="headerlink" href="#example-a-mixer" title="Permanent link">&para;</a></h2>
+<p>Orlarey, Fober and Letz give an eight-voice mixer in their SMC 2009 paper;
+here it is with today's library names (<a href="../examples/08/mixer.dsp"><code>mixer.dsp</code></a>):</p>
+<pre><code class="language-faust">vol      = *(hslider(&quot;vol [unit:dB]&quot;, 0, -70, 4, 0.1) : ba.db2linear : si.smoo);
+mute     = *(1 - checkbox(&quot;mute&quot;));
+pan      = _ &lt;: *(sqrt(1 - p)), *(sqrt(p)) with { p = hslider(&quot;pan&quot;, 0.5, 0, 1, 0.01) : si.smoo; };
+envelope = abs : min(0.99) : max ~ -(1.0 / ma.SR);
+vumeter  = _ &lt;: attach(_, envelope : vbargraph(&quot;level&quot;, 0, 1));
+
+voice(v) = vgroup(&quot;voice %v&quot;, mute : hgroup(&quot;&quot;, vol : vumeter) : pan);
+stereo   = hgroup(&quot;stereo out&quot;, vol, vol);
+
+process  = hgroup(&quot;mixer&quot;, par(i, 8, voice(i)) :&gt; stereo);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/mixer.dsp">examples/08/mixer.dsp</a></p>
+<a href="../examples/08/mixer-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/mixer-svg/process.svg" alt="block diagram of examples/08/mixer.dsp"></a>
+<faust-editor><!--
+// The eight-voice mixer of Orlarey, Fober and Letz (SMC 2009), with today's
+// library names. Each voice: mute, volume, meter, pan, in its own group,
+// numbered by "%v". The two "vol" of the stereo output have the same label
+// in the same group, so they are one slider for both channels.
+import("stdfaust.lib");
+
+vol      = *(hslider("vol [unit:dB]", 0, -70, 4, 0.1) : ba.db2linear : si.smoo);
+mute     = *(1 - checkbox("mute"));
+pan      = _ <: *(sqrt(1 - p)), *(sqrt(p)) with { p = hslider("pan", 0.5, 0, 1, 0.01) : si.smoo; };
+envelope = abs : min(0.99) : max ~ -(1.0 / ma.SR);
+vumeter  = _ <: attach(_, envelope : vbargraph("level", 0, 1));
+
+voice(v) = vgroup("voice %v", mute : hgroup("", vol : vumeter) : pan);
+stereo   = hgroup("stereo out", vol, vol);
+
+process  = hgroup("mixer", par(i, 8, voice(i)) :> stereo);
+
+// process is one group, "mixer", which becomes the root of the paths.
+// A pan of 0 sends voice 3 to the left only, once the smoothing has
+// settled (the second second of a constant input on every voice).
+--></faust-editor>
+</div>
+
+<p><code>par(i, 8, voice(i))</code> puts eight voices side by side (chapter 11 explains
+<code>par</code>), each in its own group <code>voice 0</code> to <code>voice 7</code>. <code>:&gt;</code> sums the sixteen
+outputs into two. The two <code>vol</code> of the master have the same label in the
+same group, so they are one slider for both channels. The check mutes
+seven voices, pans the fourth hard left, and reads a level of 1 on the left
+and 0 on the right.</p>
+<p>The panner uses square roots so that the powers of the two sides sum to 1
+(exercise 1). An empty group label, as in <code>hgroup("", ...)</code>, groups the
+widgets on screen and leaves an empty segment in their paths
+(<code>/mixer/voice_3//level</code>).</p>
+<h2 id="smooth-where-it-is-cheap">Smooth where it is cheap<a class="headerlink" href="#smooth-where-it-is-cheap" title="Permanent link">&para;</a></h2>
+<p>A slider changes at most once per block of samples, and the compiler
+computes expressions that depend only on sliders once per block too
+(chapter 9). <code>si.smoo</code> runs at every sample, and so does everything after
+it. Tiziano Bole ("Faust Tutorial 2", 2008) measured the difference on a
+panner: smoothing the slider <em>before</em> <code>sqrt</code> puts <code>sqrt</code> in the per-sample
+loop and multiplies its cost; smoothing <em>after</em> <code>sqrt</code> keeps <code>sqrt</code> at
+block rate, at the price of an error he measured at about 0.0085 dB. Smooth
+as late as possible, just before the multiplication by the audio.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<p><strong>The <code>*_demo</code> functions of demos.lib</strong> wrap a library function in an
+interface, with every control defined in a <code>with</code> block and a group
+function that builds the path (<a href="../examples/08/demo_pattern.dsp"><code>demo_pattern.dsp</code></a>):</p>
+<pre><code class="language-faust">resonant_lowpass_demo = fi.resonlp(freq, q, gain)
+with {
+    group(x) = hgroup(&quot;resonant lowpass&quot;, x);
+    freq = group(hslider(&quot;[0] freq [unit:Hz] [scale:log]&quot;, 1000, 50, 10000, 1)) : si.smoo;
+    q    = group(hslider(&quot;[1] Q [style:knob]&quot;, 2, 0.5, 20, 0.01)) : si.smoo;
+    gain = group(hslider(&quot;[2] gain&quot;, 0.5, 0, 1, 0.01)) : si.smoo;
+};
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/demo_pattern.dsp">examples/08/demo_pattern.dsp</a></p>
+<a href="../examples/08/demo_pattern-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/demo_pattern-svg/process.svg" alt="block diagram of examples/08/demo_pattern.dsp"></a>
+<faust-editor><!--
+// The pattern of demos.lib: a library function, and around it an interface
+// defined in a with block, with a group function for the path and smoothing
+// on every control.
+import("stdfaust.lib");
+
+resonant_lowpass_demo = fi.resonlp(freq, q, gain)
+with {
+    group(x) = hgroup("resonant lowpass", x);
+    freq = group(hslider("[0] freq [unit:Hz] [scale:log]", 1000, 50, 10000, 1)) : si.smoo;
+    q    = group(hslider("[1] Q [style:knob]", 2, 0.5, 20, 0.01)) : si.smoo;
+    gain = group(hslider("[2] gain", 0.5, 0, 1, 0.01)) : si.smoo;
+};
+
+process = resonant_lowpass_demo;
+--></faust-editor>
+</div>
+
+<p>The library function stays free of any interface, and the demo adds one.
+<code>dm.moog_vcf_demo</code> and <code>dm.gate_demo</code> in demos.lib are written this way;
+<code>dm.gate_demo</code> also shows <code>[tooltip:...]</code>, <code>[scale:log]</code> and a gain meter
+kept alive by <code>attach</code>.</p>
+<p><strong>Bypass.</strong> <code>ba.bypass1(bypass, effect)</code> lets the input through when
+<code>bypass</code> is 1, and feeds silence to the effect meanwhile
+(<a href="../examples/08/bypass.dsp"><code>bypass.dsp</code></a>):</p>
+<pre><code class="language-faust">bypass1(bpc,e) = _ &lt;: select2(bpc,(inswitch:e),_)
+with {
+    inswitch = select2(bpc,_,0);
+};
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/bypass.dsp">examples/08/bypass.dsp</a></p>
+<a href="../examples/08/bypass-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/bypass-svg/process.svg" alt="block diagram of examples/08/bypass.dsp"></a>
+<faust-editor><!--
+// Bypass with a checkbox: ba.bypass1(bypass, effect) lets the input through
+// when bypass is 1, and feeds silence to the effect so that it costs less.
+import("stdfaust.lib");
+
+bypass = checkbox("bypass");
+
+process = ba.bypass1(bypass, fi.lowpass(2, 500));
+
+// Bypassed, an impulse comes out unchanged; otherwise it is filtered.
+--></faust-editor>
+</div>
+
+<p><code>ba.bypass2</code> does the same for stereo effects, and <code>ba.bypass_fade</code>
+crossfades instead of switching.</p>
+<p><strong>Probes.</strong> debug.lib (<code>db.</code>) provides ready-made meters that pass the
+signal through: <code>db.probe_rms_db</code>, <code>db.probe_peak_db</code>, <code>db.probe_value</code>...
+Each takes an identifier and a "hidden" flag, for example
+<code>_ : db.probe_rms_db(0, 0) : _</code>.</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Same label, same widget.</strong> Two sliders meant to be different need
+  different labels or different groups.</li>
+<li><strong>Unused widgets vanish.</strong> A control that cannot affect an output is
+  removed with the code that used it.</li>
+<li><strong>Paths depend on the root.</strong> Wrapping <code>process</code> in a group changes every
+  path; scripts and presets that address controls must follow.</li>
+<li><strong>Smooth late.</strong> Put <code>si.smoo</code> after the control-rate arithmetic.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A constant-intensity panner with a knob: gains √(1 − c) and √c, whose
+   squares sum to 1. Check that the centre gives 0.7071 on each side.
+   Solution: <a href="../examples/08/solutions/ex1_panner.dsp"><code>ex1_panner.dsp</code></a>.</li>
+<li>A peak meter in decibels, from −60 to 0 dB, next to the signal. Check
+   that a sine of amplitude 0.5 reads about −6 dB. Solution:
+   <a href="../examples/08/solutions/ex2_db_meter.dsp"><code>ex2_db_meter.dsp</code></a>.</li>
+<li>A four-channel gain stage with one tab per channel. Solution:
+   <a href="../examples/08/solutions/ex3_tabs.dsp"><code>ex3_tabs.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/solutions/ex1_panner.dsp">examples/08/solutions/ex1_panner.dsp</a></p>
+<a href="../examples/08/solutions/ex1_panner-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/solutions/ex1_panner-svg/process.svg" alt="block diagram of examples/08/solutions/ex1_panner.dsp"></a>
+<faust-editor><!--
+// Exercise 1: a constant-intensity panner (Tiziano Bole, "Faust Tutorial
+// 2", 2008). Intensity goes as the square of the amplitude, so the gains
+// are sqrt(1 - c) and sqrt(c): their squares always sum to 1.
+import("stdfaust.lib");
+
+c = hslider("pan [style:knob]", 0.5, 0, 1, 0.01) : si.smoo;
+
+process = _ <: *(sqrt(1 - c)), *(sqrt(c));
+
+// In the middle each side gets 1/sqrt(2), and the powers sum to 1 (the
+// smoother starts at 0, so look at the second second).
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/solutions/ex2_db_meter.dsp">examples/08/solutions/ex2_db_meter.dsp</a></p>
+<a href="../examples/08/solutions/ex2_db_meter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/solutions/ex2_db_meter-svg/process.svg" alt="block diagram of examples/08/solutions/ex2_db_meter.dsp"></a>
+<faust-editor><!--
+// Exercise 2: a peak meter in decibels next to the signal, from -60 to 0 dB.
+import("stdfaust.lib");
+
+envelope = abs : min(0.99) : max ~ -(1.0 / ma.SR);
+db_meter = _ <: attach(_, envelope : ba.linear2db : max(-60) : hbargraph("level [unit:dB]", -60, 0));
+
+process = *(0.5) : db_meter;
+
+// A sine of amplitude 0.5 reads about -6 dB.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/08/solutions/ex3_tabs.dsp">examples/08/solutions/ex3_tabs.dsp</a></p>
+<a href="../examples/08/solutions/ex3_tabs-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/08/solutions/ex3_tabs-svg/process.svg" alt="block diagram of examples/08/solutions/ex3_tabs.dsp"></a>
+<faust-editor><!--
+// Exercise 3: a four-channel gain stage, one tab per channel.
+channel(i) = vgroup("channel %i", *(hslider("gain", 1, 0, 2, 0.01)));
+
+process = tgroup("channels", par(i, 4, channel(i)));
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

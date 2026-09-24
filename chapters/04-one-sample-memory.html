@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/04-one-sample-memory.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>4. One-sample memory - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item active">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="03-naming-inputs.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="05-state-with-several-variables.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#4-one-sample-memory" class="nav-link">4. One-sample memory</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#delays" class="nav-link">Delays</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#recursion" class="nav-link">Recursion</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#delay-and-recursion-together" class="nav-link">Delay and recursion together</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#from-an-equation-to" class="nav-link">From an equation to ~</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-implicit-delay-in-a-loop" class="nav-link">The implicit delay in a loop</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="4-one-sample-memory">4. One-sample memory<a class="headerlink" href="#4-one-sample-memory" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>So far every output sample depended only on the input samples of the same
+instant. Most of signal processing needs more: an echo needs the input of
+half a second ago, a filter needs its own previous outputs, a counter needs
+the value it had one sample earlier.</p>
+<p>Faust gives exactly two ways to reach the past, and no way to reach the
+future:</p>
+<ul>
+<li><strong>delays</strong>, which read the past of a signal: <code>mem</code>, the prime <code>'</code>, <code>@</code>;</li>
+<li><strong>recursion</strong> <code>~</code>, which feeds the past of an output back into the
+  computation.</li>
+</ul>
+<p>Every state in a Faust program, every counter, envelope, oscillator or
+filter, is built from these two. The idioms document puts it this way: a
+change of state is "how to compute the next sample as a function of the
+previous samples and a set of intermediate values".</p>
+<h2 id="delays">Delays<a class="headerlink" href="#delays" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/04/delays.dsp"><code>delays.dsp</code></a>)</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/delays.dsp">examples/04/delays.dsp</a></p>
+<a href="../examples/04/delays-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/delays-svg/process.svg" alt="block diagram of examples/04/delays.dsp"></a>
+<faust-editor><!--
+// Three ways to look into the past: mem, the prime ' and @.
+// mem and x' delay by one sample, x'' by two, x@3 by three.
+delays(x) = x, mem(x), x'', x@3;
+
+process = delays;
+
+// An impulse walks along the outputs, one sample at a time.
+--></faust-editor>
+</div>
+
+<p><code>mem</code> is a block that delays its input by one sample. <code>x'</code> is the same thing
+written after a signal, <code>x''</code> delays by two, and <code>x@n</code> by n samples. An
+impulse sent into <code>delays</code> walks along the four outputs, one sample at a
+time. Before the signal has arrived, a delay outputs 0: every delay line
+starts empty.</p>
+<p>Two classics follow immediately. The first difference tells how much the
+signal changed since the last sample
+(<a href="../examples/04/difference.dsp"><code>difference.dsp</code></a>):</p>
+<pre><code class="language-faust">diff(x) = x - x';
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/difference.dsp">examples/04/difference.dsp</a></p>
+<a href="../examples/04/difference-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/difference-svg/process.svg" alt="block diagram of examples/04/difference.dsp"></a>
+<faust-editor><!--
+// The first difference: how much the signal changed since the last sample.
+diff(x) = x - x';
+
+process = diff;
+--></faust-editor>
+</div>
+
+<p>and a constant minus the same constant delayed is 1 at the very first
+sample and 0 afterwards: an impulse, which the library calls <code>os.impulse</code>
+(<a href="../examples/04/impulse.dsp"><code>impulse.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/impulse.dsp">examples/04/impulse.dsp</a></p>
+<a href="../examples/04/impulse-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/impulse-svg/process.svg" alt="block diagram of examples/04/impulse.dsp"></a>
+<faust-editor><!--
+// A constant delayed by one sample is 0 at the first sample, then the
+// constant: 1 - 1' is 1 at the first sample only. It is os.impulse.
+process = 1 - 1';
+--></faust-editor>
+</div>
+
+<h2 id="recursion">Recursion<a class="headerlink" href="#recursion" title="Permanent link">&para;</a></h2>
+<p><code>A ~ B</code> connects the outputs of A back to its inputs, through B. Two rules
+make it work:</p>
+<ol>
+<li>the outputs of A go through B and arrive on the <strong>first</strong> inputs of A;
+   the remaining inputs of A stay free and become the inputs of the whole
+   block;</li>
+<li>the feedback path always contains <strong>one sample of delay</strong>: what comes
+   back is the output of the <em>previous</em> sample. Without it the output would
+   depend on itself at the same instant, which cannot be computed.</li>
+</ol>
+<p>The smallest recursion is the integrator
+(<a href="../examples/04/integrator.dsp"><code>integrator.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/integrator.dsp">examples/04/integrator.dsp</a></p>
+<a href="../examples/04/integrator-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/integrator-svg/process.svg" alt="block diagram of examples/04/integrator.dsp"></a>
+<faust-editor><!--
+// The integrator: the output comes back to the first input of +, one sample
+// later. y[n] = x[n] + y[n-1].
+process = + ~ _;
+
+// An impulse becomes a step: 1, 1, 1, ...
+// A constant becomes a ramp: 1, 2, 3, ...
+--></faust-editor>
+</div>
+
+<p><code>+</code> has two inputs. The feedback <code>_</code> takes its output and brings it back,
+one sample later, to the first input; the second input is the input of the
+program. In equations: y[n] = x[n] + y[n-1], with y[-1] = 0. An impulse
+becomes a step (1, 1, 1...), a constant becomes a ramp (1, 2, 3...).</p>
+<p>Feeding the constant 1 to the integrator gives a counter
+(<a href="../examples/04/counter.dsp"><code>counter.dsp</code></a>):</p>
+<pre><code class="language-faust">count = 1 : + ~ _;              // 1, 2, 3, ...
+process = count, ba.time;       // ba.time is 0, 1, 2, ...
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/counter.dsp">examples/04/counter.dsp</a></p>
+<a href="../examples/04/counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/counter-svg/process.svg" alt="block diagram of examples/04/counter.dsp"></a>
+<faust-editor><!--
+// A counter: the integrator of the constant 1. It starts at 1, because the
+// state starts at 0 and the first sample already adds 1.
+count = 1 : + ~ _;
+
+// ba.time delays it by one sample, so that it starts at 0.
+import("stdfaust.lib");
+
+process = count, ba.time;
+--></faust-editor>
+</div>
+
+<p>The counter starts at 1: the state starts at 0, and the first sample already
+adds 1. The library's <code>ba.time</code> is the same counter delayed by one sample,
+so that it starts at 0.</p>
+<h2 id="delay-and-recursion-together">Delay and recursion together<a class="headerlink" href="#delay-and-recursion-together" title="Permanent link">&para;</a></h2>
+<p>The idioms document gives the sum of the last n samples
+(<a href="../examples/04/moving_sum.dsp"><code>moving_sum.dsp</code></a>):</p>
+<pre><code class="language-faust">moving_sum(n, x) = +(x - x@n) ~ _;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/moving_sum.dsp">examples/04/moving_sum.dsp</a></p>
+<a href="../examples/04/moving_sum-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/moving_sum-svg/process.svg" alt="block diagram of examples/04/moving_sum.dsp"></a>
+<faust-editor><!--
+// The sum of the last n samples, from the idioms document: add the new
+// sample, subtract the one that leaves the window.
+moving_sum(n, x) = +(x - x@n) ~ _;
+
+process = moving_sum(4);
+
+// A constant 1: the sum grows to 4 and stays there.
+--></faust-editor>
+</div>
+
+<p>At each sample, the new input enters the sum and the one that is n samples
+old leaves it. With a constant 1, the sum climbs to n and stays there. The
+cost is one addition and one subtraction per sample, whatever n.</p>
+<p>A recursion with a gain in the feedback path is a filter. The one-pole
+lowpass (<a href="../examples/04/one_pole.dsp"><code>one_pole.dsp</code></a>):</p>
+<pre><code class="language-faust">lowpass1(a) = *(1 - a) : + ~ *(a);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/one_pole.dsp">examples/04/one_pole.dsp</a></p>
+<a href="../examples/04/one_pole-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/one_pole-svg/process.svg" alt="block diagram of examples/04/one_pole.dsp"></a>
+<faust-editor><!--
+// A one-pole lowpass filter: y[n] = (1 - a) x[n] + a y[n-1].
+// The feedback path multiplies by a.
+lowpass1(a) = *(1 - a) : + ~ *(a);
+
+process = lowpass1(0.5);
+
+// Impulse response: 0.5, 0.25, 0.125, ...
+--></faust-editor>
+</div>
+
+<p>computes y[n] = (1 − a) x[n] + a y[n−1]. Its impulse response is 0.5, 0.25,
+0.125... for a = 0.5: each sample keeps half of the previous one. The input
+gain 1 − a makes the output of a constant equal to that constant.</p>
+<h2 id="from-an-equation-to">From an equation to <code>~</code><a class="headerlink" href="#from-an-equation-to" title="Permanent link">&para;</a></h2>
+<p>Tiziano Bole's "Faust Tutorial 2" (2008) gives a recipe to turn a
+recurrence into Faust. Write the equation, then "imagine to replace the
+call to [the previous output] with a cable outgoing from the same
+expression's ending". For a sample-and-hold, where the output keeps its
+value while <code>trig</code> is 0 and copies <code>x</code> when <code>trig</code> is 1:</p>
+<pre><code>y[n] = y[n-1] · (1 − trig) + x · trig
+</code></pre>
+<p>The expression without its previous output is <code>*(1 - trig) + x * trig</code>, a
+block with one input (the missing y[n−1]); the cable is <code>~ _</code>
+(<a href="../examples/04/sample_and_hold_equation.dsp"><code>sample_and_hold_equation.dsp</code></a>):</p>
+<pre><code class="language-faust">SH(trig, x) = (*(1 - trig) + x * trig) ~ _;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/sample_and_hold_equation.dsp">examples/04/sample_and_hold_equation.dsp</a></p>
+<a href="../examples/04/sample_and_hold_equation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/sample_and_hold_equation-svg/process.svg" alt="block diagram of examples/04/sample_and_hold_equation.dsp"></a>
+<faust-editor><!--
+// The sample-and-hold of "Faust Tutorial 2" (Tiziano Bole, 2008), derived
+// from y[n] = y[n-1] (1 - trig) + x trig by replacing y[n-1] with a cable.
+import("stdfaust.lib");
+
+SH(trig, x) = (*(1 - trig) + x * trig) ~ _;
+
+// With trig = 1 - s it is the one-pole smoother si.smooth(s).
+process = _ <: SH(1 - 0.9), si.smooth(0.9);
+
+// Impulse response of both: 0.1, 0.09, 0.081, ...
+--></faust-editor>
+</div>
+
+<p>With a <code>trig</code> between 0 and 1 the same block interpolates between the old
+value and the input: <code>SH(1 - s)</code> is the smoother <code>si.smooth(s)</code> of the
+libraries.</p>
+<h2 id="the-implicit-delay-in-a-loop">The implicit delay in a loop<a class="headerlink" href="#the-implicit-delay-in-a-loop" title="Permanent link">&para;</a></h2>
+<p>Because the feedback path already holds one sample, a delay of d samples in
+the loop is written <code>@(d - 1)</code>
+(<a href="../examples/04/delay_in_loop.dsp"><code>delay_in_loop.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/delay_in_loop.dsp">examples/04/delay_in_loop.dsp</a></p>
+<a href="../examples/04/delay_in_loop-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/delay_in_loop-svg/process.svg" alt="block diagram of examples/04/delay_in_loop.dsp"></a>
+<faust-editor><!--
+// The feedback path of ~ already holds one sample of delay.
+// A feedback echo of d samples therefore needs @(d - 1) in the loop.
+echo(d, g) = + ~ (@(d - 1) : *(g));
+
+process = echo(4, 0.5);
+
+// Echoes at samples 0, 4, 8, halving each time.
+--></faust-editor>
+</div>
+
+<p>The echoes come at samples 0, 4, 8..., halving each time. Writing <code>@(d)</code>
+would place them at 0, 5, 10: a classic off-by-one.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<p>The blocks of this chapter are, almost literally, library functions.</p>
+<table>
+<thead>
+<tr>
+<th>library function</th>
+<th>definition</th>
+<th>file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>os.impulse</code></td>
+<td><code>impulse = 1-1';</code></td>
+<td>oscillators.lib</td>
+</tr>
+<tr>
+<td><code>fi.integrator</code></td>
+<td><code>integrator = + ~ _;</code></td>
+<td>filters.lib</td>
+</tr>
+<tr>
+<td><code>fi.pole</code></td>
+<td><code>pole(p) = + ~ *(p);</code></td>
+<td>filters.lib</td>
+</tr>
+<tr>
+<td><code>fi.zero</code></td>
+<td><code>zero(z) = _ &lt;: _,mem : _,*(z) : -;</code></td>
+<td>filters.lib</td>
+</tr>
+<tr>
+<td><code>ba.time</code></td>
+<td><code>time = +(1)~_ : mem;</code></td>
+<td>basics.lib</td>
+</tr>
+<tr>
+<td><code>ma.diffn</code></td>
+<td><code>diffn(x) = x' - x;</code> (the difference, negated)</td>
+<td>maths.lib</td>
+</tr>
+</tbody>
+</table>
+<p>With them the one-pole lowpass is <code>*(1 - a) : fi.pole(a)</code>, and faustprobe
+confirms that it is identical to the hand-written version
+(<a href="../examples/04/pole_library.dsp"><code>pole_library.dsp</code></a>). <code>si.smooth(s)</code>,
+the smoother that every library uses to remove the clicks of a moving
+slider, is the same one-pole filter. The pseudo-random generator behind
+<code>no.noise</code> is a recursion too:</p>
+<pre><code class="language-faust">random = +(seed) ~ *(1103515245);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/pole_library.dsp">examples/04/pole_library.dsp</a></p>
+<a href="../examples/04/pole_library-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/pole_library-svg/process.svg" alt="block diagram of examples/04/pole_library.dsp"></a>
+<faust-editor><!--
+// The same filter with the library: fi.pole(p) = + ~ *(p) is the recursive
+// part, the gain (1 - p) keeps the level of a constant at 1.
+import("stdfaust.lib");
+
+lowpass1(a) = *(1 - a) : + ~ *(a);
+
+process = *(0.5) : fi.pole(0.5);
+
+// Identical to lowpass1(0.5), sample for sample.
+--></faust-editor>
+</div>
+
+<p>It multiplies the previous value by a large integer and adds a seed; the
+integer overflow does the scrambling. Chapter 7 comes back to it.</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The off-by-one in a loop.</strong> <code>~</code> adds one sample of delay; count it.</li>
+<li><strong>The first sample.</strong> Every delay and every recursion starts from 0. A
+  counter written <code>1 : + ~ _</code> starts at 1, not 0.</li>
+<li><strong>Recursive sums drift.</strong> <code>moving_sum</code> adds and subtracts forever, and the
+  rounding errors never cancel exactly. On white noise, the difference
+  between <code>moving_sum(4)</code> and the direct sum <code>x + x' + x'' + x@3</code>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>duration</th>
+<th>single precision</th>
+<th>double precision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 s</td>
+<td>5.7e-6</td>
+<td>1.4e-14</td>
+</tr>
+<tr>
+<td>10 s</td>
+<td>2.2e-5</td>
+<td>3.2e-14</td>
+</tr>
+<tr>
+<td>100 s</td>
+<td>1.3e-4</td>
+<td>1.1e-13</td>
+</tr>
+</tbody>
+</table>
+<p>The error is a random walk: it grows without bound. For a small window,
+  write the direct sum (chapter 11 shows how with <code>sum</code>). For a large one,
+  Orlarey, Fober and Letz (SMC 2009) accumulate <strong>integers</strong>, which add and
+  subtract exactly, and convert back at the end
+  (<a href="../examples/04/fixed_point_sum.dsp"><code>fixed_point_sum.dsp</code></a>):</p>
+<p><code>faust
+  float2fix(x) = int(x * (1 &lt;&lt; 20));
+  fix2float(x) = float(x) / (1 &lt;&lt; 20);
+  moving_sum_fixed(n) = float2fix : moving_sum(n) : fix2float;</code></p>
+<p>After 100 seconds of noise in single precision, the float version is
+  1.3e-4 away from the direct sum, and the fixed-point version is exactly
+  equal to the direct sum of the same quantised samples. The library's
+  <code>ba.slidingSum</code> documents the same drift.
+- <strong>The name <code>sum</code> is taken</strong>: it is a keyword of the language (chapter 11),
+  which is why the moving sum above is not called <code>sum</code>.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/fixed_point_sum.dsp">examples/04/fixed_point_sum.dsp</a></p>
+<a href="../examples/04/fixed_point_sum-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/fixed_point_sum-svg/process.svg" alt="block diagram of examples/04/fixed_point_sum.dsp"></a>
+<faust-editor><!--
+// The remedy of Orlarey, Fober and Letz (SMC 2009) for the drift of a
+// recursive moving sum: accumulate integers, which add and subtract
+// exactly, and convert back at the end. 20 bits of fraction.
+float2fix(x) = int(x * (1 << 20));
+fix2float(x) = float(x) / (1 << 20);
+
+moving_sum(n, x) = +(x - x@n) ~ _;
+moving_sum_fixed(n) = float2fix : moving_sum(n) : fix2float;
+
+direct(x) = float2fix(x), float2fix(x'), float2fix(x''), float2fix(x@3) :> fix2float;
+
+// The float version drifts from the direct sum of the last four samples;
+// the fixed-point version equals the direct sum of the same quantised
+// samples, exactly, however long it runs.
+process = _ <: moving_sum(4) - direct, moving_sum_fixed(4) - direct;
+
+// Single precision, 100 seconds of white noise.
+--></faust-editor>
+</div>
+
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A DC blocker: the first difference followed by a leaky integrator
+   <code>+ ~ *(p)</code> with p = 0.995. Check that a constant input dies out.
+   Solution: <a href="../examples/04/solutions/ex1_dcblocker.dsp"><code>ex1_dcblocker.dsp</code></a>.</li>
+<li>A counter that goes 0, 1, ..., n−1, 0, 1, ... without its state ever
+   growing. Solution: <a href="../examples/04/solutions/ex2_wrap_counter.dsp"><code>ex2_wrap_counter.dsp</code></a>.</li>
+<li>The moving average of the last n samples. Solution:
+   <a href="../examples/04/solutions/ex3_average.dsp"><code>ex3_average.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/solutions/ex1_dcblocker.dsp">examples/04/solutions/ex1_dcblocker.dsp</a></p>
+<a href="../examples/04/solutions/ex1_dcblocker-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/solutions/ex1_dcblocker-svg/process.svg" alt="block diagram of examples/04/solutions/ex1_dcblocker.dsp"></a>
+<faust-editor><!--
+// Exercise 1: remove the constant part of a signal: the first difference,
+// followed by a leaky integrator that brings the level back.
+dcblock(p) = _ <: _, mem : - : + ~ *(p);
+
+process = dcblock(0.995);
+
+// A constant input dies out: after one second almost nothing is left.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/solutions/ex2_wrap_counter.dsp">examples/04/solutions/ex2_wrap_counter.dsp</a></p>
+<a href="../examples/04/solutions/ex2_wrap_counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/solutions/ex2_wrap_counter-svg/process.svg" alt="block diagram of examples/04/solutions/ex2_wrap_counter.dsp"></a>
+<faust-editor><!--
+// Exercise 2: a counter that goes 0, 1, ..., n-1, 0, 1, ...
+// The modulo is taken inside the loop, so the state never grows.
+wrap_counter(n) = (+(1) : %(n)) ~ _ : mem;
+
+process = wrap_counter(3);
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/04/solutions/ex3_average.dsp">examples/04/solutions/ex3_average.dsp</a></p>
+<a href="../examples/04/solutions/ex3_average-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/04/solutions/ex3_average-svg/process.svg" alt="block diagram of examples/04/solutions/ex3_average.dsp"></a>
+<faust-editor><!--
+// Exercise 3: the moving average of the last n samples.
+moving_sum(n, x) = +(x - x@n) ~ _;
+moving_average(n) = moving_sum(n) : /(n);
+
+process = moving_average(8);
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

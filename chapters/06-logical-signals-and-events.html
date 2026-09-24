@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/06-logical-signals-and-events.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>6. Logical signals and events - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item active">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="05-state-with-several-variables.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="07-periodic-signals-and-sequences.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#6-logical-signals-and-events" class="nav-link">6. Logical signals and events</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#booleans-are-numbers" class="nav-link">Booleans are numbers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#edges" class="nav-link">Edges</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#from-event-to-duration-release-and-trigger" class="nav-link">From event to duration: release and trigger</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#resetting-by-multiplication" class="nav-link">Resetting by multiplication</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#holding-a-value" class="nav-link">Holding a value</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#choosing-select2-and-baif" class="nav-link">Choosing: select2 and ba.if</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#counting-events" class="nav-link">Counting events</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="6-logical-signals-and-events">6. Logical signals and events<a class="headerlink" href="#6-logical-signals-and-events" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>A large part of Faust programming is not signal processing in the textbook
+sense: it is building the signals that <em>drive</em> the processing. A button
+press must start an envelope, a clock must advance a sequencer, a level
+above a threshold must open a gate. These signals are made of <strong>events</strong>
+(something happens at one sample) and <strong>conditions</strong> (something is true
+during a stretch of samples).</p>
+<p>Faust has no special type for them. A condition is a signal that is 1 when
+it holds and 0 otherwise; an event is a condition that holds for one
+sample. Everything in this chapter is built from comparisons, arithmetic,
+<code>mem</code> and <code>~</code>.</p>
+<h2 id="booleans-are-numbers">Booleans are numbers<a class="headerlink" href="#booleans-are-numbers" title="Permanent link">&para;</a></h2>
+<p>Comparisons (<code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>==</code>, <code>!=</code>) return 0 or 1, and logic
+operators combine them (<a href="../examples/06/booleans.dsp"><code>booleans.dsp</code></a>):</p>
+<pre><code class="language-faust">process = a &amp; b, a | b, xor(a, b), min(a, b), max(a, b), 1 - a, (a &gt; 0.5) + (b &gt; 0.5);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/booleans.dsp">examples/06/booleans.dsp</a></p>
+<a href="../examples/06/booleans-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/booleans-svg/process.svg" alt="block diagram of examples/06/booleans.dsp"></a>
+<faust-editor><!--
+// Comparisons return 0 or 1. Logic operators combine them, and so do
+// arithmetic, min and max.
+import("stdfaust.lib");
+
+a = hslider("a", 0, 0, 1, 1);
+b = hslider("b", 0, 0, 1, 1);
+
+process = a & b, a | b, xor(a, b), min(a, b), max(a, b), 1 - a, (a > 0.5) + (b > 0.5);
+--></faust-editor>
+</div>
+
+<p>For signals that are 0 or 1, <code>min</code> is an AND, <code>max</code> is an OR and <code>1 - a</code> is
+a NOT. And because they are numbers, conditions can be added (how many
+hold?), multiplied by a signal (let it through or not) or integrated (for
+how long has it held?).</p>
+<h2 id="edges">Edges<a class="headerlink" href="#edges" title="Permanent link">&para;</a></h2>
+<p>An event is detected by comparing a signal with itself one sample earlier.
+The idioms document lists the detectors
+(<a href="../examples/06/edges.dsp"><code>edges.dsp</code></a>):</p>
+<pre><code class="language-faust">upfront(x)   = x &gt; x';     // 1 on a rising edge
+downfront(x) = x &lt; x';     // 1 on a falling edge
+front(x)     = x != x';    // 1 on any change
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/edges.dsp">examples/06/edges.dsp</a></p>
+<a href="../examples/06/edges-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/edges-svg/process.svg" alt="block diagram of examples/06/edges.dsp"></a>
+<faust-editor><!--
+// Edge detectors from the idioms document: compare a signal with itself one
+// sample earlier.
+upfront(x)   = x > x';     // 1 on a rising edge
+downfront(x) = x < x';     // 1 on a falling edge
+front(x)     = x != x';    // 1 on any change
+
+gate = button("gate");
+
+process = gate <: upfront, downfront, front;
+
+// Press at frame 3, release at frame 6.
+--></faust-editor>
+</div>
+
+<p>and their negations (<code>x &lt;= x'</code>, <code>x &gt;= x'</code>, <code>x == x'</code>), which are 1 everywhere
+except on an edge. A button pressed at frame 3 and released at frame 6 gives
+a rising edge at 3 and a falling edge at 6, each one sample long.</p>
+<p><code>line~</code> in chapter 5 used <code>value != value'</code> to restart its ramp: a change of
+target is an event.</p>
+<h2 id="from-event-to-duration-release-and-trigger">From event to duration: <code>release</code> and <code>trigger</code><a class="headerlink" href="#from-event-to-duration-release-and-trigger" title="Permanent link">&para;</a></h2>
+<p>The idioms document quotes three definitions from "A Faust Tutorial"
+(Gaudrain and Orlarey, 2003) that turn an event into a gate of a given
+length. In the idioms document the first one looks truncated, because the
+underscores were lost when the text was copied out of the PDF. The
+original reads</p>
+<pre><code class="language-faust">impulse = _ &lt;: _, mem : - : (_ &gt; 0.0);
+</code></pre>
+<p>and the 2003 tutorial explains it: "The difference between the original and
+the dephased signal produces a signal with two pulses large of one sample at
+the pulse edges. The greater-than box just let the first positive pulse."
+The idioms document simplifies it to <code>impulse(x) = x - x' &gt; 0.0</code> and then
+<code>impulse(x) = x &gt; x'</code>, the rising edge; the three are the same block
+(<a href="../examples/06/impulse_forms.dsp"><code>impulse_forms.dsp</code></a>). Then:</p>
+<pre><code class="language-faust">release(n) = + ~ (_ &lt;: _, (_ &gt; 0) / n : -);
+trigger(n) = impulse : release(n) : &gt;(0);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/impulse_forms.dsp">examples/06/impulse_forms.dsp</a></p>
+<a href="../examples/06/impulse_forms-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/impulse_forms-svg/process.svg" alt="block diagram of examples/06/impulse_forms.dsp"></a>
+<faust-editor><!--
+// The three writings of impulse in the idioms document are the same block:
+// the original wiring of faust_tutorial.pdf and its two simplifications.
+impulse_wired = _ <: _, mem : - : (_ > 0.0);
+impulse_diff(x) = x - x' > 0.0;
+impulse_edge(x) = x > x';
+
+process = _ <: impulse_wired - impulse_edge, impulse_diff - impulse_edge;
+
+// On white noise the differences are zero at every sample.
+--></faust-editor>
+</div>
+
+<p>(the original writes the last step <code>_&gt;0</code>, the same block as <code>&gt;(0)</code>).</p>
+<p><code>release(n)</code> integrates its input but subtracts 1/n at every sample while
+the value is positive: an impulse of 1 becomes a ramp down to 0 in n
+samples. <code>trigger(n)</code> is 1 while that ramp is positive: in the words of
+the 2003 tutorial, "a Heaviside unit step which duration is controlled by
+the formal parameter n".</p>
+<p>This is where measuring pays. After three steps of 1/3 the value should be
+exactly 0, but floating-point rounding leaves 1.1e-16
+(<a href="../examples/06/release.dsp"><code>release.dsp</code></a>):</p>
+<pre><code class="language-text">frame 3    1.1102230246251565e-16
+frame 4   -0.3333333333333332       &lt;- one more step, then stuck below 0
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/release.dsp">examples/06/release.dsp</a></p>
+<a href="../examples/06/release-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/release-svg/process.svg" alt="block diagram of examples/06/release.dsp"></a>
+<faust-editor><!--
+// release(n) from faust_tutorial.pdf, quoted in the idioms document: a
+// value that falls by 1/n per sample while it is positive.
+release(n) = + ~ (_ <: _, (_ > 0) / n : -);
+
+// The rewrite with max never goes below 0.
+release_max(n) = + ~ g with { g(x) = max(0, x - 1 / n); };
+
+process = _ <: release(3), release_max(3);
+
+// After three steps of 1/3 the value should be 0; rounding leaves 1.1e-16,
+// which is still > 0, so release subtracts 1/3 once more and stays at -1/3.
+--></faust-editor>
+</div>
+
+<p>The value is still "positive", so <code>release</code> subtracts 1/3 once more and
+stays at −1/3 forever. The idioms document rewrites <code>release</code> with
+<code>max(0, x - 1/n)</code>, which stops at 0: the two versions are <strong>not</strong>
+equivalent, and only the second one is safe. But both keep the 1.1e-16 for
+one sample, so <code>trigger(3)</code> lasts 4 samples instead of 3
+(<a href="../examples/06/trigger.dsp"><code>trigger.dsp</code></a>).</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/trigger.dsp">examples/06/trigger.dsp</a></p>
+<a href="../examples/06/trigger-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/trigger-svg/process.svg" alt="block diagram of examples/06/trigger.dsp"></a>
+<faust-editor><!--
+// trigger(n): an impulse turned into a gate n samples long, from the idioms
+// document. The float version lasts n + 1 samples here, because of the
+// rounding shown in release.dsp. Counting down whole numbers is exact.
+impulse(x) = x > x';
+release(n) = + ~ (_ <: _, (_ > 0) / n : -);
+trigger(n) = impulse : release(n) : >(0);
+
+// Exact version: start at n, subtract 1 per sample, stop at 0.
+countdown(n) = *(n) : + ~ (-(1) : max(0));
+trigger_exact(n) = impulse : countdown(n) : >(0);
+
+gate = button("gate");
+
+process = gate <: trigger(3), trigger_exact(3);
+--></faust-editor>
+</div>
+
+<p>The robust way is to count whole samples, which floating point represents
+exactly up to 2^24 in single precision:</p>
+<pre><code class="language-faust">countdown(n) = *(n) : + ~ (-(1) : max(0));
+trigger_exact(n) = impulse : countdown(n) : &gt;(0);
+</code></pre>
+<p>The event sets the count to n, and each sample subtracts 1 until 0.
+<code>trigger_exact(3)</code> lasts exactly 3 samples. The lesson generalises: <strong>never
+rely on a sum of fractions landing exactly on a value</strong>; count integers, or
+compare with a margin.</p>
+<p>A second event during the gate raises another question: should it extend
+the gate or restart it? <code>release</code> and <code>countdown</code> <em>add</em> the new count to
+what is left: with n = 100 and presses at frames 1000 and 1050, the gate
+lasts until frame 1199. A countdown that sets its state to n on each event
+restarts instead, and ends at 1149
+(<a href="../examples/06/retrigger.dsp"><code>retrigger.dsp</code></a>):</p>
+<pre><code class="language-faust">restart(n) = loop ~ _ with { loop(left, t) = ba.if(t, n, max(0, left - 1)); };
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/retrigger.dsp">examples/06/retrigger.dsp</a></p>
+<a href="../examples/06/retrigger-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/retrigger-svg/process.svg" alt="block diagram of examples/06/retrigger.dsp"></a>
+<faust-editor><!--
+// A second press during a trigger. release and the additive countdown add
+// the new count to what is left, so the gate stretches; the countdown of
+// exercise 3 restarts at n instead.
+import("stdfaust.lib");
+
+impulse(x) = x > x';
+release(n) = + ~ (_ <: _, (_ > 0) / n : -);
+trigger(n) = impulse : release(n) : >(0);
+
+countdown(n) = *(n) : + ~ (-(1) : max(0));                  // adds up
+restart(n) = loop ~ _ with { loop(left, t) = ba.if(t, n, max(0, left - 1)); };
+
+gate = button("gate");
+
+process = gate <: trigger(100),
+                  (impulse : countdown(100) : >(0)),
+                  (impulse : restart(100) : >(0));
+
+// Presses at frames 1000 and 1050. The first two gates last until frame
+// 1199 (150 samples after the second press); the restart ends at 1149.
+--></faust-editor>
+</div>
+
+<p>Both are useful; the point is to choose, and to check which one a library
+function implements.</p>
+<h2 id="resetting-by-multiplication">Resetting by multiplication<a class="headerlink" href="#resetting-by-multiplication" title="Permanent link">&para;</a></h2>
+<p>Multiplying a state by <code>(1 - reset)</code> inside its loop sends it back to 0
+while <code>reset</code> is 1 (<a href="../examples/06/reset.dsp"><code>reset.dsp</code></a>):</p>
+<pre><code class="language-faust">counter = (+(1) : *(1 - reset)) ~ _;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/reset.dsp">examples/06/reset.dsp</a></p>
+<a href="../examples/06/reset-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/reset-svg/process.svg" alt="block diagram of examples/06/reset.dsp"></a>
+<faust-editor><!--
+// Reset by multiplication: a counter multiplied by (1 - reset) inside the
+// loop goes back to 0 while reset is 1.
+reset = button("reset");
+
+counter = (+(1) : *(1 - reset)) ~ _;
+
+process = counter;
+--></faust-editor>
+</div>
+
+<p>The counter runs, drops to 0 on the reset, and starts again from 1. The
+same trick with <code>*(gate == 0)</code> gives a counter that runs only while a gate
+is released: this is how the envelopes of envelopes.lib measure the time
+since the key was released.</p>
+<h2 id="holding-a-value">Holding a value<a class="headerlink" href="#holding-a-value" title="Permanent link">&para;</a></h2>
+<p><code>select2(c, a, b)</code> outputs <code>a</code> when <code>c</code> is 0 and <code>b</code> when <code>c</code> is 1. Put in a
+recursion, it chooses between the previous output and the input
+(<a href="../examples/06/sample_and_hold.dsp"><code>sample_and_hold.dsp</code></a>):</p>
+<pre><code class="language-faust">hold(t) = select2(t) ~ _;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/sample_and_hold.dsp">examples/06/sample_and_hold.dsp</a></p>
+<a href="../examples/06/sample_and_hold-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/sample_and_hold-svg/process.svg" alt="block diagram of examples/06/sample_and_hold.dsp"></a>
+<faust-editor><!--
+// Sample and hold: select2(t) ~ _ chooses between the previous output (t = 0)
+// and the input (t = 1). With a one-sample trigger it samples, with a gate it
+// tracks the input while the gate is up. It is ba.sAndH.
+import("stdfaust.lib");
+
+hold(t) = select2(t) ~ _;
+
+take = button("take");
+
+process = os.lf_sawpos(1000) <: hold(take), ba.sAndH(take);
+--></faust-editor>
+</div>
+
+<p>While <code>t</code> is 0 the output keeps its value; while <code>t</code> is 1 it follows the
+input. With a one-sample trigger this is a sample-and-hold; the library
+calls it <code>ba.sAndH</code>. Holding the phase of a ramp at the instant of a button
+press gives the value of the ramp at that frame, forever after.</p>
+<h2 id="choosing-select2-and-baif">Choosing: <code>select2</code> and <code>ba.if</code><a class="headerlink" href="#choosing-select2-and-baif" title="Permanent link">&para;</a></h2>
+<p><code>ba.if(cond, then, else)</code> is <code>select2(cond, else, then)</code> with the branches
+in the usual order. Both <strong>compute both branches</strong> at every sample; only the
+choice is conditional. That is harmless as long as the choice is made by
+<code>select2</code>, which never looks at the discarded value, even an infinite one.
+It is not harmless when the choice is made by arithmetic
+(<a href="../examples/06/select.dsp"><code>select.dsp</code></a>):</p>
+<pre><code class="language-faust">safe_inverse = ba.if(x == 0, 0, 1 / x);
+arithmetic_inverse = (x == 0) * 0 + (x != 0) * (1 / x);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/select.dsp">examples/06/select.dsp</a></p>
+<a href="../examples/06/select-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/select-svg/process.svg" alt="block diagram of examples/06/select.dsp"></a>
+<faust-editor><!--
+// select2(c, a, b) is a if c is 0, b if c is 1. ba.if(c, then, else) is the
+// same with the branches in the usual order. Both compute both branches, but
+// only the chosen one reaches the output, even if the other is infinite.
+// Selecting by arithmetic, c * a + (1 - c) * b, does not: 0 * inf is NaN.
+import("stdfaust.lib");
+
+x = hslider("x", 1, 0, 1, 1);
+
+safe_inverse = ba.if(x == 0, 0, 1 / x);
+arithmetic_inverse = (x == 0) * 0 + (x != 0) * (1 / x);
+
+process = safe_inverse, arithmetic_inverse;
+--></faust-editor>
+</div>
+
+<p>At x = 0, the first gives 0; the second gives 0 × ∞, which is NaN, and
+faustprobe refuses the render. Choose with <code>select2</code>, not with a product,
+when a branch can be infinite. The library's <code>ba.latch</code> is written with
+products, so it inherits this weakness.</p>
+<h2 id="counting-events">Counting events<a class="headerlink" href="#counting-events" title="Permanent link">&para;</a></h2>
+<p>The idioms document counts the changes of a MIDI clock over the last second
+(<a href="../examples/06/clock_counter.dsp"><code>clock_counter.dsp</code></a>):</p>
+<pre><code class="language-faust">front(x) = (x - x') != 0.0;
+per_second(x) = (x - x@ma.SR) : + ~ _;      // moving sum over one second
+
+process = os.lf_squarewave(12) : front : per_second;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/clock_counter.dsp">examples/06/clock_counter.dsp</a></p>
+<a href="../examples/06/clock_counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/clock_counter-svg/process.svg" alt="block diagram of examples/06/clock_counter.dsp"></a>
+<faust-editor><!--
+// The MIDI clock example of the idioms document: count the changes of a
+// clock signal during the last second. A square wave at 12 Hz changes 24
+// times per second, the rate of a MIDI clock at 60 beats per minute.
+import("stdfaust.lib");
+
+front(x) = (x - x') != 0.0;
+per_second(x) = (x - x@ma.SR) : + ~ _;      // moving sum over one second
+
+process = os.lf_squarewave(12) : front : per_second;
+--></faust-editor>
+</div>
+
+<p><code>per_second</code> is the moving sum of chapter 4 with a window of one second. A
+square wave at 12 Hz changes 24 times per second, the rate of a MIDI clock
+at 60 beats per minute, and the count settles at 24. In the idioms document
+the clock comes from a checkbox labelled <code>[midi:clock]</code>, which a MIDI
+architecture flips at every clock message; chapter 8 covers such labels.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>library function</th>
+<th>definition</th>
+<th>what it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ba.counter</code></td>
+<td><code>counter(trig) = upfront(trig) : + ~ _ with { upfront(x) = x &gt; x'; };</code></td>
+<td>counting rising edges</td>
+</tr>
+<tr>
+<td><code>ba.sAndH</code></td>
+<td><code>sAndH(trig) = select2(trig) ~ _;</code></td>
+<td>holding</td>
+</tr>
+<tr>
+<td><code>ba.toggle</code></td>
+<td><code>toggle = trig : loop with { trig(x) = (x-x') == 1; loop = != ~ _; };</code></td>
+<td>a flip-flop</td>
+</tr>
+<tr>
+<td><code>ba.peakhold</code></td>
+<td><code>peakhold = (*,_ : max) ~ _;</code></td>
+<td><code>max</code> as a memory</td>
+</tr>
+<tr>
+<td><code>ba.countdown</code></td>
+<td><code>countdown(n, trig) = \(c).(if(trig&gt;0, n, max(0, c-1))) ~ _;</code></td>
+<td>exact countdown</td>
+</tr>
+<tr>
+<td><code>ba.impulsify</code></td>
+<td><code>impulsify = _ &lt;: _,mem : - &lt;: &gt;(0)*_;</code></td>
+<td>positive part of the difference</td>
+</tr>
+</tbody>
+</table>
+<p>A detail about <code>ba.impulsify</code>: it outputs the size of the rise, not the
+value of the signal (<a href="../examples/06/impulsify.dsp"><code>impulsify.dsp</code></a>). A
+signal that climbs to 0.3 then 0.5 gives spikes of 0.3 and 0.2, not 0.3 and
+0.5. Its documentation said "the value of the current sample" until
+faustlibraries 2.74.3 (basics.lib 1.23.2), which describes the rise.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/impulsify.dsp">examples/06/impulsify.dsp</a></p>
+<a href="../examples/06/impulsify-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/impulsify-svg/process.svg" alt="block diagram of examples/06/impulsify.dsp"></a>
+<faust-editor><!--
+// impulsify from faust_tutorial.pdf, quoted in the idioms document, and
+// ba.impulsify in basics.lib: the positive part of the first difference.
+// It marks each rise of a signal with a spike as high as the rise.
+// (The library's documentation said it outputs "the value of the current
+// sample" until faustlibraries 2.74.3; it outputs the size of the step.)
+import("stdfaust.lib");
+
+impulsify = _ <: _, mem : - <: >(0) * _;
+
+steps = 0.3 * (ba.time >= 1) + 0.2 * (ba.time >= 3) - 0.4 * (ba.time >= 5);
+
+process = steps <: _, impulsify, ba.impulsify;
+
+// The signal climbs to 0.3, then to 0.5, then falls to 0.1: two spikes of
+// 0.3 and 0.2, nothing on the fall.
+--></faust-editor>
+</div>
+
+<p>In envelopes.lib, <code>en.adsr</code> counts the samples since the release with
+<code>(+(1) : *(gate == 0)) ~ _</code>, and <code>en.adsre</code> counts the samples since the
+key was pressed with <code>ugate : +~(*(ugate))</code>: the gate itself is both the
+increment and the reset.</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Floating-point landings.</strong> A value built by adding fractions is almost
+  never exactly 0 or 1. Count integers, or compare with a margin.</li>
+<li><strong>Selecting by arithmetic</strong> propagates NaN and infinity from the
+  discarded branch. Use <code>select2</code> or <code>ba.if</code>.</li>
+<li><strong>Both branches are computed.</strong> <code>ba.if</code> does not save work; chapter 9
+  shows how to choose at compile time instead.</li>
+<li><strong>Negative zero.</strong> <code>&gt;(0) * x</code> on a negative <code>x</code> gives −0.0, which prints
+  with its sign but compares equal to 0.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A toggle: each press of a button flips the output between 0 and 1.
+   Solution: <a href="../examples/06/solutions/ex1_toggle.dsp"><code>ex1_toggle.dsp</code></a>.</li>
+<li>Count the presses of a button, with a second button that resets the
+   count. Solution: <a href="../examples/06/solutions/ex2_press_counter.dsp"><code>ex2_press_counter.dsp</code></a>.</li>
+<li>A retriggerable gate of exactly 100 ms after each press: 4800 samples at
+   48 kHz, not one more. Solution:
+   <a href="../examples/06/solutions/ex3_monostable.dsp"><code>ex3_monostable.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/solutions/ex1_toggle.dsp">examples/06/solutions/ex1_toggle.dsp</a></p>
+<a href="../examples/06/solutions/ex1_toggle-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/solutions/ex1_toggle-svg/process.svg" alt="block diagram of examples/06/solutions/ex1_toggle.dsp"></a>
+<faust-editor><!--
+// Exercise 1: a toggle. Each press of the button flips the output between
+// 0 and 1: the rising edge, then an exclusive or with the previous output.
+press = button("press");
+
+toggle(b) = (b > b') : (!= ~ _);
+
+process = toggle(press);
+
+// Two presses: on at frame 2, off at frame 6.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/solutions/ex2_press_counter.dsp">examples/06/solutions/ex2_press_counter.dsp</a></p>
+<a href="../examples/06/solutions/ex2_press_counter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/solutions/ex2_press_counter-svg/process.svg" alt="block diagram of examples/06/solutions/ex2_press_counter.dsp"></a>
+<faust-editor><!--
+// Exercise 2: count the presses of one button, reset by another.
+press = button("press");
+reset = button("reset");
+
+presses = (press > press') : (+ : *(1 - reset)) ~ _;
+
+process = presses;
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/06/solutions/ex3_monostable.dsp">examples/06/solutions/ex3_monostable.dsp</a></p>
+<a href="../examples/06/solutions/ex3_monostable-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/06/solutions/ex3_monostable-svg/process.svg" alt="block diagram of examples/06/solutions/ex3_monostable.dsp"></a>
+<faust-editor><!--
+// Exercise 3: a retriggerable gate of exactly 100 ms after each press.
+// The state counts down whole samples, which is exact; every new press
+// restarts it at n.
+import("stdfaust.lib");
+
+press = button("press");
+
+gate_for(n, b) = (b > b') : (loop ~ _) : >(0)
+with {
+    loop(left, trig) = ba.if(trig, n, max(0, left - 1));
+};
+
+process = gate_for(ba.sec2samp(0.1), press);
+
+// 100 ms at 48 kHz is 4800 samples: frames 10 to 4809.
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/09-compile-time-or-run-time.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>9. Compile time or run time - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item active">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="08-user-interface.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="10-choosing-among-values.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#9-compile-time-or-run-time" class="nav-link">9. Compile time or run time</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#how-the-compiler-works" class="nav-link">How the compiler works</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#constants-cost-nothing" class="nav-link">Constants cost nothing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#different-diagrams-one-computation" class="nav-link">Different diagrams, one computation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#three-rates" class="nav-link">Three rates</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#only-what-is-used-is-computed" class="nav-link">Only what is used is computed</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#choosing-at-compile-time" class="nav-link">Choosing at compile time</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#what-must-be-known-at-compile-time" class="nav-link">What must be known at compile time</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#integers-and-floats" class="nav-link">Integers and floats</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#other-compilation-options" class="nav-link">Other compilation options</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="9-compile-time-or-run-time">9. Compile time or run time<a class="headerlink" href="#9-compile-time-or-run-time" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>The Faust compiler does not translate the text of a program line by line.
+It works out <strong>what the program computes</strong>, and generates code for that.
+Orlarey, Fober and Letz put it in one sentence (SMC 2009): the idea is "not
+to compile the block diagram itself, but what it computes".</p>
+<p>This has two consequences that every Faust programmer uses, knowingly or
+not:</p>
+<ol>
+<li>anything that can be computed before the program runs is computed by
+   the compiler, and costs nothing at run time;</li>
+<li>some things <strong>must</strong> be known before the program runs, and the compiler
+   refuses a program where they are not.</li>
+</ol>
+<p>This chapter shows both, with the generated C++ as evidence. To see it
+yourself, run <code>faust program.dsp</code> and read the <code>compute</code> method at the end.</p>
+<h2 id="how-the-compiler-works">How the compiler works<a class="headerlink" href="#how-the-compiler-works" title="Permanent link">&para;</a></h2>
+<p>In broad strokes (SMC 2009; Soft Computing, 2004):</p>
+<ol>
+<li><strong>Evaluation.</strong> The program is evaluated like a functional program:
+   definitions are expanded, functions applied, pattern matching resolved
+   (chapter 11), until only primitive blocks and the five compositions
+   remain. This happens entirely at compile time.</li>
+<li><strong>Symbolic propagation.</strong> Symbolic signals are sent through the
+   resulting diagram, which gives one equation per output, in terms of the
+   inputs, the widgets and time.</li>
+<li><strong>Typing.</strong> Every signal gets a type: its nature (integer or float), its
+   interval of values, <strong>when</strong> it is known (compile time, initialisation,
+   run time), and <strong>how often</strong> it changes (never, once per block for
+   widgets, every sample).</li>
+<li><strong>Normalisation.</strong> The equations are simplified and put in a normal
+   form, so that different writings of the same computation become
+   identical and are computed once.</li>
+<li><strong>Code generation</strong>, which places each computation according to its
+   type: constants in the code, initialisation constants in
+   <code>instanceConstants</code>, widget expressions before the sample loop, the rest
+   inside it.</li>
+</ol>
+<h2 id="constants-cost-nothing">Constants cost nothing<a class="headerlink" href="#constants-cost-nothing" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/09/constant_folding.dsp"><code>constant_folding.dsp</code></a>)</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/constant_folding.dsp">examples/09/constant_folding.dsp</a></p>
+<a href="../examples/09/constant_folding-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/constant_folding-svg/process.svg" alt="block diagram of examples/09/constant_folding.dsp"></a>
+<faust-editor><!--
+// Everything that can be computed before the program runs, is: the three
+// outputs are constants in the generated code.
+process = (1 + 2) * 3, sin(0.5), 1/3 + 1/3;
+--></faust-editor>
+</div>
+
+<pre><code class="language-cpp">output0[i0] = static_cast&lt;FAUSTFLOAT&gt;(9);
+output1[i0] = static_cast&lt;FAUSTFLOAT&gt;(0.47942555f);
+output2[i0] = static_cast&lt;FAUSTFLOAT&gt;(0.6666667f);
+</code></pre>
+<p>No <code>sin</code> is called at run time. The same happens to a factorial computed by
+pattern matching (chapter 11), or to the coefficients of a filter whose
+frequency is a constant.</p>
+<h2 id="different-diagrams-one-computation">Different diagrams, one computation<a class="headerlink" href="#different-diagrams-one-computation" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/09/normal_form.dsp"><code>normal_form.dsp</code></a>)</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/normal_form.dsp">examples/09/normal_form.dsp</a></p>
+<a href="../examples/09/normal_form-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/normal_form-svg/process.svg" alt="block diagram of examples/09/normal_form.dsp"></a>
+<faust-editor><!--
+// Two different block diagrams, one computation: both are x(t - 10) / 2.
+// The compiler reduces them to the same normal form and computes it once
+// (Orlarey, Fober and Letz, SMC 2009).
+process = _ <: (/(2) : @(10)), (*(2) : @(7) : /(4) : @(3));
+
+// One delay line of 11 samples, one multiplication, shared by both outputs.
+--></faust-editor>
+</div>
+
+<p>Both outputs are x(t − 10)/2. The compiler finds it: it generates one delay
+line of 11 samples and one multiplication, shared by the two outputs.</p>
+<pre><code class="language-cpp">float fTemp0 = 0.5f * fVec0[10];
+</code></pre>
+<p>Write what is clearest; the normal form takes care of the arithmetic.</p>
+<h2 id="three-rates">Three rates<a class="headerlink" href="#three-rates" title="Permanent link">&para;</a></h2>
+<p>Signals change at three rates, and the compiler puts each computation where
+it belongs.</p>
+<p><strong>Constant</strong>: computed by the compiler.</p>
+<p><strong>Initialisation</strong>: the sampling rate is known when the program starts, not
+when it is compiled. Expressions of <code>ma.SR</code> are computed once, in
+<code>instanceConstants</code> (<a href="../examples/09/sample_rate.dsp"><code>sample_rate.dsp</code></a>):</p>
+<pre><code class="language-cpp">fConst0 = 1e+03f / std::min&lt;float&gt;(1.92e+05f, std::max&lt;float&gt;(1.0f, static_cast&lt;float&gt;(fSampleRate)));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/sample_rate.dsp">examples/09/sample_rate.dsp</a></p>
+<a href="../examples/09/sample_rate-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/sample_rate-svg/process.svg" alt="block diagram of examples/09/sample_rate.dsp"></a>
+<faust-editor><!--
+// The sampling rate is known when the program is initialised, not when it
+// is compiled: expressions of ma.SR go into instanceConstants, computed
+// once at initialisation.
+import("stdfaust.lib");
+
+process = os.lf_sawpos(1000);
+--></faust-editor>
+</div>
+
+<p><strong>Control rate</strong>: a widget changes at most once per block of samples, so an
+expression of widgets alone is computed once per block, before the sample
+loop (<a href="../examples/09/control_rate.dsp"><code>control_rate.dsp</code></a>):</p>
+<pre><code class="language-faust">process = *(hslider(&quot;gain&quot;, 0, -60, 0, 0.1) : ba.db2linear);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/control_rate.dsp">examples/09/control_rate.dsp</a></p>
+<a href="../examples/09/control_rate-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/control_rate-svg/process.svg" alt="block diagram of examples/09/control_rate.dsp"></a>
+<faust-editor><!--
+// An expression of sliders only is computed once per block, outside the
+// sample loop: here the conversion from decibels (fSlow0), then one
+// multiplication per sample.
+import("stdfaust.lib");
+
+process = *(hslider("gain", 0, -60, 0, 0.1) : ba.db2linear);
+--></faust-editor>
+</div>
+
+<pre><code class="language-cpp">float fSlow0 = std::pow(1e+01f, 0.05f * static_cast&lt;float&gt;(fHslider0));
+for (int i0 = 0; i0 &lt; count; i0 = faust_wrap_add(i0, 1)) {
+    output0[i0] = static_cast&lt;FAUSTFLOAT&gt;(fSlow0 * static_cast&lt;float&gt;(input0[i0]));
+}
+</code></pre>
+<p>The costly <code>pow</code> runs once per block; the loop only multiplies. This is why
+chapter 8 advised smoothing <em>after</em> the control-rate arithmetic: <code>si.smoo</code>
+is a recursion, hence a per-sample signal, and everything after it is
+computed at every sample (exercise 1).</p>
+<p><strong>Sample rate</strong>: everything that depends on an input, a recursion or time.</p>
+<h2 id="only-what-is-used-is-computed">Only what is used is computed<a class="headerlink" href="#only-what-is-used-is-computed" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/09/dead_code.dsp"><code>dead_code.dsp</code></a>)</p>
+<pre><code class="language-faust">a = os.osc(hslider(&quot;a&quot;, 440, 20, 2000, 1));
+b = os.sawtooth(hslider(&quot;b&quot;, 220, 20, 2000, 1));
+process = a, b : !, _;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/dead_code.dsp">examples/09/dead_code.dsp</a></p>
+<a href="../examples/09/dead_code-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/dead_code-svg/process.svg" alt="block diagram of examples/09/dead_code.dsp"></a>
+<faust-editor><!--
+// Only what reaches an output is computed. The first oscillator and its
+// slider are cut: no code, no widget.
+import("stdfaust.lib");
+
+a = os.osc(hslider("a", 440, 20, 2000, 1));
+b = os.sawtooth(hslider("b", 220, 20, 2000, 1));
+
+process = a, b : !, _;
+--></faust-editor>
+</div>
+
+<p>The first oscillator reaches no output: it is not compiled, and its slider
+does not exist. Chapter 14 builds on this: a generic function with many
+outputs can be specialised by cutting the ones you do not need, at no cost.</p>
+<h2 id="choosing-at-compile-time">Choosing at compile time<a class="headerlink" href="#choosing-at-compile-time" title="Permanent link">&para;</a></h2>
+<p>A choice whose condition is a constant is made by the compiler
+(<a href="../examples/09/compile_time_choice.dsp"><code>compile_time_choice.dsp</code></a>):</p>
+<pre><code class="language-faust">mode = 1;
+process = ba.if(mode == 0, os.osc(440), os.sawtooth(440));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/compile_time_choice.dsp">examples/09/compile_time_choice.dsp</a></p>
+<a href="../examples/09/compile_time_choice-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/compile_time_choice-svg/process.svg" alt="block diagram of examples/09/compile_time_choice.dsp"></a>
+<faust-editor><!--
+// A choice on a constant is made by the compiler: only the chosen branch is
+// compiled. With mode = 1 the sine oscillator, and its table, are gone.
+import("stdfaust.lib");
+
+mode = 1;
+
+process = ba.if(mode == 0, os.osc(440), os.sawtooth(440));
+--></faust-editor>
+</div>
+
+<p>Only the sawtooth is compiled; the sine table of <code>os.osc</code> is absent from the
+generated code. With <code>mode</code> on a slider
+(<a href="../examples/09/run_time_choice.dsp"><code>run_time_choice.dsp</code></a>), both
+oscillators run at every sample and <code>select2</code> picks one: the table is back.
+When a choice does not need to change while the program runs, make it a
+constant. Chapters 11 and 13 show cleaner ways to do so: pattern matching
+and environments.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/run_time_choice.dsp">examples/09/run_time_choice.dsp</a></p>
+<a href="../examples/09/run_time_choice-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/run_time_choice-svg/process.svg" alt="block diagram of examples/09/run_time_choice.dsp"></a>
+<faust-editor><!--
+// The same choice on a slider is made at every sample, and both branches are
+// computed: the sine table is back in the generated code.
+import("stdfaust.lib");
+
+mode = hslider("mode", 1, 0, 1, 1);
+
+process = ba.if(mode == 0, os.osc(440), os.sawtooth(440));
+--></faust-editor>
+</div>
+
+<h2 id="what-must-be-known-at-compile-time">What must be known at compile time<a class="headerlink" href="#what-must-be-known-at-compile-time" title="Permanent link">&para;</a></h2>
+<p>Some quantities shape the program itself, and must be constants:</p>
+<table>
+<thead>
+<tr>
+<th>quantity</th>
+<th>why</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>the number of inputs and outputs of every block</td>
+<td>the diagram is fixed</td>
+<td><code>par(i, N, ...)</code>, <code>si.bus(N)</code></td>
+</tr>
+<tr>
+<td>the arguments of pattern matching</td>
+<td>the rules are applied by the compiler</td>
+<td><code>fi.lowpass(N, fc)</code>: <code>N</code></td>
+</tr>
+<tr>
+<td>the size of a table</td>
+<td>memory is allocated once</td>
+<td><code>rdtable(N, ...)</code>, <code>rwtable(N, ...)</code></td>
+</tr>
+<tr>
+<td>the maximum of a delay</td>
+<td>the buffer is allocated once</td>
+<td><code>@(d)</code>, <code>de.delay(N, d)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Delays</strong> need a <em>bound</em>, not a constant. The compiler takes it from the
+interval of the delay signal, so a slider's range is enough
+(<a href="../examples/09/bounded_delay.dsp"><code>bounded_delay.dsp</code></a>):</p>
+<pre><code class="language-faust">d = hslider(&quot;delay&quot;, 10, 0, 100, 1);
+process = _ &lt;: @(d), de.delay(100, d);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/bounded_delay.dsp">examples/09/bounded_delay.dsp</a></p>
+<a href="../examples/09/bounded_delay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/bounded_delay-svg/process.svg" alt="block diagram of examples/09/bounded_delay.dsp"></a>
+<faust-editor><!--
+// A delay read with a variable amount needs a bound, to size its buffer.
+// The compiler takes it from the interval of the signal: a slider's range
+// is known, so @ can take it directly. de.delay(n, d) clamps d to [0, n].
+import("stdfaust.lib");
+
+d = hslider("delay", 10, 0, 100, 1);
+
+process = _ <: @(d), de.delay(100, d);
+
+// A buffer sized from the slider's maximum, 100, plus the current sample,
+// rounded up to a power of two: 128.
+--></faust-editor>
+</div>
+
+<p>The buffer gets 128 samples: the maximum 100, plus the current sample,
+rounded up to a power of two. <code>de.delay(n, d)</code> clamps <code>d</code> to [0, n], which
+gives a bound to any delay signal. Without a bound, the program is refused
+(<a href="../examples/09/unbounded_delay.dsp"><code>unbounded_delay.dsp</code></a>):</p>
+<pre><code class="language-faust">process = _ &lt;: @(ba.time);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/unbounded_delay.dsp">examples/09/unbounded_delay.dsp</a></p>
+<p class="faust-run-note">This program does not compile, on purpose: the editor shows the error.</p>
+<faust-editor><!--
+// A delay read with a counter has no known bound: the compiler cannot size
+// the buffer and refuses the program.
+import("stdfaust.lib");
+process = _ <: @(ba.time);
+--></faust-editor>
+</div>
+
+<pre><code class="language-text">ERROR : possible negative values of : ...
+        used in delay expression : IN[0]
+        interval(-2.14748e+09,2.14748e+09,0)
+</code></pre>
+<p><strong>Tables</strong> need a true constant. The sampling rate is only known at
+initialisation, so it cannot size a table
+(<a href="../examples/09/table_size.dsp"><code>table_size.dsp</code></a>):</p>
+<pre><code class="language-text">ERROR : the parameter must be an integer constant numerical expression : ...
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/table_size.dsp">examples/09/table_size.dsp</a></p>
+<p class="faust-run-note">This program does not compile, on purpose: the editor shows the error.</p>
+<faust-editor><!--
+// The size of a table is fixed at compile time. The sampling rate is only
+// known at initialisation, so it cannot size a table.
+import("stdfaust.lib");
+process = rdtable(int(ma.SR), os.sinwaveform(1024), 0);
+--></faust-editor>
+</div>
+
+<p>The libraries clamp <code>ma.SR</code> to [1, 192000], which gives it an interval:
+that is why a delay of at most one second, <code>de.delay(ba.sec2samp(1), d)</code>,
+compiles (exercise 2), while a table of <code>ma.SR</code> entries does not.</p>
+<p><strong>Pattern matching</strong> on a value that is not a constant is the worst case:
+the compiler does not refuse it, it <strong>never stops</strong>. <code>fi.lowpass(N, fc)</code>
+builds its filter by a recursion on N (<code>N</code> is written in capitals in the
+libraries, the convention for compile-time parameters). With
+<code>N = int(hslider("order", 2, 1, 8, 1))</code>, the recursion never reaches its
+base case: both compilers were still running when stopped after 20
+seconds. If a compilation seems to hang, look for a widget in a parameter
+written in capitals.</p>
+<h2 id="integers-and-floats">Integers and floats<a class="headerlink" href="#integers-and-floats" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/09/int_float.dsp"><code>int_float.dsp</code></a>)</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/int_float.dsp">examples/09/int_float.dsp</a></p>
+<a href="../examples/09/int_float-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/int_float-svg/process.svg" alt="block diagram of examples/09/int_float.dsp"></a>
+<faust-editor><!--
+// Two numeric types. int() truncates towards zero; % on integers is the
+// integer remainder, on floats the floating remainder; integer arithmetic
+// wraps around on 32 bits.
+process = int(2.7), int(-2.7), 7 % 2, 7.5 % 2, 2147483647 + 1;
+--></faust-editor>
+</div>
+
+<p>gives 2, −2, 1, 1.5 and −2147483648. <code>int</code> truncates towards zero; <code>%</code>
+is the integer remainder on integers and the floating remainder on floats;
+integer arithmetic wraps around on 32 bits. That wrap-around is not a bug
+to avoid: the noise generator of noises.lib relies on it (exercise 3).
+Division always gives a float (chapter 1). Widgets and <code>ma.SR</code> are floats.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Capitals for compile-time parameters.</strong> The contribution guide of
+  faustlibraries asks that parameters which must be known at compile time
+  be written in capitals: <code>fi.lowpass(N, fc)</code>, <code>de.delay(N, d)</code>,
+  <code>si.bus(N)</code>.</li>
+<li><strong>Two selectors.</strong> <code>ba.selector(i, n)</code> chooses one of n signals with an
+  index known at compile time, and compiles only that one;
+  <code>ba.selectn(N, i)</code> chooses with a run-time index, and computes all N.
+  Note the opposite order of their arguments.</li>
+<li><strong><code>de.delay</code></strong> is <code>delay(n,d,x) = x @ min(n, max(0,d));</code>: the clamp is the
+  bound.</li>
+<li><strong>A compile-time switch.</strong> <code>os.SAFE</code> in oscillators.lib and <code>DEBUG</code> in
+  debug.lib are constants that select an implementation; chapter 13 shows
+  how a user changes them.</li>
+</ul>
+<h2 id="other-compilation-options">Other compilation options<a class="headerlink" href="#other-compilation-options" title="Permanent link">&para;</a></h2>
+<p>The same analysis lets the compiler reorganise the code. <code>-vec</code> splits the
+sample loop into simpler loops over vectors, which the C++ compiler can
+vectorise; <code>-omp</code> and <code>-sch</code> run independent parts in parallel threads.
+Whether they pay depends on the program: SMC 2009 measured large gains on
+programs with independent parts, and none on a purely sequential one.
+Measure before choosing.</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>A widget in a capital parameter</strong> makes the compiler loop forever.</li>
+<li><strong>A table sized by <code>ma.SR</code></strong> is refused; size it for the largest rate.</li>
+<li><strong><code>ba.if</code> on a widget computes both branches.</strong> Use a constant, pattern
+  matching or an environment when the choice is fixed.</li>
+<li><strong>Smoothing too early</strong> moves control-rate arithmetic into the sample
+  loop.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>The constant-intensity panner of chapter 8, with both square roots
+   computed once per block. Check in the generated C++ that no <code>sqrt</code>
+   remains in the sample loop. Solution:
+   <a href="../examples/09/solutions/ex1_smooth_late.dsp"><code>ex1_smooth_late.dsp</code></a>.</li>
+<li>A feedback echo with a time slider up to one second. Check the size of
+   its buffer. Solution:
+   <a href="../examples/09/solutions/ex2_echo_one_second.dsp"><code>ex2_echo_one_second.dsp</code></a>.</li>
+<li>Write the linear congruential generator of <code>no.noise</code> with integers, and
+   check that it gives the library's sequence exactly. Solution:
+   <a href="../examples/09/solutions/ex3_integer_noise.dsp"><code>ex3_integer_noise.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/solutions/ex1_smooth_late.dsp">examples/09/solutions/ex1_smooth_late.dsp</a></p>
+<a href="../examples/09/solutions/ex1_smooth_late-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/solutions/ex1_smooth_late-svg/process.svg" alt="block diagram of examples/09/solutions/ex1_smooth_late.dsp"></a>
+<faust-editor><!--
+// Exercise 1: a constant-intensity panner whose square roots are computed
+// once per block. Smoothing after sqrt keeps sqrt out of the sample loop.
+import("stdfaust.lib");
+
+p = hslider("pan", 0.5, 0, 1, 0.01);
+
+process = _ <: *(sqrt(1 - p) : si.smoo), *(sqrt(p) : si.smoo);
+
+// Both square roots are block-rate values (fSlow), none is in the loop.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/solutions/ex2_echo_one_second.dsp">examples/09/solutions/ex2_echo_one_second.dsp</a></p>
+<a href="../examples/09/solutions/ex2_echo_one_second-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/solutions/ex2_echo_one_second-svg/process.svg" alt="block diagram of examples/09/solutions/ex2_echo_one_second.dsp"></a>
+<faust-editor><!--
+// Exercise 2: a feedback echo whose time goes up to one second. The maximum
+// delay must be known at compile time: ba.sec2samp(1) is ma.SR, which the
+// libraries clamp to [1, 192000], so the compiler can size the buffer
+// (262144 samples, the next power of two).
+import("stdfaust.lib");
+
+t = hslider("time", 0.25, 0.01, 1, 0.01);
+
+echo = + ~ (de.delay(ba.sec2samp(1), ba.sec2samp(t) - 1) : *(0.5));
+
+process = echo;
+
+// At 48 kHz and 0.25 s, the first echo comes 12000 samples later, at half
+// the level.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/solutions/ex3_integer_noise.dsp">examples/09/solutions/ex3_integer_noise.dsp</a></p>
+<a href="../examples/09/solutions/ex3_integer_noise-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/solutions/ex3_integer_noise-svg/process.svg" alt="block diagram of examples/09/solutions/ex3_integer_noise.dsp"></a>
+<faust-editor><!--
+// Exercise 3: the linear congruential generator of no.noise, written with
+// integers. The multiplication wraps around on 32 bits, which is what
+// scrambles the sequence; dividing by 2^31 - 1 brings it to [-1, 1].
+import("stdfaust.lib");
+
+random = +(12345) ~ *(1103515245);
+noise = random / 2147483647.0;
+
+process = noise - no.noise;
+
+// The same sequence as the library's noise, sample for sample.
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

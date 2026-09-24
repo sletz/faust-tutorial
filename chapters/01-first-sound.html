@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/01-first-sound.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>1. First sound - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item active">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../index.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="02-block-diagram-algebra.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#1-first-sound" class="nav-link">1. First sound</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#operators-are-blocks" class="nav-link">Operators are blocks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#an-oscillator" class="nav-link">An oscillator</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#a-slider" class="nav-link">A slider</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#listening-and-measuring" class="nav-link">Listening, and measuring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="1-first-sound">1. First sound<a class="headerlink" href="#1-first-sound" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>A Faust program describes a <strong>signal processor</strong>: a box that receives
+signals and computes other signals from them, at every sample, tens of
+thousands of times per second. The program never says "for each sample, do
+this": it describes <em>what the box is</em>, and the compiler writes the loop.</p>
+<p>The main box is always called <code>process</code>. The simplest program has one
+output that is 0.5 at every sample (<a href="../examples/01/constant.dsp"><code>constant.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/01/constant.dsp">examples/01/constant.dsp</a></p>
+<a href="../examples/01/constant-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/constant-svg/process.svg" alt="block diagram of examples/01/constant.dsp"></a>
+<faust-editor><!--
+// The simplest program: one output that is 0.5 at every sample.
+process = 0.5;
+--></faust-editor>
+</div>
+
+<p>A number is already a signal processor: no input, one output, constant.</p>
+<h2 id="operators-are-blocks">Operators are blocks<a class="headerlink" href="#operators-are-blocks" title="Permanent link">&para;</a></h2>
+<p><code>*(0.5)</code> is a block with one input and one output that multiplies its input
+by 0.5 (<a href="../examples/01/gain.dsp"><code>gain.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/01/gain.dsp">examples/01/gain.dsp</a></p>
+<a href="../examples/01/gain-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/gain-svg/process.svg" alt="block diagram of examples/01/gain.dsp"></a>
+<faust-editor><!--
+// An operator is a block: *(0.5) has one input and one output.
+process = *(0.5);
+
+// faustprobe's default input is an impulse: 1, then 0.
+--></faust-editor>
+</div>
+
+<p><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>min</code>, <code>max</code>, <code>sin</code>... are all blocks. Written alone,
+<code>+</code> has two inputs and one output. Written with one argument, <code>*(0.5)</code> fixes
+one of the two inputs and leaves only one. Written in the usual infix
+notation, <code>a * b</code> combines two signals <code>a</code> and <code>b</code>. The three notations
+denote the same operator; chapter 3 shows that they are equivalent.</p>
+<h2 id="an-oscillator">An oscillator<a class="headerlink" href="#an-oscillator" title="Permanent link">&para;</a></h2>
+<p>The standard libraries provide hundreds of functions. They are imported all
+at once, and each one is named with a two-letter prefix: <code>os.</code> for
+oscillators, <code>fi.</code> for filters, <code>no.</code> for noises, <code>ba.</code> for basic functions
+(<a href="../examples/01/sine.dsp"><code>sine.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/01/sine.dsp">examples/01/sine.dsp</a></p>
+<a href="../examples/01/sine-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/sine-svg/process.svg" alt="block diagram of examples/01/sine.dsp"></a>
+<faust-editor><!--
+// A 440 Hz sine wave, scaled down so as not to clip.
+import("stdfaust.lib");
+
+process = os.osc(440) * 0.1;
+--></faust-editor>
+</div>
+
+<p><code>os.osc(440)</code> is a 440 Hz sine wave of amplitude 1; the product by 0.1 keeps
+the output from clipping. An audio output must stay within [-1, 1].</p>
+<p>Two expressions separated by a comma give two outputs, one per loudspeaker
+(<a href="../examples/01/two_channels.dsp"><code>two_channels.dsp</code></a>):</p>
+<pre><code class="language-faust">process = os.osc(440) * 0.1, os.osc(660) * 0.1;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/01/two_channels.dsp">examples/01/two_channels.dsp</a></p>
+<a href="../examples/01/two_channels-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/two_channels-svg/process.svg" alt="block diagram of examples/01/two_channels.dsp"></a>
+<faust-editor><!--
+// Two expressions separated by a comma: two outputs.
+import("stdfaust.lib");
+
+process = os.osc(440) * 0.1, os.osc(660) * 0.1;
+--></faust-editor>
+</div>
+
+<h2 id="a-slider">A slider<a class="headerlink" href="#a-slider" title="Permanent link">&para;</a></h2>
+<p>A user interface is declared inside the program itself. <code>hslider</code> is a
+horizontal slider: label, initial value, minimum, maximum, step
+(<a href="../examples/01/slider.dsp"><code>slider.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/01/slider.dsp">examples/01/slider.dsp</a></p>
+<a href="../examples/01/slider-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/slider-svg/process.svg" alt="block diagram of examples/01/slider.dsp"></a>
+<faust-editor><!--
+// A slider: label, initial value, minimum, maximum, step.
+import("stdfaust.lib");
+
+gain = hslider("gain", 0.1, 0, 1, 0.01);
+freq = hslider("freq", 440, 50, 2000, 1);
+
+process = os.osc(freq) * gain;
+--></faust-editor>
+</div>
+
+<p><code>gain</code> and <code>freq</code> are <strong>definitions</strong>: names given to expressions. A slider
+is a signal like any other, whose value is chosen by the user. It can be
+added, multiplied, passed to an oscillator. Chapter 8 is about user
+interfaces.</p>
+<h2 id="listening-and-measuring">Listening, and measuring<a class="headerlink" href="#listening-and-measuring" title="Permanent link">&para;</a></h2>
+<p>In the online IDE (<a href="https://faustide.grame.fr">https://faustide.grame.fr</a>), pasting the program and
+running it is enough to hear it and move its sliders. The diagram tab shows
+the box the program describes.</p>
+<p>Listening does not tell everything: a signal may be inaudible, too loud, or
+contain an infinite value. Throughout this tutorial, programs are also
+<strong>measured</strong> with <code>faustprobe</code>, which compiles a program, runs it offline
+and prints its samples and some statistics:</p>
+<pre><code class="language-bash">faustprobe --double --in zero -n 44100 --quiet examples/01/sine.dsp
+</code></pre>
+<pre><code class="language-text"># frames=44100 sr=44100 window=0..44100 (44100 frames)
+# out0: peak=0.09999997748012666 rms=0.07071067803218169 dc=-1.9565096361497186e-9 finite=yes peak_at=877
+</code></pre>
+<p><code>--in zero</code> feeds silence to the inputs (this program has none), <code>-n</code> is the
+number of samples computed, <code>--quiet</code> hides the list of samples. The peak is
+0.1, the RMS value 0.1/√2 and the mean <code>dc</code> is zero: this is indeed a sine
+wave of amplitude 0.1. Without <code>--quiet</code>, faustprobe prints one sample per
+line. Appendix A describes the tool in more detail.</p>
+<p>Every example file ends with <code>// check:</code> and <code>// expect:</code> lines: the
+faustprobe command that checks it and what its output must contain.
+<code>make check</code> runs them all.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<p>There is nothing magic about <code>os.osc</code>. It is defined in <code>oscillators.lib</code> as
+another name for <code>oscsin</code>:</p>
+<pre><code class="language-faust">osc = oscsin;
+
+oscsin(freq) = rdtable(tablesize, sinwaveform(tablesize), int(phasor(tablesize,freq)))
+with {
+    tablesize = pl.tablesize;
+};
+</code></pre>
+<p>A table holds one period of a sine, and a phase counter (<code>phasor</code>) reads it
+at the right speed. Everything in this definition will be explained by
+chapter 10: <code>with</code> in chapter 3, the phase counter in chapter 7, tables in
+chapter 10. Reading the libraries is the best way to learn Faust, and every
+chapter points into them.</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The semicolon</strong> ends every definition. Forgetting it gives a syntax
+  error on the <em>next</em> line.</li>
+<li><strong>Integers and floats</strong>: <code>1/2</code> is 0.5 in Faust, because division always
+  gives a float; <code>int(7/2)</code> is 3. Chapter 9 comes back to types.</li>
+<li><strong>Clipping</strong>: a sum of sources quickly exceeds 1. Measure the peak with
+  faustprobe rather than guessing it.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>White noise (<code>no.noise</code>) whose level is set by a slider called "level".
+   Check with faustprobe that at level 1 the peak is close to 1. Solution:
+   <a href="../examples/01/solutions/ex1_noise.dsp"><code>ex1_noise.dsp</code></a>.</li>
+<li>A chord of three sine waves (440, 554.37 and 659.26 Hz) on a single
+   output, never exceeding 0.3 in amplitude. Solution:
+   <a href="../examples/01/solutions/ex2_chord.dsp"><code>ex2_chord.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/01/solutions/ex1_noise.dsp">examples/01/solutions/ex1_noise.dsp</a></p>
+<a href="../examples/01/solutions/ex1_noise-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/solutions/ex1_noise-svg/process.svg" alt="block diagram of examples/01/solutions/ex1_noise.dsp"></a>
+<faust-editor><!--
+// Exercise 1: white noise whose level is set by a slider.
+import("stdfaust.lib");
+
+level = hslider("level", 0.1, 0, 1, 0.01);
+
+process = no.noise * level;
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/01/solutions/ex2_chord.dsp">examples/01/solutions/ex2_chord.dsp</a></p>
+<a href="../examples/01/solutions/ex2_chord-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/01/solutions/ex2_chord-svg/process.svg" alt="block diagram of examples/01/solutions/ex2_chord.dsp"></a>
+<faust-editor><!--
+// Exercise 2: a chord of three notes (A, C sharp, E) summed on one output.
+import("stdfaust.lib");
+
+process = (os.osc(440) + os.osc(554.37) + os.osc(659.26)) * 0.1;
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

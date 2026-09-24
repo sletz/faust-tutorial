@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/11-iteration-and-pattern-matching.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>11. Iteration and pattern matching - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item active">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="10-choosing-among-values.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="12-higher-order-programming.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#11-iteration-and-pattern-matching" class="nav-link">11. Iteration and pattern matching</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#iterations" class="nav-link">Iterations</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#the-inputs-of-an-iteration" class="nav-link">The inputs of an iteration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#definitions-by-cases" class="nav-link">Definitions by cases</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#recursion-on-an-integer" class="nav-link">Recursion on an integer</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#patterns-on-lists" class="nav-link">Patterns on lists</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#functions-as-data-a-fold" class="nav-link">Functions as data: a fold</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#example-the-oscillator-network" class="nav-link">Example: the oscillator network</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="11-iteration-and-pattern-matching">11. Iteration and pattern matching<a class="headerlink" href="#11-iteration-and-pattern-matching" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>Faust has no loops that run while the program plays. It has two ways to
+<strong>build</strong> a program by repetition, before it plays:</p>
+<ul>
+<li><strong>iterations</strong>: <code>par</code>, <code>seq</code>, <code>sum</code> and <code>prod</code> repeat a block N times,
+  with an index the block may use;</li>
+<li><strong>pattern matching</strong>: a function defined by several rules, the compiler
+  choosing the rule that matches the arguments, possibly recursively.</li>
+</ul>
+<p>Both run in the compiler. Their arguments must be known at compile time
+(chapter 9), and their result is an ordinary block diagram. Albert Gräf,
+who added pattern matching to Faust, describes it as manipulating the
+terms of the block-diagram algebra "at compile time".</p>
+<h2 id="iterations">Iterations<a class="headerlink" href="#iterations" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/11/iterations.dsp"><code>iterations.dsp</code></a>)</p>
+<pre><code class="language-faust">gains   = par(i, 4, *(i + 1));          // x1, 2 x2, 3 x3, 4 x4
+chain   = seq(i, 3, +(1));              // +(1) : +(1) : +(1)
+total   = sum(i, 4, i * i);             // 0 + 1 + 4 + 9
+product = prod(i, 3, i + 2);            // 2 * 3 * 4
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/iterations.dsp">examples/11/iterations.dsp</a></p>
+<a href="../examples/11/iterations-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/iterations-svg/process.svg" alt="block diagram of examples/11/iterations.dsp"></a>
+<faust-editor><!--
+// par, seq, sum and prod repeat a block N times, with an index i that the
+// body may use. N must be known at compile time.
+gains   = par(i, 4, *(i + 1));          // 4 inputs, 4 outputs: x1, 2 x2, 3 x3, 4 x4
+chain   = seq(i, 3, +(1));              // +(1) : +(1) : +(1)
+total   = sum(i, 4, i * i);             // 0 + 1 + 4 + 9, a constant
+product = prod(i, 3, i + 2);            // 2 * 3 * 4, a constant
+
+process = gains, chain, total, product;
+--></faust-editor>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>iteration</th>
+<th>composition</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>par(i, N, B(i))</code></td>
+<td><code>B(0), B(1), ..., B(N-1)</code></td>
+<td>N channels side by side</td>
+</tr>
+<tr>
+<td><code>seq(i, N, B(i))</code></td>
+<td><code>B(0) : B(1) : ... : B(N-1)</code></td>
+<td>a cascade of filters</td>
+</tr>
+<tr>
+<td><code>sum(i, N, B(i))</code></td>
+<td><code>B(0) + B(1) + ... + B(N-1)</code></td>
+<td>a sum of partials</td>
+</tr>
+<tr>
+<td><code>prod(i, N, B(i))</code></td>
+<td><code>B(0) * B(1) * ... * B(N-1)</code></td>
+<td>a product of gains</td>
+</tr>
+</tbody>
+</table>
+<p>The index goes from 0 to N − 1. <code>total</code> and <code>product</code> are constants, 14
+and 24, and appear as such in the generated code.</p>
+<p>The index may set anything in the body. Additive synthesis
+(<a href="../examples/11/additive.dsp"><code>additive.dsp</code></a>) sums sixteen harmonics
+whose frequency and amplitude both depend on k:</p>
+<pre><code class="language-faust">additive_saw = sum(k, N, os.osc(f0 * (k + 1)) / (k + 1)) * 2 / ma.PI;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/additive.dsp">examples/11/additive.dsp</a></p>
+<a href="../examples/11/additive-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/additive-svg/process.svg" alt="block diagram of examples/11/additive.dsp"></a>
+<faust-editor><!--
+// Additive synthesis: the sum of the first N harmonics with amplitudes 1/k
+// approximates a sawtooth. The index sets both frequency and amplitude.
+import("stdfaust.lib");
+
+N = 16;
+f0 = hslider("freq", 110, 20, 1000, 1);
+
+additive_saw = sum(k, N, os.osc(f0 * (k + 1)) / (k + 1)) * 2 / ma.PI;
+
+process = additive_saw * 0.5;
+--></faust-editor>
+</div>
+
+<h3 id="the-inputs-of-an-iteration">The inputs of an iteration<a class="headerlink" href="#the-inputs-of-an-iteration" title="Permanent link">&para;</a></h3>
+<p><code>sum</code> and <code>prod</code> are parallel compositions followed by an operator: each
+copy of the body brings its own inputs. An FIR filter written naively
+therefore has as many inputs as taps
+(<a href="../examples/11/fir.dsp"><code>fir.dsp</code></a>):</p>
+<pre><code class="language-faust">c(0) = 0.25; c(1) = 0.5; c(2) = 0.25;
+
+taps = sum(i, 3, @(i) * c(i));          // 3 inputs
+fir  = _ &lt;: taps;                        // 1 input
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/fir.dsp">examples/11/fir.dsp</a></p>
+<a href="../examples/11/fir-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/fir-svg/process.svg" alt="block diagram of examples/11/fir.dsp"></a>
+<faust-editor><!--
+// An FIR filter with sum: y = c0 x + c1 x' + c2 x'' + ...
+// The body @(i) * c(i) has one input, so sum(i, N, ...) has N inputs:
+// the signal must be split N times first.
+c(0) = 0.25; c(1) = 0.5; c(2) = 0.25;
+
+taps = sum(i, 3, @(i) * c(i));          // 3 inputs
+fir  = _ <: taps;                        // 1 input
+
+process = fir;
+--></faust-editor>
+</div>
+
+<p>The signal must be split to all the copies first. The library's <code>fi.convN</code>
+is written like <code>taps</code> and has N inputs; its documentation shows one.</p>
+<h2 id="definitions-by-cases">Definitions by cases<a class="headerlink" href="#definitions-by-cases" title="Permanent link">&para;</a></h2>
+<p>A function can be defined by several rules. The compiler tries them in the
+order they are written and uses the first one whose patterns match the
+arguments (<a href="../examples/11/factorial.dsp"><code>factorial.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/factorial.dsp">examples/11/factorial.dsp</a></p>
+<a href="../examples/11/factorial-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/factorial-svg/process.svg" alt="block diagram of examples/11/factorial.dsp"></a>
+<faust-editor><!--
+// Definitions by cases: the rules are tried in order, the first that
+// matches is used. The recursion runs in the compiler: the program outputs
+// a constant (Albert Gräf, Faust term rewriting, 2009).
+fact(0) = 1;
+fact(n) = n * fact(n - 1);
+
+process = fact(10);
+--></faust-editor>
+</div>
+
+<p><code>fact(10)</code> matches the second rule, which calls <code>fact(9)</code>, and so on until
+<code>fact(0)</code> matches the first. All of this happens in the compiler: the
+program outputs the constant 3628800. Gräf used this very example to
+present pattern matching in Faust.</p>
+<p><code>case</code> writes the same rules as an expression
+(<a href="../examples/11/case.dsp"><code>case.dsp</code></a>):</p>
+<pre><code class="language-faust">fact = case {
+    (0) =&gt; 1;
+    (n) =&gt; n * fact(n - 1);
+};
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/case.dsp">examples/11/case.dsp</a></p>
+<a href="../examples/11/case-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/case-svg/process.svg" alt="block diagram of examples/11/case.dsp"></a>
+<faust-editor><!--
+// case is the same thing as an expression: a function defined by rules.
+// fact above is shorthand for this.
+fact = case {
+    (0) => 1;
+    (n) => n * fact(n - 1);
+};
+
+process = fact(5);
+--></faust-editor>
+</div>
+
+<p>Because the first matching rule wins, special cases must come before the
+general one. With the general rule first, the special ones are never
+reached (<a href="../examples/11/rule_order.dsp"><code>rule_order.dsp</code></a>):</p>
+<pre><code class="language-faust">first_wins = case {
+    (n) =&gt; 1;
+    (0) =&gt; 2;          // never reached
+};
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/rule_order.dsp">examples/11/rule_order.dsp</a></p>
+<a href="../examples/11/rule_order-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/rule_order-svg/process.svg" alt="block diagram of examples/11/rule_order.dsp"></a>
+<faust-editor><!--
+// The rules are tried in the order they are written, and the first that
+// matches is used: a general rule placed first hides the special ones.
+// Both compilers give 1 for first_wins(0).
+first_wins = case {
+    (n) => 1;
+    (0) => 2;          // never reached
+};
+
+process = first_wins(0);
+--></faust-editor>
+</div>
+
+<p><code>first_wins(0)</code> is 1: the rule <code>(n)</code> matches first.</p>
+<h2 id="recursion-on-an-integer">Recursion on an integer<a class="headerlink" href="#recursion-on-an-integer" title="Permanent link">&para;</a></h2>
+<p>A recursive definition with an integer argument builds a structure whose
+size is that integer. Cascading a block n times
+(exercise 2) is</p>
+<pre><code class="language-faust">cascade(1, f) = f;
+cascade(n, f) = f : cascade(n - 1, f);
+</code></pre>
+<p>which is <code>seq</code> without the index. The recursion must reach a base case
+with the arguments given: chapter 9 showed what happens when n comes from a
+slider.</p>
+<h2 id="patterns-on-lists">Patterns on lists<a class="headerlink" href="#patterns-on-lists" title="Permanent link">&para;</a></h2>
+<p>A parallel composition is also a list: <code>(a, b, c)</code> is <code>a, (b, c)</code>, because
+the comma groups to the right. The pattern <code>(x, xs)</code> takes the first element
+and the rest (<a href="../examples/11/lists.dsp"><code>lists.dsp</code></a>):</p>
+<pre><code class="language-faust">serial((x, xs)) = x : serial(xs);
+serial(x) = x;
+
+count((x, xs)) = 1 + count(xs);
+count(x) = 1;
+
+rev((x, xs)) = rev(xs), x;
+rev(x) = x;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/lists.dsp">examples/11/lists.dsp</a></p>
+<a href="../examples/11/lists-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/lists-svg/process.svg" alt="block diagram of examples/11/lists.dsp"></a>
+<faust-editor><!--
+// A parallel composition is a list: (a, b, c) is a, (b, c). A pattern
+// (x, xs) takes the first element and the rest. Gräf's serial turns a list
+// of blocks into their sequence; count and rev are two more examples.
+serial((x, xs)) = x : serial(xs);
+serial(x) = x;
+
+count((x, xs)) = 1 + count(xs);
+count(x) = 1;
+
+rev((x, xs)) = rev(xs), x;
+rev(x) = x;
+
+process = serial((*(2), +(1), *(10))), count((7, 8, 9)), rev((1, 2, 3, 4));
+
+// serial gives ((x * 2) + 1) * 10.
+--></faust-editor>
+</div>
+
+<p><code>serial((*(2), +(1), *(10)))</code> becomes <code>*(2) : +(1) : *(10)</code> (Gräf's
+example, with <code>sin, cos, tan</code>); <code>count</code> gives 3 for a list of three; <code>rev</code>
+reverses 1, 2, 3, 4. The elements can be numbers, signals or blocks: the
+compiler matches the <em>terms</em> of the diagram, not values computed at run
+time.</p>
+<h2 id="functions-as-data-a-fold">Functions as data: a fold<a class="headerlink" href="#functions-as-data-a-fold" title="Permanent link">&para;</a></h2>
+<p>Gräf also wrote a fold, which combines n values with a function
+(<a href="../examples/11/fold.dsp"><code>fold.dsp</code></a>):</p>
+<pre><code class="language-faust">fold(1, f, x) = x(0);
+fold(n, f, x) = f(fold(n - 1, f, x), x(n - 1));
+fsum(n) = fold(n, +);
+
+h(i) = a(i) * os.osc((i + 1) * f0);
+process = fsum(3, h);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/fold.dsp">examples/11/fold.dsp</a></p>
+<a href="../examples/11/fold-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/fold-svg/process.svg" alt="block diagram of examples/11/fold.dsp"></a>
+<faust-editor><!--
+// A fold written with patterns (Gräf, 2009): combine x(0), ..., x(n-1)
+// with f. fsum(3, h) is h(0) + h(1) + h(2), the same as sum(i, 3, h(i)).
+import("stdfaust.lib");
+
+fold(1, f, x) = x(0);
+fold(n, f, x) = f(fold(n - 1, f, x), x(n - 1));
+fsum(n) = fold(n, +);
+
+f0 = 440;
+a(0) = 1; a(1) = 0.5; a(2) = 0.3;
+h(i) = a(i) * os.osc((i + 1) * f0);
+
+process = fsum(3, h) - sum(i, 3, h(i));
+--></faust-editor>
+</div>
+
+<p>Here <code>x</code> is a function, called with an index, and <code>f</code> is an operator.
+<code>fsum(3, h)</code> is <code>h(0) + h(1) + h(2)</code>, exactly <code>sum(i, 3, h(i))</code>. Passing
+functions as arguments is the subject of chapter 12.</p>
+<h2 id="example-the-oscillator-network">Example: the oscillator network<a class="headerlink" href="#example-the-oscillator-network" title="Permanent link">&para;</a></h2>
+<p>The idioms document ends with a program of five oscillator nodes, each
+modulating the next, sent through a resonant filter
+(<a href="../examples/11/network_original.dsp"><code>network_original.dsp</code></a>). Each node
+computes four oscillators and keeps one with <code>ba.selector</code>:</p>
+<pre><code class="language-faust">node_0 = os.osc(rfreq), os.sawtooth(rfreq), os.triangle(rfreq),
+os.square(rfreq) with {
+   freq = hslider(&quot;freq_node_0&quot;, 440, 1, 1000, 1);
+   rfreq = freq + 10 * (node_3 : ba.selector(0, 4));
+};
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/network_original.dsp">examples/11/network_original.dsp</a></p>
+<a href="../examples/11/network_original-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/network_original-svg/process.svg" alt="block diagram of examples/11/network_original.dsp"></a>
+<faust-editor><!--
+// The oscillator network of the idioms document, as written there: each node
+// computes four oscillators and keeps one with ba.selector.
+import("stdfaust.lib");
+
+node_0 = os.osc(rfreq), os.sawtooth(rfreq), os.triangle(rfreq),
+os.square(rfreq) with {
+   freq = hslider("freq_node_0", 440, 1, 1000, 1);
+   rfreq = freq + 10 * (node_3 : ba.selector(0, 4));
+};
+
+node_1 = ((node_0 : ba.selector(3, 4)) : fi.resonlp(freq, q, 1.0)),
+((node_0 : ba.selector(3, 4)) : fi.resonhp(freq, q, 1.0)), ((node_0 :
+ba.selector(3, 4)) : fi.resonbp(freq, q, 1.0)) with {
+   freq = hslider("freq_node_1", 440, 50, 5000, 1);
+   q = hslider("q_node_1", 0.5, 0.01, 1, 0.01);
+};
+
+process = (node_1 : ba.selector(0, 3)), (node_1 : ba.selector(0, 3));
+
+node_3 = os.osc(rfreq), os.sawtooth(rfreq), os.triangle(rfreq),
+os.square(rfreq) with {
+   freq = hslider("freq_node_3", 440, 1, 1000, 1);
+   rfreq = freq + 10 * (node_4 : ba.selector(0, 4));
+};
+
+node_4 = os.osc(rfreq), os.sawtooth(rfreq), os.triangle(rfreq),
+os.square(rfreq) with {
+   freq = hslider("freq_node_4", 440, 1, 1000, 1);
+   rfreq = freq + 10 * (node_6 : ba.selector(0, 4));
+};
+
+node_6 = os.osc(rfreq), os.sawtooth(rfreq), os.triangle(rfreq),
+os.square(rfreq) with {
+   freq = hslider("freq_node_6", 440, 1, 1000, 1);
+   rfreq = freq + 10 * 0;
+};
+--></faust-editor>
+</div>
+
+<p>and the same text is repeated for every node. The document notes that it is
+very slow to compile, and proposes a rewrite with <code>case</code>. That rewrite does
+not reproduce the original: it chains three nodes instead of four, in
+another order. A faithful rewrite
+(<a href="../examples/11/network_patterns.dsp"><code>network_patterns.dsp</code></a>):</p>
+<pre><code class="language-faust">wave(0, f) = os.osc(f);
+wave(1, f) = os.sawtooth(f);
+wave(2, f) = os.triangle(f);
+wave(3, f) = os.square(f);
+
+node(k, modulation, w) = wave(w, freq + 10 * modulation)
+with {
+    freq = hslider(&quot;freq_node_%k&quot;, 440, 1, 1000, 1);
+};
+
+filter(0, f, q) = fi.resonlp(f, q, 1.0);
+filter(1, f, q) = fi.resonhp(f, q, 1.0);
+filter(2, f, q) = fi.resonbp(f, q, 1.0);
+
+node_6(w) = node(6, 0, w);
+node_4(w) = node(4, node_6(0), w);
+node_3(w) = node(3, node_4(0), w);
+node_0(w) = node(0, node_3(0), w);
+node_1(w) = node_0(3) : filter(w, freq, q)
+with {
+    freq = hslider(&quot;freq_node_1&quot;, 440, 50, 5000, 1);
+    q = hslider(&quot;q_node_1&quot;, 0.5, 0.01, 1, 0.01);
+};
+
+process = node_1(0), node_1(0);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/network_patterns.dsp">examples/11/network_patterns.dsp</a></p>
+<a href="../examples/11/network_patterns-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/network_patterns-svg/process.svg" alt="block diagram of examples/11/network_patterns.dsp"></a>
+<faust-editor><!--
+// The same network rewritten with pattern matching: wave(w, f) and
+// filter(w, f, q) are chosen by the compiler, and node(k, ...) is one
+// definition for the five nodes. It reproduces the original exactly (the
+// rewrite in the idioms document chains other nodes, in another order).
+import("stdfaust.lib");
+
+wave(0, f) = os.osc(f);
+wave(1, f) = os.sawtooth(f);
+wave(2, f) = os.triangle(f);
+wave(3, f) = os.square(f);
+
+// an oscillator node: its own frequency slider, modulated by another signal
+node(k, modulation, w) = wave(w, freq + 10 * modulation)
+with {
+    freq = hslider("freq_node_%k", 440, 1, 1000, 1);
+};
+
+filter(0, f, q) = fi.resonlp(f, q, 1.0);
+filter(1, f, q) = fi.resonhp(f, q, 1.0);
+filter(2, f, q) = fi.resonbp(f, q, 1.0);
+
+node_6(w) = node(6, 0, w);
+node_4(w) = node(4, node_6(0), w);
+node_3(w) = node(3, node_4(0), w);
+node_0(w) = node(0, node_3(0), w);
+node_1(w) = node_0(3) : filter(w, freq, q)
+with {
+    freq = hslider("freq_node_1", 440, 50, 5000, 1);
+    q = hslider("q_node_1", 0.5, 0.01, 1, 0.01);
+};
+
+process = node_1(0), node_1(0);
+
+// Identical to the original, sample for sample, with the same controls.
+--></faust-editor>
+</div>
+
+<p>One definition, <code>node</code>, serves the five nodes; the label <code>"freq_node_%k"</code>
+takes the value of <code>k</code>, so the sliders keep their names. faustprobe finds
+the two programs <strong>identical</strong>, sample for sample, with the same six
+sliders. The difference is in the compiler:</p>
+<table>
+<thead>
+<tr>
+<th>version</th>
+<th>C++ compilation</th>
+<th>generated code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>four oscillators per node, <code>ba.selector</code></td>
+<td>0.72 s</td>
+<td>314 lines</td>
+</tr>
+<tr>
+<td>pattern matching</td>
+<td>0.01 s</td>
+<td>303 lines</td>
+</tr>
+</tbody>
+</table>
+<p>The generated code is almost the same, because the unused oscillators were
+already removed (chapter 9). What pattern matching saves is the work of
+building, and then discarding, three oscillators per node at every use of
+every node.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Special cases first.</strong> <code>si.bus</code> in signals.lib:</li>
+</ul>
+<p><code>faust
+  bus(0) = 0:!;
+  bus(1) = _;
+  bus(2) = _,_;
+  bus(N) = par(i, N, _);</code></p>
+<ul>
+<li><strong>Lists.</strong> <code>ba.count</code> and <code>ba.take</code> in basics.lib are the list functions
+  above:</li>
+</ul>
+<p><code>faust
+  count((xs, xxs)) = 1 + count(xxs);
+  count(xx) = 1;
+  take(1, (xs, xxs))  = xs;
+  take(1, xs)         = xs;
+  take(N, (xs, xxs)) = take(N-1, xxs);</code></p>
+<p><code>fi.fir</code> takes its coefficients as a list and walks it with a local
+  recursive function:</p>
+<p><code>faust
+  fir((b0,bv)) = _ &lt;: *(b0), R(1,bv) :&gt; _ with {
+      R(n,(bn,bv)) = (@(n):*(bn)), R(n+1,bv);
+      R(n, bn)     = (@(n):*(bn)); };
+  fir(b0) = *(b0);</code></p>
+<ul>
+<li><strong>Growing structures.</strong> <code>ho.encoder</code> in hoa.lib adds two outputs per
+  order:</li>
+</ul>
+<p><code>faust
+  encoder(0, x, a) = x;
+  encoder(N, x, a) = encoder(N-1, x, a), x*sin(N*a), x*cos(N*a);</code></p>
+<ul>
+<li><strong>Divide and conquer.</strong> <code>ro.hadamard</code> in routes.lib builds an N × N
+  Hadamard matrix from two of size N/2:</li>
+</ul>
+<p><code>faust
+  hadamard(2) = butterfly(2);
+  hadamard(N) = butterfly(N) : (hadamard(N/2), hadamard(N/2));</code></p>
+<ul>
+<li><strong>Nested iterations.</strong> <code>la.identity</code> in linearalgebra.lib:
+  <code>identity(N) = par(i, N, par(j, N, i == j));</code></li>
+<li><strong>A showcase.</strong> <code>os.sawN</code> in oscillators.lib combines a factorial by
+  pattern matching, polynomials chosen by rules and a <code>seq</code> of
+  differentiators.</li>
+</ul>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Special rules first</strong>: the first matching rule wins.</li>
+<li><strong>An iteration multiplies inputs</strong>: split the signal before <code>sum</code>.</li>
+<li><strong>Patterns need compile-time arguments</strong>: a widget there makes the
+  compiler loop forever (chapter 9).</li>
+<li><strong><code>sum</code> and <code>prod</code> are keywords</strong>: do not use them as names.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A "supersaw": N sawtooth oscillators spread around a frequency by a
+   detune slider, summed and normalised, N being a constant. Solution:
+   <a href="../examples/11/solutions/ex1_supersaw.dsp"><code>ex1_supersaw.dsp</code></a>.</li>
+<li><code>cascade(n, f)</code>, which repeats a block n times in sequence, written with
+   patterns; check that it equals <code>seq(i, n, f)</code>. Solution:
+   <a href="../examples/11/solutions/ex2_cascade.dsp"><code>ex2_cascade.dsp</code></a>.</li>
+<li><code>max_of</code>, the maximum of a list of signals of any length. Solution:
+   <a href="../examples/11/solutions/ex3_max_of.dsp"><code>ex3_max_of.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/solutions/ex1_supersaw.dsp">examples/11/solutions/ex1_supersaw.dsp</a></p>
+<a href="../examples/11/solutions/ex1_supersaw-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/solutions/ex1_supersaw-svg/process.svg" alt="block diagram of examples/11/solutions/ex1_supersaw.dsp"></a>
+<faust-editor><!--
+// Exercise 1: N sawtooth oscillators spread around a frequency, summed and
+// normalised. N is a compile-time constant; the detune is a slider.
+import("stdfaust.lib");
+
+N = 7;
+freq   = hslider("freq", 110, 20, 1000, 1);
+detune = hslider("detune", 0.01, 0, 0.05, 0.001);
+
+supersaw(n, f, d) = sum(i, n, os.sawtooth(f * (1 + d * (i - (n - 1) / 2)))) / n;
+
+process = supersaw(N, freq, detune);
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/solutions/ex2_cascade.dsp">examples/11/solutions/ex2_cascade.dsp</a></p>
+<a href="../examples/11/solutions/ex2_cascade-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/solutions/ex2_cascade-svg/process.svg" alt="block diagram of examples/11/solutions/ex2_cascade.dsp"></a>
+<faust-editor><!--
+// Exercise 2: repeat a block n times in sequence, written with patterns.
+// It is seq(i, n, f) without the index.
+import("stdfaust.lib");
+
+cascade(1, f) = f;
+cascade(n, f) = f : cascade(n - 1, f);
+
+process = _ <: cascade(4, fi.pole(0.5)) - seq(i, 4, fi.pole(0.5));
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/11/solutions/ex3_max_of.dsp">examples/11/solutions/ex3_max_of.dsp</a></p>
+<a href="../examples/11/solutions/ex3_max_of-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/11/solutions/ex3_max_of-svg/process.svg" alt="block diagram of examples/11/solutions/ex3_max_of.dsp"></a>
+<faust-editor><!--
+// Exercise 3: the maximum of a list of signals, whatever its length.
+max_of((x, xs)) = max(x, max_of(xs));
+max_of(x) = x;
+
+process = max_of((1, 5, 3, 2)), max_of((_, _, _));
+
+// The constant list gives 5; the three inputs give their maximum.
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

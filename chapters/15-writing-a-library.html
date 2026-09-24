@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/15-writing-a-library.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>15. Writing a library - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item active">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="14-generic-then-specialised.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="16-final-project.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#15-writing-a-library" class="nav-link">15. Writing a library</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#layers" class="nav-link">Layers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-file-header" class="nav-link">The file header</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#documentation-blocks" class="nav-link">Documentation blocks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#names" class="nav-link">Names</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#tests" class="nav-link">Tests</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="15-writing-a-library">15. Writing a library<a class="headerlink" href="#15-writing-a-library" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>A library is a <code>.lib</code> file of definitions without <code>process</code>, used through
+<code>library("file.lib")</code> under a prefix (chapter 13). Writing one is mostly
+writing good functions, with everything from chapters 9 to 14: compile-time
+parameters in capitals, fixed parameters first, a generic core and its
+specialisations. What a library adds is <strong>organisation</strong> (layers, names,
+prefixes), <strong>documentation</strong> in a form tools can read, and <strong>tests</strong>.</p>
+<p>The standard libraries follow written rules, in the contribution guide of
+faustlibraries (<code>doc/docs/contributing.md</code>) and in the repository's
+<code>AGENTS.md</code>. This chapter builds a small library by those rules,
+<a href="../examples/15/tutorial.lib"><code>tutorial.lib</code></a>, with a program that uses it
+and its tests.</p>
+<h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
+<p>The libraries are built in layers, each using the one below:</p>
+<ol>
+<li><strong>a generic core</strong>, with all its parameters and outputs, and no
+   interface;</li>
+<li><strong>specialised functions</strong> that fix parameters or cut outputs
+   (chapter 14);</li>
+<li><strong>user-facing versions</strong> with an interface: <code>_ui</code>, <code>_ui_MIDI</code>, or a
+   <code>*_demo</code> in demos.lib.</li>
+</ol>
+<p><code>tutorial.lib</code> has the three: <code>tu.svf(f, q)</code>, the generic state-variable
+filter of chapter 14; <code>tu.lp</code>, <code>tu.hp</code> and <code>tu.notch</code>, one line each; and
+<code>tu.svf_demo</code>, which adds a mode menu and two smoothed sliders.</p>
+<p>The standard libraries show the same structure on a larger scale:</p>
+<ul>
+<li><strong>filters.lib</strong>: <code>fi.zero</code> and <code>fi.pole</code> (chapter 4), then <code>fi.fir</code> and
+  <code>fi.iir</code>, then the biquads <code>fi.tf1</code> and <code>fi.tf2</code>
+  (<code>tf2(b0,b1,b2,a1,a2) = iir((b0,b1,b2),(a1,a2));</code>), then the analog
+  prototypes <code>fi.tf2s</code> through the bilinear transform, and finally the
+  filters users call: <code>fi.resonlp</code>, <code>fi.lowpass(N, fc)</code>, <code>fi.peak_eq</code>...</li>
+<li><strong>physmodels.lib</strong>: building blocks (waveguides, terminations, <code>pm.chain</code>),
+  then instrument models, then playable versions. The contribution guide
+  names the clarinet as the reference: <code>pm.clarinetModel(tubeLength,
+  pressure, reedStiffness, bellOpening)</code> is the core "with every parameter
+  explicit and no UI", <code>pm.clarinetModel_ui(pressure)</code> adds sliders, and
+  <code>pm.clarinet_ui_MIDI</code> pairs the core with a blower and MIDI controls.</li>
+<li><strong>compressors.lib</strong>: gain computers in decibels, then channel linking for
+  N channels, then feed-forward and feedback topologies, then mono, stereo
+  and quad versions by partial application.</li>
+</ul>
+<h2 id="the-file-header">The file header<a class="headerlink" href="#the-file-header" title="Permanent link">&para;</a></h2>
+<pre><code class="language-faust">//#################################### tutorial.lib ########################################
+// A small library written for chapter 15 of the Faust tutorial: a
+// state-variable filter in three layers. Its official prefix is `tu`.
+// ...
+//########################################################################################
+
+ma = library(&quot;maths.lib&quot;);
+si = library(&quot;signals.lib&quot;);
+tu = library(&quot;tutorial.lib&quot;); // for code copied from this file into a program
+
+declare name &quot;Faust Tutorial Library&quot;;
+declare version &quot;1.0.0&quot;;
+declare author &quot;The Faust tutorial&quot;;
+declare license &quot;MIT&quot;;
+</code></pre>
+<ul>
+<li>A description, which says the <strong>official prefix</strong>. The prefix is also
+  added to <code>stdfaust.lib</code> when a library joins the standard set.</li>
+<li>The other libraries it uses, each under its own prefix. A library calls
+  another only through its prefix, never by a bare name.</li>
+<li>The library binds its own prefix, so that <code>tu.lp</code> works in code copied
+  from the file into a program.</li>
+<li><code>declare name</code>, <code>version</code>, <code>author</code>, <code>license</code>.</li>
+</ul>
+<h2 id="documentation-blocks">Documentation blocks<a class="headerlink" href="#documentation-blocks" title="Permanent link">&para;</a></h2>
+<p>Every public function has a documentation block in a fixed format, which
+the tools of faustlibraries turn into the online documentation:</p>
+<pre><code class="language-faust">//-------------------`(tu.)lp`---------------------
+// Lowpass state-variable filter, the first output of `svf`.
+//
+// #### Usage
+//
+// ```
+// _ : lp(f, q) : _
+// ```
+//
+// Where:
+//
+// * `f`: cutoff frequency in Hz
+// * `q`: quality factor
+//
+// #### Test
+// ```
+// tu = library(&quot;tutorial.lib&quot;);
+// lp_test = no.noise : tu.lp(1000, 0.707);
+// ```
+//---------------------------------------------------
+declare lp license &quot;MIT&quot;;
+lp(f, q) = svf(f, q) : _, !, !;
+</code></pre>
+<ul>
+<li>The title names the function with its prefix, in backquotes.</li>
+<li><strong>Usage</strong> shows the shape of the block: <code>_ : lp(f, q) : _</code> says one
+  input and one output. Readers look here first.</li>
+<li><strong>Where</strong> describes each parameter; one that must be a constant is
+  written in capitals and documented as a constant numerical expression.</li>
+<li><strong>Test</strong> is a small program that uses the function; it also exists in the
+  test files (below).</li>
+<li>A <code>declare ... license</code> per function, with an SPDX identifier.</li>
+</ul>
+<h2 id="names">Names<a class="headerlink" href="#names" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Internal helpers</strong> go inside a <code>with</code> block or an <code>environment</code>, or
+  start with <code>_</code>, so that they are not part of the public interface.
+  Never use another library's <code>_</code> names.</li>
+<li><strong>Fixed parameters first</strong>, the signal last (chapter 12); capitals for
+  compile-time parameters (chapter 9).</li>
+<li><strong>Keep existing names.</strong> A renamed function keeps its old name for one
+  release, as an alias declared deprecated (exercise 2):</li>
+</ul>
+<p><code>faust
+  declare notch_v1 deprecated "use band_reject";
+  notch_v1 = band_reject;</code></p>
+<ul>
+<li><strong>Versions</strong> follow semantic versioning: a new function raises the minor
+  number, an incompatible change the major number, in the same commit.</li>
+</ul>
+<h2 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
+<p>Each documented test also lives in a file <code>tests/&lt;library&gt;_tests.dsp</code>, one
+definition per function (<a href="../examples/15/tutorial_tests.dsp"><code>tutorial_tests.dsp</code></a>):</p>
+<pre><code class="language-faust">import(&quot;stdfaust.lib&quot;);
+tu = library(&quot;tutorial.lib&quot;);
+
+svf_test = no.noise : tu.svf(1000, 0.707);
+lp_test = no.noise : tu.lp(1000, 0.707);
+hp_test = no.noise : tu.hp(1000, 0.707);
+notch_test = no.noise : tu.notch(1000, 0.707);
+svf_demo_test = no.noise : tu.svf_demo;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/15/tutorial_tests.dsp">examples/15/tutorial_tests.dsp</a></p>
+<a href="../examples/15/tutorial_tests-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/15/tutorial_tests-svg/process.svg" alt="block diagram of examples/15/tutorial_tests.dsp"></a>
+<p class="faust-run-note">It imports the tutorial's own library, which the browser does not have: run it with a local compiler, next to that library.</p>
+<pre><code>// The tests of tutorial.lib, one definition per documented function, as in
+// faustlibraries&#x27; tests/&lt;library&gt;_tests.dsp. Each test is evaluated on its
+// own with faustprobe --eval, and must produce a finite, non-zero signal.
+import(&quot;stdfaust.lib&quot;);
+tu = library(&quot;tutorial.lib&quot;);
+
+svf_test = no.noise : tu.svf(1000, 0.707);
+lp_test = no.noise : tu.lp(1000, 0.707);
+hp_test = no.noise : tu.hp(1000, 0.707);
+notch_test = no.noise : tu.notch(1000, 0.707);
+svf_demo_test = no.noise : tu.svf_demo;
+
+process = lp_test;</code></pre>
+</div>
+
+<p>faustlibraries compiles each test on its own (<code>faust -pn lp_test</code>), stores
+a reference output, and <code>make check</code> compares new versions against it. A
+test must produce a non-zero signal, so that a regression shows. With
+faustprobe, all the tests of a file can be evaluated in one command, each
+as its own output:</p>
+<pre><code class="language-bash">faustprobe --double --in zero -n 4410 --quiet --eval svf_test --eval lp_test --eval hp_test --eval notch_test --eval svf_demo_test tutorial_tests.dsp
+</code></pre>
+<p>and a program that uses the library (<a href="../examples/15/use_library.dsp"><code>use_library.dsp</code></a>)
+checks it end to end:</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/15/use_library.dsp">examples/15/use_library.dsp</a></p>
+<a href="../examples/15/use_library-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/15/use_library-svg/process.svg" alt="block diagram of examples/15/use_library.dsp"></a>
+<p class="faust-run-note">It imports the tutorial's own library, which the browser does not have: run it with a local compiler, next to that library.</p>
+<pre><code>// A program that uses tutorial.lib through its prefix, like stdfaust.lib
+// does for the standard libraries.
+import(&quot;stdfaust.lib&quot;);
+tu = library(&quot;tutorial.lib&quot;);
+
+process = tu.svf_demo;</code></pre>
+</div>
+
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>A library has no <code>process</code>.</strong> It is checked through programs that use
+  it, and through its tests.</li>
+<li><strong>Bare names across libraries.</strong> Inside <code>tutorial.lib</code>, <code>ma.PI</code> works
+  because <code>ma</code> is bound in the file; <code>PI</code> alone would not.</li>
+<li><strong>Usage lines must be true.</strong> The survey of faustlibraries made for this
+  tutorial found a few that are not (<code>fi.convN</code> shows one input where the
+  function has N): a wrong usage line misleads every reader.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>All three extend <code>tutorial.lib</code> into
+<a href="../examples/15/solutions/tutorial_v2.lib"><code>tutorial_v2.lib</code></a>, version
+1.1.0, used by <a href="../examples/15/solutions/ex_use_v2.dsp"><code>ex_use_v2.dsp</code></a>.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/15/solutions/ex_use_v2.dsp">examples/15/solutions/ex_use_v2.dsp</a></p>
+<a href="../examples/15/solutions/ex_use_v2-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/15/solutions/ex_use_v2-svg/process.svg" alt="block diagram of examples/15/solutions/ex_use_v2.dsp"></a>
+<p class="faust-run-note">It imports the tutorial's own library, which the browser does not have: run it with a local compiler, next to that library.</p>
+<pre><code>// Exercises 1 to 3: the new functions of tutorial_v2.lib, a bandpass with
+// its documentation and test, a renamed filter whose old name is a
+// deprecated alias, and a _ui layer.
+import(&quot;stdfaust.lib&quot;);
+tu = library(&quot;tutorial_v2.lib&quot;);
+
+process = _ &lt;: tu.bp(1000, 0.707), tu.band_reject(1000, 0.707) - tu.notch_v1(1000, 0.707), tu.lp_ui;
+
+// The alias is the same filter; the bandpass blocks DC; the _ui layer adds
+// two controls.</code></pre>
+</div>
+
+<ol>
+<li>Add <code>tu.bp</code>, the bandpass output of <code>svf</code>, with a complete documentation
+   block and a test.</li>
+<li>Rename <code>notch</code> to <code>band_reject</code>, keeping the old name as a deprecated
+   alias, and check that both give the same filter.</li>
+<li>Add a <code>_ui</code> layer, <code>tu.lp_ui</code>, with a cutoff and a Q slider.</li>
+</ol></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

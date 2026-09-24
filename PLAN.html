@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/PLAN.html">
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Plan of the tutorial - A progressive Faust tutorial</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link href="css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="chapters/02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="chapters/03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="chapters/04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="chapters/06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="chapters/07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="chapters/08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="chapters/10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="chapters/11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="chapters/12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="chapters/14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="chapters/15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="chapters/16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="chapters/B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="chapters/C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="PLAN.html" class="dropdown-item active">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="chapters/C-cheat-sheet.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#plan-of-the-faust-tutorial" class="nav-link">Plan of the Faust tutorial</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#audience-and-prerequisites" class="nav-link">Audience and prerequisites</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#tools" class="nav-link">Tools</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#shape-of-each-chapter" class="nav-link">Shape of each chapter</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#part-a-the-language" class="nav-link">Part A. The language</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#part-b-building-control-signals" class="nav-link">Part B. Building control signals</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#part-c-computing-at-compile-time" class="nav-link">Part C. Computing at compile time</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#part-d-writing-reusable-code" class="nav-link">Part D. Writing reusable code</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#appendices" class="nav-link">Appendices</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#corrections-to-the-idioms-document" class="nav-link">Corrections to the idioms document</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#library-definitions-not-taught-as-they-are" class="nav-link">Library definitions not taught as they are</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="plan-of-the-faust-tutorial">Plan of the Faust tutorial<a class="headerlink" href="#plan-of-the-faust-tutorial" title="Permanent link">&para;</a></h1>
+<p>This tutorial teaches Faust programming step by step: each chapter only
+relies on the ones before it. It starts from the <em>idioms</em> that the practice
+of Faust programmers has produced (the "Faust programming idioms" document)
+and ties each of them to the functions of the standard libraries
+(<code>faustlibraries</code>) that use it.</p>
+<h2 id="audience-and-prerequisites">Audience and prerequisites<a class="headerlink" href="#audience-and-prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Some programming experience, in any language.</li>
+<li>Knowing what a sample, a sampling rate and a lowpass filter are. No
+  advanced signal processing is required: a large part of Faust work is
+  building the signals that <em>drive</em> the algorithms, not the algorithms
+  themselves.</li>
+<li>No functional programming background: it is introduced along the way.</li>
+</ul>
+<h2 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The online IDE (<a href="https://faustide.grame.fr">https://faustide.grame.fr</a>) to listen and see block
+  diagrams, or the <code>faust</code> command-line compiler.</li>
+<li><code>faustprobe</code> (from faust-rs) to <em>measure</em> a program: compile it, render it
+  offline, read its samples and statistics. Every example and every exercise
+  solution carries the faustprobe commands that check it, and <code>make check</code>
+  runs them all, against both the C++ compiler and faust-rs.</li>
+</ul>
+<h2 id="shape-of-each-chapter">Shape of each chapter<a class="headerlink" href="#shape-of-each-chapter" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>The idea</strong>: the concept, in a few paragraphs.</li>
+<li><strong>A minimal example</strong> that runs (<code>examples/NN/*.dsp</code>).</li>
+<li><strong>The idiom in the libraries</strong>: the same idea in a real function of
+   <code>faustlibraries</code>, quoted with its prefix (<code>ba.</code>, <code>si.</code>, ...) and its
+   file.</li>
+<li><strong>Pitfalls</strong>: typical mistakes and how to recognise them.</li>
+<li><strong>Exercises</strong>, with solutions in <code>examples/NN/solutions/</code>, checked by the
+   same mechanism as the examples.</li>
+</ol>
+<h2 id="part-a-the-language">Part A. The language<a class="headerlink" href="#part-a-the-language" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>First sound.</strong> <code>process</code>, <code>import("stdfaust.lib")</code>, an oscillator, a
+   gain, two outputs, a slider. Listening in the IDE, measuring with
+   faustprobe. Numbers and operators as blocks. Library anchor: <code>os.osc</code>.</li>
+<li><strong>Block-diagram algebra.</strong> The five compositions <code>:</code> <code>,</code> <code>&lt;:</code> <code>:&gt;</code> <code>~</code>,
+   the wire <code>_</code> and the cut <code>!</code>, arity and the composition rules, operator
+   priorities, arity errors, reading SVG diagrams. A stereo mixer.
+   Anchors: <code>si.bus</code>, <code>si.block</code>, <code>ro.cross</code>, <code>route</code>.</li>
+<li><strong>Naming inputs.</strong> From pure wiring to arguments: <code>foo(a, b, c) = ...</code>,
+   the <code>foo1</code>..<code>foo3</code> variants of the idioms document; <code>with</code>; applying a
+   function is sending it signals; <code>inputs(x)</code> and <code>outputs(x)</code>. Anchors:
+   <code>si.interpolate</code>, <code>fi.tf1</code>, <code>ma.sub</code>.</li>
+<li><strong>One-sample memory.</strong> <code>mem</code>, <code>x'</code>, <code>@(n)</code>; recursion <code>~</code> and its
+   implicit one-sample delay; the integrator <code>+ ~ _</code>, the counter
+   <code>1 : + ~ _</code>, the moving sum, the one-pole filter. Time only exists in
+   the past. Anchors: <code>fi.integrator</code>, <code>fi.pole</code>, <code>ba.time</code>, <code>os.impulse</code>,
+   <code>ba.slidingSum</code>, <code>si.smooth</code>.</li>
+</ol>
+<h2 id="part-b-building-control-signals">Part B. Building control signals<a class="headerlink" href="#part-b-building-control-signals" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>State with several variables.</strong> The <code>tick ~ (_, _) : !, _</code> pattern:
+   as many feedback wires as state variables, <code>tick(x, y) = x1, y1</code> returns
+   the next values, the output cuts what is internal. Examples: <code>line~</code>
+   from Max (two writings), the quadrature oscillator <code>os.quadosc</code>,
+   <code>ba.peakholder</code>; <code>letrec</code>, another way to write the same state. The
+   overshoot of a <code>line~</code> whose ramp length is not an integer, and its fix
+   (<code>ba.line</code> and <code>mm.line</code> had it until faustlibraries 2.74.3).</li>
+<li><strong>Logical signals and events.</strong> Booleans are 0 and 1; rising, falling
+   and any edges; <code>impulse</code>, <code>release</code>, <code>trigger</code>; reset by
+   multiplication; <code>min</code> and <code>max</code> as logic; sample and hold; counters with
+   reset; <code>select2</code> and <code>ba.if</code>. Counting the edges of a MIDI clock over one
+   second. Anchors: <code>ba.counter</code>, <code>ba.sAndH</code>, <code>ba.latch</code>, <code>ba.countdown</code>,
+   <code>ba.toggle</code>, <code>ba.peakhold</code>, the release counter of <code>en.adsr</code>.</li>
+<li><strong>Periodic signals and sequences.</strong> The phasor and <code>ma.frac</code>, phase
+   handling, pulse trains, metronome, step sequencer; from phase to a table
+   oscillator; envelopes, ramps, control smoothing. Final example: the
+   looping ADSR. Anchors: <code>os.lf_sawpos</code>, <code>ba.period</code>, <code>ba.pulse</code>,
+   <code>ba.beat</code>, <code>os.lf_pulsetrain</code>, <code>no.lfnoise0</code>, <code>en.adsr</code>, <code>si.smoo</code>.</li>
+<li><strong>User interface.</strong> Sliders, buttons, checkboxes, <code>nentry</code>, groups,
+   paths and labels, metadata (<code>[unit:Hz]</code>, <code>[scale:log]</code>, <code>[style:knob]</code>,
+   <code>[style:menu{...}]</code>, <code>[midi:...]</code>), bargraphs and <code>attach</code> to show an
+   internal signal, the <code>*_demo</code> idiom of demos.lib, bypass with a
+   checkbox. Anchors: <code>dm.gate_demo</code>, <code>dm.moog_vcf_demo</code>, <code>ba.bypass1</code>,
+   <code>db.probe_rms_db</code>.</li>
+</ol>
+<h2 id="part-c-computing-at-compile-time">Part C. Computing at compile time<a class="headerlink" href="#part-c-computing-at-compile-time" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Compile time or run time.</strong> Faust does not compile the text but the
+   semantics of the program: symbolic propagation, constants folded,
+   unused outputs removed, common subexpressions shared. What must be known
+   at compile time (number of channels, filter order, maximum delay, table
+   size) and what may change while the program runs. <code>int</code> and <code>float</code>,
+   and the errors met when a run-time value reaches a place that needs a
+   constant. Anchors: <code>de.delay</code>, <code>de.fdelay</code>, <code>ba.if</code> versus <code>select2</code>.</li>
+<li><strong>Choosing among values.</strong> <code>waveform</code> + <code>rdtable</code> against
+    <code>ba.selectn</code>: the major-scale table, the "choice mapper", the cost of
+    each form; <code>rdtable</code> filled by a generator, <code>rwtable</code>; tabulating an
+    expensive function. Anchors: <code>os.oscsin</code>, <code>os.osci</code>, <code>ba.selectn</code>,
+    <code>ba.tabulate</code>, <code>it.frdtable</code>.</li>
+<li><strong>Iteration and pattern matching.</strong> <code>par</code>, <code>seq</code>, <code>sum</code>, <code>prod</code> with an
+    index; definitions by cases <code>foo(0) = ...; foo(n) = ...</code> and <code>case</code>;
+    recursion on an integer; patterns on a list <code>(x, xs)</code>; the oscillator
+    network rewritten with patterns, and why it compiles faster. Anchors:
+    <code>si.bus</code>, <code>si.repeat</code>, <code>ro.hadamard</code>, <code>ba.take</code>, <code>ba.count</code>,
+    <code>fi.convN</code>, <code>os.sawN</code>.</li>
+<li><strong>Higher-order programming.</strong> Blocks as arguments and as results,
+    lambda abstractions <code>\(x).(...)</code>, partial application, the library
+    convention (fixed parameters first, audio signal last), combinators of
+    <code>routes.lib</code> and <code>signals.lib</code>. Anchors: <code>ba.bypass_fade</code>,
+    <code>rm.parReduce</code>, <code>it.interpolator_linear</code>, <code>ba.countdown</code>.</li>
+</ol>
+<h2 id="part-d-writing-reusable-code">Part D. Writing reusable code<a class="headerlink" href="#part-d-writing-reusable-code" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Environments.</strong> Namespaces, <code>environment { }</code>, <code>library()</code>, the state
+    variable filter <code>svf</code> as a "class", explicit substitution
+    <code>lib[NAME = value;]</code>, environments as objects (<code>so.sound</code>), passed as
+    arguments. Anchors: <code>fi.svf</code>, <code>mm.filtercoeff</code>, <code>no._noise_env</code>,
+    <code>os[SAFE=1;]</code>, <code>db[DEBUG=0;]</code>.</li>
+<li><strong>Generic, then specialised.</strong> A general algorithm with dynamic
+    parameters, specialised by fixing constants or cutting outputs: the
+    compiler only generates the code that is used. Anchors: the <code>svf</code>
+    family, Eric Tarr's multi-output filters in vaeffects.lib, the formant
+    models of physmodels.lib.</li>
+<li><strong>Writing a library.</strong> Layers (generic block, intermediate level,
+    user-facing wrappers), prefixes and <code>stdfaust.lib</code>, <code>declare</code>, the
+    documentation format of the libraries, tests.</li>
+<li><strong>Final project.</strong> A complete reverb built step by step (comb and
+    allpass filters, a feedback delay network, the interface), which reuses
+    every chapter.</li>
+</ol>
+<h2 id="appendices">Appendices<a class="headerlink" href="#appendices" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>A. Observing a program</strong>: faustprobe, diagrams, <code>attach</code>, bargraphs,
+  how the examples of this tutorial are checked.</li>
+<li><strong>B. Automatic differentiation</strong>: <code>fad</code> and <code>rad</code> in faust-rs,
+  extensions absent from the C++ compiler, to learn the parameters of a
+  Faust program by gradient descent.</li>
+<li><strong>C. Cheat sheet</strong>: syntax, operator priorities, library prefixes.</li>
+</ul>
+<h2 id="corrections-to-the-idioms-document">Corrections to the idioms document<a class="headerlink" href="#corrections-to-the-idioms-document" title="Permanent link">&para;</a></h2>
+<p>The tutorial takes the examples of the idioms document after checking them.
+Those that did not compile or did not do what the text said are corrected,
+and the chapter says so:</p>
+<ul>
+<li>the <code>impulse</code> definition quoted from <code>faust_tutorial.pdf</code> looks truncated
+  because the underscores were lost when it was copied out of the PDF; the
+  original, <code>impulse = _ &lt;: _, mem : - : (_ &gt; 0.0);</code>, is complete;</li>
+<li>the two versions of <code>release</code> are not equivalent: the one with
+  <code>max(0, ...)</code> never goes below zero;</li>
+<li>the pattern-matching rewrite of the oscillator network does not reproduce
+  the original: the original chains four nodes, the rewrite three, in
+  another order.</li>
+</ul>
+<h2 id="library-definitions-not-taught-as-they-are">Library definitions not taught as they are<a class="headerlink" href="#library-definitions-not-taught-as-they-are" title="Permanent link">&para;</a></h2>
+<p>The survey of <code>faustlibraries</code> found definitions that a tutorial must not
+present as models without a warning. The chapters that use them say what is
+wrong and show a sound version. Among them: <code>ba.pulse_countdown_loop</code> does
+not count down for a positive <code>n</code>; <code>os.oscb</code> has an amplitude of
+1/sin(2πf/SR), not 1. Each claim is checked with faustprobe before it is
+written in a chapter. Four others were fixed in faustlibraries 2.74.3
+after the tutorial found them, and the chapters tell them in the past:
+<code>ba.line</code> and <code>mm.line</code> overshot when the ramp length in samples was not an
+integer; <code>ba.impulsify</code>'s documentation said it outputs the current sample,
+not the positive first difference; <code>en.adsr</code> and <code>en.asr</code> stretched when
+the gate was a velocity below 1; Freeverb's allpass buffers were too short
+above 81 kHz.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,157 @@
+//#################################### tutorial.lib ########################################
+// A small library written for chapter 15 of the Faust tutorial: a
+// state-variable filter in three layers. Its official prefix is `tu`.
+//
+// #### Sections
+//
+// * [Core](#core)
+// * [Filters](#filters)
+// * [Demos](#demos)
+//########################################################################################
+
+ma = library("maths.lib");
+si = library("signals.lib");
+tu = library("tutorial.lib"); // for code copied from this file into a program
+
+declare name "Faust Tutorial Library";
+declare version "1.0.0";
+declare author "The Faust tutorial";
+declare license "MIT";
+
+//=========================================Core=========================================
+//======================================================================================
+
+//-------------------`(tu.)svf`---------------------
+// Generic state-variable filter in the topology-preserving form: one state
+// update, three outputs (lowpass, bandpass, highpass).
+//
+// #### Usage
+//
+// ```
+// _ : svf(f, q) : _, _, _
+// ```
+//
+// Where:
+//
+// * `f`: cutoff frequency in Hz
+// * `q`: quality factor
+//
+// #### Test
+// ```
+// tu = library("tutorial.lib");
+// svf_test = no.noise : tu.svf(1000, 0.707);
+// ```
+//---------------------------------------------------
+declare svf license "MIT";
+svf(f, q) = tick ~ (_, _) : !, !, _, _, _
+with {
+    g = tan(ma.PI * f / ma.SR);
+    k = 1 / q;
+    tick(ic1, ic2, v0) = 2 * v1 - ic1, 2 * v2 - ic2, v2, v1, v0 - k * v1 - v2
+    with {
+        v1 = (ic1 + g * (v0 - ic2)) / (1 + g * (g + k));
+        v2 = ic2 + g * v1;
+    };
+};
+
+//========================================Filters=======================================
+//======================================================================================
+
+//-------------------`(tu.)lp`---------------------
+// Lowpass state-variable filter, the first output of `svf`.
+//
+// #### Usage
+//
+// ```
+// _ : lp(f, q) : _
+// ```
+//
+// Where:
+//
+// * `f`: cutoff frequency in Hz
+// * `q`: quality factor
+//
+// #### Test
+// ```
+// tu = library("tutorial.lib");
+// lp_test = no.noise : tu.lp(1000, 0.707);
+// ```
+//---------------------------------------------------
+declare lp license "MIT";
+lp(f, q) = svf(f, q) : _, !, !;
+
+//-------------------`(tu.)hp`---------------------
+// Highpass state-variable filter, the third output of `svf`.
+//
+// #### Usage
+//
+// ```
+// _ : hp(f, q) : _
+// ```
+//
+// Where:
+//
+// * `f`: cutoff frequency in Hz
+// * `q`: quality factor
+//
+// #### Test
+// ```
+// tu = library("tutorial.lib");
+// hp_test = no.noise : tu.hp(1000, 0.707);
+// ```
+//---------------------------------------------------
+declare hp license "MIT";
+hp(f, q) = svf(f, q) : !, !, _;
+
+//-------------------`(tu.)notch`---------------------
+// Notch filter: the sum of the lowpass and highpass outputs of `svf`.
+//
+// #### Usage
+//
+// ```
+// _ : notch(f, q) : _
+// ```
+//
+// Where:
+//
+// * `f`: notch frequency in Hz
+// * `q`: quality factor
+//
+// #### Test
+// ```
+// tu = library("tutorial.lib");
+// notch_test = no.noise : tu.notch(1000, 0.707);
+// ```
+//---------------------------------------------------
+declare notch license "MIT";
+notch(f, q) = svf(f, q) : _, !, _ :> _;
+
+//=========================================Demos========================================
+//======================================================================================
+
+//-------------------`(tu.)svf_demo`---------------------
+// The three filters with an interface: a mode menu, a cutoff and a Q, both
+// smoothed. The interface is defined in a `with` block; the filters above
+// stay free of it.
+//
+// #### Usage
+//
+// ```
+// _ : svf_demo : _
+// ```
+//
+// #### Test
+// ```
+// tu = library("tutorial.lib");
+// svf_demo_test = no.noise : tu.svf_demo;
+// ```
+//---------------------------------------------------
+declare svf_demo license "MIT";
+svf_demo = _ <: lp(f, q), hp(f, q), notch(f, q) : ba.selectn(3, mode)
+with {
+    ba = library("basics.lib");
+    group(x) = hgroup("tutorial svf", x);
+    mode = group(nentry("[0] mode [style:menu{'lowpass':0;'highpass':1;'notch':2}]", 0, 0, 2, 1));
+    f = group(hslider("[1] cutoff [unit:Hz] [scale:log]", 1000, 20, 20000, 1)) : si.smoo;
+    q = group(hslider("[2] Q [style:knob]", 0.707, 0.5, 10, 0.01)) : si.smoo;
+};

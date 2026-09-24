@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/02-block-diagram-algebra.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>2. Block-diagram algebra - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item active">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="01-first-sound.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="03-naming-inputs.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#2-block-diagram-algebra" class="nav-link">2. Block-diagram algebra</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-five-compositions" class="nav-link">The five compositions</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#sequence" class="nav-link">Sequence</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#parallel" class="nav-link">Parallel</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#split" class="nav-link">Split</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#merge" class="nav-link">Merge</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#cutting-and-keeping" class="nav-link">Cutting and keeping</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#priorities" class="nav-link">Priorities</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#arity-errors" class="nav-link">Arity errors</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#reading-the-diagram" class="nav-link">Reading the diagram</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#example-a-mixer" class="nav-link">Example: a mixer</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="2-block-diagram-algebra">2. Block-diagram algebra<a class="headerlink" href="#2-block-diagram-algebra" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>Every Faust program is an assembly of blocks. A block has a fixed number of
+inputs and outputs, its <strong>arity</strong>. Five operators assemble two blocks into a
+bigger one, and they are the only ones: there are no variables to assign,
+no loops, no wires drawn by hand. The compiler checks that the arities
+match, and that is where most beginner errors come from.</p>
+<p>Two elementary blocks serve as cables:</p>
+<ul>
+<li><code>_</code> is a <strong>wire</strong>: one input, one output, the signal goes through;</li>
+<li><code>!</code> is a <strong>cut</strong>: one input, no output, the signal disappears.</li>
+</ul>
+<h2 id="the-five-compositions">The five compositions<a class="headerlink" href="#the-five-compositions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>written</th>
+<th>name</th>
+<th>what it does</th>
+<th>arity condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A : B</code></td>
+<td>sequential</td>
+<td>the outputs of A feed the inputs of B</td>
+<td>outputs(A) = inputs(B)</td>
+</tr>
+<tr>
+<td><code>A , B</code></td>
+<td>parallel</td>
+<td>A and B side by side</td>
+<td>none</td>
+</tr>
+<tr>
+<td><code>A &lt;: B</code></td>
+<td>split</td>
+<td>the outputs of A are copied to the inputs of B</td>
+<td>inputs(B) is a multiple of outputs(A)</td>
+</tr>
+<tr>
+<td><code>A :&gt; B</code></td>
+<td>merge</td>
+<td>the outputs of A are summed into the inputs of B</td>
+<td>outputs(A) is a multiple of inputs(B)</td>
+</tr>
+<tr>
+<td><code>A ~ B</code></td>
+<td>recursive</td>
+<td>the outputs of A come back, through B, to the inputs of A</td>
+<td>inputs(B) ≤ outputs(A), outputs(B) ≤ inputs(A)</td>
+</tr>
+</tbody>
+</table>
+<p>Recursion is the subject of chapter 4; this chapter presents the other four.</p>
+<h3 id="sequence">Sequence<a class="headerlink" href="#sequence" title="Permanent link">&para;</a></h3>
+<p>(<a href="../examples/02/sequence.dsp"><code>sequence.dsp</code></a>)</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/sequence.dsp">examples/02/sequence.dsp</a></p>
+<a href="../examples/02/sequence-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/sequence-svg/process.svg" alt="block diagram of examples/02/sequence.dsp"></a>
+<faust-editor><!--
+// Sequential composition A : B: the outputs of A feed the inputs of B.
+process = *(2) : +(1);
+
+// With an impulse in: 1*2+1 = 3, then 0*2+1 = 1.
+--></faust-editor>
+</div>
+
+<p>Each input sample is doubled, then increased by 1. With the impulse
+1, 0, 0... as input, the output is 3, 1, 1...</p>
+<h3 id="parallel">Parallel<a class="headerlink" href="#parallel" title="Permanent link">&para;</a></h3>
+<p>(<a href="../examples/02/parallel.dsp"><code>parallel.dsp</code></a>)</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/parallel.dsp">examples/02/parallel.dsp</a></p>
+<a href="../examples/02/parallel-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/parallel-svg/process.svg" alt="block diagram of examples/02/parallel.dsp"></a>
+<faust-editor><!--
+// Parallel composition A, B: the two blocks side by side.
+// Two inputs, two outputs.
+process = *(2), *(3);
+--></faust-editor>
+</div>
+
+<p>Two inputs, two outputs: the first input is doubled, the second tripled.
+The two blocks ignore each other.</p>
+<h3 id="split">Split<a class="headerlink" href="#split" title="Permanent link">&para;</a></h3>
+<p>(<a href="../examples/02/split.dsp"><code>split.dsp</code></a>)</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/split.dsp">examples/02/split.dsp</a></p>
+<a href="../examples/02/split-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/split-svg/process.svg" alt="block diagram of examples/02/split.dsp"></a>
+<faust-editor><!--
+// Split A <: B: each output of A is copied to the inputs of B.
+// Here one input becomes two identical outputs: mono to stereo.
+process = _ <: _, _;
+--></faust-editor>
+</div>
+
+<p>One input, two identical outputs: mono to stereo. When A has several
+outputs, they are distributed <strong>cyclically</strong> over the inputs of B
+(<a href="../examples/02/split_cyclic.dsp"><code>split_cyclic.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/split_cyclic.dsp">examples/02/split_cyclic.dsp</a></p>
+<a href="../examples/02/split_cyclic-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/split_cyclic-svg/process.svg" alt="block diagram of examples/02/split_cyclic.dsp"></a>
+<faust-editor><!--
+// With two outputs into four inputs, the outputs are distributed
+// cyclically: a, b, a, b.
+process = _, _ <: *(1), *(1), *(10), *(10);
+
+// An impulse on input 0 only comes out on outputs 0 and 2.
+--></faust-editor>
+</div>
+
+<p>The four inputs on the right receive a, b, a, b. An impulse on the first
+input therefore comes out on outputs 0 and 2.</p>
+<h3 id="merge">Merge<a class="headerlink" href="#merge" title="Permanent link">&para;</a></h3>
+<p>(<a href="../examples/02/merge.dsp"><code>merge.dsp</code></a>)</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/merge.dsp">examples/02/merge.dsp</a></p>
+<a href="../examples/02/merge-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/merge-svg/process.svg" alt="block diagram of examples/02/merge.dsp"></a>
+<faust-editor><!--
+// Merge A :> B: the outputs of A are summed into the inputs of B,
+// cyclically: output i goes to input i modulo the number of inputs.
+// Two stereo pairs mixed into one: (in0 + in2), (in1 + in3).
+process = _, _, _, _ :> _, _;
+--></faust-editor>
+</div>
+
+<p>Merge is the mirror of split: output i of A is added to input (i modulo the
+number of inputs) of B. Here inputs 0 and 2 are summed on the left output,
+1 and 3 on the right: two stereo pairs mixed into one. <code>_, _ :&gt; _</code> is simply
+a sum.</p>
+<h3 id="cutting-and-keeping">Cutting and keeping<a class="headerlink" href="#cutting-and-keeping" title="Permanent link">&para;</a></h3>
+<p>(<a href="../examples/02/cut.dsp"><code>cut.dsp</code></a>)</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/cut.dsp">examples/02/cut.dsp</a></p>
+<a href="../examples/02/cut-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/cut-svg/process.svg" alt="block diagram of examples/02/cut.dsp"></a>
+<faust-editor><!--
+// The wire _ lets a signal through, the cut ! removes it.
+// Keep the second input only.
+process = _, _ : !, _;
+--></faust-editor>
+</div>
+
+<p>Two inputs, one output: the second one. The cut is used wherever a block
+produces more outputs than wanted; chapter 5 uses it systematically.</p>
+<h2 id="priorities">Priorities<a class="headerlink" href="#priorities" title="Permanent link">&para;</a></h2>
+<p>The operators do not have the same priority. From strongest to weakest:
+<code>~</code>, then <code>,</code>, then <code>:</code>, then <code>&lt;:</code> and <code>:&gt;</code>. So
+(<a href="../examples/02/priorities.dsp"><code>priorities.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/priorities.dsp">examples/02/priorities.dsp</a></p>
+<a href="../examples/02/priorities-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/priorities-svg/process.svg" alt="block diagram of examples/02/priorities.dsp"></a>
+<faust-editor><!--
+// The comma binds tighter than the colon:
+// *(2), *(3) : +   reads   (*(2), *(3)) : +
+process = *(2), *(3) : +;
+
+// Two inputs, one output: 2*in0 + 3*in1.
+--></faust-editor>
+</div>
+
+<p>reads <code>(*(2), *(3)) : +</code>: two inputs, one output equal to 2 × in0 + 3 × in1.
+When in doubt, add parentheses: they cost nothing.</p>
+<h2 id="arity-errors">Arity errors<a class="headerlink" href="#arity-errors" title="Permanent link">&para;</a></h2>
+<p>When the arities do not match, the compiler rejects the program and says why
+(<a href="../examples/02/arity_error.dsp"><code>arity_error.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/arity_error.dsp">examples/02/arity_error.dsp</a></p>
+<p class="faust-run-note">This program does not compile, on purpose: the editor shows the error.</p>
+<faust-editor><!--
+// Two outputs cannot feed a single input through ":".
+process = _, _ : _;
+--></faust-editor>
+</div>
+
+<p>The C++ compiler answers:</p>
+<pre><code class="language-text">ERROR : sequential composition A:B
+The number of outputs [2] of A must be equal to the number of inputs [1] of B
+</code></pre>
+<p>and faust-rs adds the location, the rule and a hint:</p>
+<pre><code class="language-text">arity_error.dsp:4:16: error [FRS-PROP-0002] sequential composition mismatch at node 5: left outputs (2) != right inputs (1)
+  4 | process = _, _ : _;
+    |                ^ failing composition
+  = note: rule: seq(A, B) requires outputs(A) == inputs(B)
+  = help: for `A : B`, enforce outputs(A) == inputs(B)
+</code></pre>
+<p>To fix it, count: two outputs on the left need two inputs on the right
+(<code>_, _ : +</code>), or a merge (<code>_, _ :&gt; _</code>).</p>
+<h2 id="reading-the-diagram">Reading the diagram<a class="headerlink" href="#reading-the-diagram" title="Permanent link">&para;</a></h2>
+<p><code>faust -svg program.dsp</code> writes the block diagram of the program into a
+<code>program-svg/</code> folder; the online IDE shows it in a tab. Each block is a
+box, each signal a wire, and the compositions appear as they are written.
+Reading the diagram is often the fastest way to understand wiring that does
+not do what you think.</p>
+<h2 id="example-a-mixer">Example: a mixer<a class="headerlink" href="#example-a-mixer" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/02/mixer.dsp"><code>mixer.dsp</code></a>)</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/mixer.dsp">examples/02/mixer.dsp</a></p>
+<a href="../examples/02/mixer-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/mixer-svg/process.svg" alt="block diagram of examples/02/mixer.dsp"></a>
+<faust-editor><!--
+// A mixer of two stereo sources, each with its own gain.
+gainA = hslider("gain A", 0.5, 0, 1, 0.01);
+gainB = hslider("gain B", 0.5, 0, 1, 0.01);
+
+process = *(gainA), *(gainA), *(gainB), *(gainB) :> _, _;
+
+// All inputs at 1: each output is gainA + gainB.
+--></faust-editor>
+</div>
+
+<p>Four inputs (two stereo pairs), one gain per pair, and a merge into two
+outputs. The check sets the gains to 0.25 and 0.5 and sends 1 on every
+input: each output must be 0.75.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<p>The libraries give names to common wirings. In <code>signals.lib</code>:</p>
+<pre><code class="language-faust">bus(N) = par(i, N, _);     // N wires side by side
+block(N) = par(i, N, !);   // N cuts
+</code></pre>
+<p>and in <code>routes.lib</code>, <code>ro.cross(N)</code> reverses the order of N signals and
+<code>ro.interleave(R, C)</code> interleaves groups of signals. They rely on <code>par</code>,
+the repeated parallel composition (chapter 11), and on the <code>route</code>
+primitive, which describes any wiring as a list of (input, output) pairs:</p>
+<pre><code class="language-faust">cross(N) = route(N, N, par(i, N, (i+1, N-i)));
+</code></pre>
+<p><code>si.bus(2)</code> is a name for <code>_, _</code>. It is written when the number of wires is
+a parameter.</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Count the wires</strong> before composing. <code>faust -svg</code> or the IDE show the
+  arities.</li>
+<li><strong>Merge adds</strong>: <code>:&gt;</code> is not a selector. Choosing one signal out of two
+  needs <code>select2</code> (chapter 6).</li>
+<li><strong>Split copies cyclically</strong>: <code>_, _ &lt;: _, _, _</code> is an error (3 is not a
+  multiple of 2), not a partial copy.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Swap the two channels of a stereo signal, using only <code>_</code>, <code>!</code>, <code>,</code> and
+   <code>&lt;:</code>. Solution: <a href="../examples/02/solutions/ex1_swap.dsp"><code>ex1_swap.dsp</code></a>.</li>
+<li>One input to four outputs, each half the previous one. Solution:
+   <a href="../examples/02/solutions/ex2_fan.dsp"><code>ex2_fan.dsp</code></a>.</li>
+<li>The average of three inputs. Solution:
+   <a href="../examples/02/solutions/ex3_average3.dsp"><code>ex3_average3.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/solutions/ex1_swap.dsp">examples/02/solutions/ex1_swap.dsp</a></p>
+<a href="../examples/02/solutions/ex1_swap-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/solutions/ex1_swap-svg/process.svg" alt="block diagram of examples/02/solutions/ex1_swap.dsp"></a>
+<faust-editor><!--
+// Exercise 1: swap the two channels of a stereo signal.
+// The two inputs are copied into four wires a, b, a, b; keep b and a.
+process = _, _ <: !, _, _, !;
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/solutions/ex2_fan.dsp">examples/02/solutions/ex2_fan.dsp</a></p>
+<a href="../examples/02/solutions/ex2_fan-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/solutions/ex2_fan-svg/process.svg" alt="block diagram of examples/02/solutions/ex2_fan.dsp"></a>
+<faust-editor><!--
+// Exercise 2: one input to four outputs, each half the previous one.
+process = _ <: *(1), *(0.5), *(0.25), *(0.125);
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/02/solutions/ex3_average3.dsp">examples/02/solutions/ex3_average3.dsp</a></p>
+<a href="../examples/02/solutions/ex3_average3-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/02/solutions/ex3_average3-svg/process.svg" alt="block diagram of examples/02/solutions/ex3_average3.dsp"></a>
+<faust-editor><!--
+// Exercise 3: the average of three inputs.
+process = _, _, _ :> /(3);
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

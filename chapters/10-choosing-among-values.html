@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/10-choosing-among-values.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>10. Choosing among values - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item active">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="09-compile-time-or-run-time.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="11-iteration-and-pattern-matching.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#10-choosing-among-values" class="nav-link">10. Choosing among values</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#tables-of-constants" class="nav-link">Tables of constants</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#when-the-index-is-a-widget" class="nav-link">When the index is a widget</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#tables-of-signals-selectors-of-signals" class="nav-link">Tables of signals, selectors of signals</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#tables-filled-by-a-generator" class="nav-link">Tables filled by a generator</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#interpolation" class="nav-link">Interpolation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#writing-tables-rwtable" class="nav-link">Writing tables: rwtable</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="10-choosing-among-values">10. Choosing among values<a class="headerlink" href="#10-choosing-among-values" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>Many programs need to map a number to another: a step of a sequencer to a
+note, a menu entry to a filter type, a phase to a sample of a waveform, an
+input level to a curve. Faust offers two tools for it, and the idioms
+document asks which to use:</p>
+<ul>
+<li>a <strong>table</strong>: a list of values stored once, read by index with
+  <code>rdtable</code>, or written and read with <code>rwtable</code>;</li>
+<li>a <strong>selector</strong>: <code>ba.selectn(N, i)</code>, which picks one of N signals.</li>
+</ul>
+<p>They look interchangeable for a list of constants. They are not the same
+thing, and the generated code shows the difference.</p>
+<h2 id="tables-of-constants">Tables of constants<a class="headerlink" href="#tables-of-constants" title="Permanent link">&para;</a></h2>
+<p><code>waveform{...}</code> is a list of constants, and <code>rdtable</code> reads it at an index
+(<a href="../examples/10/major_scale.dsp"><code>major_scale.dsp</code></a>):</p>
+<pre><code class="language-faust">major_scale = waveform{-1, 0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17};
+scale_table(i)  = major_scale, i : rdtable;
+scale_select(i) = -1, 0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17 : ba.selectn(12, i);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/10/major_scale.dsp">examples/10/major_scale.dsp</a></p>
+<a href="../examples/10/major_scale-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/major_scale-svg/process.svg" alt="block diagram of examples/10/major_scale.dsp"></a>
+<faust-editor><!--
+// The major scale of the idioms document, two ways: a constant table read
+// with rdtable, and ba.selectn over twelve constants. Same values.
+import("stdfaust.lib");
+
+major_scale = waveform{-1, 0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17};
+scale_table(i)  = major_scale, i : rdtable;
+scale_select(i) = -1, 0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17 : ba.selectn(12, i);
+
+// The index changes at every sample: it walks through the scale ten times
+// per second.
+i = int(os.lf_sawpos(10) * 12);
+
+process = scale_table(i), scale_select(i);
+
+// The table is stored once and read with one memory access; selectn becomes
+// a tree of comparisons evaluated at every sample.
+--></faust-editor>
+</div>
+
+<p>Both give the same values. The generated code does not look the same when
+the index changes at every sample:</p>
+<pre><code class="language-cpp">const static int imydspSIG0Wave0[12] = {-1,0,2,4,5,7,9,11,12,14,16,17};
+...
+output0[i0] = itbl0mydspSIG0[std::max&lt;int&gt;(0, std::min&lt;int&gt;(iTemp1, 11))];
+output1[i0] = ((iTemp1 &gt;= 6) ? ((iTemp1 &gt;= 9) ? ((iTemp1 &gt;= 11) ? 17 : ...
+</code></pre>
+<p>The table is stored once and read with one memory access, the index being
+clamped to the table's range. The selector becomes a tree of comparisons,
+four deep for twelve values, evaluated at every sample. For a dozen values
+both are cheap; for hundreds, the table wins. The idioms document states
+it: a table built with <code>waveform</code> "is more efficient".</p>
+<h2 id="when-the-index-is-a-widget">When the index is a widget<a class="headerlink" href="#when-the-index-is-a-widget" title="Permanent link">&para;</a></h2>
+<p>The idioms document also gives a "choice mapper" in both forms, with the
+remark that the table mapping is made at compile time while the selector
+mapping is made "once per cycle"
+(<a href="../examples/10/choice_mapper.dsp"><code>choice_mapper.dsp</code></a>):</p>
+<pre><code class="language-faust">choice_table(choice, wf) = wf, (choice : int) : rdtable;
+choice_select(choice, values) = values : ba.selectn(outputs(values), choice);
+
+algo = nentry(&quot;algo&quot;, 4, 0, 4, 1);
+process = choice_table(algo, waveform{4, 3, 2, 1, 0}),
+          choice_select(algo, (4, 3, 2, 1, 0));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/10/choice_mapper.dsp">examples/10/choice_mapper.dsp</a></p>
+<a href="../examples/10/choice_mapper-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/choice_mapper-svg/process.svg" alt="block diagram of examples/10/choice_mapper.dsp"></a>
+<faust-editor><!--
+// The "choice mapper" of the idioms document: map a menu entry to a value.
+// With a widget as index, both forms run once per block, before the sample
+// loop, so the cost difference disappears.
+import("stdfaust.lib");
+
+choice_table(choice, wf) = wf, (choice : int) : rdtable;
+choice_select(choice, values) = values : ba.selectn(outputs(values), choice);
+
+algo = nentry("algo", 4, 0, 4, 1);
+
+process = choice_table(algo, waveform{4, 3, 2, 1, 0}),
+          choice_select(algo, (4, 3, 2, 1, 0));
+--></faust-editor>
+</div>
+
+<p>With a widget as index, chapter 9 applies: an expression of widgets and
+constants is computed once per block, before the sample loop. Both forms
+become a single block-rate value (<code>iSlow</code>), and their cost is the same. The
+difference matters only when the index is itself a sample-rate signal.</p>
+<h2 id="tables-of-signals-selectors-of-signals">Tables of signals, selectors of signals<a class="headerlink" href="#tables-of-signals-selectors-of-signals" title="Permanent link">&para;</a></h2>
+<p>The real difference is elsewhere:</p>
+<ul>
+<li>a table holds <strong>values</strong>, computed before the program runs: constants,
+  or the first samples of a generator (next section). It cannot hold the
+  output of an oscillator that runs alongside;</li>
+<li>a selector chooses among <strong>signals</strong>, which may be anything: four
+  oscillators, three filters, two effects. All of them run at every sample
+  (chapter 9), and the selector passes one.</li>
+</ul>
+<p>To choose a <em>constant</em>, use a table. To choose a <em>process</em>, use a selector
+at run time, or pattern matching and environments at compile time
+(chapters 11 and 13).</p>
+<h2 id="tables-filled-by-a-generator">Tables filled by a generator<a class="headerlink" href="#tables-filled-by-a-generator" title="Permanent link">&para;</a></h2>
+<p><code>rdtable(N, gen, i)</code> fills its N cells with the first N samples of the
+signal <code>gen</code>, once, when the program is initialised
+(<a href="../examples/10/generated_table.dsp"><code>generated_table.dsp</code></a>):</p>
+<pre><code class="language-faust">N = 64;
+sinwaveform(n) = sin(2 * ma.PI * float(ba.time) / n);
+osc_table(f) = rdtable(N, sinwaveform(N), int(os.lf_sawpos(f) * N));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/10/generated_table.dsp">examples/10/generated_table.dsp</a></p>
+<a href="../examples/10/generated_table-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/generated_table-svg/process.svg" alt="block diagram of examples/10/generated_table.dsp"></a>
+<faust-editor><!--
+// A table filled by a generator: the signal sinwaveform(N) is computed for
+// the first N samples, once, when the program is initialised; then rdtable
+// reads it. This is how os.osc works.
+import("stdfaust.lib");
+
+N = 64;
+sinwaveform(n) = sin(2 * ma.PI * float(ba.time) / n);
+osc_table(f) = rdtable(N, sinwaveform(N), int(os.lf_sawpos(f) * N));
+
+process = osc_table(440);
+
+// The table is filled in a separate class at initialisation.
+--></faust-editor>
+</div>
+
+<p><code>ba.time</code> counts 0, 1, 2..., so the generator produces one period of a sine
+over N samples. The C++ shows a separate class <code>mydspSIG0</code> whose <code>fill</code>
+method runs at initialisation. The 2003 tutorial draws the same picture:
+the table is computed at init time, the sample loop only reads it. This is
+exactly how <code>os.osc</code> works, with a table of 65536 values:</p>
+<pre><code class="language-faust">sinwaveform(tablesize) =
+    sin(float(ba.period(tablesize)) * (2.0 * ma.PI) / float(tablesize));
+</code></pre>
+<h2 id="interpolation">Interpolation<a class="headerlink" href="#interpolation" title="Permanent link">&para;</a></h2>
+<p>A table read at the nearest cell is only as fine as its size. Reading two
+neighbours and interpolating between them is much finer
+(<a href="../examples/10/interpolation.dsp"><code>interpolation.dsp</code></a>):</p>
+<pre><code class="language-faust">table(k) = rdtable(N + 1, sinwaveform(N), k);     // one extra cell for k + 1
+pos = phase * N;
+k = int(pos);
+d = pos - k;
+
+nearest = table(k);
+linear  = table(k) + d * (table(k + 1) - table(k));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/10/interpolation.dsp">examples/10/interpolation.dsp</a></p>
+<a href="../examples/10/interpolation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/interpolation-svg/process.svg" alt="block diagram of examples/10/interpolation.dsp"></a>
+<faust-editor><!--
+// Reading a small table at the nearest entry is coarse; interpolating
+// between two neighbours is much closer. Error of a 64-entry sine table
+// against sin(), with and without linear interpolation.
+import("stdfaust.lib");
+
+N = 64;
+sinwaveform(n) = sin(2 * ma.PI * float(ba.time) / n);
+table(k) = rdtable(N + 1, sinwaveform(N), k);     // one extra entry for k + 1
+
+phase = os.lf_sawpos(440);
+pos = phase * N;
+k = int(pos);
+d = pos - k;
+
+nearest = table(k);
+linear  = table(k) + d * (table(k + 1) - table(k));
+exact   = sin(2 * ma.PI * phase);
+
+process = nearest - exact, linear - exact;
+--></faust-editor>
+</div>
+
+<p>With 64 cells, the error against <code>sin</code> is:</p>
+<table>
+<thead>
+<tr>
+<th>reading</th>
+<th>peak error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nearest cell</td>
+<td>0.098</td>
+</tr>
+<tr>
+<td>linear interpolation</td>
+<td>0.0012</td>
+</tr>
+</tbody>
+</table>
+<p>The table has one extra cell so that <code>k + 1</code> never falls outside it. The
+library's <code>os.osci</code> is this very construction on the 65536-value table:</p>
+<pre><code class="language-faust">osci(freq) = s1 + d * (s2 - s1)
+with {
+    tablesize = pl.tablesize;
+    i = int(phasor(tablesize,freq));
+    d = ma.decimal(phasor(tablesize,freq));
+    s1 = rdtable(tablesize+1,sinwaveform(tablesize),i);
+    s2 = rdtable(tablesize+1,sinwaveform(tablesize),i+1);
+};
+</code></pre>
+<h2 id="writing-tables-rwtable">Writing tables: <code>rwtable</code><a class="headerlink" href="#writing-tables-rwtable" title="Permanent link">&para;</a></h2>
+<p><code>rwtable(N, init, write_index, write_value, read_index)</code> is a table the
+program writes while it runs. At every sample it stores <code>write_value</code> at
+<code>write_index</code> and outputs the value at <code>read_index</code>. A delay line is the
+classic use (Orlarey, Fober and Letz, Den Haag 2006)
+(<a href="../examples/10/rwtable_delay.dsp"><code>rwtable_delay.dsp</code></a>):</p>
+<pre><code class="language-faust">index(n) = &amp;(n - 1) ~ +(1);
+delay(n, d, x) = rwtable(n, 0.0, index(n), x, (index(n) - int(d)) &amp; (n - 1));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/10/rwtable_delay.dsp">examples/10/rwtable_delay.dsp</a></p>
+<a href="../examples/10/rwtable_delay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/rwtable_delay-svg/process.svg" alt="block diagram of examples/10/rwtable_delay.dsp"></a>
+<faust-editor><!--
+// A delay line written by hand with a read-write table (Den Haag, 2006):
+// the write index goes round a table of n = 2^k cells, and the read index
+// is d cells behind. & (n - 1) wraps the index and stays positive.
+import("stdfaust.lib");
+
+index(n) = &(n - 1) ~ +(1);
+delay(n, d, x) = rwtable(n, 0.0, index(n), x, (index(n) - int(d)) & (n - 1));
+
+process = _ <: delay(1024, 100), @(100);
+
+// The same samples as @(100).
+--></faust-editor>
+</div>
+
+<p>The write index goes round a table of n = 2^k cells; the read index is d
+cells behind. <code>&amp; (n - 1)</code> wraps the index into the table, and unlike <code>%</code>
+it stays positive when <code>index(n) - d</code> is negative. The result equals
+<code>@(d)</code> sample for sample; <code>@</code> is simpler, but <code>rwtable</code> gives full control
+over what is written where (exercise 2).</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>os.oscsin</code> and <code>os.osci</code> read a sine table at the nearest cell and with
+  interpolation, as above.</li>
+<li><code>ma.primes</code> reads the prime numbers from a <code>waveform</code> of 2048 values.</li>
+<li><code>ba.tabulate(C, FX, S, r0, r1, x)</code> tabulates a function <code>FX</code> over
+  [r0, r1] in S cells, and reads it with <code>.val</code> (nearest), <code>.lin</code> (linear)
+  or <code>.cub</code> (cubic interpolation). Its documentation uses it for
+  <code>ba.midikey2hz</code>; exercise 3 uses it for <code>tanh</code>.</li>
+<li><code>it.frdtable</code> in interpolators.lib reads a table with Lagrange
+  interpolation of any order.</li>
+<li><code>ba.selectn</code> is built as a balanced tree of <code>select2</code> (<code>ba.selectnX</code>),
+  which is why it compiles to nested comparisons; <code>ba.selectmulti</code> does the
+  same with crossfades between neighbours.</li>
+</ul>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Index range.</strong> When the compiler cannot prove that an index stays in
+  the table, it clamps it (the <code>std::max</code>/<code>std::min</code> above), so an
+  out-of-range index silently reads the first or last cell. Keep one extra
+  cell for interpolation, and do not count on the clamp for correctness.</li>
+<li><strong>Tables hold values, not processes.</strong> Choosing among running signals
+  needs a selector.</li>
+<li><strong><code>%</code> can be negative.</strong> Use <code>&amp; (n - 1)</code> with a power-of-two size, or
+  <code>ma.modulo</code>, to wrap an index that may go below zero.</li>
+<li><strong>Table sizes are constants</strong> (chapter 9).</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A sixteen-step rhythm stored as 0s and 1s in a <code>waveform</code>, played in
+   sixteenth notes: a trigger on each step marked 1. Solution:
+   <a href="../examples/10/solutions/ex1_drum_pattern.dsp"><code>ex1_drum_pattern.dsp</code></a>.</li>
+<li>A recorder: while a button is held, write the input into a table of n
+   cells; always play the table in a loop. When not recording, send the
+   writes to an extra "dead" cell, as the 2003 tutorial advises. Solution:
+   <a href="../examples/10/solutions/ex2_recorder.dsp"><code>ex2_recorder.dsp</code></a>.</li>
+<li>Tabulate <code>ma.tanh</code> over [−4, 4] in 256 cells with linear interpolation,
+   and measure the error against the exact function (it stays below 1e-4).
+   Solution: <a href="../examples/10/solutions/ex3_tabulate.dsp"><code>ex3_tabulate.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/10/solutions/ex1_drum_pattern.dsp">examples/10/solutions/ex1_drum_pattern.dsp</a></p>
+<a href="../examples/10/solutions/ex1_drum_pattern-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/solutions/ex1_drum_pattern-svg/process.svg" alt="block diagram of examples/10/solutions/ex1_drum_pattern.dsp"></a>
+<faust-editor><!--
+// Exercise 1: a sixteen-step rhythm stored in a table of 0s and 1s, played
+// in sixteenth notes: a trigger comes out on the steps marked 1.
+import("stdfaust.lib");
+
+bpm = hslider("bpm", 120, 30, 300, 1);
+
+pattern = waveform{1,0,0,0, 1,0,0,1, 0,0,1,0, 1,0,0,0};
+tick = ba.beat(bpm * 4);                               // sixteenth notes
+step = tick : + ~ _ : -(1) : int : %(16);
+hit = tick * (pattern, step : rdtable);
+
+process = hit;
+
+// At 1 kHz and 120 bpm a sixteenth lasts 125 samples: hits at steps 0, 4,
+// 7, 10 and 12, that is frames 0, 500, 875, 1250 and 1500.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/10/solutions/ex2_recorder.dsp">examples/10/solutions/ex2_recorder.dsp</a></p>
+<a href="../examples/10/solutions/ex2_recorder-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/solutions/ex2_recorder-svg/process.svg" alt="block diagram of examples/10/solutions/ex2_recorder.dsp"></a>
+<faust-editor><!--
+// Exercise 2: record n samples while a button is held, and play them in a
+// loop. When not recording, the writes go to an extra "dead" cell, as the
+// 2003 tutorial advises for a table that is not always written.
+import("stdfaust.lib");
+
+n = 100;
+rec = button("rec");
+
+position = (+(1) : %(n)) ~ _ : mem;                    // 0, 1, ..., n-1, 0, ...
+write_index = select2(rec, n, position);               // cell n is the dead cell
+recorder = rwtable(n + 1, 0.0, write_index, _, position);
+
+process = recorder;
+
+// The impulse at frame 0 is recorded in cell 0; recording stops at frame
+// 100; the loop plays it back at frames 100 and 200.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/10/solutions/ex3_tabulate.dsp">examples/10/solutions/ex3_tabulate.dsp</a></p>
+<a href="../examples/10/solutions/ex3_tabulate-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/10/solutions/ex3_tabulate-svg/process.svg" alt="block diagram of examples/10/solutions/ex3_tabulate.dsp"></a>
+<faust-editor><!--
+// Exercise 3: tabulate an expensive function. tanh over [-4, 4] in a table
+// of 256 values, read with linear interpolation, against the exact tanh.
+import("stdfaust.lib");
+
+fast_tanh(x) = ba.tabulate(1, ma.tanh, 256, -4, 4, x).lin;
+
+process = os.osc(100) * 4 <: fast_tanh - ma.tanh;
+
+// The error stays below 1e-3.
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

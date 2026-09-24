@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Programming in Faust, from a first sound to a complete reverb, with every program runnable in the page.">
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/index.html">
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>A progressive Faust tutorial</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link href="css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem active">
+                                <a href="index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="chapters/02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="chapters/03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="chapters/04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="chapters/06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="chapters/07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="chapters/08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="chapters/10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="chapters/11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="chapters/12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="chapters/14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="chapters/15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="chapters/16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="chapters/B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="chapters/C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" class="nav-link disabled">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="chapters/01-first-sound.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#a-progressive-faust-tutorial" class="nav-link">A progressive Faust tutorial</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#contents" class="nav-link">Contents</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#layout" class="nav-link">Layout</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#checking-the-examples" class="nav-link">Checking the examples</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-web-site" class="nav-link">The web site</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="a-progressive-faust-tutorial">A progressive Faust tutorial<a class="headerlink" href="#a-progressive-faust-tutorial" title="Permanent link">&para;</a></h1>
+<p>This tutorial teaches programming in <a href="https://faust.grame.fr">Faust</a>, the
+functional language for real-time audio signal processing, from a first
+sound to a complete reverb. Each chapter only relies on the ones before it.
+Read it at https://sletz.github.io/faust-tutorial/, where every program can
+be run in the page.</p>
+<p>It is built on the <em>idioms</em> that the practice of Faust programmers has
+produced, collected in the document "Faust programming idioms", and ties
+each of them to the functions of the standard libraries
+(<a href="https://github.com/grame-cncm/faustlibraries">faustlibraries</a>) that use
+it. It also draws on the earlier Faust tutorials (Gaudrain and Orlarey,
+2003; Bole, 2008) and on the papers of the Faust team, and says so where it
+does.</p>
+<p>Every program in the tutorial, 173 of them, is compiled by the C++ Faust
+compiler and run by faustprobe, and its output is checked against what the
+text says (appendix A). The plan of the tutorial is in <a href="PLAN.html">PLAN.md</a>.</p>
+<h2 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h2>
+<p><strong>Part A. The language</strong></p>
+<ol>
+<li><a href="chapters/01-first-sound.html">First sound</a></li>
+<li><a href="chapters/02-block-diagram-algebra.html">Block-diagram algebra</a></li>
+<li><a href="chapters/03-naming-inputs.html">Naming inputs</a></li>
+<li><a href="chapters/04-one-sample-memory.html">One-sample memory</a></li>
+</ol>
+<p><strong>Part B. Building control signals</strong></p>
+<ol>
+<li><a href="chapters/05-state-with-several-variables.html">State with several variables</a></li>
+<li><a href="chapters/06-logical-signals-and-events.html">Logical signals and events</a></li>
+<li><a href="chapters/07-periodic-signals-and-sequences.html">Periodic signals and sequences</a></li>
+<li><a href="chapters/08-user-interface.html">User interface</a></li>
+</ol>
+<p><strong>Part C. Computing at compile time</strong></p>
+<ol>
+<li><a href="chapters/09-compile-time-or-run-time.html">Compile time or run time</a></li>
+<li><a href="chapters/10-choosing-among-values.html">Choosing among values</a></li>
+<li><a href="chapters/11-iteration-and-pattern-matching.html">Iteration and pattern matching</a></li>
+<li><a href="chapters/12-higher-order-programming.html">Higher-order programming</a></li>
+</ol>
+<p><strong>Part D. Writing reusable code</strong></p>
+<ol>
+<li><a href="chapters/13-environments.html">Environments</a></li>
+<li><a href="chapters/14-generic-then-specialised.html">Generic, then specialised</a></li>
+<li><a href="chapters/15-writing-a-library.html">Writing a library</a></li>
+<li><a href="chapters/16-final-project.html">Final project: a reverb</a></li>
+</ol>
+<p><strong>Appendices</strong></p>
+<ul>
+<li>A. <a href="chapters/A-observing-a-program.html">Observing a program</a></li>
+<li>B. <a href="chapters/B-automatic-differentiation.html">Automatic differentiation</a> (faust-rs)</li>
+<li>C. <a href="chapters/C-cheat-sheet.html">Cheat sheet</a></li>
+</ul>
+<h2 id="layout">Layout<a class="headerlink" href="#layout" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">chapters/           the text, one file per chapter
+examples/NN/        the programs of chapter NN, and solutions/ for its exercises
+examples/appendix_a, examples/appendix_b
+scripts/check.py    runs the checks written in the programs' comments
+scripts/build_docs.py  prepares the web site: diagrams and editors
+mkdocs.yml, web/    the web site's configuration and style
+Makefile            make help lists the targets: check, site, serve, ...
+</code></pre>
+<h2 id="checking-the-examples">Checking the examples<a class="headerlink" href="#checking-the-examples" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">make check
+</code></pre>
+<p>compiles every program with the C++ compiler (<code>faust</code>) and runs the
+faustprobe commands written in its comments. It expects the faust-rs and
+faustlibraries checkouts next to this one (<code>../faust-rs</code>,
+<code>../../faustlibraries</code>, version 2.74.3 or later); <code>FAUST</code>, <code>FAUSTPROBE</code>
+and <code>FAUSTLIBRARIES</code> override the paths. <code>make check DIR=examples/07</code> checks one chapter.</p>
+<h2 id="the-web-site">The web site<a class="headerlink" href="#the-web-site" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">make site
+</code></pre>
+<p>builds the tutorial as a web site in <code>site/</code>, with mkdocs (<code>pip install
+mkdocs==1.5.3</code>, the version faustdoc uses). As in faustdoc, every program
+of a chapter appears with its block diagram, drawn by the C++ compiler, and
+an editor (<a href="https://github.com/grame-cncm/faust-web-component">faust-web-component</a>)
+that compiles it and plays it in the page, with its controls. <code>make serve</code>
+serves it at http://127.0.0.1:8000, and <code>make publish</code> pushes it to the
+<code>gh-pages</code> branch, published at https://sletz.github.io/faust-tutorial/. <code>scripts/build_docs.py</code> says where each
+program goes and which ones the browser cannot run (the faust-rs
+extensions, and the programs that import the tutorial's own library).</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.5.3
+Build Date UTC : 2026-09-24 09:03:08.400701+00:00
+-->

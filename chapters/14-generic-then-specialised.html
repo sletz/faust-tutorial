@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/14-generic-then-specialised.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>14. Generic, then specialised - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item active">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="13-environments.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="15-writing-a-library.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#14-generic-then-specialised" class="nav-link">14. Generic, then specialised</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#cutting-outputs" class="nav-link">Cutting outputs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#fixing-parameters" class="nav-link">Fixing parameters</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#choosing-among-variants" class="nav-link">Choosing among variants</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="14-generic-then-specialised">14. Generic, then specialised<a class="headerlink" href="#14-generic-then-specialised" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>Chapter 9 showed that the compiler only generates the code a program
+actually uses, and computes in advance everything that is constant. The
+idioms document draws the design lesson: write <strong>one generic algorithm</strong>,
+with all its parameters and all its outputs, and derive the specific
+versions from it by</p>
+<ul>
+<li><strong>cutting outputs</strong> that a version does not need;</li>
+<li><strong>fixing parameters</strong> to constants;</li>
+<li><strong>partial application</strong>, which fixes the first parameters (chapter 12).</li>
+</ul>
+<p>Each specialised version costs no more than a version written by hand,
+and the algorithm exists once.</p>
+<h2 id="cutting-outputs">Cutting outputs<a class="headerlink" href="#cutting-outputs" title="Permanent link">&para;</a></h2>
+<p>A state-variable filter computes its lowpass, bandpass and highpass outputs
+from the same state. A generic version outputs all three
+(<a href="../examples/14/generic_svf.dsp"><code>generic_svf.dsp</code></a>):</p>
+<pre><code class="language-faust">svf(f, q) = tick ~ (_, _) : !, !, _, _, _
+with {
+    g = tan(ma.PI * f / ma.SR);
+    k = 1 / q;
+    tick(ic1, ic2, v0) = 2 * v1 - ic1, 2 * v2 - ic2, v2, v1, v0 - k * v1 - v2
+    with {
+        v1 = (ic1 + g * (v0 - ic2)) / (1 + g * (g + k));
+        v2 = ic2 + g * v1;
+    };
+};
+
+svf_lp(f, q) = svf(f, q) : _, !, !;
+svf_bp(f, q) = svf(f, q) : !, _, !;
+svf_hp(f, q) = svf(f, q) : !, !, _;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/14/generic_svf.dsp">examples/14/generic_svf.dsp</a></p>
+<a href="../examples/14/generic_svf-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/generic_svf-svg/process.svg" alt="block diagram of examples/14/generic_svf.dsp"></a>
+<faust-editor><!--
+// A generic state-variable filter (the topology-preserving form used by
+// filters.lib's fi.svf): one state update, three outputs, lowpass,
+// bandpass and highpass. The specialisations keep one output each; the
+// compiler removes what they cut.
+import("stdfaust.lib");
+
+svf(f, q) = tick ~ (_, _) : !, !, _, _, _
+with {
+    g = tan(ma.PI * f / ma.SR);
+    k = 1 / q;
+    tick(ic1, ic2, v0) = 2 * v1 - ic1, 2 * v2 - ic2, v2, v1, v0 - k * v1 - v2
+    with {
+        v1 = (ic1 + g * (v0 - ic2)) / (1 + g * (g + k));
+        v2 = ic2 + g * v1;
+    };
+};
+
+svf_lp(f, q) = svf(f, q) : _, !, !;
+svf_bp(f, q) = svf(f, q) : !, _, !;
+svf_hp(f, q) = svf(f, q) : !, !, _;
+
+process = _ <: svf_lp(1000, 0.707), svf_bp(1000, 0.707), svf_hp(1000, 0.707),
+               (svf_lp(1000, 0.707) - fi.svf.lp(1000, 0.707));
+
+// At DC the lowpass passes, the others block; and the lowpass is the
+// library's to within rounding.
+--></faust-editor>
+</div>
+
+<p>The <code>tick</code> of chapter 5 carries two state variables and outputs five
+values; the first cut removes the state from the outputs, and each
+specialisation cuts two more. The lowpass matches the library's
+<code>fi.svf.lp</code> to within rounding.</p>
+<p>The idioms document points to Eric Tarr's filters in vaeffects.lib, built
+exactly this way. <code>ve.oberheim(normFreq, Q)</code> has four outputs, band-stop,
+band-pass, highpass and lowpass, and each specialisation is one line
+(<a href="../examples/14/cutting_outputs.dsp"><code>cutting_outputs.dsp</code></a>):</p>
+<pre><code class="language-faust">oberheimBSF(normFreq,Q) = oberheim(normFreq,Q):_,!,!,!;
+oberheimBPF(normFreq,Q) = oberheim(normFreq,Q):!,_,!,!;
+oberheimHPF(normFreq,Q) = oberheim(normFreq,Q):!,!,_,!;
+oberheimLPF(normFreq,Q) = oberheim(normFreq,Q):!,!,!,_;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/14/cutting_outputs.dsp">examples/14/cutting_outputs.dsp</a></p>
+<a href="../examples/14/cutting_outputs-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/cutting_outputs-svg/process.svg" alt="block diagram of examples/14/cutting_outputs.dsp"></a>
+<faust-editor><!--
+// Eric Tarr's Oberheim filter in vaeffects.lib: ve.oberheim computes four
+// outputs (band-stop, band-pass, highpass, lowpass); ve.oberheimLPF is
+// ve.oberheim(normFreq, Q) : !,!,!,_ and compiles to about half the code.
+import("stdfaust.lib");
+
+process = _ <: ve.oberheimLPF(0.5, 1), (ve.oberheim(0.5, 1) : !, !, !, _);
+
+// Identical: the specialisation is only a cut.
+--></faust-editor>
+</div>
+
+<p>The cut is not a runtime operation: the compiler removes whatever only fed
+the cut outputs. Counting the statements of the generated sample loop:</p>
+<table>
+<thead>
+<tr>
+<th>program</th>
+<th>statements in the sample loop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ve.oberheim(0.5, 1)</code>, four outputs</td>
+<td>20</td>
+</tr>
+<tr>
+<td><code>ve.oberheimLPF(0.5, 1)</code></td>
+<td>11</td>
+</tr>
+<tr>
+<td><code>ve.oberheimHPF(0.5, 1)</code></td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<p>The same holds for <code>ve.sallenKey2ndOrder</code> and <code>ve.sallenKeyOnePole</code> in the
+same library.</p>
+<h2 id="fixing-parameters">Fixing parameters<a class="headerlink" href="#fixing-parameters" title="Permanent link">&para;</a></h2>
+<p>A parameter given a constant is computed by the compiler or at
+initialisation; given a widget, at every block. The same filter, both ways
+(<a href="../examples/14/constant_parameter.dsp"><code>constant_parameter.dsp</code></a>,
+<a href="../examples/14/slider_parameter.dsp"><code>slider_parameter.dsp</code></a>):</p>
+<pre><code class="language-faust">process = fi.resonlp(1000, 2, 1);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/14/constant_parameter.dsp">examples/14/constant_parameter.dsp</a></p>
+<a href="../examples/14/constant_parameter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/constant_parameter-svg/process.svg" alt="block diagram of examples/14/constant_parameter.dsp"></a>
+<faust-editor><!--
+// Fixing a parameter to a constant specialises the code: the coefficients
+// of fi.resonlp at 1000 Hz are computed once, at initialisation (fConst),
+// where a slider would recompute them at every block (fSlow).
+import("stdfaust.lib");
+
+process = fi.resonlp(1000, 2, 1);
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/14/slider_parameter.dsp">examples/14/slider_parameter.dsp</a></p>
+<a href="../examples/14/slider_parameter-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/slider_parameter-svg/process.svg" alt="block diagram of examples/14/slider_parameter.dsp"></a>
+<faust-editor><!--
+// The same filter with its frequency on a slider: the tan and the
+// coefficients move to the block rate.
+import("stdfaust.lib");
+
+process = fi.resonlp(hslider("freq", 1000, 100, 5000, 1), 2, 1);
+--></faust-editor>
+</div>
+
+<pre><code class="language-cpp">fConst0 = std::tan(3141.5928f / std::min&lt;float&gt;(1.92e+05f, std::max&lt;float&gt;(1.0f, static_cast&lt;float&gt;(fSampleRate))));
+</code></pre>
+<pre><code class="language-faust">process = fi.resonlp(hslider(&quot;freq&quot;, 1000, 100, 5000, 1), 2, 1);
+</code></pre>
+<pre><code class="language-cpp">float fSlow0 = std::tan(fConst0 * static_cast&lt;float&gt;(fHslider0));
+</code></pre>
+<p>With a constant frequency, the <code>tan</code> and the coefficients are computed
+once, when the program starts (<code>fConst</code>). With a slider, they are
+recomputed at every block (<code>fSlow</code>). A generic filter used with constant
+parameters is therefore as cheap as a filter with hard-coded coefficients.</p>
+<p>The idioms document's advice follows: put the parameters that are most
+likely to be fixed <strong>first</strong>, so that partial application can fix them,
+and the signal last (chapter 12). Then <code>fi.resonlp(1000, 2)</code> is a ready
+filter, and <code>resonant(f) = fi.resonlp(f, 5, 0.5)</code> (exercise 3) a version
+with one control left.</p>
+<h2 id="choosing-among-variants">Choosing among variants<a class="headerlink" href="#choosing-among-variants" title="Permanent link">&para;</a></h2>
+<p>When the variants differ in structure, not in coefficients, the choice is
+made by pattern matching on a constant, or by a constant condition, which
+the compiler resolves (chapter 9). <code>fi.svf</code> in filters.lib does the first:
+its generic <code>svf(T, F, Q, G)</code> selects its coefficients with <code>case</code> on the
+type <code>T</code>, and nine one-line filters fix <code>T</code> (chapter 13).</p>
+<p>physmodels.lib's formant voice does the second. The generic model takes the
+source signal, the filter bank <em>function</em> and a flag:</p>
+<pre><code class="language-faust">SFFormantModel(voiceType,vowel,exType,freq,gain,source,filterbank,isFof) =
+    excitation : resonance
+with {
+    breath = no.noise;
+    excitation = ba.if(isFof,source,source*(1-exType) + breath*exType :
+            *(gain));
+    resonance = filterbank(voiceType,vowel,freq) &lt;: ba.if(isFof,*(gain),_);
+};
+</code></pre>
+<p>and each variant fixes them:</p>
+<pre><code class="language-faust">SFFormantModelFofCycle(voiceType,vowel,freq,gain) =
+SFFormantModel(voiceType,vowel,0,freq,gain,os.lf_imptrain(freq),
+formantFilterbankFofCycle,1);
+
+SFFormantModelBP(voiceType,vowel,exType,freq,gain) =
+SFFormantModel(voiceType,vowel,exType,freq,gain,os.sawtooth(freq),
+formantFilterbankBP,0);
+</code></pre>
+<p><code>isFof</code> is a constant in every variant, so <code>ba.if(isFof, ...)</code> is resolved
+by the compiler and only one branch is compiled. On top of each variant,
+physmodels.lib adds a <code>_ui</code> version with sliders and a <code>_ui_MIDI</code> version
+with MIDI controls: the same generic core serves six user-facing
+functions. Chapter 15 generalises this into a way of writing libraries.</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>A cut is free only if the output is really unused.</strong> An output used
+  by a bargraph or by <code>attach</code> is kept.</li>
+<li><strong>A widget in a structural parameter</strong> (a type, an order, a count) is
+  not a specialisation: it makes the compiler loop forever or computes all
+  variants (chapter 9).</li>
+<li><strong>Order the parameters</strong> so that the fixed ones come first.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A notch filter from the generic state-variable filter, by <em>combining</em>
+   two of its outputs (lowpass plus highpass). Check that it removes a sine
+   at its frequency. Solution: <a href="../examples/14/solutions/ex1_notch.dsp"><code>ex1_notch.dsp</code></a>.</li>
+<li>A multimode filter whose mode is chosen at compile time: an environment
+   with a <code>MODE</code> constant, a <code>pick(MODE)</code> defined by patterns, and
+   substitution to get the highpass. Solution:
+   <a href="../examples/14/solutions/ex2_mode_switch.dsp"><code>ex2_mode_switch.dsp</code></a>.</li>
+<li>A resonant lowpass with Q and gain fixed by partial application, and its
+   frequency as the only control; find the fixed part in <code>fConst</code>.
+   Solution: <a href="../examples/14/solutions/ex3_fixed_q.dsp"><code>ex3_fixed_q.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/14/solutions/ex1_notch.dsp">examples/14/solutions/ex1_notch.dsp</a></p>
+<a href="../examples/14/solutions/ex1_notch-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/solutions/ex1_notch-svg/process.svg" alt="block diagram of examples/14/solutions/ex1_notch.dsp"></a>
+<faust-editor><!--
+// Exercise 1: a notch filter made from the generic state-variable filter by
+// combining two of its outputs: lowpass + highpass.
+import("stdfaust.lib");
+
+svf(f, q) = tick ~ (_, _) : !, !, _, _, _
+with {
+    g = tan(ma.PI * f / ma.SR);
+    k = 1 / q;
+    tick(ic1, ic2, v0) = 2 * v1 - ic1, 2 * v2 - ic2, v2, v1, v0 - k * v1 - v2
+    with {
+        v1 = (ic1 + g * (v0 - ic2)) / (1 + g * (g + k));
+        v2 = ic2 + g * v1;
+    };
+};
+
+svf_notch(f, q) = svf(f, q) : _, !, _ :> _;
+
+process = svf_notch(1000, 0.707);
+
+// A sine at the notch frequency is almost removed; one far below passes.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/14/solutions/ex2_mode_switch.dsp">examples/14/solutions/ex2_mode_switch.dsp</a></p>
+<a href="../examples/14/solutions/ex2_mode_switch-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/solutions/ex2_mode_switch-svg/process.svg" alt="block diagram of examples/14/solutions/ex2_mode_switch.dsp"></a>
+<faust-editor><!--
+// Exercise 2: one multimode filter, its mode chosen at compile time by
+// substitution. pick(MODE) keeps one output by pattern matching.
+import("stdfaust.lib");
+
+multimode = environment {
+    MODE = 0;                         // 0 lowpass, 1 bandpass, 2 highpass
+    filter(f, q) = fi.svf.lp(f, q), fi.svf.bp(f, q), fi.svf.hp(f, q) : pick(MODE)
+    with {
+        pick(0) = _, !, !;
+        pick(1) = !, _, !;
+        pick(2) = !, !, _;
+    };
+};
+
+process = _ <: multimode.filter(1000, 0.707), multimode[MODE = 2;].filter(1000, 0.707);
+
+// At DC the lowpass passes and the highpass blocks.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/14/solutions/ex3_fixed_q.dsp">examples/14/solutions/ex3_fixed_q.dsp</a></p>
+<a href="../examples/14/solutions/ex3_fixed_q-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/14/solutions/ex3_fixed_q-svg/process.svg" alt="block diagram of examples/14/solutions/ex3_fixed_q.dsp"></a>
+<faust-editor><!--
+// Exercise 3: specialise a filter by partial application and constants: a
+// resonant lowpass with Q and gain fixed, and its frequency as the only
+// control. The fixed part costs nothing at run time.
+import("stdfaust.lib");
+
+resonant(f) = fi.resonlp(f, 5, 0.5);
+
+process = resonant(hslider("freq", 500, 50, 5000, 1) : si.smoo);
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

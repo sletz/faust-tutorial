@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/A-observing-a-program.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>A. Observing a program - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item active">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="16-final-project.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="B-automatic-differentiation.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#appendix-a-observing-a-program" class="nav-link">Appendix A. Observing a program</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-block-diagram" class="nav-link">The block diagram</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-generated-code" class="nav-link">The generated code</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#faustprobe" class="nav-link">faustprobe</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#showing-signals-inside-the-program" class="nav-link">Showing signals inside the program</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#how-the-examples-of-this-tutorial-are-checked" class="nav-link">How the examples of this tutorial are checked</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="appendix-a-observing-a-program">Appendix A. Observing a program<a class="headerlink" href="#appendix-a-observing-a-program" title="Permanent link">&para;</a></h1>
+<p>Listening tells you whether a program sounds right; it does not tell you
+whether a value is exactly 0, whether a filter is 3 dB down at its cutoff,
+or whether a feedback loop will blow up after a minute. This appendix
+gathers the tools used throughout the tutorial to <em>observe</em> a program.</p>
+<h2 id="the-block-diagram">The block diagram<a class="headerlink" href="#the-block-diagram" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">faust -svg program.dsp
+</code></pre>
+<p>writes the diagram of every definition into <code>program-svg/</code>; the online IDE
+shows it in a tab. Use it to check wiring and arities (chapter 2).</p>
+<h2 id="the-generated-code">The generated code<a class="headerlink" href="#the-generated-code" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">faust program.dsp
+</code></pre>
+<p>prints the C++ class the compiler generates. Read the <code>compute</code> method at
+the end: constants appear as numbers, initialisation-time values as
+<code>fConst</code>, block-rate values as <code>fSlow</code>, and the rest inside the sample loop
+(chapter 9). This is the evidence for any claim about cost.</p>
+<h2 id="faustprobe">faustprobe<a class="headerlink" href="#faustprobe" title="Permanent link">&para;</a></h2>
+<p>faustprobe, part of faust-rs, compiles a program with a just-in-time
+compiler, runs it offline, and prints samples and statistics. It is built
+in the faust-rs repository:</p>
+<pre><code class="language-bash">cargo build --release -p cranelift-ffi --bin faustprobe
+</code></pre>
+<p>The options used in this tutorial:</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--double</code></td>
+<td>compute in double precision (use it for measurements)</td>
+</tr>
+<tr>
+<td><code>-n N</code>, <code>--sr RATE</code></td>
+<td>number of samples, sampling rate</td>
+</tr>
+<tr>
+<td><code>--in zero</code>, <code>--in dc</code>, <code>--in white:SEED</code>, <code>--in sine:HZ</code>, <code>--in impulse:CH</code></td>
+<td>the input signal (default: an impulse on every input)</td>
+</tr>
+<tr>
+<td><code>--quiet</code></td>
+<td>statistics only: peak, RMS, mean, finiteness</td>
+</tr>
+<tr>
+<td><code>--skip N</code></td>
+<td>leave out the first N samples, a transient</td>
+</tr>
+<tr>
+<td><code>--set PATH=VALUE</code>, <code>--at FRAME PATH=VALUE</code></td>
+<td>set a control, or change it at an exact frame</td>
+</tr>
+<tr>
+<td><code>--list-params</code></td>
+<td>the controls and their paths</td>
+</tr>
+<tr>
+<td><code>--eval EXPR</code></td>
+<td>evaluate an expression of the file instead of <code>process</code></td>
+</tr>
+<tr>
+<td><code>--compare OTHER.dsp</code></td>
+<td>the same excitation to two programs, and the first difference</td>
+</tr>
+<tr>
+<td><code>--freqresp N:FMIN:FMAX</code></td>
+<td>the frequency response, from the impulse response</td>
+</tr>
+<tr>
+<td><code>--sweep PATH=V1,V2 --reduce rms</code></td>
+<td>one render per value, one number each</td>
+</tr>
+<tr>
+<td><code>--check all</code></td>
+<td>same samples at other block sizes, after a reset, and from a second compilation</td>
+</tr>
+<tr>
+<td><code>--fail-above LEVEL</code></td>
+<td>stop at the first sample above a level</td>
+</tr>
+<tr>
+<td><code>--time</code></td>
+<td>compile and compute time</td>
+</tr>
+</tbody>
+</table>
+<p>Four examples in <a href="../examples/appendix_a"><code>examples/appendix_a</code></a>:</p>
+<ul>
+<li><a href="../examples/appendix_a/frequency_response.dsp"><code>frequency_response.dsp</code></a>:
+  <code>fi.lowpass(2, 1000)</code> is −3.01 dB at 1 kHz; faustprobe also checks that
+  the program is linear and time-invariant before trusting the response.</li>
+<li><a href="../examples/appendix_a/sweep.dsp"><code>sweep.dsp</code></a>: the RMS output of the
+  same filter fed with a 1 kHz sine, for three cutoffs.</li>
+<li><a href="../examples/appendix_a/consistency.dsp"><code>consistency.dsp</code></a>: <code>--check all</code>
+  on a resonant filter.</li>
+<li><a href="../examples/appendix_a/unstable.dsp"><code>unstable.dsp</code></a>: a feedback gain
+  of 1.1 is stopped by <code>--fail-above 100</code>, with the frame where it started.</li>
+</ul>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/appendix_a/frequency_response.dsp">examples/appendix_a/frequency_response.dsp</a></p>
+<a href="../examples/appendix_a/frequency_response-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/appendix_a/frequency_response-svg/process.svg" alt="block diagram of examples/appendix_a/frequency_response.dsp"></a>
+<faust-editor><!--
+// A filter's frequency response, measured by faustprobe from its impulse
+// response: a second-order Butterworth lowpass is 3 dB down at its cutoff.
+import("stdfaust.lib");
+
+process = fi.lowpass(2, 1000);
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/appendix_a/sweep.dsp">examples/appendix_a/sweep.dsp</a></p>
+<a href="../examples/appendix_a/sweep-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/appendix_a/sweep-svg/process.svg" alt="block diagram of examples/appendix_a/sweep.dsp"></a>
+<faust-editor><!--
+// A sweep renders a program once per value of a control and reduces each
+// render to one number: here the RMS output of a lowpass fed with a 1 kHz
+// sine, for three cutoffs.
+import("stdfaust.lib");
+
+cutoff = hslider("cutoff", 1000, 100, 10000, 1);
+
+process = fi.lowpass(2, cutoff);
+
+// A sine of amplitude 1 has an RMS value of 0.7071: a cutoff at 10 kHz lets
+// it through, a cutoff at 1 kHz multiplies it by 0.707 (-3 dB, the
+// Butterworth point, giving 0.5), a cutoff at 100 Hz divides it by 100
+// (-40 dB).
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/appendix_a/consistency.dsp">examples/appendix_a/consistency.dsp</a></p>
+<a href="../examples/appendix_a/consistency-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/appendix_a/consistency-svg/process.svg" alt="block diagram of examples/appendix_a/consistency.dsp"></a>
+<faust-editor><!--
+// --check all verifies properties any audio program should have: the same
+// samples whatever the block size, the same samples again after a reset,
+// and the same code from two compilations.
+import("stdfaust.lib");
+
+process = fi.resonlp(800, 4, 0.5);
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/appendix_a/unstable.dsp">examples/appendix_a/unstable.dsp</a></p>
+<a href="../examples/appendix_a/unstable-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/appendix_a/unstable-svg/process.svg" alt="block diagram of examples/appendix_a/unstable.dsp"></a>
+<faust-editor><!--
+// A feedback gain above 1 makes a recursion grow without bound. With
+// --fail-above, faustprobe stops at the first sample above a level no sane
+// signal reaches, long before the overflow, and says where it started.
+gain = hslider("feedback", 0.5, 0, 2, 0.01);
+
+process = + ~ (@(99) : *(gain));
+--></faust-editor>
+</div>
+
+<h2 id="showing-signals-inside-the-program">Showing signals inside the program<a class="headerlink" href="#showing-signals-inside-the-program" title="Permanent link">&para;</a></h2>
+<p>A bargraph passes its input through and shows it; <code>attach(x, y)</code> keeps a
+bargraph <code>y</code> alive without sending it to an output (chapter 8). faustprobe
+prints the last value of every bargraph, and debug.lib's <code>db.probe_*</code>
+functions are ready-made meters.</p>
+<h2 id="how-the-examples-of-this-tutorial-are-checked">How the examples of this tutorial are checked<a class="headerlink" href="#how-the-examples-of-this-tutorial-are-checked" title="Permanent link">&para;</a></h2>
+<p>Every <code>.dsp</code> file under <code>examples/</code> carries its checks in comments, and
+<code>make check</code> runs them all (<a href="../scripts/check.py"><code>scripts/check.py</code></a>):</p>
+<table>
+<thead>
+<tr>
+<th>line</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>// check: ARGS</code></td>
+<td><code>faustprobe ARGS file.dsp</code> must succeed</td>
+</tr>
+<tr>
+<td><code>// expect: REGEX</code></td>
+<td>... and its output must match (one per line)</td>
+</tr>
+<tr>
+<td><code>// check-fails: ARGS</code></td>
+<td>the command must fail</td>
+</tr>
+<tr>
+<td><code>// expect-error</code></td>
+<td>both compilers must reject the file</td>
+</tr>
+<tr>
+<td><code>// cpp-expect: REGEX</code>, <code>// cpp-absent: REGEX</code></td>
+<td>the generated C++ must, or must not, match</td>
+</tr>
+<tr>
+<td><code>// cpp: no</code></td>
+<td>a faust-rs extension: not compiled with the C++ compiler</td>
+</tr>
+<tr>
+<td><code>// faust-rs: no</code></td>
+<td>checked with the C++ compiler only (the line says why)</td>
+</tr>
+</tbody>
+</table>
+<p>Every file is also compiled by the C++ compiler, unless marked. The checks
+are how this tutorial knows that its code does what its text says.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

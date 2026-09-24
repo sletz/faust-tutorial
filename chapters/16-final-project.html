@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/16-final-project.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>16. Final project: a reverb - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item active">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="15-writing-a-library.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="A-observing-a-program.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#16-final-project-a-reverb" class="nav-link">16. Final project: a reverb</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-1-a-comb" class="nav-link">Step 1: a comb</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-2-a-comb-that-absorbs" class="nav-link">Step 2: a comb that absorbs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-3-an-allpass" class="nav-link">Step 3: an allpass</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-4-freeverb" class="nav-link">Step 4: Freeverb</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-5-a-playable-stereo-reverb" class="nav-link">Step 5: a playable stereo reverb</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#step-6-a-feedback-delay-network" class="nav-link">Step 6: a feedback delay network</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#going-further-in-the-libraries" class="nav-link">Going further in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="16-final-project-a-reverb">16. Final project: a reverb<a class="headerlink" href="#16-final-project-a-reverb" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>A reverb imitates the thousands of reflections of a sound in a room: a few
+distinct early echoes, then a dense tail that decays, faster at high
+frequencies than at low ones. It is a good final project because it uses
+almost everything in this tutorial: delays and recursion (chapter 4),
+state (chapter 5), iteration and pattern matching (chapter 11), higher-order
+functions (chapter 12), environments (chapter 13), an interface (chapter 8),
+and constraints known at compile time (chapter 9).</p>
+<p>We build two classic designs. The first is <strong>Freeverb</strong>, by "Jezar at
+Dreampoint", a Schroeder-Moorer reverb of parallel combs and series
+allpasses; we rebuild it piece by piece and check that the result is,
+sample for sample, the library's <code>re.mono_freeverb</code>. The second is a
+<strong>feedback delay network</strong> (Jot and Chaigne, 1991), whose decay time we set
+and measure.</p>
+<h2 id="step-1-a-comb">Step 1: a comb<a class="headerlink" href="#step-1-a-comb" title="Permanent link">&para;</a></h2>
+<p>The feedback comb of chapter 4 (<a href="../examples/16/step1_comb.dsp"><code>step1_comb.dsp</code></a>):</p>
+<pre><code class="language-faust">comb(d, g) = + ~ (@(d - 1) : *(g));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/16/step1_comb.dsp">examples/16/step1_comb.dsp</a></p>
+<a href="../examples/16/step1_comb-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step1_comb-svg/process.svg" alt="block diagram of examples/16/step1_comb.dsp"></a>
+<faust-editor><!--
+// Step 1: the feedback comb of chapter 4. Echoes every d samples, each g
+// times the previous one: a metallic, regular tail.
+comb(d, g) = + ~ (@(d - 1) : *(g));
+
+process = comb(100, 0.7);
+--></faust-editor>
+</div>
+
+<p>One impulse gives echoes every d samples, each g times the previous one:
+1, 0.7, 0.49... Alone, it sounds metallic: the echoes are regular, and the
+comb colours the sound with peaks at multiples of SR/d.</p>
+<h2 id="step-2-a-comb-that-absorbs">Step 2: a comb that absorbs<a class="headerlink" href="#step-2-a-comb-that-absorbs" title="Permanent link">&para;</a></h2>
+<p>In a room, each reflection loses more high frequencies than low ones.
+Freeverb puts the one-pole lowpass of chapter 4 in the feedback of each
+comb (<a href="../examples/16/step2_lbcf.dsp"><code>step2_lbcf.dsp</code></a>):</p>
+<pre><code class="language-faust">lbcf(dt, fb, damp) = (+ : @(max(0, dt - 1))) ~ (*(1 - damp) : (+ ~ *(damp)) : *(fb)) : mem;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/16/step2_lbcf.dsp">examples/16/step2_lbcf.dsp</a></p>
+<a href="../examples/16/step2_lbcf-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step2_lbcf-svg/process.svg" alt="block diagram of examples/16/step2_lbcf.dsp"></a>
+<faust-editor><!--
+// Step 2: the lowpass-feedback comb of Freeverb (Schroeder-Moorer). The
+// feedback goes through the one-pole lowpass of chapter 4, so each echo is
+// duller than the previous one, as in a real room where the air and the
+// walls absorb the high frequencies first. The delay sits before the
+// output, and the final mem makes the first echo come dt samples late.
+lbcf(dt, fb, damp) = (+ : @(max(0, dt - 1))) ~ (*(1 - damp) : (+ ~ *(damp)) : *(fb)) : mem;
+
+process = lbcf(100, 0.8, 0), lbcf(100, 0.8, 0.5);
+
+// Without damping the second echo is 0.8; with damping it is lower and
+// spread over the following samples.
+--></faust-editor>
+</div>
+
+<p>The delay sits before the output, and the final <code>mem</code> makes the first
+output come dt samples after the input. Without damping the second echo is
+0.8; with <code>damp = 0.5</code> it is 0.4, and the rest of it is spread over the
+following samples: the echo is duller.</p>
+<h2 id="step-3-an-allpass">Step 3: an allpass<a class="headerlink" href="#step-3-an-allpass" title="Permanent link">&para;</a></h2>
+<p>Four Schroeder allpasses in series increase the density of echoes without
+colouring the sound: their magnitude response is flat
+(<a href="../examples/16/step3_allpass.dsp"><code>step3_allpass.dsp</code></a>):</p>
+<pre><code class="language-faust">allpass(maxdel, N, aN) = (+ &lt;: de.delay(maxdel, N - 1), *(aN)) ~ *(-aN) : mem, _ : +;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/16/step3_allpass.dsp">examples/16/step3_allpass.dsp</a></p>
+<a href="../examples/16/step3_allpass-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step3_allpass-svg/process.svg" alt="block diagram of examples/16/step3_allpass.dsp"></a>
+<faust-editor><!--
+// Step 3: the Schroeder allpass of filters.lib: echoes like a comb, but
+// with a flat magnitude response: it thickens the echo density without
+// colouring the sound.
+import("stdfaust.lib");
+
+allpass(maxdel, N, aN) = (+ <: de.delay(maxdel, N - 1), *(aN)) ~ *(-aN) : mem, _ : +;
+
+process = allpass(1024, 556, -0.5);
+
+// The same as the library's fi.allpass_comb, and flat at every frequency.
+// The magnitude is 0 dB to within 1e-12 dB.
+--></faust-editor>
+</div>
+
+<p>This is the library's <code>fi.allpass_comb</code>, and faustprobe checks both claims:
+it is identical to the library, and its frequency response
+(<code>--freqresp</code>, appendix A) is 0 dB to within 3e-13 dB from 100 Hz to
+10 kHz.</p>
+<h2 id="step-4-freeverb">Step 4: Freeverb<a class="headerlink" href="#step-4-freeverb" title="Permanent link">&para;</a></h2>
+<p>Eight combs in parallel, their outputs summed, then four allpasses in
+series (<a href="../examples/16/step4_freeverb.dsp"><code>step4_freeverb.dsp</code></a>):</p>
+<pre><code class="language-faust">adapt(n) = int(n * ma.SR / 44100);
+
+comb_tuning(0) = adapt(1116);  comb_tuning(1) = adapt(1188);
+comb_tuning(2) = adapt(1277);  comb_tuning(3) = adapt(1356);
+comb_tuning(4) = adapt(1422);  comb_tuning(5) = adapt(1491);
+comb_tuning(6) = adapt(1557);  comb_tuning(7) = adapt(1617);
+
+allpass_tuning(0) = adapt(556);  allpass_tuning(1) = adapt(441);
+allpass_tuning(2) = adapt(341);  allpass_tuning(3) = adapt(225);
+
+freeverb(fb1, fb2, damp, spread) =
+    _ &lt;: par(i, 8, lbcf(comb_tuning(i) + spread, fb1, damp))
+      :&gt; seq(i, 4, allpass(4096, allpass_tuning(i) + spread, -fb2));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/16/step4_freeverb.dsp">examples/16/step4_freeverb.dsp</a></p>
+<a href="../examples/16/step4_freeverb-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step4_freeverb-svg/process.svg" alt="block diagram of examples/16/step4_freeverb.dsp"></a>
+<faust-editor><!--
+// Step 4: Freeverb for one channel ("Jezar at Dreampoint"), as in
+// reverbs.lib: eight lowpass-feedback combs in parallel, then four
+// allpasses in series. The tunings are defined by cases (chapter 11) and
+// scaled to the sampling rate (chapter 9).
+import("stdfaust.lib");
+
+lbcf(dt, fb, damp) = (+ : @(max(0, dt - 1))) ~ (*(1 - damp) : (+ ~ *(damp)) : *(fb)) : mem;
+allpass(maxdel, N, aN) = (+ <: de.delay(maxdel, N - 1), *(aN)) ~ *(-aN) : mem, _ : +;
+
+adapt(n) = int(n * ma.SR / 44100);
+
+comb_tuning(0) = adapt(1116);  comb_tuning(1) = adapt(1188);
+comb_tuning(2) = adapt(1277);  comb_tuning(3) = adapt(1356);
+comb_tuning(4) = adapt(1422);  comb_tuning(5) = adapt(1491);
+comb_tuning(6) = adapt(1557);  comb_tuning(7) = adapt(1617);
+
+allpass_tuning(0) = adapt(556);  allpass_tuning(1) = adapt(441);
+allpass_tuning(2) = adapt(341);  allpass_tuning(3) = adapt(225);
+
+freeverb(fb1, fb2, damp, spread) =
+    _ <: par(i, 8, lbcf(comb_tuning(i) + spread, fb1, damp))
+      :> seq(i, 4, allpass(4096, allpass_tuning(i) + spread, -fb2));
+
+process = freeverb(0.84, 0.5, 0.2, 0);
+
+// Sample for sample the library's re.mono_freeverb.
+// At 96 kHz too: the allpass buffers hold the longest tuning up to 192 kHz.
+--></faust-editor>
+</div>
+
+<ul>
+<li>The tunings, in samples at 44.1 kHz, are defined <strong>by cases</strong>
+  (chapter 11), and <code>par</code> and <code>seq</code> read them with their index.</li>
+<li><code>adapt</code> scales them to the actual sampling rate; <code>int</code> rounds to whole
+  samples (chapter 9).</li>
+<li><code>&lt;:</code> sends the input to the eight combs and <code>:&gt;</code> sums them (chapter 2).</li>
+<li>The allpass buffers hold 4096 samples: the longest tuning, 556 samples
+  at 44.1 kHz, is 2420 at 192 kHz, the highest value of <code>ma.SR</code> (see the
+  pitfalls).</li>
+</ul>
+<p>The delay lengths are chosen without common factors, so that the echoes of
+the eight combs do not coincide. faustprobe finds this program identical,
+sample for sample, to <code>re.mono_freeverb(0.84, 0.5, 0.2, 0)</code> in reverbs.lib,
+at 44.1 kHz and at 96 kHz.</p>
+<h2 id="step-5-a-playable-stereo-reverb">Step 5: a playable stereo reverb<a class="headerlink" href="#step-5-a-playable-stereo-reverb" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/16/step5_stereo.dsp"><code>step5_stereo.dsp</code></a>)</p>
+<pre><code class="language-faust">stereo_freeverb(fb1, fb2, damp, spread) = + &lt;: freeverb(fb1, fb2, damp, 0), freeverb(fb1, fb2, damp, spread);
+
+dry_wet(mix, fx) = _, _ &lt;: (_, _), fx : ro.interleave(2, 2) : si.interpolate(mix), si.interpolate(mix);
+
+reverb = environment {
+    SIZE = 0.5;
+    ui(x) = hgroup(&quot;reverb&quot;, x);
+    size = ui(hslider(&quot;[0] size&quot;, SIZE, 0, 1, 0.01)) : si.smoo;
+    damp = ui(hslider(&quot;[1] damping&quot;, 0.5, 0, 1, 0.01)) : si.smoo;
+    mix  = ui(hslider(&quot;[2] wet [style:knob]&quot;, 0.3, 0, 1, 0.01)) : si.smoo;
+    fb1  = 0.7 + 0.28 * size;
+    // the parentheses matter: a comma inside an argument list separates arguments
+    play = dry_wet(mix, (stereo_freeverb(fb1, 0.5, damp * 0.4, 23) : *(0.1), *(0.1)));
+};
+
+process = reverb.play;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/16/step5_stereo.dsp">examples/16/step5_stereo.dsp</a></p>
+<a href="../examples/16/step5_stereo-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step5_stereo-svg/process.svg" alt="block diagram of examples/16/step5_stereo.dsp"></a>
+<faust-editor><!--
+// Step 5: the playable reverb. Stereo by a spread of the tunings on the
+// right channel, a dry/wet mix around the reverb (chapter 12), an
+// interface with groups, metadata and smoothing (chapter 8), and presets
+// by substitution (chapter 13).
+import("stdfaust.lib");
+
+lbcf(dt, fb, damp) = (+ : @(max(0, dt - 1))) ~ (*(1 - damp) : (+ ~ *(damp)) : *(fb)) : mem;
+allpass(maxdel, N, aN) = (+ <: de.delay(maxdel, N - 1), *(aN)) ~ *(-aN) : mem, _ : +;
+adapt(n) = int(n * ma.SR / 44100);
+comb_tuning(0) = adapt(1116);  comb_tuning(1) = adapt(1188);
+comb_tuning(2) = adapt(1277);  comb_tuning(3) = adapt(1356);
+comb_tuning(4) = adapt(1422);  comb_tuning(5) = adapt(1491);
+comb_tuning(6) = adapt(1557);  comb_tuning(7) = adapt(1617);
+allpass_tuning(0) = adapt(556);  allpass_tuning(1) = adapt(441);
+allpass_tuning(2) = adapt(341);  allpass_tuning(3) = adapt(225);
+freeverb(fb1, fb2, damp, spread) =
+    _ <: par(i, 8, lbcf(comb_tuning(i) + spread, fb1, damp))
+      :> seq(i, 4, allpass(4096, allpass_tuning(i) + spread, -fb2));
+
+stereo_freeverb(fb1, fb2, damp, spread) = + <: freeverb(fb1, fb2, damp, 0), freeverb(fb1, fb2, damp, spread);
+
+dry_wet(mix, fx) = _, _ <: (_, _), fx : ro.interleave(2, 2) : si.interpolate(mix), si.interpolate(mix);
+
+reverb = environment {
+    SIZE = 0.5;                               // a preset constant, 0..1
+    ui(x) = hgroup("reverb", x);
+    size = ui(hslider("[0] size", SIZE, 0, 1, 0.01)) : si.smoo;
+    damp = ui(hslider("[1] damping", 0.5, 0, 1, 0.01)) : si.smoo;
+    mix  = ui(hslider("[2] wet [style:knob]", 0.3, 0, 1, 0.01)) : si.smoo;
+    fb1  = 0.7 + 0.28 * size;                 // Freeverb's room size scaling
+    // the parentheses matter: a comma inside an argument list separates arguments
+    play = dry_wet(mix, (stereo_freeverb(fb1, 0.5, damp * 0.4, 23) : *(0.1), *(0.1)));
+};
+
+process = reverb.play;
+
+// Two inputs, two outputs, three controls; with wet at 0 the input passes.
+--></faust-editor>
+</div>
+
+<ul>
+<li><strong>Stereo</strong> comes from the same design with all delays lengthened by 23
+  samples on the right, which decorrelates the two channels (this is
+  <code>re.stereo_freeverb</code>).</li>
+<li><strong>Dry/wet</strong> is a higher-order function (chapter 12): it takes the reverb
+  as an argument, runs the dry and the wet signals side by side,
+  interleaves them (<code>ro.interleave</code>) and crossfades each pair.</li>
+<li><strong>The interface</strong> is grouped and smoothed (chapter 8), and lives in an
+  environment whose <code>SIZE</code> constant can be replaced by substitution
+  (chapter 13): <code>reverb[SIZE = 0.9;].play</code> is a preset for a large room.</li>
+</ul>
+<p>The note in the code is a trap this tutorial fell into while writing it: in
+<code>dry_wet(mix, A : B, C)</code>, the comma is read as a separator between
+arguments, giving three arguments instead of two. Parentheses make the
+second argument one block.</p>
+<h2 id="step-6-a-feedback-delay-network">Step 6: a feedback delay network<a class="headerlink" href="#step-6-a-feedback-delay-network" title="Permanent link">&para;</a></h2>
+<p>Freeverb's combs are independent: each recirculates its own echoes. A
+feedback delay network mixes all its delay lines at every round trip, which
+gives a denser and smoother tail
+(<a href="../examples/16/step6_fdn.dsp"><code>step6_fdn.dsp</code></a>):</p>
+<pre><code class="language-faust">N = 8;
+lengths = (1031, 1327, 1523, 1801, 2053, 2311, 2579, 2803);
+len(i) = ba.take(i + 1, lengths);
+
+T60 = hslider(&quot;T60 [unit:s]&quot;, 1, 0.1, 10, 0.01);
+gain(i) = pow(10, -3 * len(i) / (T60 * ma.SR));
+
+line(i) = @(len(i) - 1) : *(gain(i));           // ~ adds the last sample
+mixing = ro.hadamard(N) : par(i, N, /(sqrt(N)));
+
+fdn = (si.bus(2 * N) :&gt; par(i, N, line(i))) ~ mixing;
+
+process = _ &lt;: si.bus(N) : fdn :&gt; _, _;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/16/step6_fdn.dsp">examples/16/step6_fdn.dsp</a></p>
+<a href="../examples/16/step6_fdn-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/step6_fdn-svg/process.svg" alt="block diagram of examples/16/step6_fdn.dsp"></a>
+<faust-editor><!--
+// Step 6: a second design, the feedback delay network (Jot and Chaigne,
+// 1991). Eight delay lines of prime lengths, mixed by a normalised Hadamard
+// matrix (chapter 11), which keeps the energy; each line loses exactly the
+// gain that makes the whole network decay by 60 dB in T60 seconds.
+import("stdfaust.lib");
+
+N = 8;
+lengths = (1031, 1327, 1523, 1801, 2053, 2311, 2579, 2803);
+len(i) = ba.take(i + 1, lengths);
+
+T60 = hslider("T60 [unit:s]", 1, 0.1, 10, 0.01);
+gain(i) = pow(10, -3 * len(i) / (T60 * ma.SR));
+
+line(i) = @(len(i) - 1) : *(gain(i));           // ~ adds the last sample
+mixing = ro.hadamard(N) : par(i, N, /(sqrt(N)));
+
+fdn = (si.bus(2 * N) :> par(i, N, line(i))) ~ mixing;
+
+process = _ <: si.bus(N) : fdn :> _, _;
+
+// An impulse: the level between 0.2 and 0.3 s, and one second later, when
+// it must be 60 dB (a factor 1000) lower.
+// The ratio of the two RMS levels is 972, or 59.7 dB.
+--></faust-editor>
+</div>
+
+<ul>
+<li>The <strong>lengths</strong> are prime numbers, a list read with <code>ba.take</code>
+  (chapter 11).</li>
+<li>The <strong>mixing matrix</strong> is <code>ro.hadamard(8)</code>, built by divide and conquer
+  (chapter 11), divided by √8 so that it keeps the energy: whatever enters
+  the matrix comes out with the same total power.</li>
+<li>The <strong>structure</strong> is one recursion over eight wires: the lines' outputs
+  go through the matrix and come back, added to the input, on the first
+  eight inputs of the merge (chapter 2).</li>
+<li>The <strong>decay</strong> is set by the gains alone. A signal that travels a line of
+  <code>len(i)</code> samples must lose 60 dB per T60 seconds, that is a factor
+  10^(−3·len/(T60·SR)). Since the matrix keeps the energy, the whole
+  network then decays by 60 dB in T60.</li>
+</ul>
+<p>faustprobe measures it: with T60 = 1 s, the RMS level of the impulse
+response is 0.0110 between 0.2 and 0.3 s and 1.13e-5 one second later, a
+ratio of 972, or 59.7 dB.</p>
+<h2 id="going-further-in-the-libraries">Going further in the libraries<a class="headerlink" href="#going-further-in-the-libraries" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>re.jcrev</code> in reverbs.lib is John Chowning's reverb, three allpasses and
+  four combs, in about twenty lines.</li>
+<li><code>re.fdnrev0</code> is a general feedback delay network, with its own recursive
+  Hadamard matrix and a filter bank that gives each frequency band its own
+  decay time; <code>dm.fdnrev0_demo</code> in demos.lib wraps it in an interface.</li>
+<li><code>re.zita_rev1_stereo</code> is Fons Adriaensen's reverb, an 8 × 8 network with
+  separate low and mid decay times, and a reference for quality.</li>
+</ul>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Maximum delays and the sampling rate.</strong> A delay tuned in samples at
+  44.1 kHz grows with the sampling rate, and a delay longer than its
+  buffer is silently clamped. Freeverb's allpasses had a buffer of 1024
+  samples in reverbs.lib until faustlibraries 2.74.3 (reverbs.lib 1.5.2):
+  at 96 kHz, 556 samples at 44.1 kHz become 1210, and the reverb was
+  detuned above 81 kHz. Size buffers for the highest rate you support
+  (chapter 9).</li>
+<li><strong>Stability.</strong> A network whose matrix gains energy, or whose gains
+  exceed 1, grows without bound. Check with faustprobe's <code>--fail-above</code>
+  when experimenting.</li>
+<li><strong>Commas in arguments.</strong> Parenthesise a block that contains a comma when
+  it is passed as an argument.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A pre-delay of up to 100 ms before the reverb, bounded by its slider's
+   range. Check that pre-delaying the input equals delaying the output.
+   Solution: <a href="../examples/16/solutions/ex1_predelay.dsp"><code>ex1_predelay.dsp</code></a>.</li>
+<li>The feedback delay network with its size N as a compile-time parameter
+   and its lengths taken from <code>ma.primes</code>; check that 4 and 16 lines both
+   decay by about 60 dB in T60. Solution:
+   <a href="../examples/16/solutions/ex2_fdn_size.dsp"><code>ex2_fdn_size.dsp</code></a>.</li>
+<li>Damping: a one-pole lowpass in each line. Measure that the high band of
+   the tail now dies much faster than its low band. Solution:
+   <a href="../examples/16/solutions/ex3_damping.dsp"><code>ex3_damping.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/16/solutions/ex1_predelay.dsp">examples/16/solutions/ex1_predelay.dsp</a></p>
+<a href="../examples/16/solutions/ex1_predelay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/solutions/ex1_predelay-svg/process.svg" alt="block diagram of examples/16/solutions/ex1_predelay.dsp"></a>
+<faust-editor><!--
+// Exercise 1: a pre-delay before the reverb, up to 100 ms, bounded by the
+// slider's range (chapter 9). The reverb is linear and time-invariant, so
+// delaying its input is the same as delaying its output.
+import("stdfaust.lib");
+
+predelay = hslider("predelay [unit:ms]", 10, 0, 100, 1) * ma.SR / 1000 : int;
+
+process = de.delay(ma.SR / 10, predelay) : re.mono_freeverb(0.84, 0.5, 0.2, 0);
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/16/solutions/ex2_fdn_size.dsp">examples/16/solutions/ex2_fdn_size.dsp</a></p>
+<a href="../examples/16/solutions/ex2_fdn_size-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/solutions/ex2_fdn_size-svg/process.svg" alt="block diagram of examples/16/solutions/ex2_fdn_size.dsp"></a>
+<faust-editor><!--
+// Exercise 2: the size of the network as a compile-time parameter. The
+// lengths are taken from the table of primes of maths.lib, spread with the
+// index; ro.hadamard needs a power of two.
+import("stdfaust.lib");
+
+fdn(N, T60) = (si.bus(2 * N) :> par(i, N, line(i))) ~ mixing
+with {
+    len(i) = ma.primes(160 + 23 * i);
+    gain(i) = pow(10, -3 * len(i) / (T60 * ma.SR));
+    line(i) = @(len(i) - 1) : *(gain(i));
+    mixing = ro.hadamard(N) : par(i, N, /(sqrt(N)));
+};
+
+reverb(N) = _ <: si.bus(N) : fdn(N, 1) :> _ : /(N);
+
+process = _ <: reverb(4), reverb(16);
+
+// Both decay by about 60 dB in one second: the RMS level between 0.2 and
+// 0.3 s, then one second later (ratios 988 and 893, 59.9 and 59.0 dB).
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/16/solutions/ex3_damping.dsp">examples/16/solutions/ex3_damping.dsp</a></p>
+<a href="../examples/16/solutions/ex3_damping-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/solutions/ex3_damping-svg/process.svg" alt="block diagram of examples/16/solutions/ex3_damping.dsp"></a>
+<faust-editor><!--
+// Exercise 3: damping. A one-pole lowpass in each line of the network makes
+// the high frequencies die faster than the low ones, as in a real room.
+import("stdfaust.lib");
+
+N = 8;
+lengths = (1031, 1327, 1523, 1801, 2053, 2311, 2579, 2803);
+len(i) = ba.take(i + 1, lengths);
+gain(i) = pow(10, -3 * len(i) / (1 * ma.SR));
+mixing = ro.hadamard(N) : par(i, N, /(sqrt(N)));
+
+damped_fdn(damp) = (si.bus(2 * N) :> par(i, N, line(i))) ~ mixing
+with {
+    line(i) = @(len(i) - 1) : *(gain(i)) : *(1 - damp) : + ~ *(damp);
+};
+
+reverb(damp) = _ <: si.bus(N) : damped_fdn(damp) :> _;
+
+// The difference between a high and a low partial is easier to see with a
+// high-passed and a low-passed version of the tail.
+tail(damp) = reverb(damp) <: fi.highpass(2, 4000), fi.lowpass(2, 500);
+
+process = _ <: tail(0), tail(0.5);
+
+// Half a second in, against the undamped tail, the damped one has lost 31
+// dB in its high band (out2 against out0) and 0.3 dB in its low band (out3
+// against out1).
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

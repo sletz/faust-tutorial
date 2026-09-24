@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/03-naming-inputs.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>3. Naming inputs - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item active">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="02-block-diagram-algebra.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="04-one-sample-memory.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#3-naming-inputs" class="nav-link">3. Naming inputs</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#arguments-and-wires" class="nav-link">Arguments and wires</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#applying-a-function" class="nav-link">Applying a function</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#local-definitions" class="nav-link">Local definitions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#measuring-arity-inputs-and-outputs" class="nav-link">Measuring arity: inputs and outputs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="3-naming-inputs">3. Naming inputs<a class="headerlink" href="#3-naming-inputs" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>In chapter 2, signals had no name: they were designated by their position on
+a bus of wires. That is concise for two or three wires and unreadable
+beyond. So Faust also lets you write a block as a <strong>function</strong> whose
+arguments name its inputs:</p>
+<pre><code class="language-faust">foo(a, b, c) = (a + b) * c;
+process = foo;
+</code></pre>
+<p><code>process = foo</code> is a block with three inputs: the three arguments. This is
+not another kind of program, it is another way to write the same block. The
+compiler turns the arguments into wires, and the result is, sample for
+sample, that of the wired version.</p>
+<h2 id="arguments-and-wires">Arguments and wires<a class="headerlink" href="#arguments-and-wires" title="Permanent link">&para;</a></h2>
+<p>The idioms document gives three functions of the same shape
+(<a href="../examples/03/arguments.dsp"><code>arguments.dsp</code></a>):</p>
+<pre><code class="language-faust">foo1(in_a, in_b, in_c) = (in_a, in_b : +), in_c : *;   // (a + b) * c
+foo2(in_a, in_b, in_c) = (in_c, in_b : +), in_a : *;   // (c + b) * a
+foo3(in_a, in_b, in_c) = (in_c, in_c : +), in_c : *;   // (c + c) * c
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/03/arguments.dsp">examples/03/arguments.dsp</a></p>
+<a href="../examples/03/arguments-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/arguments-svg/process.svg" alt="block diagram of examples/03/arguments.dsp"></a>
+<faust-editor><!--
+// The three functions of the idioms document: arguments name the inputs.
+foo1(in_a, in_b, in_c) = (in_a, in_b : +), in_c : *;   // (a + b) * c
+foo2(in_a, in_b, in_c) = (in_c, in_b : +), in_a : *;   // (c + b) * a
+foo3(in_a, in_b, in_c) = (in_c, in_c : +), in_c : *;   // (c + c) * c
+
+process = foo1;
+
+// foo3 ignores two of its arguments, but still has three inputs.
+--></faust-editor>
+</div>
+
+<p>The bodies are written with the block algebra, but the signals in them are
+designated by name: <code>in_a, in_b : +</code> is the sum of the first two inputs.
+Changing the order or repeating a name needs no wiring: <code>foo3</code> only uses
+<code>in_c</code>, three times, and still has three inputs, because its arguments
+define them. The other two are simply ignored.</p>
+<p>The following three writings describe the same block
+(<a href="../examples/03/infix.dsp"><code>infix.dsp</code></a>, <a href="../examples/03/wires.dsp"><code>wires.dsp</code></a>):</p>
+<pre><code class="language-faust">foo1(a, b, c) = (a + b) * c;           // usual notation
+foo1(a, b, c) = (a, b : +), c : *;     // blocks, named inputs
+foo1 = +, _ : *;                       // blocks, no name at all
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/03/infix.dsp">examples/03/infix.dsp</a></p>
+<a href="../examples/03/infix-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/infix-svg/process.svg" alt="block diagram of examples/03/infix.dsp"></a>
+<faust-editor><!--
+// The same function as in wires.dsp, written with the usual operators.
+foo1(a, b, c) = (a + b) * c;
+
+process = foo1;
+
+// Same output as the wired version, sample for sample.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/03/wires.dsp">examples/03/wires.dsp</a></p>
+<a href="../examples/03/wires-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/wires-svg/process.svg" alt="block diagram of examples/03/wires.dsp"></a>
+<faust-editor><!--
+// The same function without any name: three wires, the first two summed,
+// then multiplied by the third.
+process = +, _ : *;
+--></faust-editor>
+</div>
+
+<p>The check of <code>infix.dsp</code> proves it: faustprobe sends the same noise to both
+programs and compares their outputs.</p>
+<pre><code class="language-bash">faustprobe --double -n 256 --in white:1 --quiet --compare wires.dsp infix.dsp
+</code></pre>
+<pre><code class="language-text"># compare out0: identical
+</code></pre>
+<p>The nameless version is the shortest here; it quickly becomes unreadable
+when a signal is used twice or out of order, as in <code>foo2</code> (exercise 2). The
+rule of thumb: write as wires what is obvious wiring, name as soon as you
+have to think to count.</p>
+<h2 id="applying-a-function">Applying a function<a class="headerlink" href="#applying-a-function" title="Permanent link">&para;</a></h2>
+<p>Calling a function on signals is sending them to it in sequence. <code>f(x, y)</code>
+is the same block as <code>x, y : f</code>
+(<a href="../examples/03/application.dsp"><code>application.dsp</code></a>):</p>
+<pre><code class="language-faust">f(a, b) = a - b;
+
+process = f(os.osc(440), os.osc(440)), (os.osc(440), os.osc(440) : f);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/03/application.dsp">examples/03/application.dsp</a></p>
+<a href="../examples/03/application-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/application-svg/process.svg" alt="block diagram of examples/03/application.dsp"></a>
+<faust-editor><!--
+// Applying a function to signals is sending them to it:
+// f(x, y) is the same block as  x, y : f.
+import("stdfaust.lib");
+
+f(a, b) = a - b;
+
+process = f(os.osc(440), os.osc(440)), (os.osc(440), os.osc(440) : f);
+--></faust-editor>
+</div>
+
+<p>Both outputs are zero. This equivalence is what lets you move from one
+writing to the other without changing the program. Applying a function to
+<em>fewer</em> arguments than it expects is allowed too: the result is a block that
+takes the remaining arguments on its inputs. This is partial application,
+the subject of chapter 12.</p>
+<h2 id="local-definitions">Local definitions<a class="headerlink" href="#local-definitions" title="Permanent link">&para;</a></h2>
+<p><code>with</code> attaches definitions to an expression
+(<a href="../examples/03/with.dsp"><code>with.dsp</code></a>):</p>
+<pre><code class="language-faust">mix(a, b, c) = total * c
+with {
+    total = a + b;
+};
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/03/with.dsp">examples/03/with.dsp</a></p>
+<a href="../examples/03/with-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/with-svg/process.svg" alt="block diagram of examples/03/with.dsp"></a>
+<faust-editor><!--
+// Local definitions with "with": visible only inside the function.
+mix(a, b, c) = total * c
+with {
+    total = a + b;
+};
+
+process = mix;
+--></faust-editor>
+</div>
+
+<p><code>total</code> is only visible inside <code>mix</code>, and may use its arguments. The
+libraries use <code>with</code> everywhere to name the steps of a computation; chapter
+1 showed one in the definition of <code>os.oscsin</code>.</p>
+<h2 id="measuring-arity-inputs-and-outputs">Measuring arity: <code>inputs</code> and <code>outputs</code><a class="headerlink" href="#measuring-arity-inputs-and-outputs" title="Permanent link">&para;</a></h2>
+<p><code>inputs(x)</code> and <code>outputs(x)</code> are constants computed by the compiler
+(<a href="../examples/03/arity.dsp"><code>arity.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/03/arity.dsp">examples/03/arity.dsp</a></p>
+<a href="../examples/03/arity-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/arity-svg/process.svg" alt="block diagram of examples/03/arity.dsp"></a>
+<faust-editor><!--
+// inputs(x) and outputs(x) give the arity of a block, known at compile time.
+foo1(a, b, c) = (a + b) * c;
+
+// The mean of all the outputs of a block, whatever their number.
+mean(x) = x :> /(outputs(x));
+
+process = inputs(foo1), outputs(foo1), mean((1, 2, 3)), mean((1, 2, 3, 4, 5));
+--></faust-editor>
+</div>
+
+<p>The outputs are 3, 1, 2 and 3. <code>mean</code> adapts to the block it is given: it
+is the first function of this tutorial that takes a <em>block</em> as argument
+rather than a signal. Chapter 12 generalises the idea.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<p><code>si.interpolate</code> in <code>signals.lib</code> combines both uses:</p>
+<pre><code class="language-faust">interpolate(i,x,y) = x + i*(y-x);
+</code></pre>
+<p>Its three arguments are named, but it is most often used with the
+coefficient <code>i</code> alone: <code>si.interpolate(0.3)</code> is a block with two inputs that
+mixes its two signals. Fixed parameters come first, the signals to process
+last; this is the convention of all the libraries, and chapter 12 explains
+why.</p>
+<p><code>ma.sub</code> in <code>maths.lib</code> shows what naming buys: the order of the operands
+can change without any wiring.</p>
+<pre><code class="language-faust">sub(x,y) = y-x;
+</code></pre>
+<p><code>fi.tf1</code> in <code>filters.lib</code>, by contrast, names its coefficients but wires its
+signal:</p>
+<pre><code class="language-faust">tf1(b0,b1,a1) = _ &lt;: *(b0), (mem : *(b1)) :&gt; + ~ *(0-a1);
+</code></pre>
+<p><code>mem</code> and <code>~</code> are the subject of the next chapter.</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>An unused argument is still an input.</strong> <code>foo3</code> has three inputs;
+  whoever uses it must provide three signals.</li>
+<li><strong>Argument names shadow global definitions</strong> of the same name inside the
+  body of the function.</li>
+<li><strong><code>outputs(x)</code> expects a block</strong>, not a number: <code>outputs(3)</code> is 1, because
+  the constant 3 is a block with one output.</li>
+<li><strong><code>-(x)</code> is not a negation.</strong> An operator written with one argument is a
+  partial application: <code>-(x)</code> is the block <code>_ - x</code>, with one input. To
+  negate an expression, write <code>0 - x</code> or <code>-1 * x</code> (<a href="../examples/03/negation.dsp"><code>negation.dsp</code></a>).</li>
+</ul>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/03/negation.dsp">examples/03/negation.dsp</a></p>
+<a href="../examples/03/negation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/negation-svg/process.svg" alt="block diagram of examples/03/negation.dsp"></a>
+<faust-editor><!--
+// -(x) is not the opposite of x: an operator with one argument is a partial
+// application, so -(2) is the block _ - 2, with one input.
+minus_two = -(2);
+negated = 0 - 2;
+
+process = 10 : minus_two, negated;
+--></faust-editor>
+</div>
+
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A crossfade between two inputs <code>x</code> and <code>y</code>, set by a slider <code>amount</code>,
+   written with named arguments. Solution:
+   <a href="../examples/03/solutions/ex1_crossfade.dsp"><code>ex1_crossfade.dsp</code></a>.</li>
+<li>Write <code>foo2</code> without any name, using only <code>_</code>, <code>!</code>, <code>&lt;:</code>, <code>:</code> and the
+   operators, and check with <code>--compare</code> that it is identical to the named
+   version. Solution: <a href="../examples/03/solutions/ex2_wires.dsp"><code>ex2_wires.dsp</code></a>,
+   reference: <a href="../examples/03/reference_foo2.dsp"><code>reference_foo2.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/03/solutions/ex1_crossfade.dsp">examples/03/solutions/ex1_crossfade.dsp</a></p>
+<a href="../examples/03/solutions/ex1_crossfade-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/solutions/ex1_crossfade-svg/process.svg" alt="block diagram of examples/03/solutions/ex1_crossfade.dsp"></a>
+<faust-editor><!--
+// Exercise 1: a crossfade between two inputs, set by a slider,
+// written with named arguments.
+amount = hslider("amount", 0.5, 0, 1, 0.01);
+
+crossfade(i, x, y) = x * (1 - i) + y * i;
+
+process = crossfade(amount);
+
+// An impulse on input y comes out multiplied by the amount.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/03/solutions/ex2_wires.dsp">examples/03/solutions/ex2_wires.dsp</a></p>
+<a href="../examples/03/solutions/ex2_wires-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/solutions/ex2_wires-svg/process.svg" alt="block diagram of examples/03/solutions/ex2_wires.dsp"></a>
+<faust-editor><!--
+// Exercise 2: foo2(a, b, c) = (c + b) * a, without any argument name.
+// The three wires a, b, c are copied three times; keep c, b and a.
+process = _, _, _ <: !, !, _, !, _, !, _, !, ! : +, _ : *;
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/03/reference_foo2.dsp">examples/03/reference_foo2.dsp</a></p>
+<a href="../examples/03/reference_foo2-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/03/reference_foo2-svg/process.svg" alt="block diagram of examples/03/reference_foo2.dsp"></a>
+<faust-editor><!--
+// The named version of foo2, to check the wired solution of exercise 2.
+foo2(in_a, in_b, in_c) = (in_c, in_b : +), in_a : *;
+process = foo2;
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

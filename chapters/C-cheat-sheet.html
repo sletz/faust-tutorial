@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/C-cheat-sheet.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>C. Cheat sheet - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item active">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="B-automatic-differentiation.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../PLAN.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#appendix-c-cheat-sheet" class="nav-link">Appendix C. Cheat sheet</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#compositions" class="nav-link">Compositions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#operator-priorities" class="nav-link">Operator priorities</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#primitives-and-constructs" class="nav-link">Primitives and constructs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#library-prefixes-stdfaustlib" class="nav-link">Library prefixes (stdfaust.lib)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#conventions-of-the-libraries" class="nav-link">Conventions of the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="appendix-c-cheat-sheet">Appendix C. Cheat sheet<a class="headerlink" href="#appendix-c-cheat-sheet" title="Permanent link">&para;</a></h1>
+<h2 id="compositions">Compositions<a class="headerlink" href="#compositions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>written</th>
+<th>name</th>
+<th>arity rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A : B</code></td>
+<td>sequential</td>
+<td>outputs(A) = inputs(B)</td>
+</tr>
+<tr>
+<td><code>A , B</code></td>
+<td>parallel</td>
+<td>none</td>
+</tr>
+<tr>
+<td><code>A &lt;: B</code></td>
+<td>split</td>
+<td>inputs(B) multiple of outputs(A)</td>
+</tr>
+<tr>
+<td><code>A :&gt; B</code></td>
+<td>merge (sum)</td>
+<td>outputs(A) multiple of inputs(B)</td>
+</tr>
+<tr>
+<td><code>A ~ B</code></td>
+<td>recursion, one-sample delay in the loop</td>
+<td>inputs(B) ≤ outputs(A), outputs(B) ≤ inputs(A)</td>
+</tr>
+</tbody>
+</table>
+<p><code>_</code> is a wire, <code>!</code> a cut.</p>
+<h2 id="operator-priorities">Operator priorities<a class="headerlink" href="#operator-priorities" title="Permanent link">&para;</a></h2>
+<p>From the C++ parser (<code>faustparser.y</code>), from the weakest to the strongest:</p>
+<ol>
+<li><code>with</code>, <code>letrec</code></li>
+<li><code>&lt;:</code>, <code>:&gt;</code></li>
+<li><code>:</code></li>
+<li><code>,</code></li>
+<li><code>~</code></li>
+<li><code>&lt;</code>, <code>&lt;=</code>, <code>==</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>!=</code></li>
+<li><code>+</code>, <code>-</code>, <code>|</code></li>
+<li><code>*</code>, <code>/</code>, <code>%</code>, <code>&amp;</code>, <code>xor</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code></li>
+<li><code>^</code> (power)</li>
+<li><code>@</code></li>
+<li><code>'</code> (one-sample delay)</li>
+<li><code>.</code> (environment access)</li>
+</ol>
+<p>So <code>A, B : C</code> is <code>(A, B) : C</code>, and <code>x + y ~ z</code> is <code>(x + y) ~ z</code>. When in
+doubt, parenthesise.</p>
+<h2 id="primitives-and-constructs">Primitives and constructs<a class="headerlink" href="#primitives-and-constructs" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>construct</th>
+<th>meaning</th>
+<th>chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mem</code>, <code>x'</code>, <code>x@n</code></td>
+<td>delay by 1, 1, n samples</td>
+<td>4</td>
+</tr>
+<tr>
+<td><code>select2(c, a, b)</code></td>
+<td><code>a</code> if c is 0, <code>b</code> if c is 1</td>
+<td>6</td>
+</tr>
+<tr>
+<td><code>int(x)</code>, <code>float(x)</code></td>
+<td>conversions; <code>int</code> truncates</td>
+<td>9</td>
+</tr>
+<tr>
+<td><code>rdtable(n, gen, i)</code></td>
+<td>read-only table filled by <code>gen</code></td>
+<td>10</td>
+</tr>
+<tr>
+<td><code>rwtable(n, init, wi, wv, ri)</code></td>
+<td>read-write table</td>
+<td>10</td>
+</tr>
+<tr>
+<td><code>waveform{...}</code></td>
+<td>a constant table</td>
+<td>10</td>
+</tr>
+<tr>
+<td><code>par</code>, <code>seq</code>, <code>sum</code>, <code>prod</code></td>
+<td><code>(i, N, block)</code>: repetition with an index</td>
+<td>11</td>
+</tr>
+<tr>
+<td><code>f(0) = ...; f(n) = ...;</code>, <code>case {...}</code></td>
+<td>rules, first match wins</td>
+<td>11</td>
+</tr>
+<tr>
+<td><code>\(x).(expr)</code></td>
+<td>lambda abstraction</td>
+<td>12</td>
+</tr>
+<tr>
+<td><code>with { ... }</code></td>
+<td>local definitions</td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>letrec { 'x = ...; }</code></td>
+<td>state as equations</td>
+<td>5</td>
+</tr>
+<tr>
+<td><code>environment { ... }</code>, <code>library("f.lib")</code></td>
+<td>named groups of definitions</td>
+<td>13</td>
+</tr>
+<tr>
+<td><code>env[name = value;]</code></td>
+<td>explicit substitution</td>
+<td>13</td>
+</tr>
+<tr>
+<td><code>inputs(x)</code>, <code>outputs(x)</code></td>
+<td>arity, a constant</td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>attach(x, y)</code></td>
+<td>output x, keep y alive</td>
+<td>8</td>
+</tr>
+<tr>
+<td><code>button</code>, <code>checkbox</code>, <code>hslider</code>, <code>vslider</code>, <code>nentry</code></td>
+<td>inputs from the user</td>
+<td>8</td>
+</tr>
+<tr>
+<td><code>hbargraph</code>, <code>vbargraph</code></td>
+<td>displays</td>
+<td>8</td>
+</tr>
+<tr>
+<td><code>hgroup</code>, <code>vgroup</code>, <code>tgroup</code></td>
+<td>layout and paths</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<h2 id="library-prefixes-stdfaustlib">Library prefixes (<code>stdfaust.lib</code>)<a class="headerlink" href="#library-prefixes-stdfaustlib" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>prefix</th>
+<th>library</th>
+<th>prefix</th>
+<th>library</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aa</code></td>
+<td>aanl.lib (antialiased nonlinearities)</td>
+<td><code>ma</code></td>
+<td>maths.lib</td>
+</tr>
+<tr>
+<td><code>an</code></td>
+<td>analyzers.lib</td>
+<td><code>mi</code></td>
+<td>mi.lib (mass-interaction)</td>
+</tr>
+<tr>
+<td><code>ba</code></td>
+<td>basics.lib</td>
+<td><code>mo</code></td>
+<td>motion.lib</td>
+</tr>
+<tr>
+<td><code>co</code></td>
+<td>compressors.lib</td>
+<td><code>no</code></td>
+<td>noises.lib</td>
+</tr>
+<tr>
+<td><code>db</code></td>
+<td>debug.lib</td>
+<td><code>os</code></td>
+<td>oscillators.lib</td>
+</tr>
+<tr>
+<td><code>de</code></td>
+<td>delays.lib</td>
+<td><code>pf</code></td>
+<td>phaflangers.lib</td>
+</tr>
+<tr>
+<td><code>dm</code></td>
+<td>demos.lib</td>
+<td><code>pl</code></td>
+<td>platform.lib</td>
+</tr>
+<tr>
+<td><code>dx</code></td>
+<td>dx7.lib</td>
+<td><code>pm</code></td>
+<td>physmodels.lib</td>
+</tr>
+<tr>
+<td><code>ef</code></td>
+<td>misceffects.lib</td>
+<td><code>qu</code></td>
+<td>quantizers.lib</td>
+</tr>
+<tr>
+<td><code>en</code></td>
+<td>envelopes.lib</td>
+<td><code>re</code></td>
+<td>reverbs.lib</td>
+</tr>
+<tr>
+<td><code>fd</code></td>
+<td>fds.lib (finite differences)</td>
+<td><code>rm</code></td>
+<td>reducemaps.lib</td>
+</tr>
+<tr>
+<td><code>fi</code></td>
+<td>filters.lib</td>
+<td><code>ro</code></td>
+<td>routes.lib</td>
+</tr>
+<tr>
+<td><code>ho</code></td>
+<td>hoa.lib (ambisonics)</td>
+<td><code>si</code></td>
+<td>signals.lib</td>
+</tr>
+<tr>
+<td><code>hy</code></td>
+<td>hysteresis.lib</td>
+<td><code>so</code></td>
+<td>soundfiles.lib</td>
+</tr>
+<tr>
+<td><code>it</code></td>
+<td>interpolators.lib</td>
+<td><code>sp</code></td>
+<td>spats.lib</td>
+</tr>
+<tr>
+<td><code>la</code></td>
+<td>linearalgebra.lib</td>
+<td><code>sy</code></td>
+<td>synths.lib</td>
+</tr>
+<tr>
+<td><code>sf</code></td>
+<td>all.lib (every library, flat)</td>
+<td><code>ve</code></td>
+<td>vaeffects.lib</td>
+</tr>
+<tr>
+<td><code>vl</code></td>
+<td>version.lib</td>
+<td><code>wa</code></td>
+<td>webaudio.lib</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><code>wd</code></td>
+<td>wdmodels.lib (wave digital)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conventions-of-the-libraries">Conventions of the libraries<a class="headerlink" href="#conventions-of-the-libraries" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Parameters known at compile time are written in capitals.</li>
+<li>Fixed parameters come first, the audio signal last.</li>
+<li>Internal helpers live in <code>with</code> blocks, environments, or start with <code>_</code>.</li>
+<li><code>*_demo</code> functions in demos.lib add an interface to a library function;
+  instrument models come as core, <code>_ui</code>, <code>_ui_MIDI</code>.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

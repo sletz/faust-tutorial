@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/07-periodic-signals-and-sequences.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>7. Periodic signals and sequences - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item active">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="06-logical-signals-and-events.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="08-user-interface.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#7-periodic-signals-and-sequences" class="nav-link">7. Periodic signals and sequences</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-phasor" class="nav-link">The phasor</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#shapes-from-the-phase" class="nav-link">Shapes from the phase</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#beats" class="nav-link">Beats</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#sequences" class="nav-link">Sequences</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#envelopes-and-smoothing" class="nav-link">Envelopes and smoothing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#example-the-looping-adsr" class="nav-link">Example: the looping ADSR</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="7-periodic-signals-and-sequences">7. Periodic signals and sequences<a class="headerlink" href="#7-periodic-signals-and-sequences" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>Oscillators, LFOs, metronomes, sequencers and looping envelopes all rest on
+one signal: the <strong>phase</strong>, a number that climbs from 0 to 1 once per period
+and wraps back to 0. Once you have the phase, every periodic shape is a
+function of it, every beat is a wrap of it, and every sequence is a count of
+its wraps.</p>
+<h2 id="the-phasor">The phasor<a class="headerlink" href="#the-phasor" title="Permanent link">&para;</a></h2>
+<p>The phase grows by f/SR per sample, where f is the frequency and SR the
+sampling rate, and keeps only its fractional part
+(<a href="../examples/07/phasor.dsp"><code>phasor.dsp</code></a>):</p>
+<pre><code class="language-faust">phasor(f) = (+(f / ma.SR) : ma.frac) ~ _;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/phasor.dsp">examples/07/phasor.dsp</a></p>
+<a href="../examples/07/phasor-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/phasor-svg/process.svg" alt="block diagram of examples/07/phasor.dsp"></a>
+<faust-editor><!--
+// The phasor: a phase that grows by f/SR per sample and wraps from 1 to 0.
+// It is the integrator of chapter 4 with the fractional part in the loop.
+import("stdfaust.lib");
+
+phasor(f) = (+(f / ma.SR) : ma.frac) ~ _;
+
+// The library's os.lf_sawpos starts at 0; this one starts one step later.
+// A negative frequency runs backwards: ma.frac(x) = x - floor(x) keeps the
+// phase in [0, 1).
+process = phasor(11025), os.lf_sawpos(11025), phasor(-11025);
+
+// At 44.1 kHz, 11025 Hz is a quarter of the rate: four samples per period.
+--></faust-editor>
+</div>
+
+<p>This is the integrator of chapter 4 with <code>ma.frac</code> inside the loop, so that
+the state never grows beyond 1. <code>ma.frac(x) = x - floor(x)</code> keeps the phase
+in [0, 1) even for a negative frequency, which runs the phase backwards.</p>
+<p>At 44.1 kHz a frequency of 11025 Hz is four samples per period: the phase
+goes 0.25, 0.5, 0.75, 0, 0.25... The library's <code>os.lf_sawpos</code> is the same
+phasor, but it starts at 0 instead of one step later.</p>
+<h2 id="shapes-from-the-phase">Shapes from the phase<a class="headerlink" href="#shapes-from-the-phase" title="Permanent link">&para;</a></h2>
+<p>(<a href="../examples/07/waveforms.dsp"><code>waveforms.dsp</code></a>)</p>
+<pre><code class="language-faust">p = os.lf_sawpos(freq);
+
+sine     = sin(2 * ma.PI * p);
+saw      = 2 * p - 1;
+square   = 2 * (p &lt; 0.5) - 1;
+triangle = 4 * abs(p - 0.5) - 1;
+pulse(d) = p &lt; d;                     // 0/1 pulse, duty cycle d
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/waveforms.dsp">examples/07/waveforms.dsp</a></p>
+<a href="../examples/07/waveforms-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/waveforms-svg/process.svg" alt="block diagram of examples/07/waveforms.dsp"></a>
+<faust-editor><!--
+// Every basic waveform is a function of the phase.
+import("stdfaust.lib");
+
+freq = hslider("freq", 100, 1, 1000, 1);
+p = os.lf_sawpos(freq);
+
+sine     = sin(2 * ma.PI * p);
+saw      = 2 * p - 1;
+square   = 2 * (p < 0.5) - 1;
+triangle = 4 * abs(p - 0.5) - 1;
+pulse(d) = p < d;                     // 0/1 pulse, duty cycle d
+
+process = sine, saw, square, triangle, pulse(0.25);
+
+// Over 10 whole periods of 441 samples: the waveforms have almost no mean
+// (the square spends one more sample up than down), the pulse is up 111
+// samples out of 441.
+--></faust-editor>
+</div>
+
+<p>The comparison <code>p &lt; 0.5</code> is a condition (chapter 6) that holds during the
+first half of each period. A phase offset is an addition followed by a new
+wrap (<a href="../examples/07/phase_offset.dsp"><code>phase_offset.dsp</code></a>): a sine whose
+phase is shifted by a quarter period is a cosine, to within 1e-12.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/phase_offset.dsp">examples/07/phase_offset.dsp</a></p>
+<a href="../examples/07/phase_offset-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/phase_offset-svg/process.svg" alt="block diagram of examples/07/phase_offset.dsp"></a>
+<faust-editor><!--
+// A phase offset: shift the phase, then wrap it again. A sine shifted by a
+// quarter of a period is a cosine.
+import("stdfaust.lib");
+
+p = os.lf_sawpos(440);
+shifted = ma.frac(p + 0.25);
+
+process = sin(2 * ma.PI * shifted) - cos(2 * ma.PI * p);
+--></faust-editor>
+</div>
+
+<p>These shapes are fine for LFOs and control signals. As audio, the saw,
+square and triangle alias: their sharp corners contain harmonics above half
+the sampling rate, which fold back as inharmonic noise. oscillators.lib has
+alias-suppressed versions (<code>os.sawtooth</code>, <code>os.square</code>, <code>os.polyblep_saw</code>),
+and this chapter's section on the libraries shows where to read them.</p>
+<h2 id="beats">Beats<a class="headerlink" href="#beats" title="Permanent link">&para;</a></h2>
+<p>A beat is the moment the phase wraps. The phase then drops, so the wrap is
+detected by comparing the phase with its previous value
+(<a href="../examples/07/metronome.dsp"><code>metronome.dsp</code></a>):</p>
+<pre><code class="language-faust">wraps(p) = p &lt; p';
+beat = os.lf_sawpos(bpm / 60) : wraps;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/metronome.dsp">examples/07/metronome.dsp</a></p>
+<a href="../examples/07/metronome-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/metronome-svg/process.svg" alt="block diagram of examples/07/metronome.dsp"></a>
+<faust-editor><!--
+// A metronome: one click per wrap of a phasor. The phase drops when it
+// wraps, so p < p' is 1 on the first sample of each period. ba.beat counts
+// samples instead, and clicks at frame 0 too.
+import("stdfaust.lib");
+
+bpm = hslider("bpm", 120, 30, 300, 1);
+
+wraps(p) = p < p';
+beat = os.lf_sawpos(bpm / 60) : wraps;
+
+process = beat, ba.beat(bpm);
+
+// At 1 kHz and 120 beats per minute, a beat every 500 samples.
+--></faust-editor>
+</div>
+
+<p>At 120 beats per minute and a rate of 1 kHz, <code>beat</code> is 1 at frames 500,
+1000, 1500... The library's <code>ba.beat(bpm)</code> counts samples instead of
+accumulating a phase, and also clicks at frame 0:</p>
+<pre><code class="language-faust">tempo(t) = (60*ma.SR)/t;
+period(p) = %(int(p))~+(1');
+pulse(p) = period(p) : \(x).(x &lt;= x');
+beat(t) = pulse(tempo(t));
+</code></pre>
+<p><code>ba.period</code> is a counter modulo p that starts at 0 (the <code>1'</code> adds 0 at the
+first sample, then 1). <code>ba.pulse</code> is 1 when that counter does not grow,
+that is at its first sample and at every wrap. The <code>\(x).(...)</code> notation is
+a lambda abstraction, the subject of chapter 12. Because <code>ba.period</code> works
+in whole samples, <code>ba.beat</code> rounds the period down: at a tempo where
+60·SR/bpm is not an integer, it runs a little fast.</p>
+<h2 id="sequences">Sequences<a class="headerlink" href="#sequences" title="Permanent link">&para;</a></h2>
+<p>Counting beats gives a position; the position modulo the length of a
+sequence gives a step; a table gives the value of each step
+(<a href="../examples/07/sequencer.dsp"><code>sequencer.dsp</code></a>):</p>
+<pre><code class="language-faust">beat = ba.beat(bpm);                           // 1 at frame 0, then every beat
+step = beat : + ~ _ : -(1) : int : %(8);       // 0, 1, ..., 7, 0, ...
+note = waveform{60, 62, 64, 65, 67, 69, 71, 72}, step : rdtable;
+
+voice = os.osc(ba.midikey2hz(note)) * en.ar(0.002, 0.2, beat);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/sequencer.dsp">examples/07/sequencer.dsp</a></p>
+<a href="../examples/07/sequencer-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/sequencer-svg/process.svg" alt="block diagram of examples/07/sequencer.dsp"></a>
+<faust-editor><!--
+// An eight-step sequencer: count the beats, take the count modulo 8, and
+// read the note of the step in a table (tables are chapter 10's subject).
+import("stdfaust.lib");
+
+bpm = hslider("bpm", 120, 30, 300, 1);
+
+beat = ba.beat(bpm);                           // 1 at frame 0, then every beat
+step = beat : + ~ _ : -(1) : int : %(8);       // 0, 1, ..., 7, 0, ...
+note = waveform{60, 62, 64, 65, 67, 69, 71, 72}, step : rdtable;
+
+voice = os.osc(ba.midikey2hz(note)) * en.ar(0.002, 0.2, beat);
+
+process = voice, note;
+
+// At 1 kHz and 120 bpm the note changes every 500 samples, and wraps
+// after eight steps.
+--></faust-editor>
+</div>
+
+<p><code>+ ~ _</code> counts the beats (1 after the first beat), <code>-(1)</code> makes the first
+step 0, and <code>%(8)</code> wraps. <code>waveform{...}</code> is a constant table and <code>rdtable</code>
+reads it; chapter 10 explains both. <code>ba.midikey2hz</code> converts a MIDI note
+number to a frequency, and <code>en.ar</code> is an attack-release envelope started by
+each beat.</p>
+<h2 id="envelopes-and-smoothing">Envelopes and smoothing<a class="headerlink" href="#envelopes-and-smoothing" title="Permanent link">&para;</a></h2>
+<p>Envelopes are state machines started by events, built exactly like the
+examples of chapters 5 and 6. The library provides the classic ones in
+envelopes.lib: <code>en.ar(attack, release, trigger)</code>,
+<code>en.asr(attack, sustain, release, gate)</code> and
+<code>en.adsr(attack, decay, sustain, release, gate)</code>, with times in seconds and
+the sustain level between 0 and 1.</p>
+<p>One detail of <code>en.adsr</code> matters: the value of its gate does not scale it.
+Its attack counter counts one sample per sample while the gate is positive
+(<code>atime = +(float(gate &gt; 0)) ~ ...</code>), so a <strong>velocity</strong> of 0.5 used as the
+gate gives the whole envelope, up to 1, with the times asked for. To play
+softer, pass a 0/1 gate and multiply by the velocity
+(<a href="../examples/07/adsr_velocity.dsp"><code>adsr_velocity.dsp</code></a>):</p>
+<pre><code class="language-faust">process = en.adsr(0.01, 0.1, 0.5, 0.1, velocity),
+          en.adsr(0.01, 0.1, 0.5, 0.1, velocity &gt; 0) * velocity;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/adsr_velocity.dsp">examples/07/adsr_velocity.dsp</a></p>
+<a href="../examples/07/adsr_velocity-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/adsr_velocity-svg/process.svg" alt="block diagram of examples/07/adsr_velocity.dsp"></a>
+<faust-editor><!--
+// The value of en.adsr's gate does not scale it: a velocity of 0.5 used as
+// the gate gives the whole envelope, up to 1. Use a 0/1 gate, and multiply
+// by the velocity. (Until faustlibraries 2.74.3, the attack counter added
+// the value of the gate at every sample, and a velocity of 0.5 also doubled
+// the attack and decay times.)
+import("stdfaust.lib");
+
+velocity = hslider("velocity", 0, 0, 1, 0.01);
+
+process = en.adsr(0.01, 0.1, 0.5, 0.1, velocity),
+          en.adsr(0.01, 0.1, 0.5, 0.1, velocity > 0) * velocity;
+
+// At 48 kHz, a 10 ms attack peaks at sample 479, whatever the gate's value.
+--></faust-editor>
+</div>
+
+<p>With a velocity of 0.5 at 48 kHz, both outputs peak at sample 479, the
+end of the 10 ms attack: the first at 1.0, the second at 0.5. Until
+faustlibraries 2.74.3 (envelopes.lib 1.3.1), the counter added the value of
+the gate at every sample, and a velocity of 0.5 also doubled the attack and
+decay times of <code>en.adsr</code> and the attack time of <code>en.asr</code>: the first output
+peaked at sample 959.</p>
+<p>A slider that jumps makes a click. <code>si.smoo</code> is the one-pole lowpass of
+chapter 4 with a pole of 1 − 44.1/SR, a time constant of about 23 ms
+(<a href="../examples/07/smoothing.dsp"><code>smoothing.dsp</code></a>): after a jump from 0 to 1,
+the smoothed value is 0.632 after 1000 samples at 44.1 kHz. Every
+<code>hslider</code> that drives a gain or a frequency in an audio path should go
+through <code>si.smoo</code>.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/smoothing.dsp">examples/07/smoothing.dsp</a></p>
+<a href="../examples/07/smoothing-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/smoothing-svg/process.svg" alt="block diagram of examples/07/smoothing.dsp"></a>
+<faust-editor><!--
+// Smoothing a control: a slider that jumps makes a click. si.smoo is the
+// one-pole lowpass of chapter 4 with a time constant of about 23 ms
+// (pole 1 - 44.1/SR): after 1000 samples at 44.1 kHz, 63 % of the jump.
+import("stdfaust.lib");
+
+gain = hslider("gain", 0, 0, 1, 0.01);
+
+// The parentheses matter: "gain, gain : si.smoo" would read
+// "(gain, gain) : si.smoo" (chapter 2).
+process = gain, (gain : si.smoo);
+--></faust-editor>
+</div>
+
+<h2 id="example-the-looping-adsr">Example: the looping ADSR<a class="headerlink" href="#example-the-looping-adsr" title="Permanent link">&para;</a></h2>
+<p>The idioms document ends with a question from a user of the Faust mailing
+list, who wanted an ADSR that restarts once its release has finished, and
+Dario Sanfilippo's answer (<a href="../examples/07/looping_adsr.dsp"><code>looping_adsr.dsp</code></a>):</p>
+<pre><code class="language-faust">A = .01;
+D = 1.1;
+S = .1;
+R = .01;
+L = A + D + S + R;
+ratio = (A + D + S) / L;
+
+process = os.phasor(1, 1/L) &lt; ratio : en.adsr(A, D, S, R);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/looping_adsr.dsp">examples/07/looping_adsr.dsp</a></p>
+<a href="../examples/07/looping_adsr-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/looping_adsr-svg/process.svg" alt="block diagram of examples/07/looping_adsr.dsp"></a>
+<faust-editor><!--
+// The looping ADSR of the idioms document (Dario Sanfilippo, answering a
+// user on the Faust mailing list): a phasor whose period is the length of
+// the whole envelope opens the gate for the attack, decay and sustain, then
+// closes it for the release; at the next period the envelope starts again.
+import("stdfaust.lib");
+
+A = .01;
+D = 1.1;
+S = .1;
+R = .01;
+L = A + D + S + R;
+ratio = (A + D + S) / L;
+
+process = os.phasor(1, 1/L) < ratio : en.adsr(A, D, S, R);
+
+// At 1 kHz a cycle is 1220 samples: the attack peaks at sample 9, the
+// sustain holds 0.1, the release reaches 0 at 1220, and the attack starts
+// again.
+--></faust-editor>
+</div>
+
+<p>The phasor's period is the length L of the whole envelope. The gate is open
+while the phase is below the fraction of L taken by attack, decay and
+sustain, and closed for the rest, which is exactly the release time. When
+the phase wraps, the gate opens again and the envelope restarts. Here the
+"sustain" parameter of the function holds the time S spent at the sustain
+level, which <code>en.adsr</code> does not know about: it is encoded in the gate's
+duty cycle. <code>os.phasor(1, f)</code> is a phasor scaled to a table of size 1, which
+is <code>os.lf_sawpos(f)</code>.</p>
+<p>At 1 kHz a cycle lasts 1220 samples: the attack peaks at sample 9, the
+sustain holds 0.1 until sample 1210, the release reaches 0 at 1220, and the
+next attack begins.</p>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<p><strong>The reference phasor.</strong> <code>os.lf_sawpos</code> and every table oscillator rest on
+<code>_phasor_imp</code> in oscillators.lib:</p>
+<pre><code class="language-faust">_phasor_imp(freq, reset, phase) = (select2(hard_reset, +(incr(SAFE)), phase) : ma.decimal) ~ _
+with {
+    ...
+    hard_reset = (1-1')|reset;
+};
+</code></pre>
+<p>It is our phasor plus two features: a <code>reset</code> input that jumps the phase to
+a given value (hard sync), and a first sample forced to <code>phase</code> by
+<code>1-1'</code>, the impulse of chapter 4. <code>SAFE</code> chooses, at compile time, between
+a plain increment and one that avoids increments too small to change the
+phase; chapter 13 shows how such a constant is set.</p>
+<p><strong>Oscillators, from simple to refined.</strong> oscillators.lib reads well in this
+order:</p>
+<ol>
+<li><code>os.m_oscsin</code>: <code>lf_sawpos(freq) : *(2*ma.PI) : sin</code>, the sine of the
+   phase, computed with <code>sin</code> at every sample;</li>
+<li><code>os.oscsin</code> (<code>os.osc</code>): the same phase reading a table of 65536 sine
+   values, cheaper than <code>sin</code>;</li>
+<li><code>os.osci</code>: the table read with linear interpolation between neighbours;</li>
+<li><code>os.lf_saw</code>, <code>os.lf_triangle</code>, <code>os.lf_squarewave</code>: the shapes of this
+   chapter, for LFOs;</li>
+<li><code>os.oscrs</code>, <code>os.quadosc</code>: recursive oscillators that rotate a vector
+   (chapter 5);</li>
+<li><code>os.polyblep_saw</code>, <code>os.sawN</code>: alias-suppressed audio waveforms.</li>
+</ol>
+<p><strong>Random steps.</strong> <code>no.lfnoise0(freq)</code> is a random value held for one period:</p>
+<pre><code class="language-faust">lfnoise0(freq) = noise : ba.latch(os.oscrs(freq));
+</code></pre>
+<p>a noise sampled at each rising zero crossing of a sine. The noise itself is
+the recursion quoted in chapter 4:</p>
+<pre><code class="language-faust">random = +(seed) ~ *(1103515245); // &quot;linear congruential&quot;
+noise = random / RANDMAX
+</code></pre>
+<p>Each sample multiplies the previous integer by 1103515245 and adds a seed;
+the 32-bit integer overflow keeps the result in range and scrambles it, and
+the division by 2^31 − 1 brings it to [-1, 1]. The same seed always gives
+the same sequence, which is why two <code>no.noise</code> in a program are the same
+signal. <code>no.multinoise(N)</code> gives N different ones.</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The phase must wrap inside the loop.</strong> <code>(+(f/ma.SR) ~ _) : ma.frac</code>
+  looks equivalent, but its state grows forever and loses precision. At
+  440 Hz in single precision, faustprobe finds that this phase no longer
+  moves at all after 590 seconds: the increment has become smaller than
+  the spacing of the floats around the state.</li>
+<li><strong><code>ba.beat</code> rounds its period</strong> to whole samples.</li>
+<li><strong>A velocity used as a gate does not scale</strong> <code>en.adsr</code> and <code>en.asr</code>:
+  multiply their output by it.</li>
+<li><strong>Raw shapes alias</strong> as audio; use them as LFOs, or use the
+  alias-suppressed oscillators.</li>
+</ul>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A triangle LFO in [-1, 1] with a frequency and a phase slider. Check that
+   a phase of 0.5 starts it at −1. Solution:
+   <a href="../examples/07/solutions/ex1_triangle_lfo.dsp"><code>ex1_triangle_lfo.dsp</code></a>.</li>
+<li>A metronome whose first beat of every four is twice as loud as the
+   others. Solution: <a href="../examples/07/solutions/ex2_accent.dsp"><code>ex2_accent.dsp</code></a>.</li>
+<li>An exponential decay restarted by every beat: 1 on the beat, then
+   multiplied by 0.99 at every sample. Solution:
+   <a href="../examples/07/solutions/ex3_decay.dsp"><code>ex3_decay.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/solutions/ex1_triangle_lfo.dsp">examples/07/solutions/ex1_triangle_lfo.dsp</a></p>
+<a href="../examples/07/solutions/ex1_triangle_lfo-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/solutions/ex1_triangle_lfo-svg/process.svg" alt="block diagram of examples/07/solutions/ex1_triangle_lfo.dsp"></a>
+<faust-editor><!--
+// Exercise 1: a triangle LFO in [-1, 1] with a frequency and a phase offset.
+import("stdfaust.lib");
+
+freq  = hslider("freq", 1, 0.01, 20, 0.01);
+phase = hslider("phase", 0, 0, 1, 0.01);
+
+triangle_lfo(f, ph) = 4 * abs(ma.frac(os.lf_sawpos(f) + ph) - 0.5) - 1;
+
+process = triangle_lfo(freq, phase);
+
+// A phase of 0.5 starts at the bottom instead of the top.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/solutions/ex2_accent.dsp">examples/07/solutions/ex2_accent.dsp</a></p>
+<a href="../examples/07/solutions/ex2_accent-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/solutions/ex2_accent-svg/process.svg" alt="block diagram of examples/07/solutions/ex2_accent.dsp"></a>
+<faust-editor><!--
+// Exercise 2: a metronome whose first beat of every four is louder.
+// The beat count modulo 4 tells where we are in the bar.
+import("stdfaust.lib");
+
+bpm = hslider("bpm", 120, 30, 300, 1);
+
+beat = ba.beat(bpm);
+position = beat : + ~ _ : -(1) : int : %(4);      // 0, 1, 2, 3, 0, ...
+accent = ba.if(position == 0, 1.0, 0.5);
+
+process = beat * accent;
+
+// At 1 kHz and 120 bpm: 1 at frame 0, 0.5 at 500, 1000, 1500, 1 at 2000.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/07/solutions/ex3_decay.dsp">examples/07/solutions/ex3_decay.dsp</a></p>
+<a href="../examples/07/solutions/ex3_decay-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/07/solutions/ex3_decay-svg/process.svg" alt="block diagram of examples/07/solutions/ex3_decay.dsp"></a>
+<faust-editor><!--
+// Exercise 3: an exponential decay started by each beat: set to 1 on the
+// beat, multiply by the pole at every other sample. With a pole of 0.99 the
+// level loses 1 % per sample.
+import("stdfaust.lib");
+
+decay(pole, trig) = loop ~ _
+with {
+    loop(prev) = ba.if(trig > 0, 1, prev * pole);
+};
+
+process = decay(0.99, ba.beat(120));
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.8.1/dist/faust-web-component.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
