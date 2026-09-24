@@ -38,9 +38,11 @@ The standard libraries show the same structure on a larger scale:
   prototypes `fi.tf2s` through the bilinear transform, and finally the
   filters users call: `fi.resonlp`, `fi.lowpass(N, fc)`, `fi.peak_eq`...
 - **physmodels.lib**: building blocks (waveguides, terminations, `pm.chain`),
-  then instrument models (`pm.clarinetModel`, `pm.fluteModel`), then
-  `pm.clarinet_ui` and `pm.clarinet_ui_MIDI`. The contribution guide names
-  the clarinet as the reference for this core, `_ui`, `_ui_MIDI` layering.
+  then instrument models, then playable versions. The contribution guide
+  names the clarinet as the reference: `pm.clarinetModel(tubeLength,
+  pressure, reedStiffness, bellOpening)` is the core "with every parameter
+  explicit and no UI", `pm.clarinetModel_ui(pressure)` adds sliders, and
+  `pm.clarinet_ui_MIDI` pairs the core with a blower and MIDI controls.
 - **compressors.lib**: gain computers in decibels, then channel linking for
   N channels, then feed-forward and feedback topologies, then mono, stereo
   and quad versions by partial application.
