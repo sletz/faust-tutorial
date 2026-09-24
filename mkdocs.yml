@@ -1,5 +1,8 @@
 site_name: A progressive Faust tutorial
 site_description: Programming in Faust, from a first sound to a complete reverb, with every program runnable in the page.
+site_url: https://sletz.github.io/faust-tutorial/
+repo_url: https://github.com/sletz/faust-tutorial
+edit_uri: ''
 docs_dir: build/docs
 site_dir: site
 use_directory_urls: false

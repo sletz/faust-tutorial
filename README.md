@@ -3,6 +3,8 @@
 This tutorial teaches programming in [Faust](https://faust.grame.fr), the
 functional language for real-time audio signal processing, from a first
 sound to a complete reverb. Each chapter only relies on the ones before it.
+Read it at https://sletz.github.io/faust-tutorial/, where every program can
+be run in the page.
 
 It is built on the *idioms* that the practice of Faust programmers has
 produced, collected in the document "Faust programming idioms", and ties
@@ -87,6 +89,7 @@ mkdocs==1.5.3`, the version faustdoc uses). As in faustdoc, every program
 of a chapter appears with its block diagram, drawn by the C++ compiler, and
 an editor ([faust-web-component](https://github.com/grame-cncm/faust-web-component))
 that compiles it and plays it in the page, with its controls. `make serve`
-serves it at http://127.0.0.1:8000. `scripts/build_docs.py` says where each
+serves it at http://127.0.0.1:8000, and `make publish` pushes it to the
+`gh-pages` branch, published at https://sletz.github.io/faust-tutorial/. `scripts/build_docs.py` says where each
 program goes and which ones the browser cannot run (the faust-rs
 extensions, and the programs that import the tutorial's own library).

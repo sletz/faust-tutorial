@@ -6,7 +6,7 @@ DIR ?=
 MKDOCS ?= python3 -m mkdocs
 
 .DEFAULT_GOAL := help
-.PHONY: help check docs site serve clean
+.PHONY: help check docs site serve publish clean
 
 help: ## Show the targets and the variables
 	@printf "Usage:\n  make \033[36m<target>\033[0m [VARIABLE=value ...]\n\nTargets:\n"
@@ -26,6 +26,9 @@ site: docs ## Build the web site in site/ (mkdocs, strict)
 
 serve: docs ## Serve the web site at http://127.0.0.1:8000 while editing
 	$(MKDOCS) serve
+
+publish: docs ## Build the site and push it to the gh-pages branch: https://sletz.github.io/faust-tutorial/
+	$(MKDOCS) gh-deploy --strict --force --message "Site built from {sha} with mkdocs {version}"
 
 clean: ## Remove build/ and site/
 	rm -rf build site
