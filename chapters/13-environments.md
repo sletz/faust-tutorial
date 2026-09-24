@@ -150,10 +150,6 @@ bassman(T,M,L) = tonestack(t.C1,t.C2,t.C3,t.R1,t.R2,t.R3,t.R4,T,M,L)
                     with {t = ts.bassman;};
 ```
 
-(faust-rs does not resolve `cfg.freq` for an environment passed as argument
-at the time of writing, a divergence reported to its developers; this
-example is checked with the C++ compiler only.)
-
 ## The idiom in the libraries
 
 - **Prefixes.** `stdfaust.lib` is a list of `xx = library("file.lib");`.

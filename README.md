@@ -87,7 +87,8 @@ in its chapter:
   is used as its gate (chapter 7), `ba.impulsify` does not do what its
   documentation says (chapter 6), and Freeverb's allpass buffers are too
   short above 80 kHz (chapter 16);
-- in faust-rs, two divergences from the C++ compiler: rules are not always
+- in faust-rs, two divergences from the C++ compiler: rules were not always
   tried in textual order (chapter 11), and an environment passed as an
-  argument is not resolved (chapter 13). Both examples are checked on the
-  C++ compiler only until they are fixed.
+  argument was not resolved (chapter 13). Both are fixed in faust-rs
+  (commits ff228fcc and f046cd03), and both examples are now checked on
+  both compilers.

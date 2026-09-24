@@ -100,9 +100,7 @@ first_wins = case {
 };
 ```
 
-The reference compiler outputs 1 for `first_wins(0)`. (faust-rs outputs 2
-at the time of writing, a divergence reported to its developers; this
-example is checked on the C++ output only.)
+`first_wins(0)` is 1: the rule `(n)` matches first.
 
 ## Recursion on an integer
 
