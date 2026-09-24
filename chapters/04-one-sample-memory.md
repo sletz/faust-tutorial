@@ -121,7 +121,8 @@ value while `trig` is 0 and copies `x` when `trig` is 1:
     y[n] = y[n-1] · (1 − trig) + x · trig
 
 The expression without its previous output is `*(1 - trig) + x * trig`, a
-block with one input (the missing y[n−1]); the cable is `~ _`:
+block with one input (the missing y[n−1]); the cable is `~ _`
+([`sample_and_hold_equation.dsp`](../examples/04/sample_and_hold_equation.dsp)):
 
 ```faust
 SH(trig, x) = (*(1 - trig) + x * trig) ~ _;
