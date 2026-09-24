@@ -100,6 +100,20 @@ The event sets the count to n, and each sample subtracts 1 until 0.
 rely on a sum of fractions landing exactly on a value**; count integers, or
 compare with a margin.
 
+A second event during the gate raises another question: should it extend
+the gate or restart it? `release` and `countdown` *add* the new count to
+what is left: with n = 100 and presses at frames 1000 and 1050, the gate
+lasts until frame 1199. A countdown that sets its state to n on each event
+restarts instead, and ends at 1149
+([`retrigger.dsp`](../examples/06/retrigger.dsp)):
+
+```faust
+restart(n) = loop ~ _ with { loop(left, t) = ba.if(t, n, max(0, left - 1)); };
+```
+
+Both are useful; the point is to choose, and to check which one a library
+function implements.
+
 ## Resetting by multiplication
 
 Multiplying a state by `(1 - reset)` inside its loop sends it back to 0

@@ -167,9 +167,21 @@ integer overflow does the scrambling. Chapter 7 comes back to it.
   | 100 s | 1.3e-4 | 1.1e-13 |
 
   The error is a random walk: it grows without bound. For a small window,
-  write the direct sum (chapter 11 shows how with `sum`); for a large one,
-  compute in double precision or reset the sum from time to time. The
-  library's `ba.slidingSum` documents the same drift.
+  write the direct sum (chapter 11 shows how with `sum`). For a large one,
+  Orlarey, Fober and Letz (SMC 2009) accumulate **integers**, which add and
+  subtract exactly, and convert back at the end
+  ([`fixed_point_sum.dsp`](../examples/04/fixed_point_sum.dsp)):
+
+  ```faust
+  float2fix(x) = int(x * (1 << 20));
+  fix2float(x) = float(x) / (1 << 20);
+  moving_sum_fixed(n) = float2fix : moving_sum(n) : fix2float;
+  ```
+
+  After 100 seconds of noise in single precision, the float version is
+  1.3e-4 away from the direct sum, and the fixed-point version is exactly
+  equal to the direct sum of the same quantised samples. The library's
+  `ba.slidingSum` documents the same drift.
 - **The name `sum` is taken**: it is a keyword of the language (chapter 11),
   which is why the moving sum above is not called `sum`.
 
