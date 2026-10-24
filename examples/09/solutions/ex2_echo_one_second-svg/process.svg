@@ -31,7 +31,7 @@
 <circle cx="447.450000" cy="392.000000" r="1"/>
 <rect x="438.200000" y="339.000000" width="25.800000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#cccccc;"/>
 <rect x="437.200000" y="338.000000" width="25.800000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#f44800;"/>
-<text x="450.100000" y="352.000000" font-family="Arial" font-size="7" text-anchor="middle" fill="#FFFFFF">1.0f</text>
+<text x="450.100000" y="352.000000" font-family="Arial" font-size="7" text-anchor="middle" fill="#FFFFFF">5e+01f</text>
 <circle cx="461.000000" cy="360.000000" r="1"/>
 <rect x="418.850000" y="307.000000" width="64.500000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#cccccc;"/>
 <rect x="417.850000" y="306.000000" width="64.500000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#4B71A1;"/>
@@ -93,7 +93,7 @@
 <circle cx="487.450000" cy="172.000000" r="1"/>
 <rect x="478.200000" y="119.000000" width="25.800000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#cccccc;"/>
 <rect x="477.200000" y="118.000000" width="25.800000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#f44800;"/>
-<text x="490.100000" y="132.000000" font-family="Arial" font-size="7" text-anchor="middle" fill="#FFFFFF">1.0f</text>
+<text x="490.100000" y="132.000000" font-family="Arial" font-size="7" text-anchor="middle" fill="#FFFFFF">5e+01f</text>
 <circle cx="501.000000" cy="140.000000" r="1"/>
 <rect x="458.850000" y="87.000000" width="64.500000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#cccccc;"/>
 <rect x="457.850000" y="86.000000" width="64.500000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#4B71A1;"/>

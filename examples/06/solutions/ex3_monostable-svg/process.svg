@@ -91,7 +91,7 @@
 <circle cx="326.100000" cy="234.000000" r="1"/>
 <rect x="311.550000" y="265.000000" width="25.800000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#cccccc;"/>
 <rect x="310.550000" y="264.000000" width="25.800000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#f44800;"/>
-<text x="323.450000" y="278.000000" font-family="Arial" font-size="7" text-anchor="middle" fill="#FFFFFF">1.0f</text>
+<text x="323.450000" y="278.000000" font-family="Arial" font-size="7" text-anchor="middle" fill="#FFFFFF">5e+01f</text>
 <circle cx="312.550000" cy="266.000000" r="1"/>
 <rect x="292.200000" y="297.000000" width="64.500000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#cccccc;"/>
 <rect x="291.200000" y="296.000000" width="64.500000" height="24.000000" rx="0" ry="0" style="stroke:none;fill:#4B71A1;"/>

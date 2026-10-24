@@ -412,8 +412,7 @@ generated code. With <code>mode</code> on a slider
 (<a href="../examples/09/run_time_choice.dsp"><code>run_time_choice.dsp</code></a>), both
 oscillators run at every sample and <code>select2</code> picks one: the table is back.
 When a choice does not need to change while the program runs, make it a
-constant. Chapters 11 and 13 show cleaner ways to do so: pattern matching
-and environments.</p>
+constant.</p>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/run_time_choice.dsp">examples/09/run_time_choice.dsp</a></p>
 <div class="faust-diagram-box" data-src="../examples/09/run_time_choice-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/run_time_choice-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/run_time_choice-svg/process.svg" alt="block diagram of examples/09/run_time_choice.dsp"></a></div>
@@ -428,6 +427,64 @@ process = ba.if(mode == 0, os.osc(440), os.sawtooth(440));
 --></faust-editor>
 </div>
 
+<p><strong>Pattern matching</strong> makes the same choice another way: a function defined
+by several rules, one per value of its argument (chapter 11)
+(<a href="../examples/09/pattern_matching_choice.dsp"><code>pattern_matching_choice.dsp</code></a>):</p>
+<pre><code class="language-faust">wave(0) = os.osc(440);
+wave(1) = os.sawtooth(440);
+wave(2) = os.osc(440), os.sawtooth(440);
+
+mode = 1;
+process = wave(mode);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/pattern_matching_choice.dsp">examples/09/pattern_matching_choice.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/09/pattern_matching_choice-svg/process.svg"><a class="faust-diagram-link" href="../examples/09/pattern_matching_choice-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/09/pattern_matching_choice-svg/process.svg" alt="block diagram of examples/09/pattern_matching_choice.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// Pattern matching chooses among rules at compile time: only the rule that
+// matches the constant argument is compiled. The rules may even have
+// different numbers of outputs, which ba.if cannot do.
+import("stdfaust.lib");
+
+wave(0) = os.osc(440);
+wave(1) = os.sawtooth(440);
+wave(2) = os.osc(440), os.sawtooth(440);
+
+mode = 1;
+
+process = wave(mode);
+--></faust-editor>
+</div>
+
+<p>The compiler picks the rule that matches <code>mode</code> while it evaluates the
+program, before any signal exists: the other rules are not even
+evaluated, and the generated code is the sawtooth alone, as with <code>ba.if</code>.
+Pattern matching goes further than <code>ba.if</code>, whose two branches are signals
+of the same shape: the rules may build different diagrams, here one output
+for <code>wave(1)</code> and two for <code>wave(2)</code>. The argument must be a constant. With
+a slider, no rule matches and the program is refused
+(<a href="../examples/09/pattern_matching_widget.dsp"><code>pattern_matching_widget.dsp</code></a>):</p>
+<pre><code class="language-text">ERROR : pattern matching failed, no rule of case {...} matches argument list (hslider(&quot;mode&quot;, ...))
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/09/pattern_matching_widget.dsp">examples/09/pattern_matching_widget.dsp</a></p>
+<p class="faust-run-note">This program does not compile, on purpose: the editor shows the error.</p>
+<faust-editor input="impulse"><!--
+// The patterns are compared with the argument by the compiler. A slider is
+// not a number the compiler knows, so no rule matches and the program is
+// refused.
+import("stdfaust.lib");
+
+wave(0) = os.osc(440);
+wave(1) = os.sawtooth(440);
+
+process = wave(hslider("mode", 1, 0, 1, 1));
+--></faust-editor>
+</div>
+
+<p>With a general rule such as <code>(n)</code> and a recursion, it is worse: see the end
+of the next section. Chapter 13 shows a third way to choose at compile
+time: environments.</p>
 <h2 id="what-must-be-known-at-compile-time">What must be known at compile time<a class="headerlink" href="#what-must-be-known-at-compile-time" title="Permanent link">&para;</a></h2>
 <p>Some quantities shape the program itself, and must be constants:</p>
 <table>
