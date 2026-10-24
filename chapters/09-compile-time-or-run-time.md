@@ -142,8 +142,37 @@ generated code. With `mode` on a slider
 ([`run_time_choice.dsp`](../examples/09/run_time_choice.dsp)), both
 oscillators run at every sample and `select2` picks one: the table is back.
 When a choice does not need to change while the program runs, make it a
-constant. Chapters 11 and 13 show cleaner ways to do so: pattern matching
-and environments.
+constant.
+
+**Pattern matching** makes the same choice another way: a function defined
+by several rules, one per value of its argument (chapter 11)
+([`pattern_matching_choice.dsp`](../examples/09/pattern_matching_choice.dsp)):
+
+```faust
+wave(0) = os.osc(440);
+wave(1) = os.sawtooth(440);
+wave(2) = os.osc(440), os.sawtooth(440);
+
+mode = 1;
+process = wave(mode);
+```
+
+The compiler picks the rule that matches `mode` while it evaluates the
+program, before any signal exists: the other rules are not even
+evaluated, and the generated code is the sawtooth alone, as with `ba.if`.
+Pattern matching goes further than `ba.if`, whose two branches are signals
+of the same shape: the rules may build different diagrams, here one output
+for `wave(1)` and two for `wave(2)`. The argument must be a constant. With
+a slider, no rule matches and the program is refused
+([`pattern_matching_widget.dsp`](../examples/09/pattern_matching_widget.dsp)):
+
+```text
+ERROR : pattern matching failed, no rule of case {...} matches argument list (hslider("mode", ...))
+```
+
+With a general rule such as `(n)` and a recursion, it is worse: see the end
+of the next section. Chapter 13 shows a third way to choose at compile
+time: environments.
 
 ## What must be known at compile time
 
