@@ -46,6 +46,7 @@ extra_css:
 extra_javascript:
     - https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.9.0/dist/faust-web-component.js
     - js/faust-diagram.js
+    - js/faust-keys.js
 
 markdown_extensions:
     - toc:
