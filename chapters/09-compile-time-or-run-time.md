@@ -88,7 +88,7 @@ when it is compiled. Expressions of `ma.SR` are computed once, in
 `instanceConstants` ([`sample_rate.dsp`](../examples/09/sample_rate.dsp)):
 
 ```cpp
-fConst0 = 1e+03f / std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
+fConst0 = 1e+03f / std::min<float>(1.92e+05f, std::max<float>(5e+01f, static_cast<float>(fSampleRate)));
 ```
 
 **Control rate**: a widget changes at most once per block of samples, so an
@@ -217,7 +217,7 @@ initialisation, so it cannot size a table
 ERROR : the parameter must be an integer constant numerical expression : ...
 ```
 
-The libraries clamp `ma.SR` to [1, 192000], which gives it an interval:
+The libraries clamp `ma.SR` to [50, 192000], which gives it an interval:
 that is why a delay of at most one second, `de.delay(ba.sec2samp(1), d)`,
 compiles (exercise 2), while a table of `ma.SR` entries does not.
 

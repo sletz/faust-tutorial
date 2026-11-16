@@ -177,8 +177,8 @@ and 0 on the right.
 
 The panner uses square roots so that the powers of the two sides sum to 1
 (exercise 1). An empty group label, as in `hgroup("", ...)`, groups the
-widgets on screen and leaves an empty segment in their paths
-(`/mixer/voice_3//level`).
+widgets on screen without a title; in their paths the group is written
+`0x00` (`/mixer/voice_3/0x00/level`).
 
 ## Smooth where it is cheap
 

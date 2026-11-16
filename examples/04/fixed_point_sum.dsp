@@ -14,7 +14,8 @@ direct(x) = float2fix(x), float2fix(x'), float2fix(x''), float2fix(x@3) :> fix2f
 // samples, exactly, however long it runs.
 process = _ <: moving_sum(4) - direct, moving_sum_fixed(4) - direct;
 
-// Single precision, 100 seconds of white noise.
+// Single precision, 100 seconds of white noise: the float version is
+// between 1e-5 and 1e-3 away, the fixed-point one exactly equal.
 // check: --in white:1 -n 4410000 --quiet
-// expect: out0: peak=0\.000\d+ 
+// expect: out0: peak=(0\.000\d+|\d\.\d+e-[45]) rms
 // expect: out1: peak=0\.0 

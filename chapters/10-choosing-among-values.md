@@ -31,8 +31,8 @@ the index changes at every sample:
 ```cpp
 const static int imydspSIG0Wave0[12] = {-1,0,2,4,5,7,9,11,12,14,16,17};
 ...
-output0[i0] = itbl0mydspSIG0[std::max<int>(0, std::min<int>(iTemp1, 11))];
-output1[i0] = ((iTemp1 >= 6) ? ((iTemp1 >= 9) ? ((iTemp1 >= 11) ? 17 : ...
+output0[i0] = itbl0mydspSIG0[std::max<int>(0, std::min<int>(iTemp2, 11))];
+output1[i0] = ((iTemp2 >= 6) ? ((iTemp2 >= 9) ? ((iTemp2 >= 11) ? 17 : ...
 ```
 
 The table is stored once and read with one memory access, the index being

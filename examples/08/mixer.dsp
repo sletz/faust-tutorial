@@ -23,6 +23,6 @@ process  = hgroup("mixer", par(i, 8, voice(i)) :> stereo);
 // A pan of 0 sends voice 3 to the left only, once the smoothing has
 // settled (the second second of a constant input on every voice).
 // check: --double -n 88200 --skip 44100 --in dc --quiet --set voice_3/pan=0 --set voice_0/mute=1 --set voice_1/mute=1 --set voice_2/mute=1 --set voice_4/mute=1 --set voice_5/mute=1 --set voice_6/mute=1 --set voice_7/mute=1
-// expect: out0: peak=0\.99999999\d* 
+// expect: out0: peak=(1\.0|0\.99999999\d*) rms
 // expect: out1: peak=0\.0 
-// expect: bargraph /mixer/voice_3//level=0\.99
+// expect: bargraph /mixer/voice_3/0x00/level=0\.99

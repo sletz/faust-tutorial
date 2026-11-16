@@ -79,7 +79,7 @@ process = fi.resonlp(1000, 2, 1);
 ```
 
 ```cpp
-fConst0 = std::tan(3141.5928f / std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate))));
+fConst0 = std::tan(std::max<float>(0.0f, std::min<float>(3141.5928f / std::min<float>(1.92e+05f, std::max<float>(5e+01f, static_cast<float>(fSampleRate))), 1.5676547f)));
 ```
 
 ```faust
@@ -87,12 +87,14 @@ process = fi.resonlp(hslider("freq", 1000, 100, 5000, 1), 2, 1);
 ```
 
 ```cpp
-float fSlow0 = std::tan(fConst0 * static_cast<float>(fHslider0));
+float fSlow0 = std::tan(std::max<float>(0.0f, std::min<float>(fConst0 * static_cast<float>(fHslider0), 1.5676547f)));
 ```
 
 With a constant frequency, the `tan` and the coefficients are computed
 once, when the program starts (`fConst`). With a slider, they are
-recomputed at every block (`fSlow`). A generic filter used with constant
+recomputed at every block (`fSlow`). In both, the library keeps the angle
+between 0 and 0.499 π (1.5676547), below the point where the tangent is
+infinite: the filter stays stable at and above half the sampling rate. A generic filter used with constant
 parameters is therefore as cheap as a filter with hard-coded coefficients.
 
 The idioms document's advice follows: put the parameters that are most

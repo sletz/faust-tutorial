@@ -14,7 +14,7 @@ it. It also draws on the earlier Faust tutorials (Gaudrain and Orlarey,
 2003; Bole, 2008) and on the papers of the Faust team, and says so where it
 does.
 
-Every program in the tutorial, 173 of them, is compiled by the C++ Faust
+Every program in the tutorial, 176 of them, is compiled by the C++ Faust
 compiler and run by faustprobe, and its output is checked against what the
 text says (appendix A). The plan of the tutorial is in [PLAN.md](PLAN.md).
 

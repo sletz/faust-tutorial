@@ -65,7 +65,7 @@ Eight combs in parallel, their outputs summed, then four allpasses in
 series ([`step4_freeverb.dsp`](../examples/16/step4_freeverb.dsp)):
 
 ```faust
-adapt(n) = int(n * ma.SR / 44100);
+adapt(n) = int((m - m % 44100) / 44100 + 0.5) with { m = n * int(ma.SR); };
 
 comb_tuning(0) = adapt(1116);  comb_tuning(1) = adapt(1188);
 comb_tuning(2) = adapt(1277);  comb_tuning(3) = adapt(1356);
@@ -82,8 +82,9 @@ freeverb(fb1, fb2, damp, spread) =
 
 - The tunings, in samples at 44.1 kHz, are defined **by cases**
   (chapter 11), and `par` and `seq` read them with their index.
-- `adapt` scales them to the actual sampling rate; `int` rounds to whole
-  samples (chapter 9).
+- `adapt` scales them to the actual sampling rate. It works on integers,
+  because the obvious `int(n * ma.SR / 44100)` is sometimes one sample
+  short (see the pitfalls).
 - `<:` sends the input to the eight combs and `:>` sums them (chapter 2).
 - The allpass buffers hold 4096 samples: the longest tuning, 556 samples
   at 44.1 kHz, is 2420 at 192 kHz, the highest value of `ma.SR` (see the
@@ -188,6 +189,18 @@ ratio of 972, or 59.7 dB.
   44.1 kHz grows with the sampling rate, and a delay longer than its
   buffer is silently clamped: at 96 kHz, 556 samples at 44.1 kHz become
   1210. Size buffers for the highest rate you support (chapter 9).
+- **`int` of a float quotient.** `int(n * ma.SR / 44100)` reads well and
+  is wrong for some lengths
+  ([`tuning_truncation.dsp`](../examples/16/tuning_truncation.dsp)). The
+  compiler folds n/44100 into one rounded constant, its product with the
+  rate comes out just under the whole number, and `int` truncates. At
+  44.1 kHz, 225 becomes 224 in double precision, and 1617 becomes 1616 in
+  single precision: a rounding error in the last digit has become one
+  whole sample of delay. Compute lengths on integers instead. In
+  `adapt`, `m = n * int(ma.SR)` is an exact product, `m - m % 44100` an
+  exact multiple of 44100, and its quotient lies within a rounding error
+  of a whole number, which `+ 0.5` and `int` recover. reverbs.lib computes
+  Freeverb's lengths this way.
 - **Stability.** A network whose matrix gains energy, or whose gains
   exceed 1, grows without bound. Check with faustprobe's `--fail-above`
   when experimenting.

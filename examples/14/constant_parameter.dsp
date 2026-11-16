@@ -5,7 +5,7 @@ import("stdfaust.lib");
 
 process = fi.resonlp(1000, 2, 1);
 
-// cpp-expect: fConst0 = std::tan\(3141\.5928f /
+// cpp-expect: fConst0 = std::tan\(.*3141\.5928f /
 // cpp-absent: fSlow
 // check: --double --in dc -n 44100 --skip 40000 --quiet
 // expect: out0: peak=(1\.0|0\.9999)\d*

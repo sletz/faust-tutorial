@@ -184,14 +184,16 @@ integer overflow does the scrambling. Chapter 7 comes back to it.
 
   | duration | single precision | double precision |
   |---|---|---|
-  | 1 s | 5.7e-6 | 1.4e-14 |
-  | 10 s | 2.2e-5 | 3.2e-14 |
-  | 100 s | 1.3e-4 | 1.1e-13 |
+  | 1 s | 8.2e-6 | 1.4e-14 |
+  | 10 s | 3.3e-5 | 2.1e-14 |
+  | 100 s | 7.8e-5 | 6.0e-14 |
 
-  The error is a random walk: it grows without bound. For a small window,
-  write the direct sum (chapter 11 shows how with `sum`). For a large one,
-  Orlarey, Fober and Letz (SMC 2009) accumulate **integers**, which add and
-  subtract exactly, and convert back at the end
+  The error is a random walk: it grows without bound. Its digits depend
+  on the order in which the generated code adds, so another version of
+  the compiler gives other ones. For a small window, write the direct sum
+  (chapter 11 shows how with `sum`). For a large one, Orlarey, Fober and
+  Letz (SMC 2009) accumulate **integers**, which add and subtract exactly,
+  and convert back at the end
   ([`fixed_point_sum.dsp`](../examples/04/fixed_point_sum.dsp)):
 
   ```faust
@@ -201,7 +203,7 @@ integer overflow does the scrambling. Chapter 7 comes back to it.
   ```
 
   After 100 seconds of noise in single precision, the float version is
-  1.3e-4 away from the direct sum, and the fixed-point version is exactly
+  8.0e-5 away from the direct sum, and the fixed-point version is exactly
   equal to the direct sum of the same quantised samples. The library's
   `ba.slidingSum` documents the same drift.
 - **The name `sum` is taken**: it is a keyword of the language (chapter 11),
