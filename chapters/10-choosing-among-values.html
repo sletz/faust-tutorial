@@ -116,6 +116,15 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part E. Perspective <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="17-composing-circuits-like-functions.html" class="dropdown-item">17. Composing circuits like functions</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -271,8 +280,8 @@ process = scale_table(i), scale_select(i);
 the index changes at every sample:</p>
 <pre><code class="language-cpp">const static int imydspSIG0Wave0[12] = {-1,0,2,4,5,7,9,11,12,14,16,17};
 ...
-output0[i0] = itbl0mydspSIG0[std::max&lt;int&gt;(0, std::min&lt;int&gt;(iTemp1, 11))];
-output1[i0] = ((iTemp1 &gt;= 6) ? ((iTemp1 &gt;= 9) ? ((iTemp1 &gt;= 11) ? 17 : ...
+output0[i0] = itbl0mydspSIG0[std::max&lt;int&gt;(0, std::min&lt;int&gt;(iTemp2, 11))];
+output1[i0] = ((iTemp2 &gt;= 6) ? ((iTemp2 &gt;= 9) ? ((iTemp2 &gt;= 11) ? 17 : ...
 </code></pre>
 <p>The table is stored once and read with one memory access, the index being
 clamped to the table's range. The selector becomes a tree of comparisons,

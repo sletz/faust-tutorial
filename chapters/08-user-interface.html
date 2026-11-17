@@ -116,6 +116,15 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part E. Perspective <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="17-composing-circuits-like-functions.html" class="dropdown-item">17. Composing circuits like functions</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -524,8 +533,8 @@ seven voices, pans the fourth hard left, and reads a level of 1 on the left
 and 0 on the right.</p>
 <p>The panner uses square roots so that the powers of the two sides sum to 1
 (exercise 1). An empty group label, as in <code>hgroup("", ...)</code>, groups the
-widgets on screen and leaves an empty segment in their paths
-(<code>/mixer/voice_3//level</code>).</p>
+widgets on screen without a title; in their paths the group is written
+<code>0x00</code> (<code>/mixer/voice_3/0x00/level</code>).</p>
 <h2 id="smooth-where-it-is-cheap">Smooth where it is cheap<a class="headerlink" href="#smooth-where-it-is-cheap" title="Permanent link">&para;</a></h2>
 <p>A slider changes at most once per block of samples, and the compiler
 computes expressions that depend only on sliders once per block too

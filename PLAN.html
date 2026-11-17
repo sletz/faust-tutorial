@@ -115,6 +115,15 @@
 </li>
                                 </ul>
                             </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part E. Perspective <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="chapters/17-composing-circuits-like-functions.html" class="dropdown-item">17. Composing circuits like functions</a>
+</li>
+                                </ul>
+                            </li>
                             <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
@@ -202,6 +211,10 @@
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#part-d-writing-reusable-code" class="nav-link">Part D. Writing reusable code</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#part-e-perspective" class="nav-link">Part E. Perspective</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -344,6 +357,28 @@ and ties each of them to the functions of the standard libraries
 <li><strong>Final project.</strong> A complete reverb built step by step (comb and
     allpass filters, a feedback delay network, the interface), which reuses
     every chapter.</li>
+</ol>
+<h2 id="part-e-perspective">Part E. Perspective<a class="headerlink" href="#part-e-perspective" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Composing circuits like functions.</strong> What it means for Faust to be a
+    functional language, shown by writing the same small circuits in two
+    languages of steps, Cmajor and Onda. A step or a definition; one name,
+    one signal (the compiler counts the memories, nobody declares an
+    instance); referential transparency, from Strachey's notes of 1967 to
+    its three properties (definiteness, unfoldability, substitution of
+    equals) and to what the value of an expression is when signals change;
+    functions that remember; a list of wires or an expression,
+    and how far a Cmajor graph with a processor as parameter goes; the
+    vocabulary of Haskell and OCaml applied to circuits; combinators
+    (<code>each</code>, <code>inDomain</code>, <code>matrix</code> with a coefficient function,
+    <code>feedbackNetwork</code>); their laws, checked by a combinator and stated on
+    the smallest change of domain before any use case, each with an
+    equality that must fail; three use cases with their own laws (mid/side,
+    any effect made multiband, a matrix given by a function); how new the
+    approach is, in programming and among audio languages; which laws the
+    compiler finds by itself; where steps are the better tool.
+    Anchors: <code>pm.chain</code>, <code>wd.buildtree</code>, <code>aa.ADAA1</code>, <code>ro.hadamard</code>,
+    <code>fi.filterbank</code>, <code>co.compressor_mono</code>.</li>
 </ol>
 <h2 id="appendices">Appendices<a class="headerlink" href="#appendices" title="Permanent link">&para;</a></h2>
 <ul>

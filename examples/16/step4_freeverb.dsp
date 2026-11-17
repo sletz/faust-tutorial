@@ -7,7 +7,10 @@ import("stdfaust.lib");
 lbcf(dt, fb, damp) = (+ : @(max(0, dt - 1))) ~ (*(1 - damp) : (+ ~ *(damp)) : *(fb)) : mem;
 allpass(maxdel, N, aN) = (+ <: de.delay(maxdel, N - 1), *(aN)) ~ *(-aN) : mem, _ : +;
 
-adapt(n) = int(n * ma.SR / 44100);
+// n samples at 44.1 kHz, at the actual rate: n * SR / 44100 on integers,
+// since int(n * ma.SR / 44100) is sometimes one sample short
+// (tuning_truncation.dsp).
+adapt(n) = int((m - m % 44100) / 44100 + 0.5) with { m = n * int(ma.SR); };
 
 comb_tuning(0) = adapt(1116);  comb_tuning(1) = adapt(1188);
 comb_tuning(2) = adapt(1277);  comb_tuning(3) = adapt(1356);

@@ -1,0 +1,33 @@
+// The one-pole lowpass of chapter 4 as a Cmajor processor: a variable y,
+// and a loop that replaces it at every frame.
+//
+// The same samples as ../equation.dsp on an impulse.
+// impulse: 0.5 0.25 0.125 0.0625
+
+processor OnePole (float a)
+{
+    input stream float in;
+    output stream float out;
+
+    float y;
+
+    void main()
+    {
+        loop
+        {
+            y = (1.0f - a) * in + a * y;
+            out <- y;
+            advance();
+        }
+    }
+}
+
+graph Main [[ main ]]
+{
+    input stream float in;
+    output stream float out;
+
+    node lowpass = OnePole (0.5f);
+
+    connection in -> lowpass -> out;
+}

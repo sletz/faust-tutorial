@@ -116,6 +116,15 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part E. Perspective <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="17-composing-circuits-like-functions.html" class="dropdown-item">17. Composing circuits like functions</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -150,7 +159,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="A-observing-a-program.html" class="nav-link">
+                                <a rel="next" href="17-composing-circuits-like-functions.html" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -317,7 +326,7 @@ it is identical to the library, and its frequency response
 <h2 id="step-4-freeverb">Step 4: Freeverb<a class="headerlink" href="#step-4-freeverb" title="Permanent link">&para;</a></h2>
 <p>Eight combs in parallel, their outputs summed, then four allpasses in
 series (<a href="../examples/16/step4_freeverb.dsp"><code>step4_freeverb.dsp</code></a>):</p>
-<pre><code class="language-faust">adapt(n) = int(n * ma.SR / 44100);
+<pre><code class="language-faust">adapt(n) = int((m - m % 44100) / 44100 + 0.5) with { m = n * int(ma.SR); };
 
 comb_tuning(0) = adapt(1116);  comb_tuning(1) = adapt(1188);
 comb_tuning(2) = adapt(1277);  comb_tuning(3) = adapt(1356);
@@ -344,7 +353,10 @@ import("stdfaust.lib");
 lbcf(dt, fb, damp) = (+ : @(max(0, dt - 1))) ~ (*(1 - damp) : (+ ~ *(damp)) : *(fb)) : mem;
 allpass(maxdel, N, aN) = (+ <: de.delay(maxdel, N - 1), *(aN)) ~ *(-aN) : mem, _ : +;
 
-adapt(n) = int(n * ma.SR / 44100);
+// n samples at 44.1 kHz, at the actual rate: n * SR / 44100 on integers,
+// since int(n * ma.SR / 44100) is sometimes one sample short
+// (tuning_truncation.dsp).
+adapt(n) = int((m - m % 44100) / 44100 + 0.5) with { m = n * int(ma.SR); };
 
 comb_tuning(0) = adapt(1116);  comb_tuning(1) = adapt(1188);
 comb_tuning(2) = adapt(1277);  comb_tuning(3) = adapt(1356);
@@ -368,8 +380,9 @@ process = freeverb(0.84, 0.5, 0.2, 0);
 <ul>
 <li>The tunings, in samples at 44.1 kHz, are defined <strong>by cases</strong>
   (chapter 11), and <code>par</code> and <code>seq</code> read them with their index.</li>
-<li><code>adapt</code> scales them to the actual sampling rate; <code>int</code> rounds to whole
-  samples (chapter 9).</li>
+<li><code>adapt</code> scales them to the actual sampling rate. It works on integers,
+  because the obvious <code>int(n * ma.SR / 44100)</code> is sometimes one sample
+  short (see the pitfalls).</li>
 <li><code>&lt;:</code> sends the input to the eight combs and <code>:&gt;</code> sums them (chapter 2).</li>
 <li>The allpass buffers hold 4096 samples: the longest tuning, 556 samples
   at 44.1 kHz, is 2420 at 192 kHz, the highest value of <code>ma.SR</code> (see the
@@ -410,7 +423,7 @@ import("stdfaust.lib");
 
 lbcf(dt, fb, damp) = (+ : @(max(0, dt - 1))) ~ (*(1 - damp) : (+ ~ *(damp)) : *(fb)) : mem;
 allpass(maxdel, N, aN) = (+ <: de.delay(maxdel, N - 1), *(aN)) ~ *(-aN) : mem, _ : +;
-adapt(n) = int(n * ma.SR / 44100);
+adapt(n) = int((m - m % 44100) / 44100 + 0.5) with { m = n * int(ma.SR); };
 comb_tuning(0) = adapt(1116);  comb_tuning(1) = adapt(1188);
 comb_tuning(2) = adapt(1277);  comb_tuning(3) = adapt(1356);
 comb_tuning(4) = adapt(1422);  comb_tuning(5) = adapt(1491);
@@ -539,12 +552,46 @@ ratio of 972, or 59.7 dB.</p>
   44.1 kHz grows with the sampling rate, and a delay longer than its
   buffer is silently clamped: at 96 kHz, 556 samples at 44.1 kHz become</li>
 <li>Size buffers for the highest rate you support (chapter 9).</li>
+<li><strong><code>int</code> of a float quotient.</strong> <code>int(n * ma.SR / 44100)</code> reads well and
+  is wrong for some lengths
+  (<a href="../examples/16/tuning_truncation.dsp"><code>tuning_truncation.dsp</code></a>). The
+  compiler folds n/44100 into one rounded constant, its product with the
+  rate comes out just under the whole number, and <code>int</code> truncates. At
+  44.1 kHz, 225 becomes 224 in double precision, and 1617 becomes 1616 in
+  single precision: a rounding error in the last digit has become one
+  whole sample of delay. Compute lengths on integers instead. In
+  <code>adapt</code>, <code>m = n * int(ma.SR)</code> is an exact product, <code>m - m % 44100</code> an
+  exact multiple of 44100, and its quotient lies within a rounding error
+  of a whole number, which <code>+ 0.5</code> and <code>int</code> recover. reverbs.lib computes
+  Freeverb's lengths this way.</li>
 <li><strong>Stability.</strong> A network whose matrix gains energy, or whose gains
   exceed 1, grows without bound. Check with faustprobe's <code>--fail-above</code>
   when experimenting.</li>
 <li><strong>Commas in arguments.</strong> Parenthesise a block that contains a comma when
   it is passed as an argument.</li>
 </ul>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/16/tuning_truncation.dsp">examples/16/tuning_truncation.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/16/tuning_truncation-svg/process.svg"><a class="faust-diagram-link" href="../examples/16/tuning_truncation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/16/tuning_truncation-svg/process.svg" alt="block diagram of examples/16/tuning_truncation.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// A delay length scaled to the sampling rate, two ways. naive divides
+// floats: the compiler folds n/44100 into one rounded constant, its product
+// with the rate can come out just under the whole number, and int truncates
+// it. exact works on integers: m is an exact product, m - m % 44100 an exact
+// multiple of 44100, and the quotient is rounded to the nearest integer.
+import("stdfaust.lib");
+
+naive(n) = int(n * ma.SR / 44100);
+exact(n) = int((m - m % 44100) / 44100 + 0.5) with { m = n * int(ma.SR); };
+
+process = naive(225), exact(225), naive(1617), exact(1617);
+
+// At 44.1 kHz the lengths should stay 225 and 1617. In double precision 225
+// loses a sample; in single precision 1617 does.
+// At 96 kHz, 1617 samples become 3520, and 3519 in single precision.
+--></faust-editor>
+</div>
+
 <h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
 <ol>
 <li>A pre-delay of up to 100 ms before the reverb, bounded by its slider's

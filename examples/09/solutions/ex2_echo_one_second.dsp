@@ -1,6 +1,6 @@
 // Exercise 2: a feedback echo whose time goes up to one second. The maximum
 // delay must be known at compile time: ba.sec2samp(1) is ma.SR, which the
-// libraries clamp to [1, 192000], so the compiler can size the buffer
+// libraries clamp to [50, 192000], so the compiler can size the buffer
 // (262144 samples, the next power of two).
 import("stdfaust.lib");
 

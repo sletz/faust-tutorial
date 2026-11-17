@@ -116,6 +116,15 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part E. Perspective <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="17-composing-circuits-like-functions.html" class="dropdown-item">17. Composing circuits like functions</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -320,7 +329,7 @@ it belongs.</p>
 <p><strong>Initialisation</strong>: the sampling rate is known when the program starts, not
 when it is compiled. Expressions of <code>ma.SR</code> are computed once, in
 <code>instanceConstants</code> (<a href="../examples/09/sample_rate.dsp"><code>sample_rate.dsp</code></a>):</p>
-<pre><code class="language-cpp">fConst0 = 1e+03f / std::min&lt;float&gt;(1.92e+05f, std::max&lt;float&gt;(1.0f, static_cast&lt;float&gt;(fSampleRate)));
+<pre><code class="language-cpp">fConst0 = 1e+03f / std::min&lt;float&gt;(1.92e+05f, std::max&lt;float&gt;(5e+01f, static_cast&lt;float&gt;(fSampleRate)));
 </code></pre>
 <div class="faust-run">
 <p class="faust-run-title"><a href="../examples/09/sample_rate.dsp">examples/09/sample_rate.dsp</a></p>
@@ -579,7 +588,7 @@ process = rdtable(int(ma.SR), os.sinwaveform(1024), 0);
 --></faust-editor>
 </div>
 
-<p>The libraries clamp <code>ma.SR</code> to [1, 192000], which gives it an interval:
+<p>The libraries clamp <code>ma.SR</code> to [50, 192000], which gives it an interval:
 that is why a delay of at most one second, <code>de.delay(ba.sec2samp(1), d)</code>,
 compiles (exercise 2), while a table of <code>ma.SR</code> entries does not.</p>
 <p><strong>Pattern matching</strong> on a value that is not a constant is the worst case:
@@ -675,7 +684,7 @@ process = _ <: *(sqrt(1 - p) : si.smoo), *(sqrt(p) : si.smoo);
 <faust-editor input="impulse"><!--
 // Exercise 2: a feedback echo whose time goes up to one second. The maximum
 // delay must be known at compile time: ba.sec2samp(1) is ma.SR, which the
-// libraries clamp to [1, 192000], so the compiler can size the buffer
+// libraries clamp to [50, 192000], so the compiler can size the buffer
 // (262144 samples, the next power of two).
 import("stdfaust.lib");
 

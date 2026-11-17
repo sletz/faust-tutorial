@@ -116,6 +116,15 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part E. Perspective <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="17-composing-circuits-like-functions.html" class="dropdown-item">17. Composing circuits like functions</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -360,15 +369,17 @@ process = fi.resonlp(hslider("freq", 1000, 100, 5000, 1), 2, 1);
 --></faust-editor>
 </div>
 
-<pre><code class="language-cpp">fConst0 = std::tan(3141.5928f / std::min&lt;float&gt;(1.92e+05f, std::max&lt;float&gt;(1.0f, static_cast&lt;float&gt;(fSampleRate))));
+<pre><code class="language-cpp">fConst0 = std::tan(std::max&lt;float&gt;(0.0f, std::min&lt;float&gt;(3141.5928f / std::min&lt;float&gt;(1.92e+05f, std::max&lt;float&gt;(5e+01f, static_cast&lt;float&gt;(fSampleRate))), 1.5676547f)));
 </code></pre>
 <pre><code class="language-faust">process = fi.resonlp(hslider(&quot;freq&quot;, 1000, 100, 5000, 1), 2, 1);
 </code></pre>
-<pre><code class="language-cpp">float fSlow0 = std::tan(fConst0 * static_cast&lt;float&gt;(fHslider0));
+<pre><code class="language-cpp">float fSlow0 = std::tan(std::max&lt;float&gt;(0.0f, std::min&lt;float&gt;(fConst0 * static_cast&lt;float&gt;(fHslider0), 1.5676547f)));
 </code></pre>
 <p>With a constant frequency, the <code>tan</code> and the coefficients are computed
 once, when the program starts (<code>fConst</code>). With a slider, they are
-recomputed at every block (<code>fSlow</code>). A generic filter used with constant
+recomputed at every block (<code>fSlow</code>). In both, the library keeps the angle
+between 0 and 0.499 π (1.5676547), below the point where the tangent is
+infinite: the filter stays stable at and above half the sampling rate. A generic filter used with constant
 parameters is therefore as cheap as a filter with hard-coded coefficients.</p>
 <p>The idioms document's advice follows: put the parameters that are most
 likely to be fixed <strong>first</strong>, so that partial application can fix them,

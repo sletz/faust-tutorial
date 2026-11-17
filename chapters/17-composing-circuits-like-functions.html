@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://sletz.github.io/faust-tutorial/chapters/17-composing-circuits-like-functions.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>17. Composing circuits like functions - A progressive Faust tutorial</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/faust-run.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">A progressive Faust tutorial</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part A. The language <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="01-first-sound.html" class="dropdown-item">1. First sound</a>
+</li>
+                                    
+<li>
+    <a href="02-block-diagram-algebra.html" class="dropdown-item">2. Block-diagram algebra</a>
+</li>
+                                    
+<li>
+    <a href="03-naming-inputs.html" class="dropdown-item">3. Naming inputs</a>
+</li>
+                                    
+<li>
+    <a href="04-one-sample-memory.html" class="dropdown-item">4. One-sample memory</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part B. Control signals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="05-state-with-several-variables.html" class="dropdown-item">5. State with several variables</a>
+</li>
+                                    
+<li>
+    <a href="06-logical-signals-and-events.html" class="dropdown-item">6. Logical signals and events</a>
+</li>
+                                    
+<li>
+    <a href="07-periodic-signals-and-sequences.html" class="dropdown-item">7. Periodic signals and sequences</a>
+</li>
+                                    
+<li>
+    <a href="08-user-interface.html" class="dropdown-item">8. User interface</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part C. Compile time <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="09-compile-time-or-run-time.html" class="dropdown-item">9. Compile time or run time</a>
+</li>
+                                    
+<li>
+    <a href="10-choosing-among-values.html" class="dropdown-item">10. Choosing among values</a>
+</li>
+                                    
+<li>
+    <a href="11-iteration-and-pattern-matching.html" class="dropdown-item">11. Iteration and pattern matching</a>
+</li>
+                                    
+<li>
+    <a href="12-higher-order-programming.html" class="dropdown-item">12. Higher-order programming</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part D. Reusable code <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="13-environments.html" class="dropdown-item">13. Environments</a>
+</li>
+                                    
+<li>
+    <a href="14-generic-then-specialised.html" class="dropdown-item">14. Generic, then specialised</a>
+</li>
+                                    
+<li>
+    <a href="15-writing-a-library.html" class="dropdown-item">15. Writing a library</a>
+</li>
+                                    
+<li>
+    <a href="16-final-project.html" class="dropdown-item">16. Final project: a reverb</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Part E. Perspective <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="17-composing-circuits-like-functions.html" class="dropdown-item active">17. Composing circuits like functions</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Appendices <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="A-observing-a-program.html" class="dropdown-item">A. Observing a program</a>
+</li>
+                                    
+<li>
+    <a href="B-automatic-differentiation.html" class="dropdown-item">B. Automatic differentiation</a>
+</li>
+                                    
+<li>
+    <a href="C-cheat-sheet.html" class="dropdown-item">C. Cheat sheet</a>
+</li>
+                                    
+<li>
+    <a href="../PLAN.html" class="dropdown-item">Plan of the tutorial</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="16-final-project.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="A-observing-a-program.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/sletz/faust-tutorial" class="nav-link"><i class="fa fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#17-composing-circuits-like-functions" class="nav-link">17. Composing circuits like functions</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#the-idea" class="nav-link">The idea</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#a-step-or-a-definition" class="nav-link">A step or a definition</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#one-name-one-signal" class="nav-link">One name, one signal</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#referential-transparency" class="nav-link">Referential transparency</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#functions-that-remember" class="nav-link">Functions that remember</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#a-list-of-wires-or-an-expression" class="nav-link">A list of wires or an expression</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-vocabulary-of-functional-languages" class="nav-link">The vocabulary of functional languages</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#circuits-that-take-circuits" class="nav-link">Circuits that take circuits</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#laws" class="nav-link">Laws</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#three-use-cases" class="nav-link">Three use cases</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#transform-process-transform-back" class="nav-link">Transform, process, transform back</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#any-effect-multiband" class="nav-link">Any effect, multiband</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#a-matrix-given-by-a-function" class="nav-link">A matrix given by a function</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#how-new-is-this" class="nav-link">How new is this?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#what-the-compiler-does-with-it" class="nav-link">What the compiler does with it</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#where-steps-are-the-better-tool" class="nav-link">Where steps are the better tool</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-idiom-in-the-libraries" class="nav-link">The idiom in the libraries</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pitfalls" class="nav-link">Pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="17-composing-circuits-like-functions">17. Composing circuits like functions<a class="headerlink" href="#17-composing-circuits-like-functions" title="Permanent link">&para;</a></h1>
+<h2 id="the-idea">The idea<a class="headerlink" href="#the-idea" title="Permanent link">&para;</a></h2>
+<p>Faust is a functional language, of the family of Haskell and OCaml: a
+program is a set of definitions, and a definition gives a name to a value.
+What makes it a language for audio is the kind of value it handles: a
+<strong>circuit</strong>, a block that turns signals into signals. Chapter 12 counted
+three orders, signals, signal processors and the algebra that combines
+them. This chapter draws the consequence. A circuit is a function, so
+everything a functional language offers to build functions out of functions
+builds circuits out of circuits: circuits are composed the way functions
+are, higher-order functions included.</p>
+<p>Most other audio languages are languages of <strong>steps</strong>. In
+<a href="https://cmajor.dev">Cmajor</a> and <a href="https://onda-lang.org">Onda</a>, two recent
+and carefully designed ones, a program says what to do at each sample: read
+the input, update some variables, write the output. The difference with
+Faust is not a matter of syntax. It lies in where the memory of a program
+is kept: in variables that the program modifies, or nowhere that the
+program can modify. This chapter writes the same small circuits on both
+sides, to show how much follows from that single difference. What is kept
+on one side and lost on the other has a name, <strong>referential transparency</strong>.</p>
+<p>The Cmajor programs are in <code>examples/17/cmajor/</code>. They were compiled by
+<code>cmaj</code> 1.0.3209 and run on an impulse by
+<a href="../scripts/check_cmajor.py"><code>scripts/check_cmajor.py</code></a> (<code>make cmajor</code>),
+and the messages quoted are that compiler's. Onda is described from its
+<a href="https://onda-lang.org/docs/language/">language guide</a> as read in November
+2026: its fragments follow the guide and were not run, and neither were the
+lines of Haskell and OCaml.</p>
+<h2 id="a-step-or-a-definition">A step or a definition<a class="headerlink" href="#a-step-or-a-definition" title="Permanent link">&para;</a></h2>
+<p>The one-pole lowpass of chapter 4 in Cmajor
+(<a href="../examples/17/cmajor/one_pole.cmajor"><code>one_pole.cmajor</code></a>):</p>
+<pre><code class="language-cpp">processor OnePole (float a)
+{
+    input stream float in;
+    output stream float out;
+
+    float y;
+
+    void main()
+    {
+        loop
+        {
+            y = (1.0f - a) * in + a * y;
+            out &lt;- y;
+            advance();
+        }
+    }
+}
+</code></pre>
+<p>and in Onda:</p>
+<pre><code class="language-text">proc OnePole:
+  ins 1
+  outs 1
+
+  params:
+    a = 0.5
+
+  init:
+    y = 0.0
+
+  sample:
+    y = (1.0 - a) * in1 + a * y
+    out1 = y
+</code></pre>
+<p>Both say the same thing: there is a variable <code>y</code>, and at every sample its
+content is replaced. In <code>y = ... + a * y</code>, the <code>y</code> on the right is the old
+content and the <code>y</code> on the left the new one. <code>=</code> is an order given to the
+machine, not an equation: read as one, the line would say that y is the
+input. The program is a recipe, carried out in time.</p>
+<p>In Faust (<a href="../examples/17/equation.dsp"><code>equation.dsp</code></a>):</p>
+<pre><code class="language-faust">lowpass1(a) = *(1 - a) : + ~ *(a);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/equation.dsp">examples/17/equation.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/equation-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/equation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/equation-svg/process.svg" alt="block diagram of examples/17/equation.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// The one-pole lowpass of chapter 4, as Faust writes it: one definition.
+// The output is the signal y such that y = (1 - a) x + a y', where y' is y
+// one sample earlier. Nothing is assigned: the memory is the delay that ~
+// puts on the way back.
+lowpass1(a) = *(1 - a) : + ~ *(a);
+
+process = lowpass1(0.5);
+
+// The samples of cmajor/one_pole.cmajor on an impulse.
+--></faust-editor>
+</div>
+
+<p>There is no variable and no instant. The definition describes the output
+as a whole signal: the y such that y = (1 − a) x + a y', where y' is y
+delayed by one sample, the delay that <code>~</code> puts on the way back. Here <code>=</code> is
+an equality between signals, true at every sample. A Haskell programmer
+would write the same definition on lazy lists, <code>0 : y</code> being y delayed:</p>
+<pre><code class="language-haskell">y = zipWith (+) (map (* (1 - a)) x) (map (* a) (0 : y))
+</code></pre>
+<p>The Cmajor and Faust programs compute the same samples, 0.5, 0.25,
+0.125... on an impulse, and the code that Faust generates holds the same
+variable as the Cmajor source. Faust programs do have state, and chapter 5
+is about it. What they do not have is <strong>assignment</strong>: the state is the past
+of a signal, which a program can read (<code>'</code>, <code>@</code>, <code>~</code>) and can never modify.
+Everything below follows from this.</p>
+<h2 id="one-name-one-signal">One name, one signal<a class="headerlink" href="#one-name-one-signal" title="Permanent link">&para;</a></h2>
+<p>In a language of steps a name such as <code>lp</code> designates an <strong>instance</strong>, a
+filter with its variable, and using it is an event: the filter moves. With
+a node <code>lp = OnePole (0.5f)</code>, the loop of this Cmajor processor feeds one
+input to one filter twice in a frame, and subtracts the two results
+(<a href="../examples/17/cmajor/stepped_twice.cmajor"><code>stepped_twice.cmajor</code></a>):</p>
+<pre><code class="language-cpp">lp.in &lt;- in;
+lp.advance();
+let a = lp.out;
+
+lp.in &lt;- in;
+lp.advance();
+let b = lp.out;
+
+out &lt;- a - b;
+advance();
+</code></pre>
+<p>It compiles, and an impulse gives −0.25, 0.1875, 0.046875...: <code>a</code> and <code>b</code>
+are the same filter applied to the same input, and they differ, because the
+filter advanced between them. Cmajor's guide warns that a node which is not
+advanced as it should gives surprising results. Onda's notation tells the
+two acts apart, <code>lp(in1)</code> stepping a processor and <code>lp.out1</code> reading its
+last output without stepping it. Inside the body of a processor, in both
+languages, stepping every instance exactly once per sample is the
+programmer's job; their graphs, below, do it for them.</p>
+<p>In Faust a name designates a function, and a function applied to a signal
+gives a signal, always the same one
+(<a href="../examples/17/same_signal.dsp"><code>same_signal.dsp</code></a>):</p>
+<pre><code class="language-faust">lp = lowpass1(0.5);
+
+process = _ &lt;: (lp, lp : -), (lp, lp : ==);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/same_signal.dsp">examples/17/same_signal.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/same_signal-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/same_signal-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/same_signal-svg/process.svg" alt="block diagram of examples/17/same_signal.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// One name, one signal. lp is a function: applied twice to the same signal
+// it gives the same signal twice. Their difference is zero and their
+// comparison is true, at every sample. The same lines in
+// cmajor/stepped_twice.cmajor step one filter twice, and the difference
+// is -0.25, 0.1875, 0.046875...
+lowpass1(a) = *(1 - a) : + ~ *(a);
+lp = lowpass1(0.5);
+
+process = _ <: (lp, lp : -), (lp, lp : ==);
+
+// The compiler knows it: the outputs are the constants 0 and 1, and no
+// filter is left in the generated code.
+--></faust-editor>
+</div>
+
+<p>The difference is zero and the comparison is true, and the compiler knows
+it: the generated code writes the constants 0 and 1 to the two outputs
+(<code>output0[i0] = static_cast&lt;FAUSTFLOAT&gt;(0);</code> for the first), with no filter
+left. The same holds for a generator (<a href="../examples/17/same_noise.dsp"><code>same_noise.dsp</code></a>):
+<code>no.noise - no.noise</code> is silence, because <code>no.noise</code> is not a call that
+draws a number, it is one signal. Two noises that differ are two different
+signals, which <code>no.multinoise(2)</code> provides.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/same_noise.dsp">examples/17/same_noise.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/same_noise-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/same_noise-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/same_noise-svg/process.svg" alt="block diagram of examples/17/same_noise.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// no.noise is not a call that draws a number: it is one signal, and
+// subtracted from itself it is silence. Two noises that differ are two
+// different signals, which no.multinoise(2) provides.
+import("stdfaust.lib");
+
+process = 0.1 * (no.noise - no.noise), 0.1 * (no.multinoise(2) : -);
+
+// The first output is the constant 0, the second is noise.
+--></faust-editor>
+</div>
+
+<p>So nobody declares the filters of a Faust program. Their number is not
+written in the text: the compiler deduces it from the signals.</p>
+<table>
+<thead>
+<tr>
+<th>program</th>
+<th>memories in the generated code</th>
+<th>why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_ &lt;: lp, lp</code></td>
+<td>1</td>
+<td>one function, one input: one signal, read twice</td>
+</tr>
+<tr>
+<td><code>lp : lp</code></td>
+<td>2</td>
+<td>the second <code>lp</code> filters another signal than the first</td>
+</tr>
+<tr>
+<td><code>_ &lt;: (lp : lp), lp</code></td>
+<td>?</td>
+<td>exercise 1</td>
+</tr>
+</tbody>
+</table>
+<p>The generated code shows it (<a href="../examples/17/shared.dsp"><code>shared.dsp</code></a>,
+<a href="../examples/17/chained.dsp"><code>chained.dsp</code></a>). In Cmajor the number of
+filters is the number of <code>node</code> declarations, in Onda the number of
+constructions in <code>init</code>: an instance is something the programmer creates,
+names and keeps track of.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/shared.dsp">examples/17/shared.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/shared-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/shared-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/shared-svg/process.svg" alt="block diagram of examples/17/shared.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// How many filters? Nobody declares them: the compiler counts the signals.
+// Here both outputs are lp of the same input, one signal, so one memory
+// serves both.
+lowpass1(a) = *(1 - a) : + ~ *(a);
+lp = lowpass1(0.5);
+
+process = _ <: lp, lp;
+
+// One recursion in the generated code, read by the two outputs.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/chained.dsp">examples/17/chained.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/chained-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/chained-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/chained-svg/process.svg" alt="block diagram of examples/17/chained.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// The same name twice, in series this time: the second lp filters another
+// signal than the first, so there are two signals and two memories.
+lowpass1(a) = *(1 - a) : + ~ *(a);
+lp = lowpass1(0.5);
+
+process = lp : lp;
+
+// Two recursions in the generated code.
+--></faust-editor>
+</div>
+
+<h2 id="referential-transparency">Referential transparency<a class="headerlink" href="#referential-transparency" title="Permanent link">&para;</a></h2>
+<p>The property that <code>same_signal.dsp</code> has and <code>stepped_twice.cmajor</code> lacks
+has a name: <strong>referential transparency</strong>. Christopher Strachey brought the
+term into programming in his lecture notes of 1967, <em>Fundamental Concepts
+in Programming Languages</em>, taking it from the philosopher Quine (<em>Word and
+Object</em>, 1960). To find the value of an expression that contains a
+sub-expression, he writes, "the only thing we need to know about the
+sub-expression is its value": not the way it is written, nor the order in
+which its parts are evaluated. He draws two consequences, which are the two
+sides of this chapter. A name stands for the same thing each time it
+occurs, and local definitions and λ-expressions, Faust's <code>with</code> and
+<code>\(x).(...)</code>, can be used only because of that. And assignment destroys
+the property: once variables vary, he remarks, one can no longer be sure
+that <code>x = x</code> is true. <code>stepped_twice.cmajor</code> is that remark turned into a
+program.</p>
+<p>What can "its value" be for a signal, which changes at every sample? In a
+language of steps, the value of <code>lp.out</code> is one number, that of the current
+sample, and it depends on what was executed before: on how many times <code>lp</code>
+has been advanced. In Faust the value of an expression is a block: a whole
+signal, from the first sample on, when the expression has no input, and a
+function from signals to signals otherwise. Time is inside the value, not
+around its evaluation. This is how a language whose programs have memory
+can be referentially transparent. Lustre, a synchronous dataflow language
+designed for control systems, made the same choice, its variables denoting
+sequences, and calls the result its <em>substitution principle</em> (Halbwachs,
+Caspi, Raymond and Pilaud, 1991): in a definition <code>X = E</code>, X may replace E
+anywhere in the program and conversely, so that the definitions can come in
+any order, and any sub-expression can be given a name, without changing the
+program. The definitions of a Faust program obey it as well.</p>
+<p>Søndergaard and Sestoft (1990) noticed that three properties go under this
+one name, and that a language may have one without the others as soon as an
+expression can have several values (think of a call that draws a random
+number):</p>
+<table>
+<thead>
+<tr>
+<th>property</th>
+<th>what it says</th>
+<th>where in this chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>definiteness</td>
+<td>a name stands for one value at each of its occurrences: <code>x - x</code> is 0</td>
+<td>the previous section</td>
+</tr>
+<tr>
+<td>unfoldability</td>
+<td>a call can be replaced by the body of the function, with the arguments in place of the parameters</td>
+<td>the next section</td>
+</tr>
+<tr>
+<td>referential transparency proper</td>
+<td>a sub-expression can be replaced by another one that has the same value</td>
+<td>"Laws"</td>
+</tr>
+</tbody>
+</table>
+<p>Faust has the three. None of its expressions has several values: its
+noise itself is a signal, fixed once and for all.</p>
+<h2 id="functions-that-remember">Functions that remember<a class="headerlink" href="#functions-that-remember" title="Permanent link">&para;</a></h2>
+<p>Since using a filter changes it, a filter cannot be a function in a
+language of steps, and both languages say so. Cmajor's guide requires the
+functions used in a graph to be pure, and gives the FIR filter as what such
+a function cannot be, since it would depend on earlier inputs. Onda's guide
+states that top-level functions do not capture run-time state, and presents
+<code>proc</code> as its reusable stateful unit. Each language therefore has two kinds
+of reusable pieces, and two ways to combine them:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>has memory of its own</th>
+<th>used by</th>
+<th>combined by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a function</td>
+<td>no</td>
+<td>calling it</td>
+<td>expressions</td>
+</tr>
+<tr>
+<td>a processor (<code>processor</code>, <code>proc</code>)</td>
+<td>yes</td>
+<td>declaring an instance of it</td>
+<td>wiring instances in a graph, or stepping them in a body</td>
+</tr>
+</tbody>
+</table>
+<p>Faust has one kind. The FIR filter is a function
+(<a href="../examples/17/fir_function.dsp"><code>fir_function.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/fir_function.dsp">examples/17/fir_function.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/fir_function-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/fir_function-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/fir_function-svg/process.svg" alt="block diagram of examples/17/fir_function.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// A function that remembers. fir3 is the mean of its argument and of its
+// two previous values: it has memory, and it is a function all the same,
+// called in an expression (smooth) or composed with itself (fir3 : fir3).
+fir3(x) = (x + x' + x'') / 3;
+
+smooth(x) = fir3(fir3(x));
+
+process = _ <: smooth, (fir3 : fir3);
+
+// Both writings are the same signal: 1/9, 2/9, 3/9, 2/9, 1/9 on an impulse.
+--></faust-editor>
+</div>
+
+<p><code>fir3</code> has memory, and it is called inside an expression as <code>sin</code> or <code>max</code>
+would be. Both outputs are the same signal, 1/9, 2/9, 3/9, 2/9, 1/9 on an
+impulse. Chapter 3 gave the reason: for a signal <code>x</code>, <code>f(x)</code> and <code>x : f</code>
+are the same block. Applying a function <em>is</em> connecting a circuit. Any part of a program, with
+or without memory, can therefore be given a name and parameters, and be
+used as many times as needed, with no instance to create and no decision
+about who owns its state.</p>
+<p>This is the unfoldability of the table above: a call can be replaced by the
+body of the function, and a name by its definition, without changing the
+program. The compiler's first step does it to the whole text (chapter 9).
+Done by hand on <code>chained.dsp</code>, it gives
+(<a href="../examples/17/unfolded.dsp"><code>unfolded.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/unfolded.dsp">examples/17/unfolded.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/unfolded-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/unfolded-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/unfolded-svg/process.svg" alt="block diagram of examples/17/unfolded.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// A name is an abbreviation. This is chained.dsp with lp and lowpass1
+// replaced by their definitions, as the compiler does before anything else:
+// the same program.
+process = (*(1 - 0.5) : + ~ *(0.5)) : (*(1 - 0.5) : + ~ *(0.5));
+
+// The same samples as chained.dsp, bit for bit, and the same two lines in
+// the generated code.
+--></faust-editor>
+</div>
+
+<p>The samples are the same, bit for bit, and so are the lines of generated
+code. A name in Faust is an abbreviation: it creates no object, and it can
+always be removed.</p>
+<h2 id="a-list-of-wires-or-an-expression">A list of wires or an expression<a class="headerlink" href="#a-list-of-wires-or-an-expression" title="Permanent link">&para;</a></h2>
+<p>To put processors together, Cmajor and Onda have a second, declarative
+notation: the graph. In Cmajor
+(<a href="../examples/17/cmajor/twice.cmajor"><code>twice.cmajor</code></a>):</p>
+<pre><code class="language-cpp">graph Twice (processor P)
+{
+    input stream float in;
+    output stream float out;
+
+    node first = P, second = P;
+
+    connection in -&gt; first -&gt; second -&gt; out;
+}
+</code></pre>
+<p>and two filters in series in Onda, where the instances are made in <code>init</code>:</p>
+<pre><code class="language-text">init:
+  first = OnePole()
+  second = OnePole()
+
+graph:
+  in1 &gt;&gt; first.in1
+  first.out1 &gt;&gt; second.in1
+  second.out1 &gt;&gt; out1
+</code></pre>
+<p>A graph is a list: instances with names, then wires between their named
+ports. It steps every node once, in the right order, and asks for a delay
+in a loop between nodes, so the hazard of the previous section is gone. The
+Faust text is <code>lp : lp</code>: no instance, no port name, and above all an
+<strong>expression</strong>, whose value is a block like its two halves and can go
+wherever a block can.</p>
+<p>Cmajor's <code>Twice</code> goes further than a fixed list: its parameter <code>P</code> is a
+processor, in the manner of a C++ template. <code>Twice (Twice (OnePole (0.5f)))</code>
+is accepted and gives 0.0625, 0.125, 0.15625, 0.15625..., the samples of
+the Faust version (<a href="../examples/17/twice.dsp"><code>twice.dsp</code></a>):</p>
+<pre><code class="language-faust">twice(f) = f : f;
+
+chain(1, f) = f;
+chain(n, f) = f : chain(n - 1, f);
+
+process = _ &lt;: twice(twice(lowpass1(0.5))), chain(4, lowpass1(0.5)), seq(i, 4, lowpass1(0.5));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/twice.dsp">examples/17/twice.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/twice-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/twice-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/twice-svg/process.svg" alt="block diagram of examples/17/twice.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// Circuits as arguments, and three ways to put four filters in series:
+// twice applied to its own result, a recursion on an integer (chapter 11),
+// an iteration.
+lowpass1(a) = *(1 - a) : + ~ *(a);
+
+twice(f) = f : f;
+
+chain(1, f) = f;
+chain(n, f) = f : chain(n - 1, f);
+
+process = _ <: twice(twice(lowpass1(0.5))), chain(4, lowpass1(0.5)), seq(i, 4, lowpass1(0.5));
+
+// The samples of cmajor/twice.cmajor on an impulse, three times.
+// The three outputs are one signal: four memories, not twelve.
+--></faust-editor>
+</div>
+
+<p>This is higher-order composition, and it is worth knowing that Cmajor has
+it. The next steps show where it stops (answers of <code>cmaj</code> 1.0.3209):</p>
+<table>
+<thead>
+<tr>
+<th>to write</th>
+<th>Faust</th>
+<th>Cmajor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n stages by recursion</td>
+<td><code>chain(n, f)</code> above</td>
+<td>a graph <code>Chain (processor P, int n)</code> that holds a node <code>Chain (P, n - 1)</code>: <code>Exceeded the maximum number of specialised namespace instances (100) - possible namespace recursion</code></td>
+</tr>
+<tr>
+<td>n stages by iteration</td>
+<td><code>seq(i, n, f(i))</code></td>
+<td>a <code>for</code> among the connections: <code>Expected a processor name or endpoint</code>; a node array <code>P[n]</code> exists, and its n − 1 wires are written one by one</td>
+</tr>
+<tr>
+<td>a function as argument</td>
+<td><code>matrix(n, m, c)</code>, below</td>
+<td><code>twice (half, x)</code>, where <code>half</code> is a function: <code>Cannot find symbol 'half'</code></td>
+</tr>
+<tr>
+<td>a circuit written in place</td>
+<td><code>twice(*(0.5) : mem)</code></td>
+<td>a processor is always a declaration with a name</td>
+</tr>
+</tbody>
+</table>
+<p>Onda's guide lets a function receive a processor, but what it receives is
+an instance that already exists, to be stepped; functions may not be
+recursive, and processors are constructed in <code>init</code>. None of this is an
+oversight. In both languages a processor is declared in one notation and
+used in another, and the notation in which one computes, with its loops,
+tests and functions, works on numbers, not on processors. In Faust the
+block is the value the language computes with. <code>twice(f)</code> gets two filters
+out of one argument because <code>f</code> is the description of a circuit, not a
+circuit that already exists somewhere; <code>twice</code>, <code>chain</code> and <code>seq</code> are
+ordinary definitions, and a program can add as many as it needs.</p>
+<h2 id="the-vocabulary-of-functional-languages">The vocabulary of functional languages<a class="headerlink" href="#the-vocabulary-of-functional-languages" title="Permanent link">&para;</a></h2>
+<p>What chapters 3, 11, 12 and 13 introduced one piece at a time is the usual
+equipment of a functional language, applied to circuits:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Haskell</th>
+<th>OCaml</th>
+<th>Faust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>composition</td>
+<td><code>g . f</code></td>
+<td><code>fun x -&gt; g (f x)</code></td>
+<td><code>f : g</code></td>
+</tr>
+<tr>
+<td>a function without a name</td>
+<td><code>\x -&gt; x * x</code></td>
+<td><code>fun x -&gt; x *. x</code></td>
+<td><code>\(x).(x * x)</code></td>
+</tr>
+<tr>
+<td>partial application</td>
+<td><code>(* 2)</code></td>
+<td><code>( *. ) 2.</code></td>
+<td><code>*(2)</code></td>
+</tr>
+<tr>
+<td>a function as argument</td>
+<td><code>twice f = f . f</code></td>
+<td><code>let twice f x = f (f x)</code></td>
+<td><code>twice(f) = f : f;</code></td>
+</tr>
+<tr>
+<td>over a list</td>
+<td><code>map f xs</code>, <code>foldr</code></td>
+<td><code>List.map f xs</code>, <code>List.fold_left</code></td>
+<td><code>par(i, n, f(i))</code>, <code>seq</code>, <code>sum</code>, <code>prod</code></td>
+</tr>
+<tr>
+<td>definition by cases</td>
+<td>equations with patterns</td>
+<td><code>match ... with</code></td>
+<td>rules with patterns (chapter 11)</td>
+</tr>
+<tr>
+<td>local definitions</td>
+<td><code>where</code></td>
+<td><code>let ... in</code></td>
+<td><code>with { ... }</code></td>
+</tr>
+<tr>
+<td>modules</td>
+<td>modules</td>
+<td>modules and functors</td>
+<td>environments, <code>lib[N = v;]</code> (chapter 13)</td>
+</tr>
+</tbody>
+</table>
+<p>The five compositions of chapter 2 have their Haskell counterparts too, in
+the combinators of arrows: <code>&gt;&gt;&gt;</code> for <code>:</code>, <code>***</code> for <code>,</code>, <code>f &amp;&amp;&amp; g</code> for
+<code>_ &lt;: f, g</code>, and <code>loop</code>, with a delay, for <code>~</code>. What Faust adds is that the
+compiler evaluates all of it (chapter 9): no function is left when the
+program runs.</p>
+<h2 id="circuits-that-take-circuits">Circuits that take circuits<a class="headerlink" href="#circuits-that-take-circuits" title="Permanent link">&para;</a></h2>
+<p>A function that takes circuits and returns a circuit is a <strong>combinator</strong>.
+The five compositions of chapter 2 are the ones that the language provides;
+a program defines its own, and three kinds cover a great deal of audio:</p>
+<ul>
+<li>one that <strong>instantiates</strong>: the same construction on every channel, each
+  channel knowing its rank;</li>
+<li>one that <strong>changes the representation</strong>: go where the process is simple,
+  apply it, come back;</li>
+<li>ones that <strong>assemble</strong>: processes side by side, a matrix, a loop.</li>
+</ul>
+<p>Five definitions, with <code>fx</code> for the process:</p>
+<pre><code class="language-faust">// one block per channel: channel b among B gets the block mk(b, B)
+each(B, mk) = par(b, B, mk(b, B));
+
+// go to another representation with T, process there with fx, come back with Tinv
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+
+// the m blocks mk(0) ... mk(m-1) on the same P channels, their outputs averaged
+parallel(P, m, mk) = si.bus(P) &lt;: par(k, m, mk(k)) :&gt; par(h, P, /(m));
+
+// a matrix from n inputs to m outputs: output o is the sum over i of c(i, o) times input i
+matrix(n, m, c) = si.bus(n) &lt;: par(o, m, par(i, n, *(c(i, o))) :&gt; _);
+
+// fx on P channels in a loop: its outputs come back to its inputs through
+// the matrix c, then the gain g
+feedbackNetwork(P, c, g, fx) = (ro.interleave(P, 2) : par(i, P, +) : fx)
+                             ~ (matrix(P, P, c) : par(i, P, *(g)));
+</code></pre>
+<p>Each is one line, because its arguments already are what it needs:
+circuits (<code>T</code>, <code>fx</code>), a function that makes circuits (<code>mk</code>, called with a
+rank), a function that makes numbers (<code>c</code>, the coefficient of a matrix).
+Line by line:</p>
+<ul>
+<li><strong><code>each(B, mk)</code></strong> is the iteration <code>par</code> of chapter 11, with a body that
+  depends on the rank. <code>b</code> and <code>B</code> are numbers when the compiler expands
+  it, so <code>mk</code> can compute a frequency or a delay from them, choose one
+  block among several, or ignore them. With blocks of one input and one
+  output, the result has B inputs and B outputs.</li>
+<li><strong><code>inDomain(T, fx, Tinv)</code></strong> is three blocks in sequence: <code>fx</code> must have
+  as many inputs as <code>T</code> has outputs, and as many outputs as <code>Tinv</code> has
+  inputs. The result has the inputs of <code>T</code> and the outputs of <code>Tinv</code>.
+  Nothing in the definition says that <code>Tinv</code> undoes <code>T</code>: that is a law, to
+  be checked like the others (see "Laws").</li>
+<li><strong><code>parallel(P, m, mk)</code></strong> has P inputs and P outputs, like each of its m
+  blocks. <code>si.bus(P)</code> is P wires, which give it its inputs. <code>&lt;:</code> copies
+  them to the m blocks, each one receiving the P channels in their order.
+  <code>:&gt;</code> adds the outputs that have the same rank in every block, and <code>/(m)</code>
+  turns each sum into an average (exercise 2).</li>
+<li><strong><code>matrix(n, m, c)</code></strong> has n inputs and m outputs. For one output <code>o</code>,
+  the row <code>par(i, n, *(c(i, o))) :&gt; _</code> multiplies input <code>i</code> by <code>c(i, o)</code>
+  and adds the n products. <code>par(o, m, ...)</code> puts the m rows side by side,
+  and <code>&lt;:</code> gives the n inputs to each of them. <code>c</code> is called with numbers,
+  n × m times, while the program is compiled.</li>
+<li><strong><code>feedbackNetwork(P, c, g, fx)</code></strong> has P inputs and P outputs. In
+  <code>A ~ B</code> the outputs of <code>A</code> go through <code>B</code> and come back to the first
+  inputs of <code>A</code>, one sample later (chapter 4), and the other inputs of <code>A</code>
+  remain those of the whole. <code>B</code> is the matrix followed by the gain. <code>A</code>
+  receives the P signals that come back, then the P inputs of the network:
+  <code>ro.interleave(P, 2)</code> puts them in pairs, the signal that comes back to
+  line i next to input i, <code>par(i, P, +)</code> adds each pair, and <code>fx</code>
+  processes the P sums.</li>
+</ul>
+<p>One discipline turns them into an algebra: what a combinator returns has
+the shape of what it replaces, a stereo block for a stereo block, a block
+on P channels for a block on P channels. Its result can then be the
+argument of the next one, and combinators nest without limit.</p>
+<h2 id="laws">Laws<a class="headerlink" href="#laws" title="Permanent link">&para;</a></h2>
+<p>A circuit has no other effect than its outputs. One can therefore say that
+two circuits are <strong>equal</strong>, and such an equality is a licence to rewrite:
+wherever one side appears, in any program, the other may replace it. This
+is referential transparency in the strict sense, the substitution of equals
+for equals, with circuits as the values. The laws of a combinator say what
+it guarantees before any use is made of it, and <code>law</code> is the combinator
+that checks one
+(<a href="../examples/17/law.dsp"><code>law.dsp</code></a>):</p>
+<pre><code class="language-faust">law(a, b) = no.multinoise(inputs(a)) &lt;: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/law.dsp">examples/17/law.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/law-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/law-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/law-svg/process.svg" alt="block diagram of examples/17/law.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// A law says that two circuits are equal. law(a, b) is the circuit that
+// checks it: it feeds the same noises to a and to b and outputs the
+// differences, one per output, which must stay at zero or at the rounding
+// error. Here, the laws of the smallest change of domain: a signal g times
+// as loud, and back.
+import("stdfaust.lib");
+
+law(a, b) = no.multinoise(inputs(a)) <: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+
+// fx applied to the signal g times as loud
+atLevel(g, fx) = inDomain(*(g), fx, /(g));
+
+lp = fi.lowpass(2, 1000);
+
+process = law(atLevel(4, _), _),        // there and back is the identity
+          law(atLevel(4, lp), lp);      // a filter does the same at any level
+
+// Two differences; a sample above 1e-12 would fail the check.
+--></faust-editor>
+</div>
+
+<p>It feeds the same noises to <code>a</code> and to <code>b</code> and outputs their differences,
+which faustprobe requires to stay under 1e-12 (<code>--fail-above</code>).</p>
+<p>The smallest change of domain shows what to ask of the others. It has one
+component, and its transform is a gain: the signal <code>g</code> times as loud, and
+back.</p>
+<pre><code class="language-faust">atLevel(g, fx) = inDomain(*(g), fx, /(g));
+</code></pre>
+<p>With <code>lp = fi.lowpass(2, 1000)</code>:</p>
+<table>
+<thead>
+<tr>
+<th>law</th>
+<th>largest difference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>atLevel(4, _)</code> is <code>_</code>: there and back is the identity</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>atLevel(4, lp)</code> is <code>lp</code>: a filter does the same at any level</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>A check that cannot fail proves nothing, so each law comes with an equality
+that does not hold, on which the same check must fail. Here it is a
+saturation: <code>atLevel(4, ma.tanh)</code> is not <code>ma.tanh</code>
+(<a href="../examples/17/not_a_law.dsp"><code>not_a_law.dsp</code></a>, difference 0.51). This
+failure is the drive of a distortion: going to another level is worth it
+because the process is not linear.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/not_a_law.dsp">examples/17/not_a_law.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/not_a_law-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/not_a_law-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/not_a_law-svg/process.svg" alt="block diagram of examples/17/not_a_law.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// The control of law.dsp: a saturation does not do the same at any level.
+// The same check must fail here, or it proves nothing in law.dsp. This
+// failure is what the drive of a distortion is made of.
+import("stdfaust.lib");
+
+law(a, b) = no.multinoise(inputs(a)) <: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+atLevel(g, fx) = inDomain(*(g), fx, /(g));
+
+process = law(atLevel(4, ma.tanh), ma.tanh);
+
+// The difference is as large as the signals.
+--></faust-editor>
+</div>
+
+<p>The same three questions are asked of every change of domain, and each of
+the use cases that follow answers them with its own table:</p>
+<ul>
+<li><strong>Is there and back the identity</strong>, when nothing is done in the other
+  representation? It says that <code>Tinv</code> undoes <code>T</code>.</li>
+<li><strong>Is a linear process, the same on every component, that process</strong>
+  applied to the signals themselves? Then the detour buys nothing.</li>
+<li><strong>What is not a law?</strong> It is what the detour is for: a process that is
+  not linear, or one that differs from one component to the next.</li>
+</ul>
+<p>In a language of steps a rewriting must also preserve how many times each
+instance is stepped, and in which order: <code>f(x) + f(x)</code> and <code>2 * f(x)</code> are
+not the same program when <code>f</code> moves.</p>
+<h2 id="three-use-cases">Three use cases<a class="headerlink" href="#three-use-cases" title="Permanent link">&para;</a></h2>
+<p>Two changes of domain and an assembly, each one with its laws and with what
+is not one.</p>
+<h3 id="transform-process-transform-back">Transform, process, transform back<a class="headerlink" href="#transform-process-transform-back" title="Permanent link">&para;</a></h3>
+<p><code>inDomain</code> is the commonest shape of an effect: go to a representation
+where the process is simple, apply it, come back. With the mid/side
+transform (<a href="../examples/17/in_domain.dsp"><code>in_domain.dsp</code></a>):</p>
+<pre><code class="language-faust">toMS = _, _ &lt;: +, - : /(2), /(2);       // left, right -&gt; mid, side
+fromMS = _, _ &lt;: +, -;                  // mid, side -&gt; left, right
+inMS(fx) = inDomain(toMS, fx, fromMS);
+
+process = inMS((_, *(width)));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/in_domain.dsp">examples/17/in_domain.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/in_domain-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/in_domain-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/in_domain-svg/process.svg" alt="block diagram of examples/17/in_domain.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// A combinator: transform, process, transform back. inDomain takes three
+// circuits and returns one. With the mid/side transform it gives a stereo
+// width control: a gain on the side signal alone.
+import("stdfaust.lib");
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+
+toMS = _, _ <: +, - : /(2), /(2);       // left, right -> mid, side
+fromMS = _, _ <: +, -;                  // mid, side -> left, right
+inMS(fx) = inDomain(toMS, fx, fromMS);
+
+width = hslider("width", 1, 0, 2, 0.01);
+
+process = inMS((_, *(width)));
+
+// An impulse on the left input. Width 1 leaves it alone, width 0 puts it
+// in the middle, width 2 sends its opposite to the right.
+--></faust-editor>
+</div>
+
+<p>a gain on the side signal alone is a stereo width control. <code>inMS</code> is a
+combinator made from another one, and <code>inMS(fx)</code> is a stereo block like any
+other: it can be the <code>fx</code> of the next <code>inDomain</code>.</p>
+<p>Its laws (<a href="../examples/17/ms_laws.dsp"><code>ms_laws.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/ms_laws.dsp">examples/17/ms_laws.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/ms_laws-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/ms_laws-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/ms_laws-svg/process.svg" alt="block diagram of examples/17/ms_laws.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// The laws of the mid/side change of domain, checked with law (law.dsp).
+import("stdfaust.lib");
+
+law(a, b) = no.multinoise(inputs(a)) <: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+toMS = _, _ <: +, - : /(2), /(2);
+fromMS = _, _ <: +, -;
+inMS(fx) = inDomain(toMS, fx, fromMS);
+
+lp = fi.lowpass(2, 1000);
+
+process = law(inMS(si.bus(2)), si.bus(2)),      // there and back is the identity
+          law(inMS((lp, lp)), (lp, lp));        // the same filter on both signals: the domain does not matter
+
+// Four differences; a sample above 1e-12 would fail the check.
+--></faust-editor>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>law</th>
+<th>largest difference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>inMS(si.bus(2))</code> is <code>si.bus(2)</code>: there and back is the identity</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>inMS((lp, lp))</code> is <code>(lp, lp)</code>: the same filter on both signals</td>
+<td>2.2e-16</td>
+</tr>
+</tbody>
+</table>
+<p>And what is not one: a filter on the mid signal alone is not a filter on
+the left signal alone
+(<a href="../examples/17/not_ms_laws.dsp"><code>not_ms_laws.dsp</code></a>, difference 1.16). A
+process that differs from one component to the other is what mid/side is
+for, and the width control is one: a gain on the side alone.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/not_ms_laws.dsp">examples/17/not_ms_laws.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/not_ms_laws-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/not_ms_laws-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/not_ms_laws-svg/process.svg" alt="block diagram of examples/17/not_ms_laws.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// The control of ms_laws.dsp: a filter on the mid signal alone is not a
+// filter on the left signal alone. The same check must fail here, or it
+// proves nothing in ms_laws.dsp.
+import("stdfaust.lib");
+
+law(a, b) = no.multinoise(inputs(a)) <: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+toMS = _, _ <: +, - : /(2), /(2);
+fromMS = _, _ <: +, -;
+inMS(fx) = inDomain(toMS, fx, fromMS);
+
+lp = fi.lowpass(2, 1000);
+
+process = law(inMS((lp, _)), (lp, _));
+
+// The difference is as large as the signals.
+--></faust-editor>
+</div>
+
+<h3 id="any-effect-multiband">Any effect, multiband<a class="headerlink" href="#any-effect-multiband" title="Permanent link">&para;</a></h3>
+<p>The bands of a signal are another representation of it, and the change of
+domain that audio uses most: a compressor, a saturation or a delay applied
+band by band is another effect than the same one applied to the whole
+signal. The transform is a crossover, written by pattern matching on the
+list of its frequencies (chapter 11)
+(<a href="../examples/17/multiband.dsp"><code>multiband.dsp</code></a>):</p>
+<pre><code class="language-faust">// several frequencies: lo is what is below the first one, and what is left,
+// the input minus lo, is split at the others
+split((f, fs)) = _ &lt;: lo, (_ - lo) : _, split(fs) with { lo = fi.lowpass(1, f); };
+// one frequency: what is below it, and what is left
+split(f) = _ &lt;: lo, (_ - lo) with { lo = fi.lowpass(1, f); };
+
+// the way back: the bands added together
+unsplit(freqs) = si.bus(ba.count(freqs) + 1) :&gt; _;
+
+// fx applied to the bands of a signal
+multiband(freqs, fx) = inDomain(split(freqs), fx, unsplit(freqs));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/multiband.dsp">examples/17/multiband.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/multiband-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/multiband-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/multiband-svg/process.svg" alt="block diagram of examples/17/multiband.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// Any effect, multiband. The bands of a signal are another representation
+// of it: split goes there, unsplit comes back, and multiband is the
+// combinator that applies a block to the bands. each puts one block on
+// every band, made by a function of its rank. Here, a compressor per band,
+// quicker in the high bands.
+import("stdfaust.lib");
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+
+// block b among B is mk(b, B)
+each(B, mk) = par(b, B, mk(b, B));
+
+// The bands of a list of frequencies, from the lowest to the highest. Each
+// step gives lo and input - lo, which add back to what came in, so that the
+// bands add back to the input.
+// several frequencies: lo is what is below the first one, and what is left,
+// the input minus lo, is split at the others
+split((f, fs)) = _ <: lo, (_ - lo) : _, split(fs) with { lo = fi.lowpass(1, f); };
+// one frequency: what is below it, and what is left
+split(f) = _ <: lo, (_ - lo) with { lo = fi.lowpass(1, f); };
+
+// the way back: the bands added together, one band more than there are frequencies
+unsplit(freqs) = si.bus(ba.count(freqs) + 1) :> _;
+
+// fx applied to the bands of a signal
+multiband(freqs, fx) = inDomain(split(freqs), fx, unsplit(freqs));
+
+freqs = (250, 1000, 4000);          // three frequencies, four bands
+
+// the compressor of band b among B: threshold -20 dB, attack and release
+// shorter in the high bands
+comp(ratio) = \(b, B).(co.compressor_mono(ratio, -20, 0.02 / (b + 1), 0.2 / (b + 1)));
+
+ratio = hslider("ratio", 4, 1, 20, 0.1);
+
+process = multiband(freqs, each(4, comp(ratio)));
+
+// One input, one output: a mono effect like any other.
+// A sine of 100 Hz at full scale, one second, the last half measured. With a
+// ratio of 1 the compressors do nothing and the sine comes back; with a
+// ratio of 4 it comes out 12.7 dB lower.
+// split has one input and four outputs, unsplit four inputs and one output.
+// The bands come out from the lowest to the highest: a sine of 100 Hz is
+// mostly in the first one, a sine of 10 kHz in the last one.
+// What a low-pass filter of order 1 leaves is the high-pass filter of order
+// 1 at the same frequency. At order 2 it is not, and the same check fails.
+--></faust-editor>
+</div>
+
+<p>Line by line:</p>
+<ul>
+<li><strong><code>split</code></strong> has two rules (chapter 11). The first one takes a list of at
+  least two frequencies, <code>f</code> the first and <code>fs</code> the others; the second one
+  a single frequency. The compiler tries them in this order, and the order
+  matters, since the second pattern would accept a list as well.</li>
+<li><strong><code>_ &lt;: lo, (_ - lo)</code></strong> makes two signals out of one. <code>lo</code> is the input
+  through a low-pass filter, what is below <code>f</code>; <code>_ - lo</code> is the input
+  minus that, what is left. Together they have three inputs, which <code>&lt;:</code>
+  feeds with the same signal. <code>lo</code> is written twice and filters the same
+  signal both times, so it is one signal (see "One name, one signal"): the
+  generated code holds one filter per frequency.</li>
+<li><strong><code>: _, split(fs)</code></strong>, in the first rule, sends the low band to a wire,
+  where it is finished, and what is left to <code>split(fs)</code>, which splits it
+  at the other frequencies. <code>&lt;:</code> is the weakest operator (chapter 2), so
+  the rule reads <code>_ &lt;: ((lo, (_ - lo)) : (_, split(fs)))</code>.</li>
+<li><strong>The filter is of order 1</strong> because what such a filter leaves is the
+  high-pass filter of the same order: <code>_ - fi.lowpass(1, f)</code> is
+  <code>fi.highpass(1, f)</code>, to within 2.2e-16. At order 2 it is not, and the
+  difference is as large as the signal.</li>
+<li><strong><code>unsplit(freqs)</code></strong> adds the bands. A list of n frequencies makes n + 1
+  bands, hence <code>ba.count(freqs) + 1</code>; <code>si.bus</code> is that many wires, and
+  <code>:&gt; _</code> merges them into one, which adds them.</li>
+<li><strong><code>multiband(freqs, fx)</code></strong> is <code>inDomain</code> with <code>split</code> to go and <code>unsplit</code>
+  to come back. It has one input and one output, and <code>fx</code> between them
+  must have as many inputs and as many outputs as there are bands.</li>
+</ul>
+<p>For the three frequencies of the example, the recursion unfolds into three
+steps, each one giving a band and what is left:</p>
+<table>
+<thead>
+<tr>
+<th>step</th>
+<th>band</th>
+<th>what is left</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>250 Hz</td>
+<td>band 0 is <code>lo</code> of the input</td>
+<td>rest 1 is the input minus band 0</td>
+</tr>
+<tr>
+<td>1000 Hz</td>
+<td>band 1 is <code>lo</code> of rest 1</td>
+<td>rest 2 is rest 1 minus band 1</td>
+</tr>
+<tr>
+<td>4000 Hz</td>
+<td>band 2 is <code>lo</code> of rest 2</td>
+<td>band 3 is rest 2 minus band 2</td>
+</tr>
+</tbody>
+</table>
+<p>At each step the band and what is left add back to what came in, so the
+four bands add back to the input: this is why <code>unsplit</code> is the way back.
+The bands come out from the lowest to the highest: a sine of 100 Hz is
+mostly in band 0, a sine of 10 kHz in band 3.</p>
+<p><code>each</code> builds the block <code>fx</code> from a function of the rank:</p>
+<pre><code class="language-faust">freqs = (250, 1000, 4000);          // three frequencies, four bands
+
+comp(ratio) = \(b, B).(co.compressor_mono(ratio, -20, 0.02 / (b + 1), 0.2 / (b + 1)));
+
+process = multiband(freqs, each(4, comp(ratio)));
+</code></pre>
+<p><code>comp(ratio)</code> is a function that returns a function (chapter 12): for a
+ratio, the rule that makes the compressor of band b among B, whose attack
+and release shorten as the band rises. <code>b</code> and <code>B</code> are known when the
+program is compiled, so each band receives its own compressor, with its
+own constants, and no table of parameters is read while the program runs.</p>
+<p>What the bands are for can be measured
+(<a href="../examples/17/bass_and_treble.dsp"><code>bass_and_treble.dsp</code></a>). A bass at
+−6 dB and a treble at −40 dB go through one compressor, then through a
+compressor per band. One compressor turns everything down when the bass is
+loud, and the treble comes out 9.6 dB lower. With a compressor per band the
+bass is turned down in its own band, and the treble comes out 0.01 dB
+lower. The single compressor of that program is written <code>comp(4)(0, 1)</code>,
+band 0 among 1: the same rule, asked for another number of bands.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/bass_and_treble.dsp">examples/17/bass_and_treble.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/bass_and_treble-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/bass_and_treble-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/bass_and_treble-svg/process.svg" alt="block diagram of examples/17/bass_and_treble.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// What the bands are for. A loud bass and a quiet treble go through one
+// compressor, then through a compressor per band, and the treble is measured
+// after each. One compressor turns everything down when the bass is loud;
+// with one compressor per band, the bass is turned down in its band and the
+// treble is left alone in its own.
+import("stdfaust.lib");
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+each(B, mk) = par(b, B, mk(b, B));
+
+split((f, fs)) = _ <: lo, (_ - lo) : _, split(fs) with { lo = fi.lowpass(1, f); };
+split(f) = _ <: lo, (_ - lo) with { lo = fi.lowpass(1, f); };
+
+unsplit(freqs) = si.bus(ba.count(freqs) + 1) :> _;
+
+multiband(freqs, fx) = inDomain(split(freqs), fx, unsplit(freqs));
+
+freqs = (250, 1000, 4000);
+comp(ratio) = \(b, B).(co.compressor_mono(ratio, -20, 0.02 / (b + 1), 0.2 / (b + 1)));
+
+bass = os.osc(60) * 0.5;            // -6 dB, above the threshold
+treble = os.osc(6000) * 0.01;       // -40 dB, below it
+
+trebleOnly = fi.highpass(4, 3000);  // what is left of the treble
+
+process = bass + treble <: (comp(4)(0, 1) : trebleOnly),                        // one compressor: band 0 among 1
+                           (multiband(freqs, each(4, comp(4))) : trebleOnly),   // one compressor per band
+                           trebleOnly;                                          // the treble as it went in
+
+// Two seconds at 48 kHz, the second one measured. The treble went in at
+// 0.00706 RMS. One compressor gives it back at 0.00233, 9.6 dB lower; a
+// compressor per band at 0.00705, 0.01 dB lower.
+--></faust-editor>
+</div>
+
+<p><code>multiband(freqs, fx)</code> is a mono block like any other, whatever <code>fx</code> does
+to the bands. It can therefore take the place of the mid signal in the
+block that <code>inMS</code> takes
+(<a href="../examples/17/mid_bands.dsp"><code>mid_bands.dsp</code></a>):</p>
+<pre><code class="language-faust">process = inMS((multiband(freqs, each(4, comp(ratio))), _));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/mid_bands.dsp">examples/17/mid_bands.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/mid_bands-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/mid_bands-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/mid_bands-svg/process.svg" alt="block diagram of examples/17/mid_bands.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// Three combinators nested: in mid/side, compress the bands of the mid
+// signal and leave the side signal alone. multiband(...) is a mono block,
+// so it can be the mid part of the block that inMS takes.
+import("stdfaust.lib");
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+each(B, mk) = par(b, B, mk(b, B));
+
+toMS = _, _ <: +, - : /(2), /(2);       // left, right -> mid, side
+fromMS = _, _ <: +, -;                  // mid, side -> left, right
+inMS(fx) = inDomain(toMS, fx, fromMS);
+
+split((f, fs)) = _ <: lo, (_ - lo) : _, split(fs) with { lo = fi.lowpass(1, f); };
+split(f) = _ <: lo, (_ - lo) with { lo = fi.lowpass(1, f); };
+
+unsplit(freqs) = si.bus(ba.count(freqs) + 1) :> _;
+
+multiband(freqs, fx) = inDomain(split(freqs), fx, unsplit(freqs));
+
+freqs = (250, 1000, 4000);
+comp(ratio) = \(b, B).(co.compressor_mono(ratio, -20, 0.02 / (b + 1), 0.2 / (b + 1)));
+
+ratio = hslider("ratio", 4, 1, 20, 0.1);
+
+process = inMS((multiband(freqs, each(4, comp(ratio))), _));
+
+// A stereo block: two inputs, two outputs.
+// The same sine on both inputs is all mid: it is compressed, and stays in
+// the centre, the two outputs being the same sample.
+// An impulse on the left input alone: whatever the compressors do to the
+// mid, the difference of the outputs is the difference of the inputs.
+--></faust-editor>
+</div>
+
+<p>In mid/side, compress the bands of the mid and leave the side alone: three
+combinators are nested, and the text reads like the sentence that describes
+it. The diagram that the compiler draws follows the same tree: <code>toMS</code>,
+<code>multiband(...)</code> and <code>fromMS</code> at the top, and inside the second box the
+three filters of the crossover followed by one box, <code>each(4)(...)</code>. A
+source in the centre stays in the centre, and the difference between the
+two outputs is the difference between the two inputs, whatever the
+compressors do.</p>
+<p>The laws of the bands, with the four bands of <code>freqs</code>
+(<a href="../examples/17/band_laws.dsp"><code>band_laws.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/band_laws.dsp">examples/17/band_laws.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/band_laws-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/band_laws-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/band_laws-svg/process.svg" alt="block diagram of examples/17/band_laws.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// Four laws of the bands, each one an equality between two circuits.
+import("stdfaust.lib");
+
+law(a, b) = no.multinoise(inputs(a)) <: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+each(B, mk) = par(b, B, mk(b, B));
+
+toMS = _, _ <: +, - : /(2), /(2);
+fromMS = _, _ <: +, -;
+inMS(fx) = inDomain(toMS, fx, fromMS);
+
+split((f, fs)) = _ <: lo, (_ - lo) : _, split(fs) with { lo = fi.lowpass(1, f); };
+split(f) = _ <: lo, (_ - lo) with { lo = fi.lowpass(1, f); };
+
+unsplit(freqs) = si.bus(ba.count(freqs) + 1) :> _;
+
+multiband(freqs, fx) = inDomain(split(freqs), fx, unsplit(freqs));
+
+freqs = (250, 1000, 4000);
+comp(ratio) = \(b, B).(co.compressor_mono(ratio, -20, 0.02 / (b + 1), 0.2 / (b + 1)));
+
+lp = fi.lowpass(2, 1000);
+
+process = law(multiband(freqs, si.bus(4)), _),                          // there and back is the identity
+          law(multiband(freqs, par(b, 4, lp)), lp),                     // one filter in every band is that filter
+          law(multiband(freqs, each(4, comp(1))), _),                   // compressors of ratio 1 do nothing
+          law(inMS((multiband(freqs, si.bus(4)), _)), si.bus(2));       // two domains nested, there and back
+
+// Five differences; a sample above 1e-12 would fail the check.
+--></faust-editor>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>law</th>
+<th>largest difference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>multiband(freqs, si.bus(4))</code> is <code>_</code>: there and back is the identity</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>multiband(freqs, par(b, 4, lp))</code> is <code>lp</code>: one filter in every band</td>
+<td>2.2e-16</td>
+</tr>
+<tr>
+<td><code>multiband(freqs, each(4, comp(1)))</code> is <code>_</code>: a ratio of 1 does nothing</td>
+<td>1.1e-16</td>
+</tr>
+<tr>
+<td><code>inMS((multiband(freqs, si.bus(4)), _))</code> is <code>si.bus(2)</code>: two domains nested</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>And three equalities that do not hold
+(<a href="../examples/17/not_band_laws.dsp"><code>not_band_laws.dsp</code></a>):</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/not_band_laws.dsp">examples/17/not_band_laws.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/not_band_laws-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/not_band_laws-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/not_band_laws-svg/process.svg" alt="block diagram of examples/17/not_band_laws.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// The controls of band_laws.dsp: three equalities that do not hold. The same
+// check must fail on each of them, or it proves nothing in band_laws.dsp.
+import("stdfaust.lib");
+
+law(a, b) = no.multinoise(inputs(a)) <: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+each(B, mk) = par(b, B, mk(b, B));
+
+split((f, fs)) = _ <: lo, (_ - lo) : _, split(fs) with { lo = fi.lowpass(1, f); };
+split(f) = _ <: lo, (_ - lo) with { lo = fi.lowpass(1, f); };
+
+unsplit(freqs) = si.bus(ba.count(freqs) + 1) :> _;
+
+multiband(freqs, fx) = inDomain(split(freqs), fx, unsplit(freqs));
+
+freqs = (250, 1000, 4000);
+comp(ratio) = \(b, B).(co.compressor_mono(ratio, -20, 0.02 / (b + 1), 0.2 / (b + 1)));
+
+process = law(multiband(freqs, each(4, comp(4))), comp(4)(0, 1)),       // a compressor per band is not one compressor
+          law(multiband(freqs, each(4, \(b, B).(*(b + 1)))), _),        // a gain per band is an equalizer, not a wire
+          law((fi.filterbank(3, freqs) : unsplit(freqs)), _);           // the library's bands add back to an all-pass filter
+
+// Each difference is as large as the signals.
+--></faust-editor>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>not a law</th>
+<th>difference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a compressor per band is one compressor</td>
+<td>0.58</td>
+</tr>
+<tr>
+<td>a gain per band is a wire</td>
+<td>3.79</td>
+</tr>
+<tr>
+<td>the bands of <code>fi.filterbank(3, freqs)</code> add back to the input</td>
+<td>2.19</td>
+</tr>
+</tbody>
+</table>
+<p>The first two failures are the two reasons to go to the bands: a process
+that is not linear, like a compressor, and one that differs from one band
+to the next, like the gains of an equalizer. The third one is a condition
+on the transform. The bands of the library's filter bank add back to an
+all-pass filter: the level of every frequency is kept (0 dB to within
+2e-13 at seven frequencies from 60 Hz to 12 kHz), its phase is not, and
+with such bands a ratio of 1 would no longer be a neutral setting.</p>
+<h3 id="a-matrix-given-by-a-function">A matrix given by a function<a class="headerlink" href="#a-matrix-given-by-a-function" title="Permanent link">&para;</a></h3>
+<p><code>matrix(n, m, c)</code> does not take a table of coefficients but the rule that
+gives them: output o is the sum over i of <code>c(i, o)</code> times input i
+(<a href="../examples/17/matrix.dsp"><code>matrix.dsp</code></a>):</p>
+<pre><code class="language-faust">hadamard(P) = \(i, o).((1 - 2 * (bits(i &amp; o) % 2)) / sqrt(P))
+with {
+    bits(x) = sum(b, 16, (x &gt;&gt; b) &amp; 1);
+};
+
+rotation(P) = \(i, o).(o == (i + 1) % P);
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/matrix.dsp">examples/17/matrix.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/matrix-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/matrix-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/matrix-svg/process.svg" alt="block diagram of examples/17/matrix.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// A matrix whose coefficient is a function: output o is the sum over i of
+// c(i, o) times input i. The matrix is described by a rule, not by a table,
+// and the rule is an argument like any other.
+import("stdfaust.lib");
+
+matrix(n, m, c) = si.bus(n) <: par(o, m, par(i, n, *(c(i, o))) :> _);
+
+// Sylvester's Hadamard matrix, P a power of 2: +1 or -1 by the parity of the
+// bits that i and o share, divided by sqrt(P) so that it keeps the energy.
+hadamard(P) = \(i, o).((1 - 2 * (bits(i & o) % 2)) / sqrt(P))
+with {
+    bits(x) = sum(b, 16, (x >> b) & 1);
+};
+
+// A rotation: input i goes to output i + 1, the last one to the first.
+rotation(P) = \(i, o).(o == (i + 1) % P);
+
+law(a, b) = no.multinoise(inputs(a)) <: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+
+process = law(matrix(8, 8, hadamard(8)), (ro.hadamard(8) : par(i, 8, /(sqrt(8))))),    // the library's matrix
+          law(matrix(8, 8, hadamard(8)) : matrix(8, 8, hadamard(8)), si.bus(8)),        // applied twice: the identity
+          law(seq(k, 4, matrix(4, 4, rotation(4))), si.bus(4));                         // four quarter turns: the identity
+
+// Twenty differences; a sample above 1e-12 would fail the check.
+// The control: a rotation is not its own inverse, and the same check fails
+// on two quarter turns.
+--></faust-editor>
+</div>
+
+<p><code>hadamard(8)</code> is a function of two integers, returned by a function
+(chapter 12). Its coefficient is +1 or −1 by the parity of the bits that i
+and o share, which gives the matrix that <code>ro.hadamard</code> builds by divide and
+conquer (chapter 11). With it, the feedback delay network of chapter 16 is
+one call (<a href="../examples/17/fdn.dsp"><code>fdn.dsp</code></a>):</p>
+<pre><code class="language-faust">process = _ &lt;: si.bus(N) : feedbackNetwork(N, hadamard(N), 1, par(i, N, line(i))) :&gt; _, _;
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/fdn.dsp">examples/17/fdn.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/fdn-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/fdn-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/fdn-svg/process.svg" alt="block diagram of examples/17/fdn.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// The feedback delay network of chapter 16, from two combinators: a matrix
+// given by its coefficient function, and a loop closed through that matrix
+// around any block.
+import("stdfaust.lib");
+
+matrix(n, m, c) = si.bus(n) <: par(o, m, par(i, n, *(c(i, o))) :> _);
+
+hadamard(P) = \(i, o).((1 - 2 * (bits(i & o) % 2)) / sqrt(P))
+with {
+    bits(x) = sum(b, 16, (x >> b) & 1);
+};
+
+// fx on P channels, its outputs fed back through the matrix c with the gain g
+feedbackNetwork(P, c, g, fx) = (ro.interleave(P, 2) : par(i, P, +) : fx) ~ (matrix(P, P, c) : par(i, P, *(g)));
+
+N = 8;
+lengths = (1031, 1327, 1523, 1801, 2053, 2311, 2579, 2803);
+len(i) = ba.take(i + 1, lengths);
+
+T60 = hslider("T60 [unit:s]", 1, 0.1, 10, 0.01);
+gain(i) = pow(10, -3 * len(i) / (T60 * ma.SR));
+
+line(i) = @(len(i) - 1) : *(gain(i));           // ~ adds the last sample
+
+process = _ <: si.bus(N) : feedbackNetwork(N, hadamard(N), 1, par(i, N, line(i))) :> _, _;
+
+// The samples of chapter 16's network, to within rounding: the additions
+// are not made in the same order.
+// The comparison can fail: with another decay time on this side, it does.
+--></faust-editor>
+</div>
+
+<p>faustprobe finds its samples equal to those of chapter 16 to within 3e-17:
+the additions are not made in the same order. Replacing <code>hadamard(N)</code> by
+<code>rotation(N)</code> gives another network, where each line feeds the next one and
+an echo travels around the outputs instead of spreading over them
+(exercise 3). The structure of the network has become an argument.</p>
+<p>The laws of these matrices are checked in <code>matrix.dsp</code>:</p>
+<table>
+<thead>
+<tr>
+<th>law</th>
+<th>largest difference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>matrix(8, 8, hadamard(8))</code> is <code>ro.hadamard(8)</code> divided by √8</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>matrix(8, 8, hadamard(8))</code> twice is <code>si.bus(8)</code>: it is its own inverse</td>
+<td>2.2e-16</td>
+</tr>
+<tr>
+<td><code>matrix(4, 4, rotation(4))</code> four times is <code>si.bus(4)</code></td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>A rotation is not its own inverse: two quarter turns are not the identity,
+and the same check fails on them (difference 1.99).</p>
+<h2 id="how-new-is-this">How new is this?<a class="headerlink" href="#how-new-is-this" title="Permanent link">&para;</a></h2>
+<p>In programming, it is not. John Backus proposed in his Turing lecture of
+1977 (<em>Can Programming Be Liberated from the von Neumann Style? A
+Functional Style and Its Algebra of Programs</em>, 1978) to build programs with
+<em>combining forms</em>, and to reason on them with an algebra in which programs
+are the variables and combining forms the operations, its laws serving to
+transform one program into another. Libraries of combinators have been a
+habit of functional programmers ever since, and the arrows of "The
+vocabulary of functional languages" (Hughes, 2000) come with their laws.
+Checking a law on random inputs is QuickCheck (Claessen and Hughes, 2000):
+<code>law</code> does it with noise.</p>
+<p>Among audio languages it is rare. Most of them are languages of steps, as
+Csound, ChucK, Cmajor and Onda are; others connect boxes, as Max and Pure
+Data do, or build a graph of unit generators from a general-purpose
+language, as SuperCollider does. Faust took the other way in 2002
+(Orlarey, Fober and Letz, <em>An Algebra for Block Diagram Languages</em>), with
+an algebra of block diagrams proposed as an alternative to the graph: the
+five compositions are the language itself, with a semantics in which two
+circuits can be said to be equal, and a compiler that relies on it. Few
+audio languages have followed. Kronos is one, whose author credits Faust
+with pioneering the functional audio language; libraries embedded in
+Haskell are another case, such as Euterpea, where signal functions are
+arrows. What this chapter adds is a practice, not a feature of the
+language: writing the combinators of one's own domain, and stating their
+laws with checks that can fail.</p>
+<h2 id="what-the-compiler-does-with-it">What the compiler does with it<a class="headerlink" href="#what-the-compiler-does-with-it" title="Permanent link">&para;</a></h2>
+<p>Combinators, lambdas and coefficient functions are all evaluated by the
+compiler (chapter 9): what reaches the generated code is the circuit they
+describe, and nothing of them. The matrix of a rotation is sixteen products
+by 0 or 1 and four sums on paper; compiled, it is four wires
+(<a href="../examples/17/rotation_wiring.dsp"><code>rotation_wiring.dsp</code></a>):</p>
+<pre><code class="language-cpp">output0[i0] = static_cast&lt;FAUSTFLOAT&gt;(static_cast&lt;float&gt;(input3[i0]));
+output1[i0] = static_cast&lt;FAUSTFLOAT&gt;(static_cast&lt;float&gt;(input0[i0]));
+</code></pre>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/rotation_wiring.dsp">examples/17/rotation_wiring.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/rotation_wiring-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/rotation_wiring-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/rotation_wiring-svg/process.svg" alt="block diagram of examples/17/rotation_wiring.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// What is left of a combinator in the generated code. The matrix of a
+// rotation is sixteen products by 0 or 1 and four sums; the compiler
+// evaluates the coefficient function, removes the products and the sums,
+// and keeps four wires.
+import("stdfaust.lib");
+
+matrix(n, m, c) = si.bus(n) <: par(o, m, par(i, n, *(c(i, o))) :> _);
+rotation(P) = \(i, o).(o == (i + 1) % P);
+
+process = matrix(4, 4, rotation(4));
+
+// An impulse on input 0 comes out on output 1.
+--></faust-editor>
+</div>
+
+<p>The compiler also finds the first law of the bands by itself. Splitting a
+signal into four bands and adding them back is three filters, three
+subtractions and three sums on paper; compiled, it is one wire
+(<a href="../examples/17/there_and_back.dsp"><code>there_and_back.dsp</code></a>). It does not
+know the second one: with the same filter in every band, the three filters
+of the crossover and the four copies of the filter all remain, eleven
+recursions where the filter alone takes two
+(<a href="../examples/17/law_unknown.dsp"><code>law_unknown.dsp</code></a>). Writing the filter
+once is then left to the programmer, and the law is what allows it.</p>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/there_and_back.dsp">examples/17/there_and_back.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/there_and_back-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/there_and_back-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/there_and_back-svg/process.svg" alt="block diagram of examples/17/there_and_back.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// A law that the compiler knows. Splitting a signal into four bands takes
+// three filters and three subtractions, adding the bands back three sums.
+// The bands add back to the input, and the compiler finds it out: no filter
+// is left in the generated code, only a wire.
+import("stdfaust.lib");
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+
+split((f, fs)) = _ <: lo, (_ - lo) : _, split(fs) with { lo = fi.lowpass(1, f); };
+split(f) = _ <: lo, (_ - lo) with { lo = fi.lowpass(1, f); };
+
+unsplit(freqs) = si.bus(ba.count(freqs) + 1) :> _;
+
+multiband(freqs, fx) = inDomain(split(freqs), fx, unsplit(freqs));
+
+process = multiband((250, 1000, 4000), si.bus(4));
+
+// An impulse comes back as it went in.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/law_unknown.dsp">examples/17/law_unknown.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/law_unknown-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/law_unknown-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/law_unknown-svg/process.svg" alt="block diagram of examples/17/law_unknown.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// A law that the compiler does not know. One filter in every band is that
+// filter (band_laws.dsp), but the generated code keeps the three filters of
+// the crossover and the four copies of lp: eleven recursions, where lp alone
+// takes two. Replacing them with one lp is left to the programmer, and the
+// law is what allows it.
+import("stdfaust.lib");
+
+law(a, b) = no.multinoise(inputs(a)) <: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+
+split((f, fs)) = _ <: lo, (_ - lo) : _, split(fs) with { lo = fi.lowpass(1, f); };
+split(f) = _ <: lo, (_ - lo) with { lo = fi.lowpass(1, f); };
+
+unsplit(freqs) = si.bus(ba.count(freqs) + 1) :> _;
+
+multiband(freqs, fx) = inDomain(split(freqs), fx, unsplit(freqs));
+
+lp = fi.lowpass(2, 1000);
+
+process = multiband((250, 1000, 4000), par(b, 4, lp));
+
+// The law holds all the same: the difference with lp alone stays at the
+// rounding error.
+--></faust-editor>
+</div>
+
+<p>Referential transparency serves the compiler as much as the programmer.
+The order of evaluation is no part of the value of an expression, so a
+program without steps states no order, and every optimisation of chapter 9
+is a substitution of equals for equals: computing once what is written
+several times (the three outputs of <code>twice.dsp</code> cost four memories, not
+twelve), folding a constant, moving a computation out of the sample loop,
+splitting the loop for vectorisation and threads. Cmajor and Onda also
+specialise their generic processors when they compile; this chapter
+compares what a programmer can write and rely on, and measures no speed.</p>
+<h2 id="where-steps-are-the-better-tool">Where steps are the better tool<a class="headerlink" href="#where-steps-are-the-better-tool" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Algorithms that are sequences of decisions</strong>: a search in a table, an
+  iteration that stops when it has converged, a state machine with many
+  cases, the handling of events as they arrive. Faust has no loop at run
+  time (chapter 11), and <code>select2</code> computes both its branches (chapter 9).</li>
+<li><strong>Events, voices, objects that come and go.</strong> Cmajor has event endpoints
+  and handlers; Onda has events, tasks, and arrays of processors among
+  which a run-time index chooses the one to step. In Faust an event is a
+  signal (chapter 6), and the structure of a program is fixed when it is
+  compiled.</li>
+<li><strong>Rates.</strong> Running one node at four times the sampling rate is a
+  declaration in Cmajor (<code>node n = P * 4;</code>), and Onda has an oversampled
+  form of its <code>sample</code> section.</li>
+<li><strong>Habit.</strong> A loop that updates variables is how most programmers think of
+  a computation, and how most textbooks print an algorithm.</li>
+</ul>
+<h2 id="the-idiom-in-the-libraries">The idiom in the libraries<a class="headerlink" href="#the-idiom-in-the-libraries" title="Permanent link">&para;</a></h2>
+<p><strong>A composition of one's own.</strong> <code>pm.chain</code> in physmodels.lib assembles the
+bidirectional blocks of a waveguide model. It is defined by pattern
+matching on the composition itself:</p>
+<pre><code class="language-faust">chain(A:As) = ((ro.crossnn(1),_',_ : _,A : ro.crossnn(1),_,_ : _,chain(As) : ro.crossnn(1),_,_)) ~ _ : !,_,_,_;
+chain(A) = A;
+</code></pre>
+<p><code>pm.chain(A : B : C)</code> takes the term <code>A : B : C</code> apart and connects each
+block to its two neighbours, in both directions.</p>
+<p><strong>A circuit from a tree.</strong> <code>wd.buildtree</code> in wdmodels.lib builds a wave
+digital filter from the tree of its adaptors, written as an expression such
+as <code>vsrc : (branch : (res_leaf, probe))</code>.</p>
+<p><strong>A function and its antiderivative.</strong> <code>aa.ADAA1(EPS, f, F1, x)</code> in
+aanl.lib reduces the aliasing of any nonlinearity <code>f</code>, given as a function
+together with its antiderivative <code>F1</code>.</p>
+<p><strong>Bands.</strong> <code>fi.filterbank(O, freqs)</code> in filters.lib splits a signal at the
+frequencies of a list, with Butterworth filters of order <code>O</code>. At order 3
+its bands are steeper than those of the first-order crossover of this
+chapter, and they add back to an all-pass filter instead of the input (see
+"Any effect, multiband").</p>
+<h2 id="pitfalls">Pitfalls<a class="headerlink" href="#pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>One expression, one signal.</strong> <code>no.noise, no.noise</code> is the same noise
+  twice. Two voices that must differ have to differ in their text: another
+  seed, another parameter, <code>no.multinoise</code>.</li>
+<li><strong>A name stands for a block, and a block is not always a signal.</strong> With
+  <code>d(x) = x - x</code>, the block <code>d</code> is zero, but <code>d(_)</code> is <code>_ - _</code>, the
+  difference of two inputs: each occurrence of a block takes its own inputs
+  (<a href="../examples/17/block_or_signal.dsp"><code>block_or_signal.dsp</code></a>). In the
+  same way <code>lo, (_ - lo)</code> in <code>split</code> has three inputs, and it is the <code>&lt;:</code>
+  in front of it that gives the same signal to the three.</li>
+<li><strong>What reaches no output does not exist.</strong> A circuit has no effect other
+  than its outputs, so the compiler removes whatever none of them uses
+  (chapter 9), a bargraph included: <code>attach</code> is there to keep one alive
+  (chapter 8).</li>
+<li><strong>Arity is the only type.</strong> Nothing says that the <code>fx</code> of
+  <code>feedbackNetwork</code> must have P inputs and P outputs: a wrong block is
+  refused where it is composed, sometimes far from the mistake. <code>inputs</code>
+  and <code>outputs</code> (chapter 3) help.</li>
+<li><strong>Equal on paper, equal to within rounding.</strong> Two writings of one law may
+  add in another order. Compare with a tolerance, and make every comparison
+  fail once.</li>
+<li><strong>A law of filters is not a law of every circuit.</strong>
+  <code>multiband(freqs, par(b, 4, fx))</code> is <code>fx</code> when <code>fx</code> is linear and does
+  not change with time; a compressor is neither. Check a law with the
+  circuits it will be used with.</li>
+<li><strong>All of it happens in the compiler.</strong> A structure cannot change while
+  the program runs (chapter 9).</li>
+</ul>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/block_or_signal.dsp">examples/17/block_or_signal.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/block_or_signal-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/block_or_signal-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/block_or_signal-svg/process.svg" alt="block diagram of examples/17/block_or_signal.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// A name stands for a block, and a block is not always a signal. In d, the
+// two x are the same block. As a block on its own, d has one input, x is
+// that signal and the output is zero. Applied to the wire _, a block with
+// an input, d(_) is _ - _: each occurrence takes its own input.
+d(x) = x - x;
+
+process = d, d(_);
+
+// Three inputs: one for d, two for d(_).
+// An impulse on the second input: d is zero, d(_) is its first input minus
+// its second.
+--></faust-editor>
+</div>
+
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>_ &lt;: (lp : lp), lp</code> uses <code>lp</code> three times. How many memories does the
+   generated code hold, and what does the second output read? Solution:
+   <a href="../examples/17/solutions/ex1_how_many.dsp"><code>ex1_how_many.dsp</code></a>.</li>
+<li>Use <code>parallel(P, m, mk)</code> and <code>law</code> to check that four copies of one
+   stereo process, averaged, are that process, and that four different
+   processes are not. Solution:
+   <a href="../examples/17/solutions/ex2_parallel.dsp"><code>ex2_parallel.dsp</code></a>.</li>
+<li>A feedback network of four lines of 100 samples whose matrix is
+   <code>rotation(4)</code>. Check that an impulse on the first input comes out on
+   each output in turn. Solution:
+   <a href="../examples/17/solutions/ex3_rotation.dsp"><code>ex3_rotation.dsp</code></a>.</li>
+<li>An equalizer is <code>multiband</code> with a gain per band. Write <code>eq(gains)</code>,
+   the gains in decibels in a list read with <code>ba.take</code>. Check that four
+   equal gains are that gain, and that a constant input, which only the
+   lowest band lets through, comes out with the first gain. Solution:
+   <a href="../examples/17/solutions/ex4_equalizer.dsp"><code>ex4_equalizer.dsp</code></a>.</li>
+</ol>
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/solutions/ex1_how_many.dsp">examples/17/solutions/ex1_how_many.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/solutions/ex1_how_many-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/solutions/ex1_how_many-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/solutions/ex1_how_many-svg/process.svg" alt="block diagram of examples/17/solutions/ex1_how_many.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// Exercise 1: three uses of lp, two memories. The lp alone filters the
+// input, as the first lp of the chain does: they are the same signal.
+lowpass1(a) = *(1 - a) : + ~ *(a);
+lp = lowpass1(0.5);
+
+process = _ <: (lp : lp), lp;
+
+// Two recursions; the second output reads the first stage of the chain.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/solutions/ex2_parallel.dsp">examples/17/solutions/ex2_parallel.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/solutions/ex2_parallel-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/solutions/ex2_parallel-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/solutions/ex2_parallel-svg/process.svg" alt="block diagram of examples/17/solutions/ex2_parallel.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// Exercise 2: parallel(P, m, mk), the processes mk(0) ... mk(m-1) applied
+// to the same P channels and averaged, and its law: m times the same
+// process is that process.
+import("stdfaust.lib");
+
+parallel(P, m, mk) = si.bus(P) <: par(k, m, mk(k)) :> par(h, P, /(m));
+
+law(a, b) = no.multinoise(inputs(a)) <: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+
+lp = fi.lowpass(2, 1000);
+
+same(k) = lp, lp;                                                       // four times the same stereo filter
+different(k) = fi.lowpass(2, 500 * (k + 1)), fi.lowpass(2, 500 * (k + 1));  // four different ones
+
+process = law(parallel(2, 4, same), (lp, lp)),
+          law(parallel(2, 4, different), (lp, lp));
+
+// The law holds for the first pair of outputs, not for the second.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/solutions/ex3_rotation.dsp">examples/17/solutions/ex3_rotation.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/solutions/ex3_rotation-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/solutions/ex3_rotation-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/solutions/ex3_rotation-svg/process.svg" alt="block diagram of examples/17/solutions/ex3_rotation.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// Exercise 3: the feedback network with a rotation instead of the Hadamard
+// matrix. Each line feeds the next one, so an echo travels around the four
+// outputs instead of spreading over them.
+import("stdfaust.lib");
+
+matrix(n, m, c) = si.bus(n) <: par(o, m, par(i, n, *(c(i, o))) :> _);
+rotation(P) = \(i, o).(o == (i + 1) % P);
+feedbackNetwork(P, c, g, fx) = (ro.interleave(P, 2) : par(i, P, +) : fx) ~ (matrix(P, P, c) : par(i, P, *(g)));
+
+P = 4;
+
+process = feedbackNetwork(P, rotation(P), 1, par(i, P, @(99)));     // ~ adds the last sample
+
+// An impulse on input 0 comes out on output 0 after 99 samples, then on
+// the next output every 100 samples, and is back on output 0 at 499.
+--></faust-editor>
+</div>
+
+<div class="faust-run">
+<p class="faust-run-title"><a href="../examples/17/solutions/ex4_equalizer.dsp">examples/17/solutions/ex4_equalizer.dsp</a></p>
+<div class="faust-diagram-box" data-src="../examples/17/solutions/ex4_equalizer-svg/process.svg"><a class="faust-diagram-link" href="../examples/17/solutions/ex4_equalizer-svg/process.svg" target="_blank" title="open the diagram (its boxes can be opened)"><img class="faust-diagram" src="../examples/17/solutions/ex4_equalizer-svg/process.svg" alt="block diagram of examples/17/solutions/ex4_equalizer.dsp"></a></div>
+<faust-editor input="impulse"><!--
+// Exercise 4: an equalizer is multiband with a gain per band, the gains in
+// decibels in a list, from the lowest band to the highest.
+import("stdfaust.lib");
+
+law(a, b) = no.multinoise(inputs(a)) <: a, b : ro.interleave(outputs(a), 2) : par(i, outputs(a), -);
+
+inDomain(T, fx, Tinv) = T : fx : Tinv;
+each(B, mk) = par(b, B, mk(b, B));
+
+split((f, fs)) = _ <: lo, (_ - lo) : _, split(fs) with { lo = fi.lowpass(1, f); };
+split(f) = _ <: lo, (_ - lo) with { lo = fi.lowpass(1, f); };
+
+unsplit(freqs) = si.bus(ba.count(freqs) + 1) :> _;
+
+multiband(freqs, fx) = inDomain(split(freqs), fx, unsplit(freqs));
+
+freqs = (250, 1000, 4000);
+
+eq(gains) = multiband(freqs, each(4, \(b, B).(*(ba.db2linear(ba.take(b + 1, gains))))));
+
+process = law(eq((-6, -6, -6, -6)), *(ba.db2linear(-6))),       // four equal gains are that gain
+          (1 : eq((6, 0, 0, -6)));                              // a constant only passes through the lowest band
+
+// The law holds, and the constant 1 comes out with the first gain, +6 dB.
+--></faust-editor>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.9.0/dist/faust-web-component.js"></script>
+        <script src="../js/faust-diagram.js"></script>
+        <script src="../js/faust-keys.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

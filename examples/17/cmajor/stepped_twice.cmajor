@@ -1,0 +1,49 @@
+// A name designates an instance, and using it is a step. This processor
+// feeds the same input to the same filter twice in one frame and subtracts
+// the two results: they differ, because the filter moved between them.
+//
+// It compiles. The Faust counterpart, ../same_signal.dsp, is zero.
+// impulse: -0.25 0.1875 0.046875 0.01171875
+
+processor OnePole (float a)
+{
+    input stream float in;
+    output stream float out;
+
+    float y;
+
+    void main()
+    {
+        loop
+        {
+            y = (1.0f - a) * in + a * y;
+            out <- y;
+            advance();
+        }
+    }
+}
+
+processor Main [[ main ]]
+{
+    input stream float in;
+    output stream float out;
+
+    node lp = OnePole (0.5f);
+
+    void main()
+    {
+        loop
+        {
+            lp.in <- in;
+            lp.advance();
+            let a = lp.out;
+
+            lp.in <- in;
+            lp.advance();
+            let b = lp.out;
+
+            out <- a - b;
+            advance();
+        }
+    }
+}

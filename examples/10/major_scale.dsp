@@ -15,8 +15,8 @@ process = scale_table(i), scale_select(i);
 // The table is stored once and read with one memory access; selectn becomes
 // a tree of comparisons evaluated at every sample.
 // cpp-expect: const static int imydspSIG0Wave0\[12\] = \{-1,0,2,4,5,7,9,11,12,14,16,17\};
-// cpp-expect: itbl0mydspSIG0\[std::max<int>\(0, std::min<int>\(iTemp1, 11\)\)\]
-// cpp-expect: \(iTemp1 >= 6\) \?
+// cpp-expect: itbl0mydspSIG0\[std::max<int>\(0, std::min<int>\(iTemp\d+, 11\)\)\]
+// cpp-expect: \(iTemp\d+ >= 6\) \?
 // check: --double --in zero -n 4410 --quiet --compare scale_reference.dsp
 // expect: out0: identical
 // expect: out1: identical
