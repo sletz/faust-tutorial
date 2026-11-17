@@ -31,6 +31,7 @@ a link to its file. For the site, the script writes build/docs (erased first):
     css/, js/           the contents of web/ (the style of the programs,
                         the navigation in the diagrams)
     scripts/check.py    linked to from appendix A
+    scripts/check_cmajor.py  linked to from chapter 17
 
 Every program a chapter links to (`](../examples/NN/name.dsp)`) is shown
 once, at its first mention, as in faustdoc: its path, its block diagram
@@ -315,9 +316,10 @@ def main():
     os.makedirs(OUT)
     shutil.copytree(os.path.join(ROOT, "examples"), os.path.join(OUT, "examples"))
     shutil.copytree(os.path.join(ROOT, "web"), OUT, dirs_exist_ok=True)
-    # appendix A links to the checker
+    # appendix A links to the checker, chapter 17 to the one of its Cmajor programs
     os.makedirs(os.path.join(OUT, "scripts"))
-    shutil.copy(os.path.join(ROOT, "scripts", "check.py"), os.path.join(OUT, "scripts"))
+    for script in ("check.py", "check_cmajor.py"):
+        shutil.copy(os.path.join(ROOT, "scripts", script), os.path.join(OUT, "scripts"))
 
     svgs, failed = {}, []
     for d, _, files in sorted(os.walk(os.path.join(ROOT, "examples"))):

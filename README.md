@@ -14,7 +14,7 @@ it. It also draws on the earlier Faust tutorials (Gaudrain and Orlarey,
 2003; Bole, 2008) and on the papers of the Faust team, and says so where it
 does.
 
-Every program in the tutorial, 176 of them, is compiled by the C++ Faust
+Every program in the tutorial, 204 of them, is compiled by the C++ Faust
 compiler and run by faustprobe, and its output is checked against what the
 text says (appendix A). The plan of the tutorial is in [PLAN.md](PLAN.md).
 
@@ -48,6 +48,10 @@ text says (appendix A). The plan of the tutorial is in [PLAN.md](PLAN.md).
 15. [Writing a library](chapters/15-writing-a-library.md)
 16. [Final project: a reverb](chapters/16-final-project.md)
 
+**Part E. Perspective**
+
+17. [Composing circuits like functions](chapters/17-composing-circuits-like-functions.md)
+
 **Appendices**
 
 - A. [Observing a program](chapters/A-observing-a-program.md)
@@ -61,6 +65,7 @@ chapters/           the text, one file per chapter
 examples/NN/        the programs of chapter NN, and solutions/ for its exercises
 examples/appendix_a, examples/appendix_b
 scripts/check.py    runs the checks written in the programs' comments
+scripts/check_cmajor.py  runs the Cmajor programs of chapter 17 (make cmajor)
 scripts/build_docs.py  prepares the web site: diagrams and editors
 mkdocs.yml, web/    the web site's configuration and style
 Makefile            make help lists the targets: check, site, serve, ...

@@ -29,6 +29,8 @@ nav:
         - '14. Generic, then specialised': chapters/14-generic-then-specialised.md
         - '15. Writing a library': chapters/15-writing-a-library.md
         - '16. Final project: a reverb': chapters/16-final-project.md
+    - 'Part E. Perspective':
+        - '17. Composing circuits like functions': chapters/17-composing-circuits-like-functions.md
     - Appendices:
         - 'A. Observing a program': chapters/A-observing-a-program.md
         - 'B. Automatic differentiation': chapters/B-automatic-differentiation.md

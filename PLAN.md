@@ -125,6 +125,28 @@ and ties each of them to the functions of the standard libraries
     allpass filters, a feedback delay network, the interface), which reuses
     every chapter.
 
+## Part E. Perspective
+
+17. **Composing circuits like functions.** What it means for Faust to be a
+    functional language, shown by writing the same small circuits in two
+    languages of steps, Cmajor and Onda. A step or a definition; one name,
+    one signal (the compiler counts the memories, nobody declares an
+    instance); referential transparency, from Strachey's notes of 1967 to
+    its three properties (definiteness, unfoldability, substitution of
+    equals) and to what the value of an expression is when signals change;
+    functions that remember; a list of wires or an expression,
+    and how far a Cmajor graph with a processor as parameter goes; the
+    vocabulary of Haskell and OCaml applied to circuits; combinators
+    (`each`, `inDomain`, `matrix` with a coefficient function,
+    `feedbackNetwork`); their laws, checked by a combinator and stated on
+    the smallest change of domain before any use case, each with an
+    equality that must fail; three use cases with their own laws (mid/side,
+    any effect made multiband, a matrix given by a function); how new the
+    approach is, in programming and among audio languages; which laws the
+    compiler finds by itself; where steps are the better tool.
+    Anchors: `pm.chain`, `wd.buildtree`, `aa.ADAA1`, `ro.hadamard`,
+    `fi.filterbank`, `co.compressor_mono`.
+
 ## Appendices
 
 - **A. Observing a program**: faustprobe, diagrams, `attach`, bargraphs,

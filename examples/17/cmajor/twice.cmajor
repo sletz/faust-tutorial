@@ -1,0 +1,44 @@
+// A graph is a list of named nodes and of connections between them. It may
+// take a processor as a parameter: Twice puts two instances of P in series,
+// and Twice (Twice (OnePole (0.5f))) four.
+//
+// The same samples as ../twice.dsp on an impulse.
+// impulse: 0.0625 0.125 0.15625 0.15625 0.13671875 0.109375
+
+processor OnePole (float a)
+{
+    input stream float in;
+    output stream float out;
+
+    float y;
+
+    void main()
+    {
+        loop
+        {
+            y = (1.0f - a) * in + a * y;
+            out <- y;
+            advance();
+        }
+    }
+}
+
+graph Twice (processor P)
+{
+    input stream float in;
+    output stream float out;
+
+    node first = P, second = P;
+
+    connection in -> first -> second -> out;
+}
+
+graph Main [[ main ]]
+{
+    input stream float in;
+    output stream float out;
+
+    node four = Twice (Twice (OnePole (0.5f)));
+
+    connection in -> four -> out;
+}

@@ -6,7 +6,7 @@ DIR ?=
 MKDOCS ?= python3 -m mkdocs
 
 .DEFAULT_GOAL := help
-.PHONY: help check docs build serve publish clean
+.PHONY: help check cmajor docs build serve publish clean
 
 help: ## Show the targets and the variables
 	@printf "Usage:\n  make \033[36m<target>\033[0m [VARIABLE=value ...]\n\nTargets:\n"
@@ -17,6 +17,9 @@ help: ## Show the targets and the variables
 
 check: ## Check every program: C++ faust, faustprobe, the checks in its comments (DIR= to restrict)
 	FAUST=$(FAUST) FAUSTPROBE=$(FAUSTPROBE) FAUSTLIBRARIES=$(FAUSTLIBRARIES) python3 scripts/check.py $(DIR)
+
+cmajor: ## Check the Cmajor programs of chapter 17 (needs cmaj and a C++ compiler; not part of check)
+	python3 scripts/check_cmajor.py $(DIR)
 
 docs: ## Prepare the site's sources in build/docs: diagrams (faust -svg) and editors
 	FAUST=$(FAUST) FAUSTLIBRARIES=$(FAUSTLIBRARIES) python3 scripts/build_docs.py
